@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  Clarus Driver
+
+  Created by Riddhi on 26/05/16.
+  Copyright © 2016 Riddhi. All rights reserved.
+*/
+
+
+NSLocationWhenInUseUsageDescription = "Emplacement des mises à jour sont utilisés pour suivre la distance et la durée des trajets . Suivi doit toujours être sur le suivi des voyages lorsque l'application est en arrière-plan";
+NSLocationAlwaysUsageDescription = "Emplacement des mises à jour sont utilisés pour suivre la distance et la durée des trajets . Suivi doit toujours être sur le suivi des voyages lorsque l'application est en arrière-plan";

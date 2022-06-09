@@ -1,0 +1,457 @@
+"Component" = " Élément";
+
+//Signup & Login Details
+"signup" = "REGÍSTRATE";
+"signupnow" = "¡Regístrate ahora!";
+"rememberme" = "Recuérdame";
+"loginwith" = "Inicia con";
+"donthaveacc" = "¿No tienes una cuenta?";
+"frgtpswd" = "¿Se te olvidó tu contraseña?";
+"signupwith" = "Registrarte con";
+"login" = "INICIAR SESIÓN";
+"signupcap" = "¡REGÍSTRATE AHORA!";
+"loginsep" = "iniciar sesión";
+"confirmpswds" = "Confirmar contraseña";
+"pswd" = "Contraseña";
+"email" = "Dirección de correo electrónico";
+"signuppolicy" = "Al registrarse, confirma que acepta los Términos y condiciones y la Política de privacidad";
+"usernameplaceholder" = "Email";
+"plsenteremail" = "Por favor ingrese su ID de correo electrónico";
+"plsentervalidemail" = "Por favor ingrese una identificación de correo electrónico válida";
+"plsenterpswd" = "Por favor, introduzca su contraseña";
+
+// Slide Menu items
+"home" = "Casa";
+"inbox" = "Bandeja de entrada";
+"yourlisting" = "Su listado";
+"account" = "Cuenta";
+"currencymenu" = "Moneda";
+"language" = "Idioma";
+"logout" = "Cerrar sesión";
+
+// Moreabouthost Page
+"therenoproperty" = "No hay propiedad";
+
+// Search
+"search" = "Buscar";
+
+// Home Page
+"newtrip" = "Tiempo para nuevo viaje";
+"whereto" = "Dónde ir ?";
+"discover" = "Descubrir";
+"selectlang" = "Seleccione el idioma";
+
+// City Detail Page
+"overview" = "VISIÓN GENERAL";
+"listing" = "LISTADO";
+"writereview" = "ESCRIBIR UN COMENTARIO";
+
+// City Overview Page
+"reviewtitle" = "Título de Revisión";
+"writeaboutcity" = "Escribir sobre la ciudad ";
+
+// Detail Review Page
+"userreviews" = "Opiniones de los usuarios";
+
+// Reviews Page
+"reviewaboutyou" = "Revisa sobre ti";
+"reviewbyyou" = "Revisión por usted";
+"reviews" = "Opiniones";
+"noreviews" = "No se han encontrado comentarios.!";
+
+// Overview Page
+"max150words" = "Máximo 150 palabras";
+"expectyourguest" = "¿Cómo esperas que se comporte tu invitado?";
+"listingunique" = "Lo que hace que su listado sea único";
+"max150wordsEN" = "Máximo 150 palabras";
+"expectyourguestEN" = "¿Cómo esperas que se comporte tu invitado?";
+"listinguniqueEN" = "Lo que hace que su listado sea único";
+"max150wordsPT" = "Máximo de 150 palavras";
+"expectyourguestPT" = "Como você espera que seus hóspedes se comportem?";
+"listinguniquePT" = "O que torna sua lista única";
+"max150wordsES" = "150 palabras como máximo";
+"expectyourguestES" = "¿Cómo espera que se comporte su huésped?";
+"listinguniqueES" = "Qué hace que tu listado sea único";
+"fillpropertyinfo" = "Por favor complete la información de propiedad mencionada abajo";
+"enterdesc" = "Por favor ingrese su descripción";
+"entertitle" = "Por favor ingrese el título";
+"overviewsmall" = "Visión general";
+"title" = "Título";
+"summary150words" = "Sumario Máximo 150 palabras";
+"houserules" = "Reglas de casa";
+
+// Photos Page
+"addphoto" = "Agregar fotos";
+"addmorephoto" = "A los invitados les encantan las fotos que destacan las características de su espacio.";
+"plssaveimg" = "Por favor elige una imagen y guárdala.";
+"choose" = "Escoger";
+"camera" = "Cámara";
+"gallery" = "Galería";
+
+// Your trips Page
+"yourtrips" = "Tus viajes";
+"message" = "Mensaje";
+"privatemsghost" = "Enviar un mensaje privado al anfitrión";
+"adddisputed" = " Añadir disputado ";
+"disputed" = "Cuestionado ";
+"addreview" = "Agregar una opinión";
+"myreviewinfo" = "Mi opinión * (excluye información de identificación personal como nombre, dirección de correo electrónico, etc.)";
+"review" = "revisión ";
+"hostedby" = "Alojado por";
+"futuretrip" = "Viaje futuro";
+"pasttrip" = "VIAJE PASADO";
+"date" = "Fecha";
+"bookingno" = "Reserva no";
+"paymentstatus" = "Estado de pago";
+"hostapproval" = "Aprobación del anfitrión";
+"housein" = "en casa";
+"reviewtitle" = "revisión";
+"disputetitle" = "Disputa";
+"reviewedtitle" = "Revisados";
+"disputedtitle" = "Cuestionado";
+"alreadydisputed" = "Ya disputado";
+"alreadyreviewed" = "Ya revisado";
+"plsenterdisputed" = "Por favor ingrese su disputada";
+"plsentercmt" = "Por favor ingrese sus comentarios";
+"acceptpay" = "El anfitrión tiene que aceptar pagar";
+"booked" = "Reservado";
+"accept" = "Aceptar";
+"pay" = "Paga";
+"plsenterreview" = "Por favor ingrese su opinión";
+
+// Chat Viewcontroller
+"welcome" = "Bienvenido";
+"membersince" = "Miembro desde";
+"enquiryabout" = "Consulta sobre";
+"guest" = "Huésped";
+"enteryourmsg" = "Ingrese su mensaje";
+"sendmsgcap" = "ENVIAR MENSAJE";
+"preapprovecap" = "PRE APROBAR";
+"declinecap" = "DISMINUCIÓN";
+
+// Address Page
+"addresscnt" = "Su dirección exacta es privada y solo se comparte con los huéspedes después de que se confirma la reserva; sin embargo, el anfitrión es responsable de proporcionar el nombre exacto de la ruta de los alojamientos para que los huéspedes puedan planificar sus viajes sin problemas.";
+"addressHead" = "Dirección";
+
+// Booking Detail Page
+"sendtohost" = "ENVIAR AL PRESENTADOR";
+"dates" = "fechas";
+"arrive" = "Llegar";
+"depart" = "Salir";
+"propertyprice" = "Precio de la propiedad";
+"servicefees" = "Tarifas de servicios";
+"securitydeposit" = "Depósito de seguridad";
+"sendmsg" = "Enviar mensaje";
+"enteryourmsg" = "Ingrese su mensaje";
+"bookingdetails" = "Detalles de la reserva";
+"nights" = "noches";
+"nightscap" = "Noches";
+"totalprice" = "Precio total";
+"minstayshould" = "Estancia Mínima Debe Beal Precio";
+"days" = "dias";
+"plsselectarrivedate" = "FECHA DE LLEGADA";
+"plsselectdepartdate" = "FECHA DE SALIDA";
+"plsenteryrmsg" = "Por favor ingrese su mensaje";
+"plsentermsg" = "Por favor ingrese mensaje";
+
+// Disputes Page
+"nodisputes" = "No se encontraron disputas.";
+"disputes" = "Disputas";
+"disabtyou" = "DISPUTA SOBRE USTED";
+"disbyyou" = "Disputa por usted";
+
+// Wishlist Detail Page
+"notrips" = "No tienes ningún viaje!";
+"wishlist" = "Lista de deseos";
+"nowishlist" = "¡No tienes ninguna lista de deseos!";
+"noproperties" = "No tienes propiedades";
+"wishlisttitle" = "Ingrese el título de la lista de deseos";
+
+// Profile Page
+"profile" = "Perfil";
+"emailnotverified" = "Correo electrónico no verificado";
+"emailverified" = "Correo verificado";
+"mobilenotverified" = "Número de móvil no verificado";
+"mobileverified" = "Número de móvil verificado";
+"nodescription" = "No tienes descripcion";
+"listings" = "Listados";
+"viewalllistings" = "VER TODOS LOS LISTADOS";
+"reviews" = "Opiniones";
+"viewallreviews" = "VER TODAS LAS REVISIONES";
+"disputes" = "Disputa";
+"viewalldisputes" = "VER TODAS LAS DISPUTAS";
+"wishlists" = "Listas de deseos";
+"viewallwishlists" = "VER TODOS LOS LISTADOS DE DESEOS";
+"verifications" = "Verificaciones";
+
+// Inbox Page
+"nomessages" = "No tienes mensajes";
+"inbox" = "Bandeja de entrada";
+"bookingrequest" = "Solicitud de reserva";
+
+// Alert Titles
+"pleasewait" = "por favor espera";
+"information" = "Información";
+"nointernet" = "Por favor revise su conexion a internet";
+"internalservererror" = "error de servidor interno";
+"tryagainlater" = "Por favor, inténtelo de nuevo más tarde";
+
+// Detail Page
+"viewall" = "VER TODO";
+"moreabouthost" = "MÁS SOBRE EL HOST";
+"viewallreview" = "Ver todos los comentarios";
+"requesttobook" = "SOLICITUD DE RESERVAR";
+"listingsmall" = "Listado";
+"details" = "Detalles";
+"amenities" = "Comodidades";
+"guest" = "Huésped";
+"guests" = "Invitados";
+"noguest" = "NO invitado";
+"bedrooms" = "Dormitorios";
+"bedroom" = "Habitación";
+"nobedroom" = "No dormitorio";
+"beds" = "Camas";
+"bed" = "Cama";
+"nobed" = "No hay cama";
+"price" = "Precio";
+"listingtype" = "Tipo de listado";
+"accomodates" = "Acomoda";
+"bathrooms" = "Los baños";
+"minstay" = "Estancia mínima";
+"canpolicy" = "Política de cancelación";
+"availability" = "Disponibilidad";
+"pricedetails" = "Detalles del precio";
+"spacesize" = "Tamaño del espacio";
+"viewcalender" = "Ver calendario";
+"view" = "Ver";
+"about" = "Acerca de Anfitrión";
+
+// Rent Calendar Page
+"whenlistingavailable" = "Por favor seleccione el tipo de precio";
+"always" = "Siempre";
+"listdatesavailable" = "Precio fijo para todas las temporadas.";
+"sometimes" = "ALGUNAS VECES";
+"listsomedatesavailable" = "Precio de temporada";
+
+// Rent your space Page
+"rentyourspace" = "ALQUILA TU HOTEL";
+"rentyourspace1" = "ALQUILA TU ESPACIO";
+"propertytype" = "tipo de propiedad";
+"roomtype" = "Tipo de habitación";
+"city" = "Ciudad";
+"continue" = "Continuar";
+"continuecap" = "CONTINUAR";
+"cityerror" = "Por favor elige la ciudad";
+"propertyerror" = "Por favor elija el tipo de propiedade";
+"roomerror" = "Por favor, elija el tipo de habitación";
+"accomodateserror" = "Por favor elija acomodar";
+"enterpropertyerror" = "Por favor ingrese su tipo de propiedad";
+"enterroomerror" = "Por favor ingrese su tipo de habitación";
+"enterbedroomerror" = "Por favor ingrese no de habitaciones";
+"enterbedserror" = "Por favor ingrese no de camas";
+"enterbathroomerror" = "Por favor ingrese el tipo de baño";
+"enteraccomodateserror" = "Por favor, ingrese acomodaciones tipo";
+"enterguestserror" = "Por favor ingrese no de invitados";
+"enterminstayerror" = "Por favor, introduzca la estancia mínima";
+"enterspaceerror" = "Por favor ingrese el tamaño del espacio";
+
+// Pricing Page
+"baseprice" = "Precio base";
+"currency" = "MONEDA";
+"pernight" = "Por la noche";
+"defaultnightlypriceguests" = "Establecer precio por noche para la propiedad de alquiler.";
+"selectcurrency" = "Seleccione el tipo de moneda";
+"plsenterprice" = "Por favor ingrese el precio";
+"plsselectcurrency" = "Por favor seleccione su moneda";
+
+// Listing Info Page
+"listinginfo" = "Información del anuncio";
+"listingcnt" = "Por favor complete la información de listado mencionada abajo";
+"listingsandcalendar" = "Administrar listado y calendario";
+"managelisting" = "GESTIONAR EL LISTADO";
+"yourreserve" = "TU RESERVACION";
+"nomanagedlist" = "No tienes lista administrada.";
+"selectpropertytype" = "Seleccione el tipo de propiedad";
+"selectroomtype" = "Seleccione tipo de habitación";
+"selectbedroomtype" = "Seleccione el tipo de dormitorio";
+"selectnoofbeds" = "Seleccione no de camas";
+"selectbathroomtype" = "Seleccione el tipo de baño";
+"selectaccomodates" = "Seleccionar acomoda";
+"selectnoofguests" = "Seleccione no de invitados";
+"selectminimumstay" = "Seleccione estancia mínima";
+"enterspacetype" = "Ingrese el tipo de espacio";
+"selectallfields" = "Por favor seleccione todos los campos";
+"select" = "Seleccionar";
+"propertylisting" = "LISTADO DE PROPIEDADES";
+
+// Filterview Page
+"applyfilters" = "Aplicar filtros";
+
+// Property Detail Page
+"morefilters" = "Mas filtros";
+"noproperty" = "Sin propiedad";
+"therenopropertyin" = "No hay propiedad en";
+
+// Cancellation Policy Page
+"keywords" = "Palabras clave";
+"metadesc" = "Metadescripción";
+"metatitle" = "Titulo meta";
+"keywordsEN" = "Palabras clave";
+"metadescEN" = "Metadescripción";
+"metatitleEN" = "Titulo meta";
+"keywordsES" = "Palabras clave";
+"metadescES" = "Metadescripción";
+"metatitleES" = "Meta título";
+"keywordsPT" = "Palavras Chave";
+"metadescPT" = "Meta Descrição";
+"metatitlePT" = "Meta título";
+"selectcanpolicy" = "Por favor seleccione su política de cancelación";
+"entersecdeposit" = "Por favor ingrese su depósito de seguridad";
+"readmorecanpolicy" = "Por favor seleccione su política de cancelación. Puede leer más sobre la política de cancelación aquí.";
+"selectpolicy" = "Seleccione politica";
+
+// Paypal Viewcontroller Page
+"paymentsuccess" = "pago exitoso";
+"paymentmethods" = "Métodos de pago";
+"creditcard" = "Tarjeta de crédito";
+"stripe" = "Raya";
+"paypal" = "Paypal";
+"plscheckcarddetails" = "Por favor revise los detalles de su tarjeta";
+"ccnumber" = "Titulo del numero de tarjeta de credito";
+"expdate" = "Fecha de vencimiento del título";
+
+
+// UpdateProfile Page
+"editprofile" = "Editar perfil";
+"firstname" = "Nombre de pila";
+"phonenumber" = "Número de teléfono";
+"aboutme" = "Sobre mi";
+"lastname" = "Apellido";
+"work" = "Trabajo";
+"firstnameerror" = "Por favor, introduzca su nombre de pila";
+"lastnameerror" = "Por favor ingrese su apellido";
+"phonenumbererror" = "Por favor, introduzca su número de teléfono";
+"gettingverify" = "Obtener su identificación verificada es la forma más fácil de ayudar a generar confianza en la comunidad";
+
+// Future Transactions TableViewController
+"total" = "Total";
+"servicefee" = "Tarifa de servicio";
+"hostfee" = "Tarifa de anfitrión";
+"netamount" = "Importe neto";
+
+// AccountView Controller
+"notifications" = "NOTIFICACIONES";
+"payoutpreferences" = "PREFERENCIAS DE PAGO";
+"transhistory" = "HISTORIAL DE TRANSACCIONES";
+"security" = "SEGURIDAD";
+"settings" = "AJUSTES";
+"residence" = "RESIDENCIA";
+
+// HSSecondery Page Notification
+"notifysec1" = "Notificación móvil / mensaje de texto";
+"mobphone" = "Teléfono móvil";
+"verifyphone" = "Puede agregar y verificar números de teléfono en su cuenta desde la sección de edición de perfil.";
+"notifyme" = "Notifícame cuando:";
+"textmsg&notify" = "Se aplica tanto a los mensajes de texto como a las notificaciones push.";
+"reservereq" = "Recibo una solicitud de reserva.";
+"notifysec2" = "Ajustes del correo electrónico";
+"wantreceive" = "Quiero recibir:";
+"disableanytime" = "Puedes deshabilitarlos en cualquier momento.";
+"upcomingreserve" = "Tengo reserva próxima.";
+"newreview" = "He recibido una nueva revisión.";
+"newref" = "He recibido una nueva referencia..";
+"receivedrefreq" = "He recibido una nueva solicitud de referencia.";
+"reviewforguest" = "Necesito dejar un comentario para uno de mis invitados.";
+"updatecalendar" = "Puedo mejorar mi ranking en los resultados de búsqueda actualizando mi calendario.";
+"save" = "Salvar";
+"noreservations" = "No tienes reservas";
+
+// Payout Preference
+"payoutdetails" = "Añadir detalles de pago";
+"accname" = "Nombre de la cuenta *";
+"accnumber" = "Número de cuenta *";
+"bankname" = "Nombre del banco *";
+"submit" = "Enviar";
+
+// Transaction history
+"completed" = "Terminado";
+"future" = "Futuro";
+"completedbtn" = "TERMINADO";
+"futurebtn" = "FUTURO";
+
+// Settings Page
+"countryofresi" = "País de residencia";
+"savecountry" = "Guardar país de residencia";
+
+// Security Page
+"changepswd" = "cambia tu contraseña";
+"oldpswd" = "Contraseña anterior *";
+"newpswd" = "Nueva contraseña *";
+"confirmpswd" = "Confirmar contraseña *";
+"updatepswd" = "Actualiza contraseña";
+
+// Payment Preferences
+"emptyaccname" = "El nombre de la cuenta no debe estar vacío";
+"emptyaccnumber" = "El número de cuenta no debe estar vacío";
+"emptybankname" = "El nombre del banco no debe estar vacío";
+"alert" = "Alerta";
+"fillpswd" = "Por favor, rellene el campo de contraseña";
+"fillnewpswd" = "Por favor, rellene el nuevo campo de contraseña";
+"fillcnfpswd" = "Por favor, rellene el campo de confirmación de contraseña";
+"oldpswdnewpswd" = "La contraseña antigua y la nueva no deben ser iguales";
+"pswdnotmatched" = "Contraseñas no coincidentes";
+
+// Others
+"amenitiestitle" = "Por favor seleccione los servicios disponibles en su propiedad.";
+
+// Default
+"ok" = "DE ACUERDO";
+"back" = "Espalda";
+"cancel" = "Cancelar";
+"goback" = "Regresa";
+"save" = "Salvar";
+"close" = "Cerrar";
+"selectdate" = "Seleccione fecha";
+"submit" = "Enviar";
+"facebooksignup" = "Facebook";
+"googlesignup" = "Google +";
+"linkedInsignup" = "LinkedIn";
+"facebooklogin" = "Iniciar sesión con Facebook";
+"googlelogin" = "Inicia sesión con Google +";
+"linkedInlogin" = "Ingresar con LinkedIn";
+"signinwithapple" = "Connectez-vous avec Apple";
+"nodata" = "No tienes datos";
+"plswait" = "Por favor espera...";
+"notavailable" = "No disponible";
+
+
+"Basics" = "Conceptos básicos";
+"Description" = "Descripción";
+"Settings" = "Ajustes";
+"calender" = "El calendario";
+"Pricing" = "Precios";
+"Overview" = "Visión general";
+"Photos" = "Las fotos";
+"Listing" = "Listado";
+"Location" = "Ubicacion";
+"add" = "AGREGAR";
+"changelocation" = "Cambiar ubicación";
+"street" = "Calle";
+"state" = "Estado";
+"country" = "País";
+"zipcode" = "Código postal";
+"cvv" = "CVV";
+"month" = "El mes";
+"year" = "AÑO";
+"cardnumber" = "XXXX-XXXX-XXXX-XXXX";
+"message" = "Por favor reserve por un mínimo de 2 días";
+"wishmessage" = "Título de la lista de deseos không thể bỏ qua";
+"upload" = "Puedes subir hasta cinco imágenes";
+"thespace" = "El espacio";
+"otherthings" = "Otras cosas a tener en cuenta";
+"guestaccess" = "Acceso de invitado";
+"interactionguest" = "Interacción con el invitado";
+"neighborhood" = "Barrio";
+"wantmore" = "¿Quieres escribir aún más?";
+"instantpay" = "Pago instantáneo";
+

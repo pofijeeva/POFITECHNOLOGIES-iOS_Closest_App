@@ -1,0 +1,6 @@
+framework module Pods_HomeStay {
+  umbrella header "Pods-HomeStay-umbrella.h"
+
+  export *
+  module * { export * }
+}

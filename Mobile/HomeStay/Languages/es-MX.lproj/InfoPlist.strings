@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  Clarus Driver
+
+  Created by Riddhi on 26/05/16.
+  Copyright © 2016 Riddhi. All rights reserved.
+*/
+
+
+NSLocationWhenInUseUsageDescription = "Location updates are used to track the distance and duration of trips.  Tracking must always be on to track trips when the app is in the background.";
+NSLocationAlwaysUsageDescription = "Location updates are used to track the distance and duration of trips.  Tracking must always be on to track trips when the app is in the background.";

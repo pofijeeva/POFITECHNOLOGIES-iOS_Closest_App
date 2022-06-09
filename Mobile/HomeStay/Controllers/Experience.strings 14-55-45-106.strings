@@ -1,0 +1,147 @@
+
+/* Class = "UIButton"; normalTitle = "NEXT"; ObjectID = "2Lc-3y-pDX"; */
+"2Lc-3y-pDX.normalTitle" = "NEXT";
+
+/* Class = "UIButton"; normalTitle = "NEXT"; ObjectID = "2P9-SU-5kQ"; */
+"2P9-SU-5kQ.normalTitle" = "NEXT";
+
+/* Class = "UILabel"; text = "It's all about a matter of time. Organize your experience by choosing your favourite date and time."; ObjectID = "4Y3-NT-rg0"; */
+"4Y3-NT-rg0.text" = "It's all about a matter of time. Organize your experience by choosing your favourite date and time.";
+
+/* Class = "UILabel"; text = "Number of Days*"; ObjectID = "74v-eA-Qlq"; */
+"74v-eA-Qlq.text" = "Number of Days*";
+
+/* Class = "UILabel"; text = "DD-MM-YYYY"; ObjectID = "8IQ-49-oL9"; */
+"8IQ-49-oL9.text" = "DD-MM-YYYY";
+
+/* Class = "UILabel"; text = "Your Schedules"; ObjectID = "90Y-3H-Amg"; */
+"90Y-3H-Amg.text" = "Your Schedules";
+
+/* Class = "UILabel"; text = "DD-MM-YYYY"; ObjectID = "ADw-NH-EJl"; */
+"ADw-NH-EJl.text" = "DD-MM-YYYY";
+
+/* Class = "UITextField"; placeholder = "Choose type"; ObjectID = "AVt-f8-d5E"; */
+"AVt-f8-d5E.placeholder" = "Choose type";
+
+/* Class = "UIButton"; normalTitle = "NEXT"; ObjectID = "EDx-kh-Ane"; */
+"EDx-kh-Ane.normalTitle" = "NEXT";
+
+/* Class = "UILabel"; text = "Delete"; ObjectID = "EMf-43-OI5"; */
+"EMf-43-OI5.text" = "Delete";
+
+/* Class = "UILabel"; text = "What languages can you speak fluently? we have many international travelers who appreciate hosts who can speak their language."; ObjectID = "KKH-Un-pxa"; */
+"KKH-Un-pxa.text" = "What languages can you speak fluently? we have many international travelers who appreciate hosts who can speak their language.";
+
+/* Class = "UILabel"; text = "Delete"; ObjectID = "LhX-Op-RdV"; */
+"LhX-Op-RdV.text" = "Delete";
+
+/* Class = "UILabel"; text = "Archive"; ObjectID = "Lxx-TE-XS2"; */
+"Lxx-TE-XS2.text" = "Archive";
+
+/* Class = "UITextField"; placeholder = "Enter your title"; ObjectID = "NIx-hc-Uhh"; */
+"NIx-hc-Uhh.placeholder" = "Enter your title";
+
+/* Class = "UITextView"; text = "Enter your value"; ObjectID = "Pdt-Hy-mQI"; */
+"Pdt-Hy-mQI.text" = "Enter your value";
+
+/* Class = "UILabel"; text = "Add Schedule Date"; ObjectID = "PtS-Si-JRT"; */
+"PtS-Si-JRT.text" = "Add Schedule Date";
+
+/* Class = "UILabel"; text = "Organization name*"; ObjectID = "QUP-oN-kuR"; */
+"QUP-oN-kuR.text" = "Organization name*";
+
+/* Class = "UILabel"; text = "19-01-2021"; ObjectID = "QUo-4i-mRb"; */
+"QUo-4i-mRb.text" = "19-01-2021";
+
+/* Class = "UILabel"; text = "Create Experience"; ObjectID = "UfL-PM-not"; */
+"UfL-PM-not.text" = "Create Experience";
+
+/* Class = "UILabel"; text = "Experience Title*"; ObjectID = "VkV-P3-udF"; */
+"VkV-P3-udF.text" = "Experience Title*";
+
+/* Class = "UILabel"; text = "Start Date"; ObjectID = "XBo-R1-mj3"; */
+"XBo-R1-mj3.text" = "Start Date";
+
+/* Class = "UITextField"; placeholder = "Enter your value"; ObjectID = "XEk-ic-Ems"; */
+"XEk-ic-Ems.placeholder" = "Enter your value";
+
+/* Class = "UILabel"; text = "Edit"; ObjectID = "XaS-A8-U3W"; */
+"XaS-A8-U3W.text" = "Edit";
+
+/* Class = "UILabel"; text = "Active"; ObjectID = "Xdw-YE-GbN"; */
+"Xdw-YE-GbN.text" = "Active";
+
+/* Class = "UILabel"; text = "A title and summary displayed on your public experience page."; ObjectID = "Zb5-nZ-8m7"; */
+"Zb5-nZ-8m7.text" = "A title and summary displayed on your public experience page.";
+
+/* Class = "UIButton"; normalTitle = "NEXT"; ObjectID = "aDa-KT-Un8"; */
+"aDa-KT-Un8.normalTitle" = "NEXT";
+
+/* Class = "UILabel"; text = "Language"; ObjectID = "bMX-1o-dhM"; */
+"bMX-1o-dhM.text" = "Language";
+
+/* Class = "UILabel"; text = "OPTIONS"; ObjectID = "bqf-BQ-wbs"; */
+"bqf-BQ-wbs.text" = "OPTIONS";
+
+/* Class = "UILabel"; text = "10:55 Am - 02:45 PM"; ObjectID = "cHG-jb-10e"; */
+"cHG-jb-10e.text" = "10:55 Am - 02:45 PM";
+
+/* Class = "UITextField"; placeholder = "Name your organization"; ObjectID = "cf0-Nh-hh0"; */
+"cf0-Nh-hh0.placeholder" = "Name your organization";
+
+/* Class = "UILabel"; text = "Create Time Sheet"; ObjectID = "eer-67-jAm"; */
+"eer-67-jAm.text" = "Create Time Sheet";
+
+/* Class = "UILabel"; text = "Tell us about your organaization that you represent"; ObjectID = "fgq-Lv-tab"; */
+"fgq-Lv-tab.text" = "Tell us about your organaization that you represent";
+
+/* Class = "UILabel"; text = "Your Time Sheet List"; ObjectID = "fpB-SE-zQD"; */
+"fpB-SE-zQD.text" = "Your Time Sheet List";
+
+/* Class = "UILabel"; text = "Steps Remaining 17/17"; ObjectID = "i2x-oT-3hV"; */
+"i2x-oT-3hV.text" = "Steps Remaining 17/17";
+
+/* Class = "UILabel"; text = "About your organization*"; ObjectID = "klj-2S-4jg"; */
+"klj-2S-4jg.text" = "About your organization*";
+
+/* Class = "UILabel"; text = "End Date"; ObjectID = "lWQ-2f-tFB"; */
+"lWQ-2f-tFB.text" = "End Date";
+
+/* Class = "UITextField"; placeholder = "Choose category"; ObjectID = "lWn-Th-XPo"; */
+"lWn-Th-XPo.placeholder" = "Choose category";
+
+/* Class = "UILabel"; text = "Experience Type*"; ObjectID = "lb0-rK-KgP"; */
+"lb0-rK-KgP.text" = "Experience Type*";
+
+/* Class = "UILabel"; text = "   From"; ObjectID = "qlh-Xj-8x6"; */
+"qlh-Xj-8x6.text" = "   From";
+
+/* Class = "UILabel"; text = "Add Time Sheet"; ObjectID = "rQm-dg-Z7t"; */
+"rQm-dg-Z7t.text" = "Add Time Sheet";
+
+/* Class = "UILabel"; text = "   To"; ObjectID = "swl-J1-pQX"; */
+"swl-J1-pQX.text" = "   To";
+
+/* Class = "UILabel"; text = "Date:"; ObjectID = "uhs-xY-vtj"; */
+"uhs-xY-vtj.text" = "Date:";
+
+/* Class = "UILabel"; text = "It's all about a matter of time. Organize your experience by choosing your favourite date and time."; ObjectID = "v24-Bh-SkQ"; */
+"v24-Bh-SkQ.text" = "It's all about a matter of time. Organize your experience by choosing your favourite date and time.";
+
+/* Class = "UILabel"; text = "Paradise Yacht"; ObjectID = "vJt-vc-LQh"; */
+"vJt-vc-LQh.text" = "Paradise Yacht";
+
+/* Class = "UILabel"; text = "Title:"; ObjectID = "vRG-hm-jvm"; */
+"vRG-hm-jvm.text" = "Title:";
+
+/* Class = "UILabel"; text = "Time:"; ObjectID = "vfs-GA-8Ha"; */
+"vfs-GA-8Ha.text" = "Time:";
+
+/* Class = "UIButton"; normalTitle = "ADD TIME SHEET"; ObjectID = "vpM-B4-yZw"; */
+"vpM-B4-yZw.normalTitle" = "ADD TIME SHEET";
+
+/* Class = "UILabel"; text = "Experience Category*"; ObjectID = "yNo-G3-Phk"; */
+"yNo-G3-Phk.text" = "Experience Category*";
+
+/* Class = "UIButton"; normalTitle = "APPLY"; ObjectID = "yo2-hE-Nvq"; */
+"yo2-hE-Nvq.normalTitle" = "APPLY";

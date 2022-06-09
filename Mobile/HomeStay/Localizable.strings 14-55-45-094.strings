@@ -1,0 +1,485 @@
+
+//Signup & Login Details
+"signup" = "Mag-sign UP";
+"signupnow" = "Mag-sign up Ngayon!";
+"rememberme" = "Tandaan mo ako";
+"loginwith" = "Mag-login";
+"donthaveacc" = "Wala kang account?";
+"frgtpswd" = "Nakalimutan ang password?";
+"signupwith" = "Mag-sign up gamit ang";
+"login" = "MAG LOG IN";
+"signupcap" = "Mag-sign up NGAYON!";
+"loginsep" = "mag log in";
+"confirmpswds" = "Kumpirmahin ang Password";
+"pswd" = "Password";
+"email" = "Email Address";
+"signuppolicy" = "Sa pagrehistro mo kumpirmahin na tinanggap mo ang Mga Tuntunin at Kundisyon at Patakaran sa Pagkapribado";
+"usernameplaceholder" = "Email";
+"plsenteremail" = "Mangyaring ipasok ang iyong email id";
+"plsentervalidemail" = "Pakipasok ang wastong email id";
+"plsenterpswd" = "Pakipasok ang iyong password";
+
+// Slide Menu items
+"home" = "Bahay";
+"inbox" = "Inbox";
+"yourlisting" = "Ang iyong Listahan";
+"account" = "Account";
+"currencymenu" = "Pera";
+"language" = "Wika";
+"logout" = "Mag-log out";
+
+// Moreabouthost Page
+"therenoproperty" = "Walang ari-arian";
+
+// Search
+"search" = "Paghahanap";
+
+// Home Page
+"newtrip" = "Oras para sa bagong Trip";
+"whereto" = "Saan pupunta?";
+"discover" = "Matuklasan";
+"selectlang" = "Piliin ang Wika";
+
+// City Detail Page
+"overview" = "PANGKALAHATANG-SALITA";
+"listing" = "PAGKUHA";
+"writereview" = "Magsulat ng REVIEW";
+
+// City Overview Page
+"reviewtitle" = "Pamagat ng Balik-Aral";
+"writeaboutcity" = "Sumulat tungkol sa lungsod ";
+
+// Detail Review Page
+"userreviews" = "Mga Review ng User";
+
+// Reviews Page
+"reviewaboutyou" = "REVIEW TUNGKOL SA IYO";
+"reviewbyyou" = "REVIEW BY YOU";
+"reviews" = "Mga Review";
+"noreviews" = "Walang nahanap na mga review.!";
+
+// Overview Page
+"max150words" = "Pinakamataas na 150 salita";
+"expectyourguest" = "Paano mo inaasahan ang iyong panauhin na kumilos?";
+"listingunique" = "Kung bakit ang iyong listahan ay kakaiba";
+"max150wordsEN" = "Pinakamataas na 150 salita";
+"expectyourguestph" = "Paano mo inaasahan ang iyong panauhin na kumilos?";
+"expectyourguestEN" = "How do you expect your guest to behave?";
+"listinguniqueEN" = "What makes your listing unique";
+"listinguniqueph" = "Ano ang gumagawa ng iyong listahan ng natatanging";
+"max150wordsPT" = "Máximo de 150 palavras";
+"expectyourguestPT" = "Como você espera que seus hóspedes se comportem?";
+"listinguniquePT" = "O que torna sua lista única";
+"max150wordsES" = "150 palabras como máximo";
+"expectyourguestES" = "¿Cómo espera que se comporte su huésped?";
+"listinguniqueES" = "Qué hace que tu listado sea único";
+"fillpropertyinfo" = "Mangyaring punan ang nabanggit na impormasyon sa ari-arian";
+"enterdesc" = "Mangyaring ipasok ang iyong paglalarawan";
+"entertitle" = "Mangyaring ipasok ang pamagat";
+"overviewsmall" = "Pangkalahatang-ideya";
+"title" = "Pamagat";
+"summary150wordsph" = "Buod Maximum na 150 salita";
+"summary150words" = "Summary Maximum 150 words";
+"houserulesph" = "Mga Panuntunan sa Bahay";
+"houserules" = "House Rules";
+
+// Photos Page
+"addphoto" = "Magdagdag ng mga larawan";
+"addmorephoto" = "Gustung-gusto ng mga bisita ang mga larawan na nagpapakita ng mga tampok ng iyong espasyo.";
+"plssaveimg" = "Mangyaring pumili ng isang imahe at i-save ito";
+"choose" = "Pumili";
+"camera" = "Camera";
+"gallery" = "Gallery";
+
+// Your trips Page
+"yourtrips" = "Ang iyong mga Biyahe";
+"message" = "Mensahe";
+"privatemsghost" = "Magpadala ng isang pribadong mensahe sa host";
+"adddisputed" = " Magdagdag ng pinagtatalunang ";
+"disputed" = "Pinagtatalunan ";
+"addreview" = "Magdagdag ng pagsusuri";
+"myreviewinfo" = "Aking pagsusuri * (Ibukod ang impormasyong personal na makikilala tulad ng pangalan, email address, atbp)";
+"review" = " Pagsusuri ";
+"hostedby" = "Naka-host sa pamamagitan ng";
+"futuretrip" = "HINAHARAP NG PAG-AARAL";
+"pasttrip" = "PAST TRIP";
+"date" = "Petsa";
+"bookingno" = "Walang Booking";
+"paymentstatus" = "Katayuan ng pagbabayad";
+"hostapproval" = "Pag-apruba ng Host";
+"housein" = "Bahay sa";
+"reviewtitle" = "Pagsusuri";
+"disputetitle" = "Pagtatalo";
+"reviewedtitle" = "Sinuri";
+"disputedtitle" = "Pinagtatalunan";
+"alreadydisputed" = "Nakipagtalo na";
+"alreadyreviewed" = "Nasuri na";
+"plsenterdisputed" = "Mangyaring ipasok ang iyong pinagtatalunan";
+"plsentercmt" = "Mangyaring ipasok ang iyong mga komento";
+"acceptpay" = "Dapat tanggapin ng host na magbayad";
+"booked" = "Na-book";
+"accept" = "Tanggapin";
+"pay" = "Magbayad";
+"plsenterreview" = "Mangyaring ipasok ang iyong pagsusuri";
+
+// Chat Viewcontroller
+"welcome" = "Maligayang pagdating";
+"membersince" = "Miyembro mula noong";
+"enquiryabout" = "tanong tungkol";
+"guest" = "Bisita";
+"enteryourmsg" = "Ipasok ang iyong mensahe";
+"sendmsgcap" = "MAGPADALA NG MENSAHE";
+"preapprovecap" = "PRE APPROVE";
+"declinecap" = "TANGGIHAN";
+
+// Address Page
+"addresscnt" = "Ang iyong eksaktong address ay pribado at ibinahagi lamang sa mga bisita pagkatapos ng kumpirmasyon ay napatunayan ngunit ang host ay may pananagutan na magbigay ng eksaktong pangalan ng kalsada ng mga accommodatios sa pagkakasunud-sunod ng bisita upang makapagplano para sa kanilang mga biyahe nang maayos.";
+"addressHead" = "Address";
+
+// Booking Detail Page
+"sendtohost" = "IPADALA SA HOST";
+"dates" = "Petsa";
+"arrive" = "Dumating";
+"depart" = "Umalis";
+"propertyprice" = "Presyo ng Ari-arian";
+"reasturantprice" = "Presyo ng Restawran";
+"servicefees" = "Mga bayarin sa serbisyo";
+"securitydeposit" = "Security deposit";
+"sendmsg" = "Magpadala ng Mensahe";
+"enteryourmsg" = "Ipasok ang iyong mensahe";
+"bookingdetails" = "Mga detalye ng pag-book";
+"nights" = "gabi";
+"nightscap" = "Gabi";
+"totalprice" = "Kabuuang Presyo";
+"minstayshould" = "Dapat Manatili ang Minimun";
+"days" = "araw";
+"plsselectarrivedate" = "Piliin ang petsa";
+"plsselectdepartdate" = "Piliin ang petsa";
+"plsenteryrmsg" = "Pakipasok ang iyong mensahe";
+"plsentermsg" = "Pakipasok ang mensahe";
+
+// Disputes Page
+"nodisputes" = "Walang nakitang mga pagtatalo.!";
+"disputes" = "Mga pagtatalo";
+"disabtyou" = "HINDI KAIBIGAN ka";
+"disbyyou" = "HINDI NAGBABAGO SA IYO";
+
+// Wishlist Detail Page
+"notrips" = "Wala kang anumang mga biyahe!";
+"wishlist" = "Listahan";
+"nowishlist" = "Wala kang anumang mga Wishlist!";
+"noproperties" = "Wala kang mga Katangian";
+"wishlisttitle" = "Ipasok ang pamagat ng Listahan ng hiling";
+
+// Profile Page
+"profile" = "Profile";
+"emailnotverified" = "Hindi na-verify ang email";
+"emailverified" = "Nakumpirma ang email";
+"mobilenotverified" = "Hindi napatotohanan ang numero ng mobile";
+"mobileverified" = "Na-verify ang numero ng mobile";
+"nodescription" = "Wala kang paglalarawan";
+"listings" = "Mga Listahan";
+"viewalllistings" = "TINGNAN ANG LAHAT NG MGA PAHAYAG";
+"reviews" = "Mga Review";
+"viewallreviews" = "TINGNAN ANG LAHAT NG MGA REVIEW";
+"disputes" = "Disputas";
+"viewalldisputes" = "TINGNAN ANG LAHAT NG MGA PANUKALA";
+"wishlists" = "Wish Lists";
+"viewallwishlists" = "TINGNAN ANG LAHAT NG MGA PAHAYAG";
+"verifications" = "Mga pagpapatunay";
+
+// Inbox Page
+"nomessages" = "Wala kang mga mensahe";
+"inbox" = "Inbox";
+"bookingrequest" = "Kahilingan sa Pag-book";
+
+// Alert Titles
+"pleasewait" = "Mangyaring maghintay";
+"information" = "Impormasyon";
+"nointernet" = "Mangyaring suriin ang iyong koneksyon sa internet";
+"internalservererror" = "Error sa Panloob na Server";
+"tryagainlater" = "Subukang muli mamaya";
+
+// Detail Page
+"viewall" = "TINGNAN LAHAT";
+"moreabouthost" = "KARAGDAGANG TUNGKOL SA HOST";
+"viewallreview" = "Tingnan ang lahat ng Review";
+"requesttobook" = "HINAHILING SA AKLAT";
+"listingsmall" = "Listahan";
+"details" = "Mga Detalye";
+"amenities" = "Amenities";
+"guest" = "Bisita";
+"guests" = "Mga bisita";
+"noguest" = " WALANG bisita";
+"bedrooms" = "Mga silid";
+"bedroom" = "Silid-tulugan";
+"nobedroom" = "Walang Bedroom";
+"beds" = "Mga kama";
+"bed" = "Kama";
+"nobed" = "Walang Kama";
+"price" = "Presyo";
+"listingtype" = "Uri ng Listahan";
+"accomodates" = "Nagtatampok";
+"bathrooms" = "Mga banyo";
+"minstay" = "Pinakamababang Stay";
+"canpolicy" = "Patakaran sa Pagkansela";
+"availability" = "Kakayahang magamit";
+"pricedetails" = "Mga Detalye ng Presyo";
+"spacesize" = "Space Size";
+"viewcalender" = "Tingnan ang Kalendaryo";
+"view" = "Tingnan";
+"about" = "Tungkol sa Host";
+
+// Rent Calendar Page
+"whenlistingavailable" = "Mangyaring piliin ang uri ng pagpepresyo";
+"always" = "Laging";
+"listdatesavailable" = "Nakapirming presyo para sa lahat ng mga panahon";
+"sometimes" = "ILANG TIMES";
+"listsomedatesavailable" = "Pana-panahong presyo";
+
+// Rent your space Page
+"rentyourspace" = "RENT IYONG HOTEL";
+"rentyourspace1" = "RENT YOUR SPACE";
+"propertytype" = "uri ng ari-arian";
+"roomtype" = "Uri ng Room";
+"city" = "Lungsod";
+"continue" = "Magpatuloy";
+"continuecap" = "Magpatuloy";
+"cityerror" = "Mangyaring pumili ng lungsod";
+"propertyerror" = "Mangyaring pumili ng uri ng ari-arian";
+"roomerror" = "Mangyaring pumili ng uri ng kuwarto";
+"accomodateserror" = "Mangyaring pumili ng mga accommodates";
+"enterpropertyerror" = "Pakipasok ang uri ng iyong ari-arian";
+"enterroomerror" = "Mangyaring ipasok ang iyong uri ng kuwarto";
+"enterbedroomerror" = "Mangyaring magpasok ng walang kuwarto";
+"enterbedserror" = "Mangyaring magpasok ng walang kama";
+"enterbathroomerror" = "Mangyaring ipasok ang uri ng banyo";
+"enteraccomodateserror" = "Mangyaring magpasok ng mga accommodates";
+"enterguestserror" = "Mangyaring huwag pumasok sa mga bisita";
+"enterminstayerror" = "Mangyaring magpasok ng minimum na pamamalagi";
+"enterspaceerror" = "Mangyaring ilagay ang laki ng espasyo";
+
+// Pricing Page
+"baseprice" = "Base presyo";
+"currency" = "CURRENCY";
+"pernight" = "BAWAT GABI";
+"defaultnightlypriceguests" = "Itakda ang presyo bawat gabi para sa rental property.";
+"selectcurrency" = "Pumili ng pera";
+"plsenterprice" = "Mangyaring ipasok ang presyo";
+"plsselectcurrency" = "Mangyaring piliin ang iyong pera";
+
+// Listing Info Page
+"listinginfo" = "Impormasyon sa Listahan";
+"listingcnt" = "Mangyaring punan ang nabanggit na impormasyon ng Listahan";
+"listingsandcalendar" = "Pamahalaan ang listahan at kalendaryo";
+"managelisting" = "MANAGE LISTING";
+"yourreserve" = "ANG IYONG PAGKAKAROON";
+"nomanagedlist" = "Wala kang pinamamahalaang listahan";
+"selectpropertytype" = "Piliin ang uri ng Ari-arian";
+"selectroomtype" = "Piliin ang Uri ng kuwarto";
+"selectbedroomtype" = "Piliin ang uri ng Bedroom";
+"selectnoofbeds" = "Pumili ng wala sa mga Kama";
+"selectbathroomtype" = "Piliin ang uri ng banyo";
+"selectaccomodates" = "Pumili ng accommodates";
+"selectnoofguests" = "Pumili ng hindi sa Mga bisita";
+"selectminimumstay" = "Piliin ang Minimum stay";
+"enterspacetype" = "Ipasok ang uri ng espasyo";
+"selectallfields" = "Pakipili ang lahat ng mga patlang";
+"select" = "Piliin ang";
+"propertylisting" = "PAGKUHA NG PROPERTY";
+
+// Filterview Page
+"applyfilters" = "APPLY FILTERS";
+
+// Property Detail Page
+"morefilters" = "KARAGDAGANG MGA FILTERS";
+"noproperty" = "Walang Ari-arian";
+"therenopropertyin" = "Walang ari-arian sa";
+
+// Cancellation Policy Page
+"keywords" = "Keywords";
+"keywordsph" = "Mga Keyword";
+ 
+"metadescph" = "Paglalarawan ng Meta";
+"metadescen" = "Meta Description";
+"metatitle" = "Meta title";
+"metatitleph" = "Pamagat ng Meta";
+"keywordsEN" = "Mga Keyword";
+"metadescEN" = "Paglalarawan ng Meta";
+"metatitleEN" = "Pamagat ng Meta";
+"keywordsES" = "Palabras";
+"metadescES" = "Metadescripción";
+"metatitleES" = "Meta título";
+"keywordsPT" = "Palavras Chave";
+"metadescPT" = "Meta Descrição";
+"metatitlePT" = "Meta título";
+"selectcanpolicy" = "Mangyaring piliin ang iyong patakaran sa Pagkansela";
+"entersecdeposit" = "Mangyaring ipasok ang iyong deposito sa Seguridad";
+"readmorecanpolicy" = "Mangyaring piliin ang iyong Patakaran sa Pagkansela. maaari mong basahin ang higit pa tungkol sa patakaran sa pagkansela dito.";
+"selectpolicy" = "Piliin ang Patakaran";
+
+// Paypal Viewcontroller Page
+"paymentsuccess" = "Tagumpay sa Pagbabayad";
+"paymentmethods" = "Mga Paraan ng Pagbabayad";
+"creditcard" = "Credit Card";
+"stripe" = "Guhit";
+"paypal" = "Paypal";
+"plscheckcarddetails" = "Mangyaring suriin ang mga detalye ng iyong card";
+"ccnumber" = "Numero ng card";
+"expdate" = "Petsa ng Pag-expire";
+"carderror" = "Error sa Kard";
+"cardinvalid" = "Di-wasto ang numero ng card";
+"yearinvalid" = "Di-wasto ang taon";
+"monthinvalid" = "Di-wasto ang buwang";
+"cvvinvalid" = "Hindi wasto ang CVV";
+
+
+// UpdateProfile Page
+"editprofile" = "I-edit ang Profile I-edit ang Profile";
+"firstname" = "Pangalan";
+"phonenumber" = "Numero ng telepono";
+"aboutme" = "Tungkol sa Akin";
+"lastname" = "Huling pangalan";
+"work" = "Magtrabaho";
+"firstnameerror" = "Mangyaring ipasok ang iyong unang pangalan";
+"lastnameerror" = "Pakipasok ang iyong apelyido";
+"phonenumbererror" = "Pakibigay na lng po ng phone number niyo";
+"gettingverify" = "Ang nakakuha ka ng Verified ID ay ang pinakamadaling paraan upang makatulong na bumuo ng tiwala sa komunidad";
+
+// Future Transactions TableViewController
+"total" = "Kabuuang";
+"servicefee" = "Kabayaran sa serbisyo";
+"hostfee" = "Bayad sa host";
+"netamount" = "Halaga ng net";
+
+// AccountView Controller
+"notifications" = "MGA NOTIFICATIONS";
+"payoutpreferences" = "MGA PREFERENCES ng PAYOUT";
+"transhistory" = "KASAYSAYAN NG TRANSAKSYON";
+"security" = "SEGURIDAD";
+"settings" = "MGA SETTING";
+"residence" = "Tirahan";
+
+// HSSecondery Page Notification
+"notifysec1" = "Notification ng mensahe / Text message";
+"mobphone" = "Cellphone";
+"verifyphone" = "Maaari kang magdagdag at i-verify ang mga numero ng telepono sa iyong account mula sa seksyon ng pag-edit ng profile.";
+"notifyme" = "Abisuhan ako kapag:";
+"textmsg&notify" = "Nalalapat sa parehong mga text message at push notification.";
+"reservereq" = "Nakatanggap ako ng kahilingan sa reservation.";
+"notifysec2" = "Mga setting ng email";
+"wantreceive" = "Gusto kong makatanggap ng:";
+"disableanytime" = "Maaari mong hindi paganahin ang mga ito sa anumang oras";
+"upcomingreserve" = "Mayroon akong paparating na reserbasyon.";
+"newreview" = "Nakatanggap ako ng bagong pagsusuri.";
+"newref" = "Nakatanggap ako ng bagong sanggunian.";
+"receivedrefreq" = "Nakatanggap ako ng bagong kahilingan sa sanggunian.";
+"reviewforguest" = "Kailangan kong mag-iwan ng isang pagsusuri para sa isa sa aking mga bisita.";
+"updatecalendar" = "Maaari ko bang mapabuti ang aking ranggo sa mga resulta ng paghahanap sa pamamagitan ng pag-update ng aking kalendaryo.";
+"save" = "I-save";
+"noreservations" = "Wala kang reserbasyon";
+
+// Payout Preference
+"payoutdetails" = "Magdagdag ng Mga Detalye ng Payout";
+"accname" = "Pangalan ng account *";
+"accnumber" = "Numero ng account *";
+"bankname" = "Pangalan ng bangko *";
+"submit" = "Ipasa";
+
+// Transaction history
+"completed" = "Nakumpleto";
+"future" = "Hinaharap";
+"completedbtn" = "NAKUMPLETO";
+"futurebtn" = "HINAHARAP";
+
+// Settings Page
+"countryofresi" = "Bansa ng paninirahan";
+"savecountry" = "I-save ang bansa ng paninirahan";
+
+// Security Page
+"changepswd" = "Baguhin ang iyong password";
+"oldpswd" = "Lumang password *";
+"newpswd" = "Bagong password *";
+"confirmpswd" = "Kumpirmahin ang password *";
+"updatepswd" = "I-update ang password";
+
+// Payment Preferences
+"emptyaccname" = "Hindi dapat walang laman ang pangalan ng account";
+"emptyaccnumber" = "Ang numero ng account ay hindi dapat walang laman";
+"emptybankname" = "Ang pangalan ng bangko ay hindi dapat walang laman";
+"alert" = "Alert";
+"fillpswd" = "Mangyaring punan ang patlang ng password";
+"fillnewpswd" = "Pakipunan ang bagong field ng password";
+"fillcnfpswd" = "Mangyaring punan ang kumpirmasyon ng field ng password";
+"oldpswdnewpswd" = "Ang lumang password at bagong password ay hindi dapat pareho";
+"pswdnotmatched" = "Hindi tumutugma ang mga password";
+
+// Others
+"amenitiestitle" = "Mangyaring piliin ang mga magagamit na amenities sa iyong ari-arian";
+
+// Default
+"ok" = "OK";
+"back" = "Bumalik";
+"cancel" = "Kanselahin";
+"goback" = "Bumalik ka";
+"save" = "I-save";
+"close" = "Isara";
+"selectdate" = "Piliin ang Petsa";
+"submit" = "Ipasa";
+"facebooksignup" = "Facebook";
+"googlesignup" = "Google +";
+"linkedInsignup" = "LinkedIn";
+"facebooklogin" = "Mag login sa facebook";
+"googlelogin" = "Mag-login gamit ang Google +";
+"linkedInlogin" = "Mag-login sa LinkedIn";
+"signinwithapple" = "Iniciar sesión con Apple";
+"nodata" = "Wala kang data";
+"plswait" = "Mangyaring maghintay ...";
+"notavailable" = "Hindi magagamit";
+
+
+
+"Basics" = "Mga Pangunahing Kaalaman";
+"Description" = "Paglalarawan";
+"Settings" = "Mga Setting";
+"calender" = "Kalendaryo";
+"Pricing" = "Pagpepresyo";
+"Overview" = "Pangkalahatang-ideya";
+"Photos" = "Mga larawan";
+"Listing" = "Listahan";
+"Location" = "Lokasyon";
+"add" = "ADD";
+"changelocation" = "Baguhin ang Lokasyon";
+"street" = "Kalye";
+"state" = "Estado";
+"country" = "Bansa";
+"zipcode" = "Zipcode";
+"cvv" = "CVV";
+"month" = "Buwan";
+"year" = "Taon";
+"cardnumber" = "XXXX-XXXX-XXXX-XXXX";
+"message" = "Mangyaring Mag-Book Para sa Minimum na 2 Araw";
+"wishmessage" = "Ang pamagat ng listahan ay hindi maaaring walang laman";
+
+"upload" = "Maaari kang mag-upload ng hanggang sa limang Imahe";
+"thespace" = "Ang puwang";
+"otherthingsph" = "Ang puwang";
+"otherthings" = "Other Things To Note";
+"guestaccess" = "Access ng bisita";
+"interactionguest" = "Pakikipag-ugnayan sa Guest";
+"neighborhoodph" = "Kapitbahayan";
+"neighborhood" = "Neighborhood";
+
+"wantmore" = "Gusto Ninyong Sumulat Kahit Higit Pa?";
+"instantpay" = "MANGYARING MAGBAYAD";
+"morethannumberofspecified" = "Hindi matatanggap ang higit sa tinukoy na bilang ng mga bisita";
+"pleaseentertitleph" = "Mangyaring Ipasok ang Iyong Pamagat";
+"pleaseentertitle" = "Please Enter Your Title";
+"guestAcessph" = "Access ng bisita";
+"guestAcess" = "Guest Acess";
+"contactnum" = "Numero ng Contact";
+"website" = "Website";
+"timings" = "Timing";
+"menudetails" = "Mga Detalye ng Menu";
+
+

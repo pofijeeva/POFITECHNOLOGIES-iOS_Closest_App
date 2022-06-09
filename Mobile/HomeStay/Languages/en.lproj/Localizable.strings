@@ -1,0 +1,486 @@
+
+//Signup & Login Details
+"signup" = "SIGN UP";
+"signupnow" = "Sign up Now!";
+"rememberme" = "Remember Password";
+"loginwith" = "Login with";
+"donthaveacc" = "Don't have an account?";
+"frgtpswd" = "Forgot password?";
+"signupwith" = "Sign Up with";
+"login" = "LOGIN";
+"signupcap" = "SIGN UP NOW!";
+"loginsep" = "Log In";
+"confirmpswds" = "Confirm Password";
+"pswd" = "Password";
+"email" = "Email Address";
+"signuppolicy" = "By registering you confirm that you accept the Terms and Conditions and Privacy Policy";
+"usernameplaceholder" = "EMAIL";
+"plsenteremail" = "Please enter your email id";
+"plsentervalidemail" = "Please enter valid email id";
+"plsenterpswd" = "Please enter your password";
+
+// Slide Menu items
+"home" = "Home";
+"inbox" = "Your Messages";
+"yourlisting" = "Your Listing";
+"account" = "Account";
+"currencymenu" = "Currency";
+"language" = "Language";
+"logout" = "Logout";
+
+// Moreabouthost Page
+"therenoproperty" = "No Listing(s) Found";
+
+// Search
+"search" = "Search";
+
+// Home Page
+"newtrip" = "TIME FOR NEW TRIP";
+"whereto" = "Where to go ?";
+"discover" = "Discover";
+"selectlang" = "Select Language";
+
+// City Detail Page
+"overview" = "OVERVIEW";
+"listing" = "LISTING";
+"writereview" = "WRITE REVIEW";
+
+// City Overview Page
+"reviewtitle" = "Review title";
+"writeaboutcity" = " Write about city ";
+
+// Detail Review Page
+"userreviews" = "User Reviews";
+
+// Reviews Page
+"reviewaboutyou" = "REVIEW ABOUT YOU";
+"reviewbyyou" = "REVIEW BY YOU";
+"reviews" = "Reviews";
+"noreviews" = "No reviews found.!";
+
+// Overview Page
+"max150words" = "Maximum 150 words";
+"expectyourguest" = "How do you expect your guest to behave?";
+"listingunique" = "What makes your listing unique";
+"max150wordsEN" = "Maximum 150 words";
+"expectyourguestEN" = "How do you expect your guest to behave?";
+"expectyourguestph" = "Paano mo inaasahan ang iyong panauhin na kumilos?";
+"listinguniqueEN" = "What makes your listing unique";
+"listinguniqueph" = "Ano ang gumagawa ng iyong listahan ng natatanging";
+"max150wordsPT" = "Máximo de 150 palavras";
+"expectyourguestPT" = "Como você espera que seus hóspedes se comportem?";
+"listinguniquePT" = "O que torna sua lista única";
+"max150wordsES" = "150 palabras como máximo";
+"expectyourguestES" = "¿Cómo espera que se comporte su huésped?";
+"listinguniqueES" = "Qué hace que tu listado sea único";
+"fillpropertyinfo" = "Please fill the below mentioned Rental information";
+"enterdesc" = "Please enter your description";
+"entertitle" = "Please enter title";
+"overviewsmall" = "Overview";
+"title" = "Title";
+"summary150words" = "Summary Maximum 150 words";
+"summary150wordsph" = "Buod Maximum na 150 salita";
+"houserules" = "House Rules";
+"houserulesph" = "Mga Panuntunan sa Bahay";
+
+// Photos Page
+"addphoto" = "Add photos";
+"addmorephoto" = "Guests love photos that highlight features of your Boat.";
+"plssaveimg" = "Please choose a image and save it";
+"choose" = "Choose";
+"camera" = "Camera";
+"gallery" = "Gallery";
+
+// Your trips Page
+"yourtrips" = "Trip History";
+"message" = "Message";
+"privatemsghost" = "Send a private message to host";
+"adddisputed" = " Add disputed ";
+"disputed" = " Disputed ";
+"addreview" = "Add review";
+"myreviewinfo" = "My review* (Exclude personally identifiable information such as name, email address, etc)";
+"review" = " Review ";
+"hostedby" = "Hosted by";
+"futuretrip" = "FUTURE TRIP";
+"pasttrip" = "PAST TRIP";
+"date" = "Date";
+"bookingno" = "Booking No";
+"paymentstatus" = "Payment status";
+"hostapproval" = "Host Approval";
+"housein" = "House in";
+"reviewtitle" = "Review";
+"disputetitle" = "Dispute";
+"reviewedtitle" = "Reviewed";
+"disputedtitle" = "Disputed";
+"alreadydisputed" = "Already disputed";
+"alreadyreviewed" = "Already reviewed";
+"plsenterdisputed" = "Please enter your disputed";
+"plsentercmt" = "Please enter your comments";
+"acceptpay" = "Host has to accept to pay";
+"booked" = "Booked";
+"accept" = "Accept";
+"pay" = "PAY";
+"plsenterreview" = "Please enter your review";
+
+// Chat Viewcontroller
+"welcome" = "Welcome";
+"membersince" = "Member since";
+"enquiryabout" = "Enquiry about";
+"guest" = "Guest";
+"enteryourmsg" = "Enter your message";
+"sendmsgcap" = "SEND MESSAGE";
+"preapprovecap" = "PRE APPROVE";
+"declinecap" = "DECLINE";
+
+// Address Page
+"addresscnt" = "Your exact address is private and only shared with guests after a reservation is confirmed however the host is responsible to provide the exact road name of the accommodatios in order of guest to be able to plan for their trips smoothly.";
+"addressHead" = "Address";
+
+// Booking Detail Page
+"sendtohost" = "SEND TO HOST";
+"dates" = "Dates";
+"arrive" = "Arrive";
+"depart" = "Depart";
+"propertyprice" = "Rental Price";
+"reasturantprice" = "Restaurant Price";
+"servicefees" = "Service fees";
+"securitydeposit" = "Security deposit";
+"sendmsg" = "Send message";
+"enteryourmsg" = "Enter your message";
+"bookingdetails" = "Booking details";
+"nights" = "nights";
+"nightscap" = "Nights";
+"totalprice" = "Total Price";
+"minstayshould" = "Minimun Stay Should be";
+"days" = "days";
+"plsselectarrivedate" = "Select arrive date";
+"plsselectdepartdate" = "Select depart date";
+"plsenteryrmsg" = "Please enter your message";
+"plsentermsg" = "Please enter message";
+
+// Disputes Page
+"nodisputes" = "No disputes found.!";
+"disputes" = "Disputes";
+"disabtyou" = "DISPUTE ABOUT YOU";
+"disbyyou" = "DISPUTE BY YOU";
+
+// Wishlist Detail Page
+"notrips" = "You don't have any trips !";
+"wishlist" = "Wishlist";
+"nowishlist" = "You don't have any Wishlist !";
+"noproperties" = "You have no Properties";
+"wishlisttitle" = "Enter wishList title";
+
+// Profile Page
+"profile" = "Profile";
+"emailnotverified" = "Email not verified";
+"emailverified" = "Email verified";
+"mobilenotverified" = "Mobile number not verified";
+"mobileverified" = "Mobile number verified";
+"nodescription" = "You have no description";
+"listings" = "Listings";
+"viewalllistings" = "VIEW ALL LISTINGS";
+"reviews" = "Reviews";
+"viewallreviews" = "VIEW ALL REVIEWS";
+"disputes" = "Disputas";
+"viewalldisputes" = "VIEW ALL DISPUTES";
+"wishlists" = "Wish Lists";
+"viewallwishlists" = "VIEW ALL WISH LISTINGS";
+"verifications" = "Verifications";
+
+// Inbox Page
+"nomessages" = "You have no messages";
+"inbox" = "Your Messages";
+"bookingrequest" = "Booking Request";
+
+// Alert Titles
+"pleasewait" = "Please wait";
+"information" = "Information";
+"nointernet" = "Please check your internet connection";
+"internalservererror" = "Internal Server Error";
+"tryagainlater" = "Please try again later";
+
+// Detail Page
+"viewall" = "VIEW ALL";
+"moreabouthost" = "MORE ABOUT THE HOST";
+"viewallreview" = "View all Review";
+"requesttobook" = "REQUEST TO BOOK";
+"listingsmall" = "Listing";
+"details" = "Details";
+"amenities" = "Amenities";
+"guests" = "Guests";
+"guest" = "Guest";
+"noguest" = " No Guest";
+"bedrooms" = "Bedrooms";
+"bedroom" = "Bedroom";
+"nobedroom" = " No Bedroom";
+"beds" = "Beds";
+"bed" = "Bed";
+"nobed" = "No Bed";
+"price" = "Price";
+"listingtype" = "Listing Type";
+"accomodates" = "User Capacity";
+"bathrooms" = "Bathrooms";
+"minstay" = "Minimum Stay";
+"canpolicy" = "Cancellation Policy";
+"availability" = "Availability";
+"pricedetails" = "Price Details";
+"spacesize" = "Boat Size";
+"viewcalender" = "View Calender";
+"view" = "View";
+"about" = "About Host";
+
+// Rent Calendar Page
+"whenlistingavailable" = "Please select the pricing type";
+"always" = "Always";
+"listdatesavailable" = "Fixed price for all seasons";
+"sometimes" = "SOME TIMES";
+"listsomedatesavailable" = "Seasonal price";
+
+// Rent your space Page
+"rentyourspace" = "RENT YOUR HOTEL";
+"rentyourspace1" = "RENT YOUR BOAT";
+"propertytype" = "Rental Type";
+"roomtype" = "Boat Type";
+"city" = "City";
+"continue" = "Continue";
+"continuecap" = "CONTINUE";
+"cityerror" = "Please choose city";
+"propertyerror" = "Please choose Rental type";
+"roomerror" = "Please choose room type";
+"accomodateserror" = "Please choose User Capacity";
+"enterpropertyerror" = "Please enter your Rental type";
+"enterroomerror" = "Please enter your room type";
+"enterbedroomerror" = "Please enter no of bedrooms";
+"enterbedserror" = "Please enter no of beds";
+"enterbathroomerror" = "Please enter bathroom type";
+"enteraccomodateserror" = "Please enter User Capacity";
+"enterguestserror" = "Please enter no of guests";
+"enterminstayerror" = "Please enter minimum stay";
+"enterspaceerror" = "Please enter Boat size";
+
+// Pricing Page
+"baseprice" = "Base price";
+"currency" = "CURRENCY";
+"pernight" = "PER NIGHT";
+"defaultnightlypriceguests" = "Set price per night for rental Rental.";
+"selectcurrency" = "Select currency";
+"plsenterprice" = "Please enter price";
+"plsselectcurrency" = "Please select your currency";
+
+// Listing Info Page
+"listinginfo" = "Listing Info";
+"listingcnt" = "Please fill the below mentioned Listing information";
+"listingsandcalendar" = "Manage listing and calender";
+"managelisting" = "MANAGE LISTING";
+"yourreserve" = "YOUR RESERVATION";
+"nomanagedlist" = "You have no managed list";
+"selectpropertytype" = "Select Rental type";
+"selectroomtype" = "Select Boat type";
+"selectbedroomtype" = "Select Bedroom type";
+"selectnoofbeds" = "Select no of Beds";
+"selectbathroomtype" = "Select Bathroom type";
+"selectaccomodates" = "Select User Capacity";
+"selectnoofguests" = "Select no of Guests";
+"selectminimumstay" = "Select Minimum stay";
+"enterspacetype" = "Enter Boat type";
+"selectallfields" = "Please select all fields";
+"select" = "Select";
+"propertylisting" = " RENTAL LISTING";
+
+// Filterview Page
+"applyfilters" = "APPLY FILTERS";
+
+// Property Detail Page
+"morefilters" = "MORE FILTERS";
+"noproperty" = "No Rental";
+"therenopropertyin" = "No Listing(s) Found";
+
+// Cancellation Policy Page
+"keywords" = "Keywords";
+"keywordsph" = "Mga Keyword";
+
+"metadescph" = "Paglalarawan ng Meta";
+"metadescen" = "Meta Description";
+"metatitle" = "Meta title";
+"metatitleph" = "Pamagat ng Meta";
+"keywordsEN" = "Keywords";
+"metadescEN" = "Meta Description";
+"metatitleEN" = "Meta title";
+"keywordsES" = "Palabras clave";
+"metadescES" = "Metadescripción";
+"metatitleES" = "Meta título";
+"keywordsPT" = "Palavras Chave";
+"metadescPT" = "Meta Descrição";
+"metatitlePT" = "Meta título";
+"selectcanpolicy" = "Please select your Cancellation policy";
+"entersecdeposit" = "Please enter your Security deposit";
+"readmorecanpolicy" = "Please select your Cancellation Policy. you can read more about the cancellation policy here.";
+"selectpolicy" = "Select Policy";
+
+// Paypal Viewcontroller Page
+"paymentsuccess" = "Payment Success";
+"paymentmethods" = "Payment Methods";
+"creditcard" = "Credit Card";
+"stripe" = "Stripe";
+"paypal" = "Paypal";
+"plscheckcarddetails" = "Please check your card details";
+"ccnumber" = "Card Number";
+"expdate" = "Expiry Date";
+"carderror" = "Card Error";
+"cardinvalid" = "Card number is invalid";
+"yearinvalid" = "Year is invalid";
+"monthinvalid" = "Month is invalid";
+"cvvinvalid" = "CVV Invalid";
+
+
+// UpdateProfile Page
+"editprofile" = "Edit Profile";
+"firstname" = "First Name";
+"phonenumber" = "Phone number";
+"aboutme" = "About me";
+"lastname" = "Last Name";
+"work" = "Work";
+"firstnameerror" = "Please enter your first name";
+"lastnameerror" = "Please enter your last name";
+"phonenumbererror" = "Please enter your phone number";
+"gettingverify" = "Getting you Verified ID is the easiest way to help build trust in the community";
+
+// Future Transactions TableViewController
+"total" = "Total";
+"servicefee" = "Service fee";
+"hostfee" = "Host fee";
+"netamount" = "Net amount";
+
+// AccountView Controller
+"notifications" = "NOTIFICATIONS";
+"payoutpreferences" = "PAYOUT PREFERENCES";
+"transhistory" = "TRANSACTION HISTORY";
+"security" = "SECURITY";
+"settings" = "SETTINGS";
+"residence" = "RESIDENCE";
+
+// HSSecondery Page Notification
+"notifysec1" = "Mobile notification/ Text message";
+"mobphone" = "Mobile Phone";
+"verifyphone" = "You can add and verify phone numbers on your account from the edit profile section.";
+"notifyme" = "Notify me when:";
+"textmsg&notify" = "Applies to both text messages & push notifications.";
+"reservereq" = "I receive a reservation request.";
+"notifysec2" = "Email settings";
+"wantreceive" = "I want to receive:";
+"disableanytime" = "You can disable these at any time";
+"upcomingreserve" = "I have upcoming reservation.";
+"newreview" = "I have received a new review.";
+"newref" = "I have received a new reference.";
+"receivedrefreq" = "I have received a new reference request.";
+"reviewforguest" = "I need to leave a review for one of my guests.";
+"updatecalendar" = "I can improve my ranking in the search resuls by updating my calender.";
+"save" = "NEXT";
+"noreservations" = "You have no reservations";
+
+// Payout Preference
+"payoutdetails" = "Add Payout Details";
+"accname" = "Account name *";
+"accnumber" = "Account number *";
+"bankname" = "Bank name *";
+"submit" = "Submit";
+
+// Transaction history
+"completed" = "Completed";
+"future" = "Future";
+"completedbtn" = "COMPLETED";
+"futurebtn" = "FUTURE";
+
+// Settings Page
+"countryofresi" = "Country of residence";
+"savecountry" = "SAVE COUNTRY OF RESIDENCE";
+
+// Security Page
+"changepswd" = "Change your password";
+"oldpswd" = "Old password *";
+"newpswd" = "New password *";
+"confirmpswd" = "Confirm password *";
+"updatepswd" = "Update password";
+
+// Payment Preferences
+"emptyaccname" = "Account name should not be empty";
+"emptyaccnumber" = "Account number should not be empty";
+"emptybankname" = "Bank name should not be empty";
+"alert" = "Info";
+"fillpswd" = "Please fill password field";
+"fillnewpswd" = "Please fill new password field";
+"fillcnfpswd" = "Please fill confirm password field";
+"oldpswdnewpswd" = "Old password and new password should not be same";
+"pswdnotmatched" = "Passwords not matched";
+
+// Others
+"amenitiestitle" = "Please select the available amenities on your Boat";
+
+// Default
+"ok" = "OK";
+"back" = "Back";
+"cancel" = "Cancel";
+"goback" = "Go back";
+"save" = "NEXT";
+"close" = "Close";
+"selectdate" = "Select Date";
+"submit" = "Submit";
+"facebooksignup" = "CONTINUE WITH FACEBOOK";
+"googlesignup" = "CONTINUE WITH GOOGLE";
+"linkedInsignup" = "LinkedIn";
+"facebooklogin" = "Login with Facebook";
+"googlelogin" = "Login with Google +";
+"linkedInlogin" = "Login with LinkedIn";
+"signinwithapple" = "CONTINUE WITH APPLE";
+"nodata" = "You have no data";
+"plswait" = "Please wait...";
+"notavailable" = "Not Available";
+
+
+"Basics" = "Basics";
+"Description" = "Description";
+"Settings" = "Settings";
+"calender" = "Calender";
+"Pricing" = "Pricing";
+"Overview" = "Overview";
+"Photos" = "Photos";
+"Listing" = "Listing";
+"Location" = "Location";
+"add" = "ADD";
+"changelocation" = "Change Location";
+"street" = "Street";
+"state" = "State";
+"country" = "Country";
+"zipcode" = "Zipcode";
+"cvv" = "CVV";
+"month" = "MONTH";
+"year" = "YEAR";
+"cardnumber" = "XXXX-XXXX-XXXX-XXXX";
+"message" = "Please Book For Minimum 2 Days";
+"wishmessage" = "Wishlist title cannot be empty";
+"upload" = "You can upload up to five Images";
+"thespace" = "The Boat";
+"otherthingsph" = "Ang puwang";
+"otherthings" = "Other Things To Note";
+"guestaccess" = "Guest Access";
+"interactionguest" = "Interaction With Guest";
+"neighborhood" = "Neighborhood";
+"neighborhoodph" = "Kapitbahayan";
+"wantmore" = "Want Write Even More ?";
+"instantpay" = "BOOK & PAY NOW";
+"morethannumberofspecified" = "Cannot accommodate more than the specified number of guests";
+"pleaseentertitle" = "Please Enter Your Title";
+"pleaseentertitleph" = "Mangyaring Ipasok ang Iyong Pamagat";
+"entertitlees" = "Mangyaring ipasok ang pamagat";
+"guestAcess" = "Guest Acess";
+"guestAcessph" = "Access ng bisita";
+"contactnum" = "Contact Number";
+"website" = "Website";
+"timings" = "Timings";
+"menudetails" = "Menu Details";
+"instantpaySmall" = "Book & Pay Now";
+
+
+
+
