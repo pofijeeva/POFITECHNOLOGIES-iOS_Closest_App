@@ -19,7 +19,7 @@ class RentYourSpaceViewController: BaseViewController  {
     @IBOutlet weak var txtPropertyType: UITextField!
     @IBOutlet weak var lblHeader: UILabel!
     @IBOutlet weak var txtRoomType: UITextField!
-    @IBOutlet weak var txtCity: UITextField!
+    //@IBOutlet weak var txtCity: UITextField!
     @IBOutlet weak var txtAccommodates: UITextField!
     @IBOutlet weak var accomView: UIView!
     @IBOutlet weak var RoomView: UIView!
@@ -68,8 +68,8 @@ class RentYourSpaceViewController: BaseViewController  {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.VerifyView.isHidden = true
-        self.roomtypeImg.setImageColor(color: AppColor)
-        self.proptypeImg.setImageColor(color: AppColor)
+        //self.roomtypeImg.setImageColor(color: AppColor)
+        //self.proptypeImg.setImageColor(color: AppColor)
         self.NextBtn.backgroundColor = AppColor
         dropDownArray = ["1","2","3","4","5"]
         placesClient = GMSPlacesClient.shared()
@@ -81,26 +81,25 @@ class RentYourSpaceViewController: BaseViewController  {
         self.VerifyLbl.font = UIFont(name: SemiBoldFont, size: 15)
         self.verifyBtn.titleLabel?.font = UIFont(name: SemiBoldFont, size: 15)
         self.verifyBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_verifyNow") as! String, for: .normal)
-          self.txtRoomType.placeholder = GlobalLanguageDictionary.object(forKey: "key_roomType") as!String
-//            self.txtAccommodates.placeholder = "User Capacity"
+        self.txtRoomType.placeholder = GlobalLanguageDictionary.object(forKey: "key_roomType") as!String
         self.txtPropertyType.placeholder = GlobalLanguageDictionary.object(forKey: "Key_Workspace") as! String
-            self.roomType = GlobalLanguageDictionary.object(forKey: "key_roomType") as!String
-             self.propertyType = GlobalLanguageDictionary.object(forKey: "Key_Workspace") as! String
+        self.roomType = GlobalLanguageDictionary.object(forKey: "key_roomType") as!String
+        self.propertyType = GlobalLanguageDictionary.object(forKey: "Key_Workspace") as! String
     }
     override func viewWillAppear(_ animated: Bool) {
         self.lblHeader.font = UIFont(name: SemiBoldFont, size: 18)
-        self.txtCity.font = UIFont(name: RegularFont, size: 14)
+//        self.txtCity.font = UIFont(name: RegularFont, size: 14)
         self.txtRoomType.font = UIFont(name: RegularFont, size: 14)
-        self.txtAccommodates.font = UIFont(name: RegularFont, size: 14)
+//        self.txtAccommodates.font = UIFont(name: RegularFont, size: 14)
         self.txtPropertyType.font = UIFont(name: RegularFont, size: 14)
-        self.roomTypeText.font = UIFont(name: RegularFont, size: 14)
+        //self.roomTypeText.font = UIFont(name: RegularFont, size: 14)
         self.propertyName.font = UIFont(name: RegularFont, size: 14)
         if login_session.object(forKey: "Language")as! String == "en"{
             txtRoomType.textAlignment = .left
-            txtAccommodates.textAlignment = .left
+           // txtAccommodates.textAlignment = .left
         }else{
             txtRoomType.textAlignment = .right
-            txtAccommodates.textAlignment = .right
+           // txtAccommodates.textAlignment = .right
         }
         if login_session.value(forKey: "IS_USER_LOGGEDIN") as? Bool == true
         {
@@ -219,7 +218,7 @@ class RentYourSpaceViewController: BaseViewController  {
                         if rooms.count != 0 {
                             self.room_ID = "Value"
                             self.RoomView.isHidden = false
-                            self.roomHeight.constant = 50
+                            //self.roomHeight.constant = 50
                             self.ROOM_ARR = rooms
                             for i in 0..<rooms.count{
                            
@@ -244,13 +243,13 @@ class RentYourSpaceViewController: BaseViewController  {
                         }else{
                             self.RoomView.isHidden = true
                             self.room_ID = "Nill"
-                            self.roomHeight.constant = 0
+                            //self.roomHeight.constant = 0
                         }
                     }
                     
                     if let accomdation = responseDict.value(forKey: "other_attributes") as? NSArray {
                         if accomdation.count != 0 {
-                            self.txtAccommodates.text = ""
+                            //self.txtAccommodates.text = ""
                             self.accomdateArray = [String]()
                             for accom in accomdation {
                                 let dict = (accom as? NSDictionary)
@@ -264,7 +263,7 @@ class RentYourSpaceViewController: BaseViewController  {
                                 }
                             }
                         }else{
-                            self.txtAccommodates.text = "Empty"
+                            //self.txtAccommodates.text = "Empty"
                             
                         }
                     }
@@ -490,10 +489,15 @@ class RentYourSpaceViewController: BaseViewController  {
                 //   params =  ["user_id": userid,"property_type":self.prop_ID,"room_type":self.room_ID,"accommodates":self.txtAccommodates.text!,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","base_id":id,"city":self.txtCity.text!]
                 
                 params = ["lang_code":lanuguage_selection.value(forKey: "language") ?? "en",
-                                          "location":self.txtCity.text!,
+                                          "location": "",
                                           "room_type":self.room_ID ,
                                           "property_type":self.prop_ID,
                                           "property_id": ""]
+//                params = ["lang_code":lanuguage_selection.value(forKey: "language") ?? "en",
+//                                          "location":self.txtCity.text!,
+//                                          "room_type":self.room_ID ,
+//                                          "property_type":self.prop_ID,
+//                                          "property_id": ""]
                 
 //                "type_list[5]":self.room_ID,
 //                "subcat_id":self.sub_catid ,
@@ -620,7 +624,7 @@ extension RentYourSpaceViewController: LoctaionSearchProtocol {
     }
     
     func getLocation(SearchResult: String) {
-        self.txtCity.text = SearchResult
+        //self.txtCity.text = SearchResult
     }
 }
 
@@ -694,7 +698,7 @@ extension RentYourSpaceViewController :  HTTP_POST_STRING_REQUEST_PROTOCOL{
                     if rooms.count != 0 {
                         self.room_ID = "Value"
                         self.RoomView.isHidden = false
-                        self.roomHeight.constant = 50
+                        //self.roomHeight.constant = 50
                         if let room = rooms[0] as? NSDictionary {
                             self.roomArray = [String]()
                             if let optionsArr = room.value(forKey: "options") as? NSArray {
@@ -711,7 +715,7 @@ extension RentYourSpaceViewController :  HTTP_POST_STRING_REQUEST_PROTOCOL{
                     }else{
                         self.RoomView.isHidden = true
                         self.room_ID = "Nill"
-                        self.roomHeight.constant = 0
+                        //self.roomHeight.constant = 0
                     }
                 }
                 
