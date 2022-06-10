@@ -85,9 +85,9 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
     }
     override func viewWillAppear(_ animated: Bool) {
         
-        self.lblAddPhotos.text = GlobalLanguageDictionary.object(forKey: "key_addphotos") as! String
-        self.lblPhotoDisc.text = GlobalLanguageDictionary.object(forKey: "key_addPhotosDisc") as! String
-        self.btnSave.setTitle(GlobalLanguageDictionary.object(forKey: "key_next") as! String, for: .normal)
+        self.lblAddPhotos.text = GlobalLanguageDictionary.object(forKey: "key_addphotos") as? String ?? ""
+        self.lblPhotoDisc.text = GlobalLanguageDictionary.object(forKey: "key_addPhotosDisc") as? String ?? ""
+        self.btnSave.setTitle(GlobalLanguageDictionary.object(forKey: "key_next") as? String ?? "", for: .normal)
         self.lblAddPhotos.font = UIFont(name: SemiBoldFont, size: 18)
           self.lblPhotoDisc.font = UIFont(name: RegularFont, size: 15)
         self.btnSave.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 16)
@@ -231,7 +231,7 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
             forAddPhotoDict.addEntries(from: result[0] as! [AnyHashable : Any])
             print("forAddPhotoDict:::::",forAddPhotoDict)
             self.imageARR.removeAllObjects()
-            self.imageARR.addObjects(from:((forAddPhotoDict.object(forKey: "step5")as! NSDictionary).object(forKey: "product_image")as! NSArray) as! [Any])
+            self.imageARR.addObjects(from:((forAddPhotoDict.object(forKey: "step5")as? NSDictionary)?.object(forKey: "product_image")as! NSArray) as! [Any])
            
 
             if mod.status! != 0
@@ -284,7 +284,7 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
                 
             }
             for (key, value) in parameters {
-                multipartFormData.append((value as! String).data(using: .utf8)!, withName: key)
+                multipartFormData.append((value as? String ?? "").data(using: .utf8)!, withName: key)
             }
             
         }, usingThreshold:UInt64.init(),
@@ -380,13 +380,13 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
                     print(responseObject)
                     self.ListingActivityDelegate.hideActivity()
 
-                    if responseObject.value(forKey: "status") as! Int == 1 {
+                    if responseObject.value(forKey: "status") as? Int ?? 0 == 1 {
                        
                         self.createdPropertyStatusApiCall()
-                        self.showInformation(title: "Closest", message:responseObject.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message:responseObject.value(forKey: "message") as? String ?? "")
                     }
                     else {
-                        self.showInformation(title: "Closest", message:responseObject.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message:responseObject.value(forKey: "message") as? String ?? "")
                     }
                 } else {
                     print("response was: \(String(describing: response))")
@@ -445,12 +445,12 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
             }
             if let responseObject = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
                 print(responseObject)
-                if responseObject.value(forKey: "status") as! Int == 1 {
-                    //self.showInformation(title: "Closest", message:responseDictionary.value(forKey: "message") as! String)
+                if responseObject.value(forKey: "status") as? Int ?? 0 == 1 {
+                    //self.showInformation(title: "Closest", message:responseDictionary.value(forKey: "message") as? String ?? "")
                     self.getImagesApiCall()
                 }
                 else {
-                    self.showInformation(title: "Closest", message:responseObject.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message:responseObject.value(forKey: "message") as? String ?? "")
                 }
             } else {
                 print("response was: \(String(describing: response))")
@@ -486,7 +486,7 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     let mod = RentYourSpaceModel(fromDictionary: responseDict as! [String : Any])
                     Singleton.sharedInstance.rentYourSpace = mod
                     let result = responseDict.object(forKey: "result") as! NSArray
@@ -497,7 +497,7 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
                     forAddPhotoDict.addEntries(from: result[0] as! [AnyHashable : Any])
                     print("CREATED_PROPERTY_STATUS forAddPhotoDict:::::",forAddPhotoDict)
                     self.imageARR.removeAllObjects()
-                    self.imageARR.addObjects(from:((forAddPhotoDict.object(forKey: "step5")as! NSDictionary).object(forKey: "product_image")as! NSArray) as! [Any])
+                    self.imageARR.addObjects(from:((forAddPhotoDict.object(forKey: "step5")as? NSDictionary)?.object(forKey: "product_image")as! NSArray) as! [Any])
                     self.nCount = self.imageARR.count
                     self.collPhotos.reloadData()
 
@@ -508,7 +508,7 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
                 }
                     
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -519,7 +519,7 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
             })
   
         } else {
-            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as! String)
+            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
         }
 
     }
@@ -562,7 +562,7 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
                         forAddPhotoDict.addEntries(from: result[0] as! [AnyHashable : Any])
                         print("forAddPhotoDict:::::",forAddPhotoDict)
                         self.imageARR.removeAllObjects()
-                        self.imageARR.addObjects(from:((forAddPhotoDict.object(forKey: "step5")as! NSDictionary).object(forKey: "product_image")as! NSArray) as! [Any])
+                        self.imageARR.addObjects(from:((forAddPhotoDict.object(forKey: "step5")as? NSDictionary)?.object(forKey: "product_image")as! NSArray) as! [Any])
                       
                         self.collPhotos.reloadData()
                     }
@@ -594,7 +594,7 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
              let parameterStr = "property_id=\(self.PropertyID)&photos=\(base64)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&base_id=\(id)&user_id=\(login_session.value(forKey: "UserId")!)"
             Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: SAVE_PHOTO_LISTING, APIKEY: "SAVE_PHOTO_LISTING")
          } else {
-            showInformation(title: "Network Error", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as! String)
+            showInformation(title: "Network Error", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
         }
     }
     
@@ -612,38 +612,41 @@ extension AddPhotoViewController: UICollectionViewDelegate ,UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? AddPhotoCell
         
-        cell?.btnDeleteOne.layer.cornerRadius = (cell?.btnDeleteOne.frame.width)! / 2
-        cell?.btnDeleteOne.tag = indexPath.row;
-        cell?.btnDeleteOne.addTarget(self,action:#selector(deleteButtonClicked(sender:)), for: .touchUpInside)
-        cell?.imgOne.contentMode = .scaleAspectFill
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? AddPhotoCell else { return UICollectionViewCell() }
+
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? AddPhotoCell
+        
+        cell.btnDeleteOne.layer.cornerRadius = (cell.btnDeleteOne.frame.width) / 2
+        cell.btnDeleteOne.tag = indexPath.row;
+        cell.btnDeleteOne.addTarget(self,action:#selector(deleteButtonClicked(sender:)), for: .touchUpInside)
+        cell.imgOne.contentMode = .scaleAspectFill
         let imageType = imageARR.object(at: indexPath.row)
         if let image = imageType as? UIImage
         {
-            cell?.imgOne.image = image
+            cell.imgOne.image = image
 
         }
         else
         {
             let url = URL(string: Singleton.sharedInstance.rentYourSpace.result[0].step5.photo_list[indexPath.row].imagePath!)
-            cell!.imgOne.kf.setImage(with: url)
+            cell.imgOne.kf.setImage(with: url)
         
         }
         
         if self.imageARR.count == 0
         {
-           cell?.btnDeleteOne.isHidden = true
-           cell?.imgOne.isHidden = true
+           cell.btnDeleteOne.isHidden = true
+           cell.imgOne.isHidden = true
         }
         else
         {
-            cell?.btnDeleteOne.isHidden = false
-            cell?.imgOne.isHidden = false
+            cell.btnDeleteOne.isHidden = false
+            cell.imgOne.isHidden = false
 
         }
         
-        return cell!
+        return cell
     }
 }
 extension AddPhotoViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
@@ -689,7 +692,7 @@ extension AddPhotoViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
             forAddPhotoDict.addEntries(from: result[0] as! [AnyHashable : Any])
             print("CREATED_PROPERTY_STATUS forAddPhotoDict:::::",forAddPhotoDict)
                 self.imageARR.removeAllObjects()
-                self.imageARR.addObjects(from:((forAddPhotoDict.object(forKey: "step5")as! NSDictionary).object(forKey: "product_image")as! NSArray) as! [Any])
+                self.imageARR.addObjects(from:((forAddPhotoDict.object(forKey: "step5")as? NSDictionary)?.object(forKey: "product_image")as! NSArray) as! [Any])
                   self.nCount = self.imageARR.count
                 self.collPhotos.reloadData()
 

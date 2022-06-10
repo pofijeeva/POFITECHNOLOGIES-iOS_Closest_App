@@ -37,8 +37,8 @@ class LanguagesExperienceViewController: UIViewController,UITableViewDelegate,UI
         print(self.dictOfValues)
         
         if arrayOfResult.count > 0 {
-            let dictt = (arrayOfResult[0] as! NSDictionary).object(forKey: "Languages") as! NSDictionary
-            self.arrayofLangId.addObjects(from:  (dictt.object(forKey: "selected_languages") as! String).components(separatedBy: ","))
+            let dictt = (arrayOfResult[0] as? NSDictionary)?.object(forKey: "Languages") as! NSDictionary
+            self.arrayofLangId.addObjects(from:  (dictt.object(forKey: "selected_languages") as? String ?? "").components(separatedBy: ","))
             print(arrayofLangId)
         }        
     }
@@ -55,9 +55,9 @@ class LanguagesExperienceViewController: UIViewController,UITableViewDelegate,UI
             let tickImage: UIImageView = cell.viewWithTag(10) as! UIImageView
             labelName.font = UIFont(name: RegularFont, size: 15.0)
             labelName.textColor = .darkGray
-            labelName.text = ((self.dictOfValues.object(at: indexPath.row) as! NSDictionary).object(forKey: "language_name") as! String)
+            labelName.text = ((self.dictOfValues.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "language_name") as? String ?? "")
             
-            let lang = (self.dictOfValues.object(at: indexPath.row) as! NSDictionary).object(forKey: "language_code") as! String
+            let lang = (self.dictOfValues.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "language_code") as? String ?? ""
             if !self.arrayofLangId.contains(lang) {
                 tickImage.image = UIImage(named: "unSelectBox")
             }
@@ -82,7 +82,7 @@ class LanguagesExperienceViewController: UIViewController,UITableViewDelegate,UI
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row != self.dictOfValues.count {
-            let lang = (self.dictOfValues.object(at: indexPath.row) as! NSDictionary).object(forKey: "language_code") as! String
+            let lang = (self.dictOfValues.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "language_code") as? String ?? ""
             if self.arrayofLangId.contains(lang) {
                 self.arrayofLangId.remove(lang)
             }
@@ -115,7 +115,7 @@ class LanguagesExperienceViewController: UIViewController,UITableViewDelegate,UI
             if Helper.sharedInstance.isConnectedToInternet() {
                 Helper.sharedInstance.showActivityIndicator(view: self.view, targetVC: self)
                 var params = NSMutableDictionary()
-                params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","languages_known": selectedLang,"exp_id":currentExpId]
+                params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","languages_known": selectedLang,"exp_id":currentExpId]
                 let manager = AFHTTPSessionManager()
                 manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
                 print("params",params)
@@ -124,12 +124,12 @@ class LanguagesExperienceViewController: UIViewController,UITableViewDelegate,UI
                     Helper.sharedInstance.hideActivityIndicator(view: self.view)
                     let responseDict:NSDictionary = resultData as! NSDictionary
                     print("Response:",responseDict)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         currentExpId = "\(responseDict.object(forKey: "experience_id") as AnyObject)"
                         sharedInstanceExperience.gotoStepThree()
                     }
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) in
                     print(error)
@@ -138,7 +138,7 @@ class LanguagesExperienceViewController: UIViewController,UITableViewDelegate,UI
                 
             }
             else {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
 

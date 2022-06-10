@@ -16,7 +16,7 @@ class ReviewsShowViewController: BaseViewController {
     @IBOutlet weak var btn_Reviewsby: UIButton!
     @IBOutlet weak var tbl_reviewList: UITableView!
     @IBOutlet weak var view_Indicator: UIView!
-      @IBOutlet weak var lbl_noReviewsImg: UIImageView!
+    @IBOutlet weak var lbl_noReviewsImg: UIImageView!
     
     var headerTitle = String()
     var aboutyou = String()
@@ -30,16 +30,16 @@ class ReviewsShowViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tbl_reviewList.tableFooterView = UIView()
-
-       
+        
+        
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
         
         self.lbl_header.font = UIFont(name: SemiBoldFont, size: 16)
-         self.lbl_noReviews.font = UIFont(name: RegularFont, size: 16)
-          self.btn_ReviewsAbt.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
-          self.btn_Reviewsby.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
+        self.lbl_noReviews.font = UIFont(name: RegularFont, size: 16)
+        self.btn_ReviewsAbt.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
+        self.btn_Reviewsby.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
         self.view_Indicator.backgroundColor = AppSecondColor
         userInfo()
     }
@@ -49,7 +49,7 @@ class ReviewsShowViewController: BaseViewController {
             
             showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
-            params = ["language":login_session.value(forKey: "APP_LANGUAGE") as! String,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"userid":login_session.value(forKey: "UserId")!]
+            params = ["language":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "","currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","userid":login_session.value(forKey: "UserId")!]
             
             print(params)
             let manager = AFHTTPSessionManager()
@@ -62,7 +62,7 @@ class ReviewsShowViewController: BaseViewController {
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     self.tbl_reviewList.isHidden = false
                     let mod = UserInfo(fromDictionary: responseDict as! [String : Any])
                     Singleton.sharedInstance.userInfoModel = mod
@@ -78,15 +78,15 @@ class ReviewsShowViewController: BaseViewController {
                     {
                         self.tbl_reviewList.isHidden = false
                         self.lbl_noReviews.isHidden = true
-                         self.lbl_noReviewsImg.isHidden = true
+                        self.lbl_noReviewsImg.isHidden = true
                     }
                     
-                  
+                    
                     self.tbl_reviewList.reloadData()
                 }
-                    
+                
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -100,14 +100,14 @@ class ReviewsShowViewController: BaseViewController {
             
             
             //            self.showActivityIndicator(uiView: self.view)
-            //            let parameterStr = "language=\(login_session.value(forKey: "APP_LANGUAGE") as! String)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&userid=\(login_session.value(forKey: "UserId")!)"
+            //            let parameterStr = "language=\(login_session.value(forKey: "APP_LANGUAGE") as? String ?? "")&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&userid=\(login_session.value(forKey: "UserId")!)"
             //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: USER_INFO_API, APIKEY: "USER_INFO_API")
             //            print(parameterStr)
         } else
         {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
-
+        
     }
     
     
@@ -116,35 +116,35 @@ class ReviewsShowViewController: BaseViewController {
         self.navigationController?.popViewController(animated: true)
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
     @IBAction func act_ReviewsAbt(_ sender: UIButton) {
         isReviewabtYou = true
         
         if Singleton.sharedInstance.userInfoModel.reviewsAboutYou.count == 0
-            {
-                self.tbl_reviewList.isHidden = true
-                self.lbl_noReviews.text = "No review(s) Found"
-                self.lbl_noReviews.isHidden = false
-                  self.lbl_noReviewsImg.isHidden = false
-            }
+        {
+            self.tbl_reviewList.isHidden = true
+            self.lbl_noReviews.text = "No review(s) Found"
+            self.lbl_noReviews.isHidden = false
+            self.lbl_noReviewsImg.isHidden = false
+        }
         else {
-                self.tbl_reviewList.isHidden = false
-                self.lbl_noReviews.isHidden = true
-              self.lbl_noReviewsImg.isHidden = true
-            }
+            self.tbl_reviewList.isHidden = false
+            self.lbl_noReviews.isHidden = true
+            self.lbl_noReviewsImg.isHidden = true
+        }
         
-            UIView.animate(withDuration: 0.25, animations: {
-                self.view_Indicator.frame = CGRect(x: 0, y: self.view_Indicator.frame.origin.y, width: self.view.frame.width / 2, height: 3)
-            })
-       
+        UIView.animate(withDuration: 0.25, animations: {
+            self.view_Indicator.frame = CGRect(x: 0, y: self.view_Indicator.frame.origin.y, width: self.view.frame.width / 2, height: 3)
+        })
+        
         
         
         self.tbl_reviewList.reloadData()
@@ -152,22 +152,22 @@ class ReviewsShowViewController: BaseViewController {
     @IBAction func act_Reviewsby(_ sender: UIButton)
     {
         isReviewabtYou = false
-       
-            if Singleton.sharedInstance.userInfoModel.reviewsByYou.count == 0
-            {
-                self.tbl_reviewList.isHidden = true
-                self.lbl_noReviews.text = "No review(s) Found"
-                self.lbl_noReviews.isHidden = false
-                  self.lbl_noReviewsImg.isHidden = false
-            }
-            else {
-                self.tbl_reviewList.isHidden = false
-                self.lbl_noReviews.isHidden = true
-                  self.lbl_noReviewsImg.isHidden = true
-            }
-            UIView.animate(withDuration: 0.25, animations: {
-                self.view_Indicator.frame = CGRect(x: self.view.frame.width / 2, y: self.view_Indicator.frame.origin.y, width: self.view.frame.width / 2, height: 3)
-            })
+        
+        if Singleton.sharedInstance.userInfoModel.reviewsByYou.count == 0
+        {
+            self.tbl_reviewList.isHidden = true
+            self.lbl_noReviews.text = "No review(s) Found"
+            self.lbl_noReviews.isHidden = false
+            self.lbl_noReviewsImg.isHidden = false
+        }
+        else {
+            self.tbl_reviewList.isHidden = false
+            self.lbl_noReviews.isHidden = true
+            self.lbl_noReviewsImg.isHidden = true
+        }
+        UIView.animate(withDuration: 0.25, animations: {
+            self.view_Indicator.frame = CGRect(x: self.view.frame.width / 2, y: self.view_Indicator.frame.origin.y, width: self.view.frame.width / 2, height: 3)
+        })
         
         
         self.tbl_reviewList.reloadData()
@@ -222,84 +222,88 @@ extension ReviewsShowViewController : UITableViewDataSource,UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-       
-            
-            
-            if isReviewabtYou == true
+        
+        
+        
+        if isReviewabtYou == true
+        {
+            if Singleton.sharedInstance.userInfoModel != nil
             {
-                if Singleton.sharedInstance.userInfoModel != nil
-                {
-                    return 1
-                } else {
-                    return 0
-                }
+                return 1
+            } else {
+                return 0
             }
-            else
-            {
-                if Singleton.sharedInstance.userInfoModel != nil
-                {
-                    return 1
-                } else {
-                    return 0
-                }
-                
-                
-            }
-       
         }
+        else
+        {
+            if Singleton.sharedInstance.userInfoModel != nil
+            {
+                return 1
+            } else {
+                return 0
+            }
+            
+            
+        }
+        
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-            if isReviewabtYou == true
-            {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ReviewsTableViewCell
-                cell!.selectionStyle = .none
-                let dict = Singleton.sharedInstance.userInfoModel.reviewsAboutYou[indexPath.section]
-                
-                 cell!.lbl_reviewComments.font = UIFont(name: RegularFont, size: 14)
-                 cell?.rentalNameButton.titleLabel?.font =  UIFont(name: RegularFont, size: 14)
-                cell!.reviewBookNoLbl.font = UIFont(name: RegularFont, size: 11)
-                  cell!.lbl_userName.font = UIFont(name: RegularFont, size: 13)
-                
-                cell!.lbl_reviewComments.text = dict.reviewerComments!
-                cell!.img_user.layer.masksToBounds = true
-                cell!.img_user.layer.cornerRadius = 30
-                let imgURL = URL(string: Singleton.sharedInstance.userInfoModel.reviewsAboutYou[indexPath.section].reviwerImage!)
-                cell!.img_user.kf.setImage(with: imgURL!, placeholder:UIImage(named:"user"))
-                cell!.lbl_userName.text = "By " + dict.reviewerName!
-                cell?.rentalNameButton.setTitle(dict.reviewPropertyName!, for: .normal)
-                cell!.reviewBookNoLbl.text = String(format: "%@",dict.reviewBookingNo!)
-                cell?.reviewRatings.rating = Float(dict.reviewerRating)!
-                cell?.bookingDateLabel.text = dict.reviewDate!
-
-                return cell!
-            }
-            else{
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ByCell") as? ReviewsByTableViewCell
-                cell!.selectionStyle = .none
-                let dict = Singleton.sharedInstance.userInfoModel.reviewsByYou[indexPath.section]
-                
-                  cell!.lbl_reviews.font = UIFont(name: RegularFont, size: 14)
-                 cell?.rentalNameButton.titleLabel?.font =  UIFont(name: RegularFont, size: 14)
-                 cell?.rentalBookingLbl.font = UIFont(name: RegularFont, size: 11)
-                 cell?.lbl_username.font = UIFont(name: RegularFont, size: 13)
-                
-                
-                cell!.lbl_reviews.text = dict.reviewerComments!
-                cell!.img_User.layer.masksToBounds = true
-                cell!.img_User.layer.cornerRadius = 30
-                let imgURL = URL(string: Singleton.sharedInstance.userInfoModel.reviewsByYou[indexPath.section].reviwerImage!)
-                cell!.img_User.kf.setImage(with: imgURL!, placeholder:UIImage(named:"user"))
-                cell!.lbl_username.text = String(format: "To %@", dict.reviewerName!)
-                cell?.rentalNameButton.setTitle(dict.reviewPropertyName!, for: .normal)
-                cell?.rentalBookingLbl.text = dict.reviewBookingNo!
-                cell?.reviewDateLbl.text = dict.reviewDate!
-                //String(format: "Booking No :%@" , dict.reviewBookingNo!)
-                cell?.reviewsRatingView.rating = Float(dict.reviewerRating)!
-
-                return cell!
-            }
+        if isReviewabtYou == true
+        {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ReviewsTableViewCell else { return UITableViewCell() }
+            
+            //                let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ReviewsTableViewCell
+            cell.selectionStyle = .none
+            let dict = Singleton.sharedInstance.userInfoModel.reviewsAboutYou[indexPath.section]
+            
+            cell.lbl_reviewComments.font = UIFont(name: RegularFont, size: 14)
+            cell.rentalNameButton.titleLabel?.font =  UIFont(name: RegularFont, size: 14)
+            cell.reviewBookNoLbl.font = UIFont(name: RegularFont, size: 11)
+            cell.lbl_userName.font = UIFont(name: RegularFont, size: 13)
+            
+            cell.lbl_reviewComments.text = dict.reviewerComments!
+            cell.img_user.layer.masksToBounds = true
+            cell.img_user.layer.cornerRadius = 30
+            let imgURL = URL(string: Singleton.sharedInstance.userInfoModel.reviewsAboutYou[indexPath.section].reviwerImage!)
+            cell.img_user.kf.setImage(with: imgURL!, placeholder:UIImage(named:"user"))
+            cell.lbl_userName.text = "By " + dict.reviewerName!
+            cell.rentalNameButton.setTitle(dict.reviewPropertyName!, for: .normal)
+            cell.reviewBookNoLbl.text = String(format: "%@",dict.reviewBookingNo!)
+            cell.reviewRatings.rating = Float(dict.reviewerRating)!
+            cell.bookingDateLabel.text = dict.reviewDate!
+            
+            return cell
         }
+        else{
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ByCell") as? ReviewsByTableViewCell else { return UITableViewCell() }
+            
+            //                let cell = tableView.dequeueReusableCell(withIdentifier: "ByCell") as? ReviewsByTableViewCell
+            cell.selectionStyle = .none
+            let dict = Singleton.sharedInstance.userInfoModel.reviewsByYou[indexPath.section]
+            
+            cell.lbl_reviews.font = UIFont(name: RegularFont, size: 14)
+            cell.rentalNameButton.titleLabel?.font =  UIFont(name: RegularFont, size: 14)
+            cell.rentalBookingLbl.font = UIFont(name: RegularFont, size: 11)
+            cell.lbl_username.font = UIFont(name: RegularFont, size: 13)
+            
+            
+            cell.lbl_reviews.text = dict.reviewerComments!
+            cell.img_User.layer.masksToBounds = true
+            cell.img_User.layer.cornerRadius = 30
+            let imgURL = URL(string: Singleton.sharedInstance.userInfoModel.reviewsByYou[indexPath.section].reviwerImage!)
+            cell.img_User.kf.setImage(with: imgURL!, placeholder:UIImage(named:"user"))
+            cell.lbl_username.text = String(format: "To %@", dict.reviewerName!)
+            cell.rentalNameButton.setTitle(dict.reviewPropertyName!, for: .normal)
+            cell.rentalBookingLbl.text = dict.reviewBookingNo!
+            cell.reviewDateLbl.text = dict.reviewDate!
+            //String(format: "Booking No :%@" , dict.reviewBookingNo!)
+            cell.reviewsRatingView.rating = Float(dict.reviewerRating)!
+            
+            return cell
+        }
+    }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
         headerView.backgroundColor = .white//hexStringToUIColor(hex: "#F1F1F1")
@@ -315,15 +319,15 @@ extension ReviewsShowViewController : UITableViewDataSource,UITableViewDelegate 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return  UITableViewAutomaticDimension
     }
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        if isReviewabtYou == true
-//        {
-//            return 120
-//        }
-//        else
-//        {
-//            return 120
-//        }
-//    }
+    //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    //        if isReviewabtYou == true
+    //        {
+    //            return 120
+    //        }
+    //        else
+    //        {
+    //            return 120
+    //        }
+    //    }
     
 }

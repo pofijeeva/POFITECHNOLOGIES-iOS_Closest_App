@@ -54,7 +54,7 @@ class ListingTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollectio
         
         cell.Listingimg.layer.cornerRadius = 5.0
             let featuredProperty = self.featuredProperty[indexPath.item]
-        let currencySymbol = (featuredProperty["currency_symbol"] as! String)
+        let currencySymbol = (featuredProperty["currency_symbol"] as? String ?? "")
             
         let price = (featuredProperty["price_list"] as! NSNumber)
             cell.costLabel.text = "\(currencySymbol)\(price) / day"
@@ -65,10 +65,10 @@ class ListingTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollectio
         if let rate = featuredProperty["ratings"] as? String {
         cell.ratingLabel.text = String(format: "%0.0f", Double(rate) ?? 0.0)
                 }
-//        cell.ratingLabel.text = (featuredProperty["ratings"] as! String)
-            cell.locationLabel.text = (featuredProperty["location"] as! String)
-            cell.addLabel.text = (featuredProperty["ren_title"] as! String)
-        let imgURL = (featuredProperty["ren_image"] as! String)
+//        cell.ratingLabel.text = (featuredProperty["ratings"] as? String ?? "")
+            cell.locationLabel.text = (featuredProperty["location"] as? String ?? "")
+            cell.addLabel.text = (featuredProperty["ren_title"] as? String ?? "")
+        let imgURL = (featuredProperty["ren_image"] as? String ?? "")
         cell.Listingimg.sd_setImage(with: URL(string: imgURL), placeholderImage: UIImage(named: "placeholder.png"))
         
         let favid = "\(featuredProperty["is_wishlist"] as AnyObject)"
@@ -105,7 +105,7 @@ class ListingTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollectio
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let featuredProperty = self.featuredProperty[indexPath.item]
-        self.delegate?.passFeatureProperty(storeName: "\((featuredProperty["ren_slug"] as AnyObject))", restId: "\(featuredProperty["property_id"] as AnyObject)", currency: (featuredProperty["currency_symbol"] as! String))
+        self.delegate?.passFeatureProperty(storeName: "\((featuredProperty["ren_slug"] as AnyObject))", restId: "\(featuredProperty["property_id"] as AnyObject)", currency: (featuredProperty["currency_symbol"] as? String ?? ""))
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width/2 - 10, height: 350)

@@ -134,17 +134,17 @@ class OverviewViewController: UIViewController {
         self.btnSave.backgroundColor = AppColor
         
         
-        self.txtlanguage.text = GlobalLanguageDictionary.object(forKey: "key_english") as! String
-        self.lblTitle.text = GlobalLanguageDictionary.object(forKey: "key_propertyTitle") as! String
-        self.txtTitleEn.placeholder = GlobalLanguageDictionary.object(forKey: "key_title") as! String
-        self.lbl150Words.text = GlobalLanguageDictionary.object(forKey: "key_about") as! String
-        self.lblRequestToBook.text = GlobalLanguageDictionary.object(forKey: "key_request2Book") as! String
-        self.lblTheSpace.text = GlobalLanguageDictionary.object(forKey: "key_aboutSpace") as! String
-        self.lblOtherThings.text = GlobalLanguageDictionary.object(forKey: "key_rules") as! String
-        self.lblHouseRules.text = GlobalLanguageDictionary.object(forKey: "key_othersNote") as! String
-        self.lblGuestAccess.text = GlobalLanguageDictionary.object(forKey: "key_guestAccess") as! String
-        self.lblNeighborhood.text = GlobalLanguageDictionary.object(forKey: "key_Neighborhood") as! String
-        self.btnSave.setTitle(GlobalLanguageDictionary.object(forKey: "key_next") as! String, for: .normal)
+        self.txtlanguage.text = GlobalLanguageDictionary.object(forKey: "key_english") as? String ?? ""
+        self.lblTitle.text = GlobalLanguageDictionary.object(forKey: "key_propertyTitle") as? String ?? ""
+        self.txtTitleEn.placeholder = GlobalLanguageDictionary.object(forKey: "key_title") as? String ?? ""
+        self.lbl150Words.text = GlobalLanguageDictionary.object(forKey: "key_about") as? String ?? ""
+        self.lblRequestToBook.text = GlobalLanguageDictionary.object(forKey: "key_request2Book") as? String ?? ""
+        self.lblTheSpace.text = GlobalLanguageDictionary.object(forKey: "key_aboutSpace") as? String ?? ""
+        self.lblOtherThings.text = GlobalLanguageDictionary.object(forKey: "key_rules") as? String ?? ""
+        self.lblHouseRules.text = GlobalLanguageDictionary.object(forKey: "key_othersNote") as? String ?? ""
+        self.lblGuestAccess.text = GlobalLanguageDictionary.object(forKey: "key_guestAccess") as? String ?? ""
+        self.lblNeighborhood.text = GlobalLanguageDictionary.object(forKey: "key_Neighborhood") as? String ?? ""
+        self.btnSave.setTitle(GlobalLanguageDictionary.object(forKey: "key_next") as? String ?? "", for: .normal)
         
         self.txtTitleEn.layer.borderWidth = 1
         self.txtTitleEn.layer.borderColor = BorderColor.cgColor
@@ -343,7 +343,7 @@ class OverviewViewController: UIViewController {
                     }
                 }
             } else {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
             }
         }
     }

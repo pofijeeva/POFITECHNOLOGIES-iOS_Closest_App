@@ -17,9 +17,9 @@ class Currency : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        countrySymbols = dictionary["country_symbols"] as? String
-        currencyType = dictionary["currency_type"] as? String
-        id = dictionary["id"] as? String
+        countrySymbols = dictionary["country_symbols"] as? String ?? ""
+        currencyType = dictionary["currency_type"] as? String ?? ""
+        id = dictionary["id"] as? String ?? ""
     }
 
     /**
@@ -46,9 +46,9 @@ class Currency : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        countrySymbols = aDecoder.decodeObject(forKey: "country_symbols") as? String
-        currencyType = aDecoder.decodeObject(forKey: "currency_type") as? String
-        id = aDecoder.decodeObject(forKey: "id") as? String
+        countrySymbols = aDecoder.decodeObject(forKey: "country_symbols") as? String ?? ""
+        currencyType = aDecoder.decodeObject(forKey: "currency_type") as? String ?? ""
+        id = aDecoder.decodeObject(forKey: "id") as? String ?? ""
     }
 
     /**

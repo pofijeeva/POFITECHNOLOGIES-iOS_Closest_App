@@ -17,9 +17,9 @@ class ActiveRental : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        baseId = dictionary["base_id"] as? String
-        isEnabled = dictionary["isEnabled"] as? Bool
-        rentalName = dictionary["rental_name"] as? String
+        baseId = dictionary["base_id"] as? String ?? ""
+        isEnabled = dictionary["isEnabled"] as? Bool ?? false 
+        rentalName = dictionary["rental_name"] as? String ?? ""
     }
 
     /**
@@ -46,9 +46,9 @@ class ActiveRental : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        baseId = aDecoder.decodeObject(forKey: "base_id") as? String
-        isEnabled = aDecoder.decodeObject(forKey: "isEnabled") as? Bool
-        rentalName = aDecoder.decodeObject(forKey: "rental_name") as? String
+        baseId = aDecoder.decodeObject(forKey: "base_id") as? String ?? ""
+        isEnabled = aDecoder.decodeObject(forKey: "isEnabled") as? Bool ?? false
+        rentalName = aDecoder.decodeObject(forKey: "rental_name") as? String ?? ""
     }
 
     /**

@@ -48,7 +48,7 @@ class ExperienceBookingViewController: BaseViewController,UITableViewDelegate, U
             self.showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
             
-        params = ["user_id": login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"date_id":self.DateId,"exp_id":self.expId,"host_id":self.exp_host_id]
+        params = ["user_id": login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","date_id":self.DateId,"exp_id":self.expId,"host_id":self.exp_host_id]
         
         
              
@@ -62,25 +62,25 @@ class ExperienceBookingViewController: BaseViewController,UITableViewDelegate, U
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     
-                    self.bookingID = ((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "Booking_no") as! String
-                    self.nameOfBoat = ((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "experience_title") as! String
+                    self.bookingID = ((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "Booking_no") as? String ?? ""
+                    self.nameOfBoat = ((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "experience_title") as? String ?? ""
                     
-                    self.ImageStr = ((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "exp_image") as! String
+                    self.ImageStr = ((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "exp_image") as? String ?? ""
                     
-                    self.noOfGuest = "\(((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "no_of_guest") as AnyObject) Guest"
+                    self.noOfGuest = "\(((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "no_of_guest") as AnyObject) Guest"
                     
-                    let starteDate = "\(((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "from_date") as AnyObject)"
-                    var EndDate = "\(((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "to_date") as AnyObject)"
+                    let starteDate = "\(((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "from_date") as AnyObject)"
+                    var EndDate = "\(((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "to_date") as AnyObject)"
                     self.dateOfBooking = starteDate + " - " + EndDate
-                    self.locationPlace = ((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "exp_address") as! String
-                    self.daycount = "\(((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "no_of_guest") as AnyObject)"
-                    self.CurrencySymbol = ((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "userCurSym") as! String
-                    self.unitPrice = "\(((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "exp_unit_price") as! String)"
-                    self.servicePrice = "\(((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "service_fee") as! AnyObject)"
-                    self.securityDeposit = "\(((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "security_deposit") as! String)"
-                    self.totalAmount = "\(((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "total") as AnyObject)"
+                    self.locationPlace = ((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "exp_address") as? String ?? ""
+                    self.daycount = "\(((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "no_of_guest") as AnyObject)"
+                    self.CurrencySymbol = ((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "userCurSym") as? String ?? ""
+                    self.unitPrice = "\(((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "exp_unit_price") as? String ?? "")"
+                    self.servicePrice = "\(((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "service_fee") as! AnyObject)"
+                    self.securityDeposit = "\(((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "security_deposit") as? String ?? "")"
+                    self.totalAmount = "\(((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "total") as AnyObject)"
                     
                     self.ChooseTimeArray.addObjects(from: (responseDict.object(forKey: "Exp_Schedules") as! NSArray) as! [Any])
                     self.tableViewList.reloadData()
@@ -89,7 +89,7 @@ class ExperienceBookingViewController: BaseViewController,UITableViewDelegate, U
                 }
                     
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -107,7 +107,7 @@ class ExperienceBookingViewController: BaseViewController,UITableViewDelegate, U
         self.showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
         
-        params = ["user_id": login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"date_id":self.DateId,"exp_id":self.expId,"host_id":self.exp_host_id,"booking_no":self.self.bookingID]
+        params = ["user_id": login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","date_id":self.DateId,"exp_id":self.expId,"host_id":self.exp_host_id,"booking_no":self.self.bookingID]
     
        
          
@@ -121,12 +121,12 @@ class ExperienceBookingViewController: BaseViewController,UITableViewDelegate, U
             let responseDict:NSDictionary = responseObject as! NSDictionary
             print(responseDict)
             self.hideActivityIndicator(uiView: self.view)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 
                 var PaymentMethodsArr = NSMutableArray()
                 
-               let BoookinId = "\(responseDict.value(forKey: "Booking_id") as! String)"
-                let TotalAMOUNT = "\(((responseDict.value(forKey: "exp_details") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "Total_Amount") as AnyObject)"
+               let BoookinId = "\(responseDict.value(forKey: "Booking_id") as? String ?? "")"
+                let TotalAMOUNT = "\(((responseDict.value(forKey: "exp_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "Total_Amount") as AnyObject)"
 
                 let Enquiry = responseDict.value(forKey: "Booking_id") as AnyObject
 
@@ -154,7 +154,7 @@ class ExperienceBookingViewController: BaseViewController,UITableViewDelegate, U
             }
                 
             else {
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -208,12 +208,12 @@ class ExperienceBookingViewController: BaseViewController,UITableViewDelegate, U
             let cell = tableView.dequeueReusableCell(withIdentifier: "TimingsValueTableViewCell", for: indexPath) as! TimingsValueTableViewCell
             cell.selectionStyle = .none
             
-            cell.labelSubHeading.text = (self.ChooseTimeArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "exp_title") as! String
+            cell.labelSubHeading.text = (self.ChooseTimeArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "exp_title") as? String ?? ""
 
-            cell.labelDate.text = (self.ChooseTimeArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "exp_schedule_date") as! String
+            cell.labelDate.text = (self.ChooseTimeArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "exp_schedule_date") as? String ?? ""
             
-            let StartTime = (self.ChooseTimeArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "exp_start_time") as! String
-                let EndTime = (self.ChooseTimeArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "exp_end_time") as! String
+            let StartTime = (self.ChooseTimeArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "exp_start_time") as? String ?? ""
+                let EndTime = (self.ChooseTimeArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "exp_end_time") as? String ?? ""
             cell.labelTime.text = StartTime + " - " + EndTime
           
 

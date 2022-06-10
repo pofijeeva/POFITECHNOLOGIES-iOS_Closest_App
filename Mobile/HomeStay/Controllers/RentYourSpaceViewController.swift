@@ -74,17 +74,17 @@ class RentYourSpaceViewController: BaseViewController  {
         dropDownArray = ["1","2","3","4","5"]
         placesClient = GMSPlacesClient.shared()
         locationManager.requestAlwaysAuthorization()
-        self.lblHeader.text = GlobalLanguageDictionary.object(forKey: "key_addListing") as! String
+        self.lblHeader.text = GlobalLanguageDictionary.object(forKey: "key_addListing") as? String ?? ""
         Network.shared.HTTP_POST_STRING_REQUEST_DELEGATE = self
         self.RentYourSpaceApi()
-        self.VerifyLbl.text = GlobalLanguageDictionary.object(forKey: "key_AddlistingInfo") as! String
+        self.VerifyLbl.text = GlobalLanguageDictionary.object(forKey: "key_AddlistingInfo") as? String ?? ""
         self.VerifyLbl.font = UIFont(name: SemiBoldFont, size: 15)
         self.verifyBtn.titleLabel?.font = UIFont(name: SemiBoldFont, size: 15)
-        self.verifyBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_verifyNow") as! String, for: .normal)
+        self.verifyBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_verifyNow") as? String ?? "", for: .normal)
         self.txtRoomType.placeholder = GlobalLanguageDictionary.object(forKey: "key_roomType") as!String
-        self.txtPropertyType.placeholder = GlobalLanguageDictionary.object(forKey: "Key_Workspace") as! String
+        self.txtPropertyType.placeholder = GlobalLanguageDictionary.object(forKey: "Key_Workspace") as? String ?? ""
         self.roomType = GlobalLanguageDictionary.object(forKey: "key_roomType") as!String
-        self.propertyType = GlobalLanguageDictionary.object(forKey: "Key_Workspace") as! String
+        self.propertyType = GlobalLanguageDictionary.object(forKey: "Key_Workspace") as? String ?? ""
     }
     override func viewWillAppear(_ animated: Bool) {
         self.lblHeader.font = UIFont(name: SemiBoldFont, size: 18)
@@ -94,7 +94,7 @@ class RentYourSpaceViewController: BaseViewController  {
         self.txtPropertyType.font = UIFont(name: RegularFont, size: 14)
         //self.roomTypeText.font = UIFont(name: RegularFont, size: 14)
         self.propertyName.font = UIFont(name: RegularFont, size: 14)
-        if login_session.object(forKey: "Language")as! String == "en"{
+        if login_session.object(forKey: "Language")as? String ?? "" == "en"{
             txtRoomType.textAlignment = .left
            // txtAccommodates.textAlignment = .left
         }else{
@@ -124,9 +124,9 @@ class RentYourSpaceViewController: BaseViewController  {
                     let responseDict:NSDictionary = json!
                     print(responseDict)
                     if responseDict.value(forKey: "code") as! NSNumber == 200 {
-                       self.phoneVerify = "\(((responseDict.value(forKey: "data") as! NSDictionary).object(forKey: "user_details") as! NSDictionary).object(forKey: "phone_verified") as AnyObject)"
-                       self.emailVerify = "\(((responseDict.value(forKey: "data") as! NSDictionary).object(forKey: "user_details") as! NSDictionary).object(forKey: "email_id_verified") as AnyObject)"
-                       self.idProofVerify = "\(((responseDict.value(forKey: "data") as! NSDictionary).object(forKey: "user_details") as! NSDictionary).object(forKey: "u_idproof_verified_status") as AnyObject)"
+                       self.phoneVerify = "\(((responseDict.value(forKey: "data") as? NSDictionary)?.object(forKey: "user_details") as? NSDictionary)?.object(forKey: "phone_verified") as AnyObject)"
+                       self.emailVerify = "\(((responseDict.value(forKey: "data") as? NSDictionary)?.object(forKey: "user_details") as? NSDictionary)?.object(forKey: "email_id_verified") as AnyObject)"
+                       self.idProofVerify = "\(((responseDict.value(forKey: "data") as? NSDictionary)?.object(forKey: "user_details") as? NSDictionary)?.object(forKey: "u_idproof_verified_status") as AnyObject)"
                         
                         if self.phoneVerify == "1" && self.emailVerify == "1" && self.idProofVerify == "1" {
                             
@@ -139,20 +139,20 @@ class RentYourSpaceViewController: BaseViewController  {
                     else
                     {
                         
-                         self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                         self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                      }
                     
                 
     }
     }
     func showVerifyAlert() {
-        let alert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_AddlistingInfo") as! String,         preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_AddlistingInfo") as? String ?? "",         preferredStyle: UIAlertControllerStyle.alert)
         
-//        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_cancel") as! String, style: UIAlertActionStyle.default, handler: { _ in
+//        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_cancel") as? String ?? "", style: UIAlertActionStyle.default, handler: { _ in
 //            //Cancel Action
 //            self.dismiss(animated: true, completion: nil)
 //        }))
-        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "key_verifyNow") as! String,
+        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "key_verifyNow") as? String ?? "",
                                       style: UIAlertActionStyle.default,
                                       handler: {(_: UIAlertAction!) in
                                         let navgt = self.storyboard?.instantiateViewController(withIdentifier: "NewProfileViewController") as? NewProfileViewController
@@ -187,14 +187,14 @@ class RentYourSpaceViewController: BaseViewController  {
                 let responseDict:NSDictionary = json!
                 print(responseDict)
                 if responseDict.value(forKey: "code") as! NSNumber == 200 {
-                    if let property = (responseDict.object(forKey: "data") as! NSDictionary).value(forKey: "property_type") as? NSArray {
+                    if let property = (responseDict.object(forKey: "data") as? NSDictionary)?.value(forKey: "property_type") as? NSArray {
                         if property.count != 0 {
                             self.propertyArray = [String]()
                             self.PROP_ARR = property
 
                             for i in 0..<property.count{
                            
-                                let propertyname = (property.object(at: i) as! NSDictionary).object(forKey: "option_name") as! String
+                                let propertyname = (property.object(at: i) as? NSDictionary)?.object(forKey: "option_name") as? String ?? ""
                                 self.propertyArray.append(propertyname)
 
                                        }
@@ -214,7 +214,7 @@ class RentYourSpaceViewController: BaseViewController  {
                         }
                     }
                     
-                    if let rooms = (responseDict.object(forKey: "data") as! NSDictionary).value(forKey: "room_type") as? NSArray {
+                    if let rooms = (responseDict.object(forKey: "data") as? NSDictionary)?.value(forKey: "room_type") as? NSArray {
                         if rooms.count != 0 {
                             self.room_ID = "Value"
                             self.RoomView.isHidden = false
@@ -222,7 +222,7 @@ class RentYourSpaceViewController: BaseViewController  {
                             self.ROOM_ARR = rooms
                             for i in 0..<rooms.count{
                            
-                                let propertyname = (rooms.object(at: i) as! NSDictionary).object(forKey: "typval_name") as! String
+                                let propertyname = (rooms.object(at: i) as? NSDictionary)?.object(forKey: "typval_name") as? String ?? ""
                                 self.roomArray.append(propertyname)
 
                                        }
@@ -268,16 +268,16 @@ class RentYourSpaceViewController: BaseViewController  {
                         }
                     }
                                         
-                    if let amenities = (responseDict.object(forKey: "data") as! NSDictionary).value(forKey: "amen_list") as? NSArray {
+                    if let amenities = (responseDict.object(forKey: "data") as? NSDictionary)?.value(forKey: "amen_list") as? NSArray {
                         UserDefaults.standard.set(amenities, forKey: "AmenitiesArray")
                     }
                     
-                    if let amenities1 = (responseDict.object(forKey: "data") as! NSDictionary).value(forKey: "addon_list") as? NSArray {
+                    if let amenities1 = (responseDict.object(forKey: "data") as? NSDictionary)?.value(forKey: "addon_list") as? NSArray {
                         UserDefaults.standard.set(amenities1, forKey: "AddonArray")
                     }
                     ListingAddonsArray.removeAllObjects()
-                                   ListingAddonsArray.addObjects(from: (responseDict.object(forKey: "data") as! NSDictionary).value(forKey: "addon_list") as? NSArray as! [Any])
-                    if let amenities = (responseDict.object(forKey: "data") as! NSDictionary).value(forKey: "listings") as? NSArray {
+                                   ListingAddonsArray.addObjects(from: (responseDict.object(forKey: "data") as? NSDictionary)?.value(forKey: "addon_list") as? NSArray as! [Any])
+                    if let amenities = (responseDict.object(forKey: "data") as? NSDictionary)?.value(forKey: "listings") as? NSArray {
                         UserDefaults.standard.set(amenities, forKey: "ListingsArray")
                     }
                     
@@ -288,13 +288,13 @@ class RentYourSpaceViewController: BaseViewController  {
                 {
                     
                     self.hideActivityIndicator(uiView: self.view)
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     
                 }
                 
             }}
         else{
-            self.showInformation(title: GlobalLanguageDictionary.object(forKey: "key_info") as! String, message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: GlobalLanguageDictionary.object(forKey: "key_info") as? String ?? "", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             
         }
     }
@@ -356,13 +356,13 @@ class RentYourSpaceViewController: BaseViewController  {
     }
     
     func showSimpleAlert() {
-        let alert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_areyousureLogin") as! String,         preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_areyousureLogin") as? String ?? "",         preferredStyle: UIAlertControllerStyle.alert)
         
-//        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_cancel") as! String, style: UIAlertActionStyle.default, handler: { _ in
+//        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_cancel") as? String ?? "", style: UIAlertActionStyle.default, handler: { _ in
 //            //Cancel Action
 //            self.dismiss(animated: true, completion: nil)
 //        }))
-        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_login") as! String,
+        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_login") as? String ?? "",
                                       style: UIAlertActionStyle.default,
                                       handler: {(_: UIAlertAction!) in
                                         let navgt = self.storyboard?.instantiateViewController(withIdentifier: "StartViewController") as? StartViewController
@@ -377,7 +377,7 @@ class RentYourSpaceViewController: BaseViewController  {
     @IBAction func act_Done(_ sender: UIButton) {
         //|| txtAccommodates.text?.count == 0
         if self.room_ID == ""  || txtPropertyType.text?.count == 0 {
-            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_pleasefillAllDetails") as! String)
+            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_pleasefillAllDetails") as? String ?? "")
         }else if self.txtAccommodates.text == "Empty" {
             self.showInformation(title: "Info", message: "We dont have any accommdates to list a Rental")
         }
@@ -386,9 +386,9 @@ class RentYourSpaceViewController: BaseViewController  {
                 self.showActivityIndicator(uiView: self.view)
                 print("PropertyName",self.txtPropertyType.text!)
                 for val in PROP_ARR{
-                    if ((val as! NSDictionary).value(forKey: "option_name") as? String) == self.txtPropertyType.text!
+                    if ((val as? NSDictionary)?.value(forKey: "option_name") as? String) == self.txtPropertyType.text!
                     {
-                        self.prop_ID =  "\(((val as! NSDictionary).value(forKey: "option_id") as AnyObject))"
+                        self.prop_ID =  "\(((val as? NSDictionary)?.value(forKey: "option_id") as AnyObject))"
                     }
                 }
                 
@@ -400,10 +400,10 @@ class RentYourSpaceViewController: BaseViewController  {
                     
                     
                     for val in ROOM_ARR {
-                        if ((val as! NSDictionary).value(forKey: "typval_name") as? String) == self.txtRoomType.text!
+                        if ((val as? NSDictionary)?.value(forKey: "typval_name") as? String) == self.txtRoomType.text!
                         {
-                            self.room_ID = "\(((val as! NSDictionary).value(forKey: "type_value_id") as AnyObject))"
-                          //  self.propertyid = "\(((val as! NSDictionary).value(forKey: "pro_type_id") as AnyObject))"
+                            self.room_ID = "\(((val as? NSDictionary)?.value(forKey: "type_value_id") as AnyObject))"
+                          //  self.propertyid = "\(((val as? NSDictionary)?.value(forKey: "pro_type_id") as AnyObject))"
                         }
                         
                         print("RoomType",self.txtRoomType.text!)
@@ -443,7 +443,7 @@ class RentYourSpaceViewController: BaseViewController  {
 //                    let responseDict:NSDictionary = responseObject as! NSDictionary
 //                    print(responseDict)
 //                    self.hideActivityIndicator(uiView: self.view)
-//                    if responseDict.value(forKey: "status") as! Int == 1 {
+//                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
 //                        let result = responseDict.object(forKey: "result") as! NSArray
 //                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ListingViewControllersBundle") as! ListingViewControllersBundle
 //                        Singleton.sharedInstance.rentYourSpace = RentYourSpaceModel(fromDictionary: responseDict as! [String : Any])
@@ -465,7 +465,7 @@ class RentYourSpaceViewController: BaseViewController  {
 //                    }
 //
 //                    else {
-//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
 //                    }
 //                }, failure: { (operation, error) -> Void in
 //                    DispatchQueue.main.async {
@@ -517,7 +517,7 @@ class RentYourSpaceViewController: BaseViewController  {
                     print(responseDict)
                     if responseDict.value(forKey: "code") as! NSNumber == 200 {
 //                        let result = responseDict.object(forKey: "result") as! NSArray
-                        let result = ((responseDict.object(forKey: "data") as! NSDictionary).value(forKey: "step1") as? NSDictionary)
+                        let result = ((responseDict.object(forKey: "data") as? NSDictionary)?.value(forKey: "step1") as? NSDictionary)
 //                        let step1 = result.value(forKey: "step1")
                         
                         
@@ -547,7 +547,7 @@ class RentYourSpaceViewController: BaseViewController  {
                     {
                         
                         self.hideActivityIndicator(uiView: self.view)
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                         
                     }
                     
@@ -555,7 +555,7 @@ class RentYourSpaceViewController: BaseViewController  {
 
             }
             else {
-                self.showInformation(title: GlobalLanguageDictionary.object(forKey: "key_info") as! String, message: "Please connect to internet")
+                self.showInformation(title: GlobalLanguageDictionary.object(forKey: "key_info") as? String ?? "", message: "Please connect to internet")
             }
         }
     }

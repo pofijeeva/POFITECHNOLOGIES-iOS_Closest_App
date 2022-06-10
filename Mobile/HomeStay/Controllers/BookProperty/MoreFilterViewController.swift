@@ -61,7 +61,7 @@
 //    var rommARR = [Option]()
 //    var amenitieARR = [Option]()
 //    var propertyARR = [Option]()
-//    var app_Currency = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as! String
+//    var app_Currency = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as? String ?? ""
 //    var isFromDate = "Arrive"
 //    var fromDate = Date()
 //    var toDate = Date()
@@ -296,7 +296,7 @@
 //        //            return UIColor.lightGray
 //        //        }
 //        //        //        for i in 0..<HideDates.count {
-//        //        //            let dayStr:String = HideDates[i] as! String
+//        //        //            let dayStr:String = HideDates[i] as? String ?? ""
 //        //        //            print(dayStr)
 //        //        //            if self.formatterNew1.string(from: date) == dayStr  {
 //        //        //                return UIColor.red
@@ -435,7 +435,7 @@
 //            print(FilterIDS)
 //            //FilterIDSA FilterIDS filterId
 //            
-//            let parameterStr = "mcity_name=\(cityName!)&f_p_min=\(self.minPrice)&f_p_max=\(self.maxPrice)&f_room_type=\(FilterIDS)&f_home_type=\(filterId)&f_list_type=\(self.FilterIDSA)&f_date_arrive=\(self.arriveDate)&f_date_depart=\(self.departDate)&base_id=\(id)&f_guest=\(self.guestCount)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&user_id=\(UserID)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&instant_pay=\(InstantStatus)"
+//            let parameterStr = "mcity_name=\(cityName!)&f_p_min=\(self.minPrice)&f_p_max=\(self.maxPrice)&f_room_type=\(FilterIDS)&f_home_type=\(filterId)&f_list_type=\(self.FilterIDSA)&f_date_arrive=\(self.arriveDate)&f_date_depart=\(self.departDate)&base_id=\(id)&f_guest=\(self.guestCount)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&user_id=\(UserID)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&instant_pay=\(InstantStatus)"
 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: REQ_PROPERTY_DETAIL_PAGE, APIKEY: "REQ_PROPERTY_DETAIL_PAGE")
 //            print("ApplyFilters", parameterStr)
 //            
@@ -444,7 +444,7 @@
 //        }
 //        else
 //        {
-//            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+//            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
 //        }
 //    }
 //    
@@ -472,12 +472,12 @@
 //        {
 //            showActivityIndicator(uiView: self.view)
 //            let id = Singleton.sharedInstance.selectedCategory!
-//            let parameterStr = "mcity_name=\(cityName!)&f_p_min=&f_p_max=&f_room_type=\(roomChildID)&f_home_type=\(HomeString)&f_list_type=\(listChildID)&f_date_arrive=\(self.arriveDate)&f_date_depart=\(self.departDate)&base_id=\(id)&f_guest=&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&user_id=\(login_session.value(forKey: "UserId")!)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
+//            let parameterStr = "mcity_name=\(cityName!)&f_p_min=&f_p_max=&f_room_type=\(roomChildID)&f_home_type=\(HomeString)&f_list_type=\(listChildID)&f_date_arrive=\(self.arriveDate)&f_date_depart=\(self.departDate)&base_id=\(id)&f_guest=&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&user_id=\(login_session.value(forKey: "UserId")!)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: REQ_PROPERTY_DETAIL_PAGE, APIKEY: "REQ_PROPERTY_DETAIL_PAGE")
 //        }
 //        else
 //        {
-//            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+//            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
 //        }
 //    }
 //    @objc func aminitiesSelected(sender: UIButton)
@@ -488,14 +488,14 @@
 //        {
 //            showActivityIndicator(uiView: self.view)
 //            let id = Singleton.sharedInstance.selectedCategory!
-//            let parameterStr = "mcity_name=\(cityName!)&f_p_min=&f_p_max=&f_room_type=\(roomChildID)&f_home_type=\(HomeString)&f_list_type=\(listChildID)&f_date_arrive=\(self.arriveDate)&f_date_depart=\(self.departDate)&base_id=\(id)&f_guest=&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&user_id=\(login_session.value(forKey: "UserId")!)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
+//            let parameterStr = "mcity_name=\(cityName!)&f_p_min=&f_p_max=&f_room_type=\(roomChildID)&f_home_type=\(HomeString)&f_list_type=\(listChildID)&f_date_arrive=\(self.arriveDate)&f_date_depart=\(self.departDate)&base_id=\(id)&f_guest=&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&user_id=\(login_session.value(forKey: "UserId")!)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
 //            print(parameterStr)
 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: REQ_PROPERTY_DETAIL_PAGE, APIKEY: "REQ_PROPERTY_DETAIL_PAGE")
 //            
 //        }
 //        else
 //        {
-//            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+//            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
 //        }
 //    }
 //}

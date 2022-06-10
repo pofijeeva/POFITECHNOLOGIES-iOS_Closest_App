@@ -57,7 +57,7 @@ class CouponAvailabilityViewController: BaseViewController {
 ////            print(parameterStr)
 //
 //
-//            let parameterStr1 = "currency_code=\(login_session.value(forKey: "APP_CURRENCY")as! String)&user_id=\(login_session.value(forKey: "UserId")!)"
+//            let parameterStr1 = "currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&user_id=\(login_session.value(forKey: "UserId")!)"
 //
 //            Network.shared.POSTRequest(withParameterString: parameterStr1, serviceURL: WALLET_AVAILABLE_API, APIKEY: "WALLET_AVAILABLE_API")
 //            print(parameterStr1)
@@ -66,7 +66,7 @@ class CouponAvailabilityViewController: BaseViewController {
 //        }
 //        else
 //        {
-//            self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+//            self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
 //        }
         // Do any additional setup after loading the view.
     }
@@ -77,7 +77,7 @@ class CouponAvailabilityViewController: BaseViewController {
            showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
          
-            params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as! String,"user_id":login_session.value(forKey: "UserId")!]
+            params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","user_id":login_session.value(forKey: "UserId")!]
             print(params)
             
             let manager = AFHTTPSessionManager()
@@ -90,7 +90,7 @@ class CouponAvailabilityViewController: BaseViewController {
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print("Coupon",responseDict)
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                  
                     let userDetailsArr = responseDict.value(forKey: "user_wallet") as! NSArray
                   if  userDetailsArr.count == 0
@@ -125,7 +125,7 @@ class CouponAvailabilityViewController: BaseViewController {
                 }
                     
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -138,12 +138,12 @@ class CouponAvailabilityViewController: BaseViewController {
             
             //            showActivityIndicator(uiView: self.view)
             //            print(login_session.value(forKey: "UserId")!)
-            //            let parameterStr = "lang_code=\(lanuguage_selection.value(forKey: "language") as? String ?? "en")&currency_code=\(login_session.value(forKey: "APP_CURRENCY")as! String)&base_id=\(id)&userid=\(login_session.value(forKey: "UserId")!)"
+            //            let parameterStr = "lang_code=\(lanuguage_selection.value(forKey: "language") as? String ?? "en")&currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&base_id=\(id)&userid=\(login_session.value(forKey: "UserId")!)"
             //            Network.shared.GetRequest(withParameterString: parameterStr, serviceURL: REQ_HOMEPAGE, APIKEY: "HOME_API")
             //            print(parameterStr)
             
         } else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
     
@@ -155,7 +155,7 @@ class CouponAvailabilityViewController: BaseViewController {
            showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
          
-            params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as! String,"user_id":login_session.value(forKey: "UserId")!]
+            params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","user_id":login_session.value(forKey: "UserId")!]
             print(params)
             
             let manager = AFHTTPSessionManager()
@@ -168,7 +168,7 @@ class CouponAvailabilityViewController: BaseViewController {
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print("Coupon",responseDict)
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     
                     let mod = CouponDetailsJson(fromDictionary: responseDict as! [String : Any])
                     Singleton.sharedInstance.couponDetailsJson = mod
@@ -189,7 +189,7 @@ class CouponAvailabilityViewController: BaseViewController {
                 }
                     
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -202,12 +202,12 @@ class CouponAvailabilityViewController: BaseViewController {
             
             //            showActivityIndicator(uiView: self.view)
             //            print(login_session.value(forKey: "UserId")!)
-            //            let parameterStr = "lang_code=\(lanuguage_selection.value(forKey: "language") as? String ?? "en")&currency_code=\(login_session.value(forKey: "APP_CURRENCY")as! String)&base_id=\(id)&userid=\(login_session.value(forKey: "UserId")!)"
+            //            let parameterStr = "lang_code=\(lanuguage_selection.value(forKey: "language") as? String ?? "en")&currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&base_id=\(id)&userid=\(login_session.value(forKey: "UserId")!)"
             //            Network.shared.GetRequest(withParameterString: parameterStr, serviceURL: REQ_HOMEPAGE, APIKEY: "HOME_API")
             //            print(parameterStr)
             
         } else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
     
@@ -375,7 +375,7 @@ else{
                 cell?.bgImgView.isHidden = false
                 cell?.BaseView.layer.borderWidth = 0
                 cell?.BaseView.layer.cornerRadius = 0
-                    //(dataArray![0] as! NSDictionary).object(forKey: "product_title")as? String
+                    //(dataArray![0] as? NSDictionary)?.object(forKey: "product_title")as? String
             }else{
                 var tempStr = String()
                 for i in 0..<dataArray.count{

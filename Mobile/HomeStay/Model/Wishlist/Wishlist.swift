@@ -24,9 +24,9 @@ class Wishlist : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        wishlistId = dictionary["wishlist_id"] as? Int
-        wishlistImage = dictionary["wishlist_image"] as? String
-        wishlistTitle = dictionary["wishlist_title"] as? String
+        wishlistId = dictionary["wishlist_id"] as? Int ?? 0 ?? 0
+        wishlistImage = dictionary["wishlist_image"] as? String ?? ""
+        wishlistTitle = dictionary["wishlist_title"] as? String ?? ""
         hotelDetails = [HotelDetail]()
         if let hotelDetailsArray = dictionary["hotel_details"] as? [[String:Any]]{
             for dic in hotelDetailsArray{
@@ -74,9 +74,9 @@ class Wishlist : NSObject, NSCoding{
         resortDetails = aDecoder.decodeObject(forKey: "resort_details") as? [AnyObject]
         restaurantDetails = aDecoder.decodeObject(forKey: "restaurant_details") as? [AnyObject]
         vansDetails = aDecoder.decodeObject(forKey: "vans_details") as? [AnyObject]
-        wishlistId = aDecoder.decodeObject(forKey: "wishlist_id") as? Int
-        wishlistImage = aDecoder.decodeObject(forKey: "wishlist_image") as? String
-        wishlistTitle = aDecoder.decodeObject(forKey: "wishlist_title") as? String
+        wishlistId = aDecoder.decodeObject(forKey: "wishlist_id") as? Int ?? 0
+        wishlistImage = aDecoder.decodeObject(forKey: "wishlist_image") as? String ?? ""
+        wishlistTitle = aDecoder.decodeObject(forKey: "wishlist_title") as? String ?? ""
     }
 
     /**

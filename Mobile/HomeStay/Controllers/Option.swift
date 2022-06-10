@@ -19,11 +19,11 @@ class Option : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        childId = dictionary["child_id"] as? Int
-        childImage = dictionary["child_image"] as? String
-        childName = dictionary["child_name"] as? String
-        parentId = dictionary["parent_id"] as? String
-        parentName = dictionary["parent_name"] as? String
+        childId = dictionary["child_id"] as? Int ?? 0
+        childImage = dictionary["child_image"] as? String ?? ""
+        childName = dictionary["child_name"] as? String ?? ""
+        parentId = dictionary["parent_id"] as? String ?? ""
+        parentName = dictionary["parent_name"] as? String ?? ""
     }
 
     /**
@@ -56,11 +56,11 @@ class Option : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        childId = aDecoder.decodeObject(forKey: "child_id") as? Int
-        childImage = aDecoder.decodeObject(forKey: "child_image") as? String
-        childName = aDecoder.decodeObject(forKey: "child_name") as? String
-        parentId = aDecoder.decodeObject(forKey: "parent_id") as? String
-        parentName = aDecoder.decodeObject(forKey: "parent_name") as? String
+        childId = aDecoder.decodeObject(forKey: "child_id") as? Int ?? 0
+        childImage = aDecoder.decodeObject(forKey: "child_image") as? String ?? ""
+        childName = aDecoder.decodeObject(forKey: "child_name") as? String ?? ""
+        parentId = aDecoder.decodeObject(forKey: "parent_id") as? String ?? ""
+        parentName = aDecoder.decodeObject(forKey: "parent_name") as? String ?? ""
     }
 
     /**

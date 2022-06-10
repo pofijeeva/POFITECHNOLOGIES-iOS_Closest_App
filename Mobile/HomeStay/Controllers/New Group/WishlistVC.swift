@@ -55,13 +55,13 @@ class WishlistVC: BaseViewController {
     }
     
     func showSimpleAlert() {
-        let alert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_areyousureLogin") as! String,         preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_areyousureLogin") as? String ?? "",         preferredStyle: UIAlertControllerStyle.alert)
         
-//        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_cancel") as! String, style: UIAlertActionStyle.default, handler: { _ in
+//        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_cancel") as? String ?? "", style: UIAlertActionStyle.default, handler: { _ in
 //            //Cancel Action
 //            self.dismiss(animated: true, completion: nil)
 //        }))
-        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_login") as! String,
+        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_login") as? String ?? "",
                                       style: UIAlertActionStyle.default,
                                       handler: {(_: UIAlertAction!) in
                                         let navgt = self.storyboard?.instantiateViewController(withIdentifier: "StartViewController") as? StartViewController
@@ -124,7 +124,7 @@ class WishlistVC: BaseViewController {
             }
             
         } else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         
         
@@ -174,7 +174,7 @@ class WishlistVC: BaseViewController {
             }
         }
         else {
-            self.showInformation(title: GlobalLanguageDictionary.object(forKey: "key_info") as! String, message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: GlobalLanguageDictionary.object(forKey: "key_info") as? String ?? "", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
 
     }

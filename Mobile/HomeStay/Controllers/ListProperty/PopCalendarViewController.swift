@@ -171,19 +171,19 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
         self.BookedLbl.font = UIFont(name: SemiBoldFont, size: 14)
         self.UnavailableLbl.font = UIFont(name: SemiBoldFont, size: 14)
         self.AddBtn.setImage(UIImage(named: "tick-off")?.maskWithColor(color: AppColor), for: .normal)
-        self.BookedLbl.text = GlobalLanguageDictionary.object(forKey: "key_booked") as! String
-        self.availableLbl.text = GlobalLanguageDictionary.object(forKey: "key_specialPrice") as! String
-        self.UnavailableLbl.text = GlobalLanguageDictionary.object(forKey: "key_unavailable") as! String
-        self.StartDateLbl.text = GlobalLanguageDictionary.object(forKey: "key_startDate") as! String
-        self.EndDateLbl.text = GlobalLanguageDictionary.object(forKey: "key_endDate") as! String
-        self.txtFromDate.placeholder = GlobalLanguageDictionary.object(forKey: "key_startDate") as! String
-        self.txtToDate.placeholder = GlobalLanguageDictionary.object(forKey: "key_endDate") as! String
-        self.StatusLbl.text = GlobalLanguageDictionary.object(forKey: "key_status") as! String
-        self.txt_Booking.placeholder = GlobalLanguageDictionary.object(forKey: "key_booking") as! String
-        self.PriceLbl.text = GlobalLanguageDictionary.object(forKey: "key_priceusd") as! String
-        self.btnSave.setTitle(GlobalLanguageDictionary.object(forKey: "key_save") as! String, for: .normal)
-        self.btnCancel.setTitle(GlobalLanguageDictionary.object(forKey: "key_capscancel") as! String, for: .normal)
-        self.NextBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_capscancel") as! String, for: .normal)
+        self.BookedLbl.text = GlobalLanguageDictionary.object(forKey: "key_booked") as? String ?? ""
+        self.availableLbl.text = GlobalLanguageDictionary.object(forKey: "key_specialPrice") as? String ?? ""
+        self.UnavailableLbl.text = GlobalLanguageDictionary.object(forKey: "key_unavailable") as? String ?? ""
+        self.StartDateLbl.text = GlobalLanguageDictionary.object(forKey: "key_startDate") as? String ?? ""
+        self.EndDateLbl.text = GlobalLanguageDictionary.object(forKey: "key_endDate") as? String ?? ""
+        self.txtFromDate.placeholder = GlobalLanguageDictionary.object(forKey: "key_startDate") as? String ?? ""
+        self.txtToDate.placeholder = GlobalLanguageDictionary.object(forKey: "key_endDate") as? String ?? ""
+        self.StatusLbl.text = GlobalLanguageDictionary.object(forKey: "key_status") as? String ?? ""
+        self.txt_Booking.placeholder = GlobalLanguageDictionary.object(forKey: "key_booking") as? String ?? ""
+        self.PriceLbl.text = GlobalLanguageDictionary.object(forKey: "key_priceusd") as? String ?? ""
+        self.btnSave.setTitle(GlobalLanguageDictionary.object(forKey: "key_save") as? String ?? "", for: .normal)
+        self.btnCancel.setTitle(GlobalLanguageDictionary.object(forKey: "key_capscancel") as? String ?? "", for: .normal)
+        self.NextBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_capscancel") as? String ?? "", for: .normal)
 
         setData()
 //     dropDownBtn.currentTitle = "Select"
@@ -261,7 +261,7 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
         //                self.checkBoxBtn.setImage(UIImage(named: "checkbox-2"), for: .normal)
         //            }
         //            storedDatesArray = seasonalDatesArray.value(forKey: "date") as! NSArray
-        //            let amountNum:NSNumber = (seasonalDatesArray[0] as! NSDictionary).value(forKey: "price") as! NSNumber
+        //            let amountNum:NSNumber = (seasonalDatesArray[0] as? NSDictionary)?.value(forKey: "price") as! NSNumber
         //            amountString = "\(String(describing: amountNum))"
         //            enterAmountTxtFld.text = amountString
         //        }
@@ -485,7 +485,7 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
             if Reachability()!.isReachable {
 //                self.ListingActivityDelegate.showActivity()
                 showActivityIndicator(uiView: self.view)
-                //            let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY")as! String)&device_type=android&user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(self.PropertyID)&calendar_checked=sometimes&base_id=\(Singleton.sharedInstance.selectedCategory!)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&seasonal_list=\(self.dateFormatJsonString)"
+                //            let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&device_type=android&user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(self.PropertyID)&calendar_checked=sometimes&base_id=\(Singleton.sharedInstance.selectedCategory!)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&seasonal_list=\(self.dateFormatJsonString)"
                 //                               print(parameterStr)
                 //                Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: SAVE_CALENDER_LISTING, APIKEY: "SAVE_CALENDER_LISTING")
                 
@@ -508,7 +508,7 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
                 
                 print(params)
                 
-//                let parameterStrs = ["currency_code": "\((login_session.value(forKey: "APP_CURRENCY")as! String))",
+//                let parameterStrs = ["currency_code": "\((login_session.value(forKey: "APP_CURRENCY")as? String ?? ""))",
 //                                     "device_type":"android",
 //                                     "user_id" : "\(login_session.value(forKey: "UserId")!)",
 //                                     "property_id": "\(self.PropertyID)",
@@ -545,7 +545,7 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
 //                        print(response)
 //                        let responseDict:NSDictionary = response.result.value as! NSDictionary
 //                        print(responseDict)
-//                        if responseDict.value(forKey: "status") as! Int == 1 {
+//                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
 //                            self.StepSaved = "True"
 //
 //                            for d in self.fsCalendarView.selectedDates {
@@ -577,7 +577,7 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
 //                        else {
 //                            self.hideActivityIndicator(uiView: self.view)
 //
-//                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+//                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
 //                        }
 //
 //                        break
@@ -589,7 +589,7 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
                 
                 
 //                showActivityIndicator(uiView: self.view)
-                //                let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY")as! String)&device_type=android&user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(self.PropertyID)&calendar_checked=sometimes&base_id=\(Singleton.sharedInstance.selectedCategory!)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&seasonal_list=\(self.dateFormatJsonString)"
+                //                let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&device_type=android&user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(self.PropertyID)&calendar_checked=sometimes&base_id=\(Singleton.sharedInstance.selectedCategory!)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&seasonal_list=\(self.dateFormatJsonString)"
                 //                print(parameterStr)
                 //
                 //
@@ -605,7 +605,7 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
                 //                    let responseDict:NSDictionary = responseObject as! NSDictionary
                 //                    print(responseDict)
                 //                   self.ListingActivityDelegate?.hideActivity()
-                //                    if responseDict.value(forKey: "status") as! Int == 1 {
+                //                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 //                        let mod = RentYourSpaceModel(fromDictionary: responseDict as! [String : Any])
                 //                        UserDefaults.standard.set(responseDict.value(forKey: "attribute"), forKey: "AmenitiesArray")
                 //                        Singleton.sharedInstance.rentYourSpace = mod
@@ -617,7 +617,7 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
                 //                    else {
                 //                        self.hideActivityIndicator(uiView: self.view)
                 //
-                //                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                //                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 //                    }
                 //                }, failure: { (operation, error) -> Void in
                 //                    DispatchQueue.main.async {
@@ -630,7 +630,7 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
                 
                 // Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: SAVE_CALENDER_LISTING, APIKEY: "SAVE_CALENDER_LISTING")
             }else {
-                showInformation(title: "Network Error", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as! String)
+                showInformation(title: "Network Error", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
             }
         }
         else {
@@ -681,8 +681,8 @@ extension PopCalendarViewController: FSCalendarDelegate, FSCalendarDataSource, F
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
         //       r
         for i in 0..<seasonalDatesArray.count {
-            let dayStr:String = (seasonalDatesArray[i] as! NSDictionary).object(forKey: "date") as! String
-            let dayStatus = (seasonalDatesArray[i] as! NSDictionary).object(forKey: "status") as! Int
+            let dayStr:String = (seasonalDatesArray[i] as? NSDictionary)?.object(forKey: "date") as? String ?? ""
+            let dayStatus = (seasonalDatesArray[i] as? NSDictionary)?.object(forKey: "status") as? Int ?? 0
             if self.formatter.string(from: date) == dayStr  {
                 
                 if dayStatus == 1 {
@@ -824,8 +824,8 @@ extension PopCalendarViewController: FSCalendarDelegate, FSCalendarDataSource, F
         selectedDateString = datesMutArray.componentsJoined(by: ",")
         print(selectedDateString)
         self.popupContentContainerView.isHidden = false
-        self.StartDateValueLbl.text = datesMutArray.firstObject as! String
-        self.EndDateValueLbl.text = datesMutArray.lastObject as! String
+        self.StartDateValueLbl.text = datesMutArray.firstObject as? String ?? ""
+        self.EndDateValueLbl.text = datesMutArray.lastObject as? String ?? ""
         
         UserDefaults.standard.set(datesMutArray, forKey: "RangeDatesArray")
         UserDefaults.standard.set(selectedDateString, forKey: "RangeDates")
@@ -864,31 +864,34 @@ extension PopCalendarViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "calenderCell") as? CalendarListTableViewCell
-        let calList = Singleton.sharedInstance.rentYourSpace.result.first?.step3.calendarList[indexPath.row]
-        cell?.updateDetails(calList)
         
-        cell?.lblSNo.text = GlobalLanguageDictionary.object(forKey: "key_sno") as! String
-        cell?.lblType.text = GlobalLanguageDictionary.object(forKey: "key_type") as! String
-        cell?.lblCheckIn.text = GlobalLanguageDictionary.object(forKey: "key_fromDate") as! String
-        cell?.lblCheckOut.text = GlobalLanguageDictionary.object(forKey: "key_todate") as! String
-        cell?.lblPrice.text = GlobalLanguageDictionary.object(forKey: "Key_sprice") as! String
-        
-        cell?.lblSNoValue.text = String(format: "%d", indexPath.row)
-        cell?.lblSNoValue.font = UIFont(name: SemiBoldFont, size: 14)
-        cell?.lblSNo.font = UIFont(name: SemiBoldFont, size: 14)
-        cell?.lblType.font = UIFont(name: SemiBoldFont, size: 14)
-        cell?.lblTypeValue.font = UIFont(name: SemiBoldFont, size: 14)
-        cell?.lblCheckIn.font = UIFont(name: SemiBoldFont, size: 14)
-        cell?.lblCheckInValue.font = UIFont(name: SemiBoldFont, size: 14)
-        
-        cell?.lblCheckOut.font = UIFont(name: SemiBoldFont, size: 14)
-        cell?.lblCheckOutValue.font = UIFont(name: SemiBoldFont, size: 14)
-        
-        cell?.lblPrice.font = UIFont(name: SemiBoldFont, size: 14)
-        cell?.lblPriceValue.font = UIFont(name: SemiBoldFont, size: 14)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "calenderCell") as? CalendarListTableViewCell else { return UITableViewCell() }
 
-        return cell ?? UITableViewCell()
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "calenderCell") as? CalendarListTableViewCell
+        let calList = Singleton.sharedInstance.rentYourSpace.result.first?.step3.calendarList[indexPath.row]
+        cell.updateDetails(calList)
+        
+        cell.lblSNo.text = GlobalLanguageDictionary.object(forKey: "key_sno") as? String ?? ""
+        cell.lblType.text = GlobalLanguageDictionary.object(forKey: "key_type") as? String ?? ""
+        cell.lblCheckIn.text = GlobalLanguageDictionary.object(forKey: "key_fromDate") as? String ?? ""
+        cell.lblCheckOut.text = GlobalLanguageDictionary.object(forKey: "key_todate") as? String ?? ""
+        cell.lblPrice.text = GlobalLanguageDictionary.object(forKey: "Key_sprice") as? String ?? ""
+        
+        cell.lblSNoValue.text = String(format: "%d", indexPath.row)
+        cell.lblSNoValue.font = UIFont(name: SemiBoldFont, size: 14)
+        cell.lblSNo.font = UIFont(name: SemiBoldFont, size: 14)
+        cell.lblType.font = UIFont(name: SemiBoldFont, size: 14)
+        cell.lblTypeValue.font = UIFont(name: SemiBoldFont, size: 14)
+        cell.lblCheckIn.font = UIFont(name: SemiBoldFont, size: 14)
+        cell.lblCheckInValue.font = UIFont(name: SemiBoldFont, size: 14)
+        
+        cell.lblCheckOut.font = UIFont(name: SemiBoldFont, size: 14)
+        cell.lblCheckOutValue.font = UIFont(name: SemiBoldFont, size: 14)
+        
+        cell.lblPrice.font = UIFont(name: SemiBoldFont, size: 14)
+        cell.lblPriceValue.font = UIFont(name: SemiBoldFont, size: 14)
+
+        return cell
     }
 }
 

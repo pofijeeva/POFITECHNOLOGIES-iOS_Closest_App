@@ -26,18 +26,18 @@ class UserDetail : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        descriptionField = dictionary["description"] as? String
-        dob = dictionary["dob"] as? String
-        firstname = dictionary["firstname"] as? String
-        gender = dictionary["gender"] as? String
-        idVerified = dictionary["id_verified"] as? String
-        image = dictionary["image"] as? String
-        isVerified = dictionary["is_verified"] as? String
-        lastname = dictionary["lastname"] as? String
-        phVerified = dictionary["ph_verified"] as? String
-        phoneNo = dictionary["phone_no"] as? String
-        since = dictionary["since"] as? String
-        userName = dictionary["user_name"] as? String
+        descriptionField = dictionary["description"] as? String ?? ""
+        dob = dictionary["dob"] as? String ?? ""
+        firstname = dictionary["firstname"] as? String ?? ""
+        gender = dictionary["gender"] as? String ?? ""
+        idVerified = dictionary["id_verified"] as? String ?? ""
+        image = dictionary["image"] as? String ?? ""
+        isVerified = dictionary["is_verified"] as? String ?? ""
+        lastname = dictionary["lastname"] as? String ?? ""
+        phVerified = dictionary["ph_verified"] as? String ?? ""
+        phoneNo = dictionary["phone_no"] as? String ?? ""
+        since = dictionary["since"] as? String ?? ""
+        userName = dictionary["user_name"] as? String ?? ""
     }
 
     /**
@@ -91,18 +91,18 @@ class UserDetail : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        descriptionField = aDecoder.decodeObject(forKey: "description") as? String
-        dob = aDecoder.decodeObject(forKey: "dob") as? String
-        firstname = aDecoder.decodeObject(forKey: "firstname") as? String
-        gender = aDecoder.decodeObject(forKey: "gender") as? String
-        idVerified = aDecoder.decodeObject(forKey: "id_verified") as? String
-        image = aDecoder.decodeObject(forKey: "image") as? String
-        isVerified = aDecoder.decodeObject(forKey: "is_verified") as? String
-        lastname = aDecoder.decodeObject(forKey: "lastname") as? String
-        phVerified = aDecoder.decodeObject(forKey: "ph_verified") as? String
-        phoneNo = aDecoder.decodeObject(forKey: "phone_no") as? String
-        since = aDecoder.decodeObject(forKey: "since") as? String
-        userName = aDecoder.decodeObject(forKey: "user_name") as? String
+        descriptionField = aDecoder.decodeObject(forKey: "description") as? String ?? ""
+        dob = aDecoder.decodeObject(forKey: "dob") as? String ?? ""
+        firstname = aDecoder.decodeObject(forKey: "firstname") as? String ?? ""
+        gender = aDecoder.decodeObject(forKey: "gender") as? String ?? ""
+        idVerified = aDecoder.decodeObject(forKey: "id_verified") as? String ?? ""
+        image = aDecoder.decodeObject(forKey: "image") as? String ?? ""
+        isVerified = aDecoder.decodeObject(forKey: "is_verified") as? String ?? ""
+        lastname = aDecoder.decodeObject(forKey: "lastname") as? String ?? ""
+        phVerified = aDecoder.decodeObject(forKey: "ph_verified") as? String ?? ""
+        phoneNo = aDecoder.decodeObject(forKey: "phone_no") as? String ?? ""
+        since = aDecoder.decodeObject(forKey: "since") as? String ?? ""
+        userName = aDecoder.decodeObject(forKey: "user_name") as? String ?? ""
     }
 
     /**

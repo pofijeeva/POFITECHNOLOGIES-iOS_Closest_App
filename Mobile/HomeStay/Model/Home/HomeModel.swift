@@ -19,9 +19,9 @@ class HomeModel : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        baseId = dictionary["base_id"] as? Int
-        message = dictionary["message"] as? String
-        status = dictionary["status"] as? Int
+        baseId = dictionary["base_id"] as? Int ?? 0
+        message = dictionary["message"] as? String ?? ""
+        status = dictionary["status"] as? Int ?? 0
         currencyList = [CurrencyList]()
         if let currencyListArray = dictionary["currency_list"] as? [[String:Any]]{
             for dic in currencyListArray{
@@ -76,11 +76,11 @@ class HomeModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        baseId = aDecoder.decodeObject(forKey: "base_id") as? Int
+        baseId = aDecoder.decodeObject(forKey: "base_id") as? Int ?? 0
         currencyList = aDecoder.decodeObject(forKey: "currency_list") as? [CurrencyList]
         homePageDetails = aDecoder.decodeObject(forKey: "fav_destination_list") as? [HomePageDetail]
-        message = aDecoder.decodeObject(forKey: "message") as? String
-        status = aDecoder.decodeObject(forKey: "status") as? Int
+        message = aDecoder.decodeObject(forKey: "message") as? String ?? ""
+        status = aDecoder.decodeObject(forKey: "status") as? Int ?? 0
     }
 
     /**

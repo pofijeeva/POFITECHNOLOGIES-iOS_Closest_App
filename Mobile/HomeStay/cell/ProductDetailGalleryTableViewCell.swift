@@ -43,7 +43,7 @@ class ProductDetailGalleryTableViewCell: UITableViewCell,UICollectionViewDelegat
           // let url = URL(string:Singleton.sharedInstance.PropertyDetail.productImage[indexPath.row].productImage!)
             
             
-            let url = URL(string:(self.photoGallery.object(at: indexPath.row) as! NSDictionary).object(forKey: "product_image") as! String)
+            let url = URL(string:(self.photoGallery.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "product_image") as? String ?? "")
                      //cell!.imgSlider.kf.setImage(with: url)
                      cell!.ProductImage.kf.setImage(with: url, placeholder: UIImage.init(named: "testImage.jpg"), options: nil, progressBlock: nil, completionHandler: nil)
             if self.photoGallery.count < 4 {

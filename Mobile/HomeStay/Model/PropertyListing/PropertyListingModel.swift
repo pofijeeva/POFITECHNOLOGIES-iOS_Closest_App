@@ -18,8 +18,8 @@ class PropertyListingModel : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        message = dictionary["message"] as? String
-        status = dictionary["status"] as? Int
+        message = dictionary["message"] as? String ?? ""
+        status = dictionary["status"] as? Int ?? 0 ?? 0
         myReservation = [MyReservation]()
         if let myReservationArray = dictionary["my_reservation"] as? [[String:Any]]{
             for dic in myReservationArray{
@@ -71,10 +71,10 @@ class PropertyListingModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        message = aDecoder.decodeObject(forKey: "message") as? String
+        message = aDecoder.decodeObject(forKey: "message") as? String ?? ""
         myReservation = aDecoder.decodeObject(forKey: "my_reservation") as? [MyReservation]
         propertyListing = aDecoder.decodeObject(forKey: "property_listing") as? [PropertyListing]
-        status = aDecoder.decodeObject(forKey: "status") as? Int
+        status = aDecoder.decodeObject(forKey: "status") as? Int ?? 0
     }
 
     /**

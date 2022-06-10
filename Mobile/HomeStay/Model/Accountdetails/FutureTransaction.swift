@@ -28,14 +28,14 @@ class FutureTransaction : NSObject, NSCoding{
      */
     init(fromDictionary dictionary: [String:Any]){
         bookingno = dictionary["bookingno"] as? AnyObject
-        currencyCode = dictionary["currency_code"] as? String
-        currencySymbol = dictionary["currency_symbol"] as? String
-        dateadded = dictionary["dateadded"] as? String
-        firstname = dictionary["firstname"] as? String
+        currencyCode = dictionary["currency_code"] as? String ?? ""
+        currencySymbol = dictionary["currency_symbol"] as? String ?? ""
+        dateadded = dictionary["dateadded"] as? String ?? ""
+        firstname = dictionary["firstname"] as? String ?? ""
         hostFee = dictionary["host_fee"] as? Int
         payableAmount = dictionary["payable_amount"] as? AnyObject
         propertyPrice = dictionary["property_price"] as? Int
-        propertyTitle = dictionary["property_title"] as? String
+        propertyTitle = dictionary["property_title"] as? String ?? ""
         securityDeposit = dictionary["security_deposit"] as? AnyObject
         serviceFee = dictionary["service_fee"] as? AnyObject
         subTotal = dictionary["sub_total"] as? AnyObject
@@ -97,14 +97,14 @@ class FutureTransaction : NSObject, NSCoding{
     @objc required init(coder aDecoder: NSCoder)
     {
         bookingno = aDecoder.decodeObject(forKey: "bookingno") as? AnyObject
-        currencyCode = aDecoder.decodeObject(forKey: "currency_code") as? String
-        currencySymbol = aDecoder.decodeObject(forKey: "currency_symbol") as? String
-        dateadded = aDecoder.decodeObject(forKey: "dateadded") as? String
-        firstname = aDecoder.decodeObject(forKey: "firstname") as? String
+        currencyCode = aDecoder.decodeObject(forKey: "currency_code") as? String ?? ""
+        currencySymbol = aDecoder.decodeObject(forKey: "currency_symbol") as? String ?? ""
+        dateadded = aDecoder.decodeObject(forKey: "dateadded") as? String ?? ""
+        firstname = aDecoder.decodeObject(forKey: "firstname") as? String ?? ""
         hostFee = aDecoder.decodeObject(forKey: "host_fee") as? Int
         payableAmount = aDecoder.decodeObject(forKey: "payable_amount") as? AnyObject
         propertyPrice = aDecoder.decodeObject(forKey: "property_price") as? Int
-        propertyTitle = aDecoder.decodeObject(forKey: "property_title") as? String
+        propertyTitle = aDecoder.decodeObject(forKey: "property_title") as? String ?? ""
         securityDeposit = aDecoder.decodeObject(forKey: "security_deposit") as? AnyObject
         serviceFee = aDecoder.decodeObject(forKey: "service_fee") as? AnyObject
         subTotal = aDecoder.decodeObject(forKey: "sub_total") as? AnyObject

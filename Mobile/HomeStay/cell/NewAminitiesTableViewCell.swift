@@ -48,9 +48,9 @@ class NewAminitiesTableViewCell: UITableViewCell,UICollectionViewDelegate,UIColl
         }
          
          cell.AminityName.font = UIFont(name: SemiBoldFont, size: 15)
-        cell.AminityName.text = (self.favDesArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "list_name") as! String
+        cell.AminityName.text = (self.favDesArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "list_name") as? String ?? ""
         
-        if "\((self.favDesArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "list_available") as AnyObject)" == "1"{
+        if "\((self.favDesArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "list_available") as AnyObject)" == "1"{
             cell.aminitiesImg.image = UIImage(named: "radiobtnselected")
         }else{
             cell.aminitiesImg.image = UIImage(named: "Group 8826")

@@ -47,11 +47,11 @@ class WishListController: BaseViewController {
             
 //            let id = Singleton.sharedInstance.selectedCategory!
 //
-//            let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
+//            let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
 //            print(parameterStr)
 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: GET_WISHLIST_API, APIKEY: "GET_WISHLIST_API")
         } else {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
 
     }
@@ -60,7 +60,7 @@ class WishListController: BaseViewController {
         showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
         
-        params = ["userid":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
+        params = ["userid":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
         
         let manager = AFHTTPSessionManager()
         manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -72,7 +72,7 @@ class WishListController: BaseViewController {
             let responseDict:NSDictionary = responseObject as! NSDictionary
             print(responseDict)
             self.hideActivityIndicator(uiView: self.view)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 print("GET_WISHLIST_API Response:::",responseDict)
                 let mod = WishlistModel(fromDictionary: responseDict as! [String : Any])
                 Singleton.sharedInstance.wishListModel = mod
@@ -97,7 +97,7 @@ class WishListController: BaseViewController {
             }
                 
             else {
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -148,18 +148,18 @@ class WishListController: BaseViewController {
 //        let cell  = tableView.dequeueReusableCell(withIdentifier: "PlaceListCell") as! PlaceListCell
 //        cell.selectionStyle = .none
 //        
-//        let wishlistImgUrl = URL(string: ((wishListCounttempArray.object(at: indexPath.row)as! NSDictionary).object(forKey: "wishlist_image") as? String)!)
+//        let wishlistImgUrl = URL(string: ((wishListCounttempArray.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "wishlist_image") as? String)!)
 //               cell.lblPlace.font = UIFont(name: SemiBoldFont, size: 14)
 //                cell.lblPrice.font = UIFont(name: SemiBoldFont, size: 18)
 //               if wishlistImgUrl != nil {
-//                  // cell?.imgWishList.kf.setImage(with:wishlistImgUrl!)
+//                  // cell.imgWishList.kf.setImage(with:wishlistImgUrl!)
 //                cell.imgPlace.kf.setImage(with: wishlistImgUrl, placeholder: UIImage.init(named: "testImage.jpg"), options: nil, progressBlock: nil, completionHandler: nil)
 //               }
-//        cell.lblPlace.text = ((wishListCounttempArray.object(at: indexPath.row)as! NSDictionary).object(forKey: "wishlist_title") as? String)
+//        cell.lblPlace.text = ((wishListCounttempArray.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "wishlist_title") as? String)
 //               
-//              // cell?.lblWishlistCount.text = String(Singleton.sharedInstance.wishListModel.wishlist.count)
+//              // cell.lblWishlistCount.text = String(Singleton.sharedInstance.wishListModel.wishlist.count)
 //               
-//              cell.lblPrice.text  = (((wishListCounttempArray.object(at: indexPath.row)as! NSDictionary).object(forKey: "property_details")as! NSArray).count as NSNumber).stringValue
+//              cell.lblPrice.text  = (((wishListCounttempArray.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "property_details")as! NSArray).count as NSNumber).stringValue
 //        
 //        
 //     
@@ -177,8 +177,8 @@ class WishListController: BaseViewController {
 //        
 //        let nav = self.storyboard?.instantiateViewController(withIdentifier: "PropertyDetailViewController") as? PropertyDetailViewController
 //       // nav?.PropertyID = String(Singleton.sharedInstance.wishListModel.wishlist[indexPath.section].hotelDetails[indexPath.row].propertyId)
-////        nav?.currencySymbol = (wishListArr.object(at: indexPath.row)as! NSDictionary).object(forKey: "property_currency_symbol")as! String
-////        nav?.PropertyID = ((wishListArr.object(at: indexPath.row)as! NSDictionary).object(forKey: "property_id")as! NSNumber).stringValue
+////        nav?.currencySymbol = (wishListArr.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "property_currency_symbol")as? String ?? ""
+////        nav?.PropertyID = ((wishListArr.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "property_id")as! NSNumber).stringValue
 ////        self.navigationController?.pushViewController(nav!, animated: true)
 //    }
 //    
@@ -207,21 +207,23 @@ extension WishListController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? WishListCell
-        let wishlistImgUrl = URL(string: ((wishListCounttempArray.object(at: indexPath.row)as! NSDictionary).object(forKey: "wishlist_image") as? String)!)
-        cell?.lblWishlistName.font = UIFont(name: SemiBoldFont, size: 14)
-         cell?.lblWishlistCount.font = UIFont(name: SemiBoldFont, size: 12)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? WishListCell else { return UICollectionViewCell() }
+
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as? WishListCell
+        let wishlistImgUrl = URL(string: ((wishListCounttempArray.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "wishlist_image") as? String)!)
+        cell.lblWishlistName.font = UIFont(name: SemiBoldFont, size: 14)
+         cell.lblWishlistCount.font = UIFont(name: SemiBoldFont, size: 12)
         if wishlistImgUrl != nil {
-           // cell?.imgWishList.kf.setImage(with:wishlistImgUrl!)
-            cell?.imgWishList.kf.setImage(with: wishlistImgUrl, placeholder: UIImage.init(named: "testImage.jpg"), options: nil, progressBlock: nil, completionHandler: nil)
+           // cell.imgWishList.kf.setImage(with:wishlistImgUrl!)
+            cell.imgWishList.kf.setImage(with: wishlistImgUrl, placeholder: UIImage.init(named: "testImage.jpg"), options: nil, progressBlock: nil, completionHandler: nil)
         }
-        cell?.lblWishlistName.text = ((wishListCounttempArray.object(at: indexPath.row)as! NSDictionary).object(forKey: "wishlist_title") as? String)
+        cell.lblWishlistName.text = ((wishListCounttempArray.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "wishlist_title") as? String)
         
-       // cell?.lblWishlistCount.text = String(Singleton.sharedInstance.wishListModel.wishlist.count)
+       // cell.lblWishlistCount.text = String(Singleton.sharedInstance.wishListModel.wishlist.count)
         
-        cell?.lblWishlistCount.text  = (((wishListCounttempArray.object(at: indexPath.row)as! NSDictionary).object(forKey: "property_details")as! NSArray).count as NSNumber).stringValue
+        cell.lblWishlistCount.text  = (((wishListCounttempArray.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "property_details")as! NSArray).count as NSNumber).stringValue
         
-        return cell!
+        return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: self.view.frame.width/2, height: 170)
@@ -233,7 +235,7 @@ extension WishListController: UICollectionViewDelegate, UICollectionViewDataSour
         nav?.selectedRow = indexPath.row
         let tempArray = NSMutableArray()
         tempArray.addObjects(from: (wishListDict.object(forKey: "wishlist")as! NSArray) as! [Any])
-        nav?.wishListArr.addObjects(from: ((tempArray.object(at: indexPath.row)as! NSDictionary).object(forKey: "property_details")as! NSArray) as! [Any])
+        nav?.wishListArr.addObjects(from: ((tempArray.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "property_details")as! NSArray) as! [Any])
         self.navigationController?.pushViewController(nav!, animated: true)
         
     }
@@ -252,8 +254,8 @@ extension WishListController : HTTP_POST_STRING_REQUEST_PROTOCOL {
             
             if errorDict.count == 0
             {
-                if responseDict.value(forKey: "status") as! Int == 0 {
-                    self.showInformation(title: "MotoForAll", message: responseDict.value(forKey: "message") as! String)
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 0 {
+                    self.showInformation(title: "MotoForAll", message: responseDict.value(forKey: "message") as? String ?? "")
                 }else{
                
                 print("GET_WISHLIST_API Response:::",responseDict)

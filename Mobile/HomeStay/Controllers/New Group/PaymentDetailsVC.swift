@@ -72,7 +72,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
     
     var BankTypes = ["Checking","Saving"]
 
-    let titlesheading = [ GlobalLanguageDictionary.object(forKey: "key_myBookingPayment") as! String , GlobalLanguageDictionary.object(forKey: "key_myListingPayment") as! String , GlobalLanguageDictionary.object(forKey: "key_hostPayout") as! String , GlobalLanguageDictionary.object(forKey: "key_payoutMethod") as! String]
+    let titlesheading = [ GlobalLanguageDictionary.object(forKey: "key_myBookingPayment") as? String ?? "" , GlobalLanguageDictionary.object(forKey: "key_myListingPayment") as? String ?? "" , GlobalLanguageDictionary.object(forKey: "key_hostPayout") as? String ?? "" , GlobalLanguageDictionary.object(forKey: "key_payoutMethod") as? String ?? ""]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,13 +123,13 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
         self.searchbtn.titleLabel?.font = UIFont(name: SemiBoldFont, size: 14)
         self.payoutDetailsTitle.font = UIFont(name: SemiBoldFont, size: 17)
         
-        self.payoutDetailsTitle.text = GlobalLanguageDictionary.object(forKey: "key_paymentDetails") as! String
-        self.view1payout.text = GlobalLanguageDictionary.object(forKey: "key_yourPayout") as! String
-        self.view2balance.text = GlobalLanguageDictionary.object(forKey: "key_yourBalance") as! String
-        self.view3payout.text = GlobalLanguageDictionary.object(forKey: "key_TotalPayout") as! String
-        self.payoutDate.text = GlobalLanguageDictionary.object(forKey: "key_payoutDate") as! String
-        self.selectDateTextField.placeholder = GlobalLanguageDictionary.object(forKey: "key_selectDate") as! String
-        self.searchbtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_search") as! String, for: .normal)
+        self.payoutDetailsTitle.text = GlobalLanguageDictionary.object(forKey: "key_paymentDetails") as? String ?? ""
+        self.view1payout.text = GlobalLanguageDictionary.object(forKey: "key_yourPayout") as? String ?? ""
+        self.view2balance.text = GlobalLanguageDictionary.object(forKey: "key_yourBalance") as? String ?? ""
+        self.view3payout.text = GlobalLanguageDictionary.object(forKey: "key_TotalPayout") as? String ?? ""
+        self.payoutDate.text = GlobalLanguageDictionary.object(forKey: "key_payoutDate") as? String ?? ""
+        self.selectDateTextField.placeholder = GlobalLanguageDictionary.object(forKey: "key_selectDate") as? String ?? ""
+        self.searchbtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_search") as? String ?? "", for: .normal)
 
 
     }
@@ -157,7 +157,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
     }
     @IBAction func PaypalButAct(_ sender: UIButton) {
         if self.paypalTxt.text?.count == 0 {
-            self.showInformation(title: "Error", message: GlobalLanguageDictionary.object(forKey: "Key_enterEmailId") as! String)
+            self.showInformation(title: "Error", message: GlobalLanguageDictionary.object(forKey: "Key_enterEmailId") as? String ?? "")
 
         }else{
             self.BankView.isHidden = true
@@ -509,7 +509,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
             
         }
         else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         
         
@@ -590,7 +590,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
             
         }
         else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         
         
@@ -673,7 +673,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
             
         }
         else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         
         
@@ -841,7 +841,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
             
         }
         else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         
         
@@ -863,7 +863,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
                 case .success(_):
                     if let data = response.value{
                         let json576 = data as? NSDictionary
-                        let convertStr = json576?.object(forKey: "data") as! String
+                        let convertStr = json576?.object(forKey: "data") as? String ?? ""
                         let dataStr = convertStr.data(using: .utf8, allowLossyConversion: true)
 
                         let key = "625202f9149e061d"
@@ -877,14 +877,14 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
                                 self.decryptDataDict.removeAllObjects()
                                 self.decryptDataDict.addEntries(from: result as! [AnyHashable : Any])
                                 print(self.decryptDataDict)
-                                if let bankName = (self.decryptDataDict.object(forKey: "payout_perference") as! NSDictionary).object(forKey: "bankname") as? String {
+                                if let bankName = (self.decryptDataDict.object(forKey: "payout_perference") as? NSDictionary)?.object(forKey: "bankname") as? String {
                                     self.txtBankName.text = bankName
                                 }
-                                self.txtBranchName.text = (self.decryptDataDict.object(forKey: "payout_perference") as! NSDictionary).object(forKey: "branch_name") as? String ?? ""
-                                self.txtAccountNumber.text = (self.decryptDataDict.object(forKey: "payout_perference") as! NSDictionary).object(forKey: "accno") as? String ?? ""
+                                self.txtBranchName.text = (self.decryptDataDict.object(forKey: "payout_perference") as? NSDictionary)?.object(forKey: "branch_name") as? String ?? ""
+                                self.txtAccountNumber.text = (self.decryptDataDict.object(forKey: "payout_perference") as? NSDictionary)?.object(forKey: "accno") as? String ?? ""
                                 
-                                self.txtIfscCode.text = (self.decryptDataDict.object(forKey: "payout_perference") as! NSDictionary).object(forKey: "ifc_code") as? String ?? ""
-                                self.paypalTxt.text = (self.decryptDataDict.object(forKey: "payout_perference") as! NSDictionary).object(forKey: "paypal_email") as? String ?? ""
+                                self.txtIfscCode.text = (self.decryptDataDict.object(forKey: "payout_perference") as? NSDictionary)?.object(forKey: "ifc_code") as? String ?? ""
+                                self.paypalTxt.text = (self.decryptDataDict.object(forKey: "payout_perference") as? NSDictionary)?.object(forKey: "paypal_email") as? String ?? ""
                                 self.listTableview.reloadData()
                                 
                             } catch {
@@ -902,7 +902,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
             
         }
         else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
        
     }
@@ -1011,11 +1011,11 @@ extension PaymentDetailsVC: UITableViewDelegate, UITableViewDataSource {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentDetailsCell", for: indexPath) as? PaymentDetailsCell else { return UITableViewCell() }
             let model = self.bookingPaymentDetailArray[indexPath.row]
-            let finalString = "\(model.dateadded ?? "")(\(GlobalLanguageDictionary.object(forKey: "key_noBooking") as! String):\(model.bookingno ?? ""))"
+            let finalString = "\(model.dateadded ?? "")(\(GlobalLanguageDictionary.object(forKey: "key_noBooking") as? String ?? ""):\(model.bookingno ?? ""))"
             
             
             
-            if login_session.object(forKey: "Language")as! String == "en"{
+            if login_session.object(forKey: "Language")as? String ?? "" == "en"{
                 cell.transId.textAlignment = .left
                 cell.transType.textAlignment = .left
                 cell.Amttype.textAlignment = .left
@@ -1054,18 +1054,18 @@ extension PaymentDetailsVC: UITableViewDelegate, UITableViewDataSource {
             if let cancledStatus = model.cancelled_status, cancledStatus == 0 {
                 if let paidStatus = model.paid_status,  paidStatus != 0 {
                     cell.pendingLbl.backgroundColor = UIColor.systemGreen
-                    cell.pendingLbl.text = GlobalLanguageDictionary.object(forKey: "key_success") as! String
+                    cell.pendingLbl.text = GlobalLanguageDictionary.object(forKey: "key_success") as? String ?? ""
                     cell.pendingLbl.textColor = UIColor.white
                     
                 } else {
                     cell.pendingLbl.backgroundColor = UIColor.systemGreen
-                    cell.pendingLbl.text = GlobalLanguageDictionary.object(forKey: "key_pending") as! String
+                    cell.pendingLbl.text = GlobalLanguageDictionary.object(forKey: "key_pending") as? String ?? ""
                     cell.pendingLbl.textColor = UIColor.white
                 }
                 
             } else {
                 cell.pendingLbl.backgroundColor = UIColor.red
-                cell.pendingLbl.text = GlobalLanguageDictionary.object(forKey: "key_cancelled") as! String
+                cell.pendingLbl.text = GlobalLanguageDictionary.object(forKey: "key_cancelled") as? String ?? ""
                 cell.pendingLbl.textColor = UIColor.white
             }
             
@@ -1085,12 +1085,12 @@ extension PaymentDetailsVC: UITableViewDelegate, UITableViewDataSource {
           
                 if let paidStatus = model.payment_status,  paidStatus != 0 {
                     second.pendingLbl.backgroundColor = UIColor.systemGreen
-                    second.pendingLbl.text = GlobalLanguageDictionary.object(forKey: "key_success") as! String
+                    second.pendingLbl.text = GlobalLanguageDictionary.object(forKey: "key_success") as? String ?? ""
                     second.pendingLbl.textColor = UIColor.white
                     
                 } else {
                     second.pendingLbl.backgroundColor = UIColor.systemYellow
-                    second.pendingLbl.text = GlobalLanguageDictionary.object(forKey: "key_pending") as! String
+                    second.pendingLbl.text = GlobalLanguageDictionary.object(forKey: "key_pending") as? String ?? ""
                     second.pendingLbl.textColor = UIColor.white
                 }
             return second
@@ -1110,7 +1110,7 @@ extension PaymentDetailsVC: UITableViewDelegate, UITableViewDataSource {
             cell.BankAddBtn.addTarget(self, action: #selector(AddBankAccountAct), for: .touchUpInside)
             cell.PayPalAddBtn.addTarget(self, action: #selector(AddPaypalAct), for: .touchUpInside)
 
-            if (self.decryptDataDict.object(forKey: "payout_perference") as! NSDictionary).object(forKey: "accno") as! String != "" {
+            if (self.decryptDataDict.object(forKey: "payout_perference") as? NSDictionary)?.object(forKey: "accno") as? String ?? "" != "" {
                 cell.BankAddBtn.setTitle("***********    Edit", for: .normal)
                 cell.BankAddImgBtn.setImage(UIImage(named: "radio-on-button"), for: .normal)
             }else{
@@ -1119,7 +1119,7 @@ extension PaymentDetailsVC: UITableViewDelegate, UITableViewDataSource {
 
             }
             
-            if (self.decryptDataDict.object(forKey: "payout_perference") as! NSDictionary).object(forKey: "paypal_email") as! String != "" {
+            if (self.decryptDataDict.object(forKey: "payout_perference") as? NSDictionary)?.object(forKey: "paypal_email") as? String ?? "" != "" {
                 cell.PayPalAddImgBtn.setImage(UIImage(named: "radio-on-button"), for: .normal)
                 cell.PayPalAddBtn.setTitle("***********    Edit", for: .normal)
             }else{
@@ -1128,11 +1128,11 @@ extension PaymentDetailsVC: UITableViewDelegate, UITableViewDataSource {
             }
 
 //            if let model = self.payoutDetails {
-                cell.txtBankName.text = (self.decryptDataDict.object(forKey: "payout_perference") as! NSDictionary).object(forKey: "bankname") as! String//model.bankname ?? ""
-                cell.txtBranchName.text = (self.decryptDataDict.object(forKey: "payout_perference") as! NSDictionary).object(forKey: "branch_name") as! String
-            cell.txtAccountNumber.text = (self.decryptDataDict.object(forKey: "payout_perference") as! NSDictionary).object(forKey: "accno") as! String
+                cell.txtBankName.text = (self.decryptDataDict.object(forKey: "payout_perference") as? NSDictionary)?.object(forKey: "bankname") as? String ?? ""//model.bankname ?? ""
+                cell.txtBranchName.text = (self.decryptDataDict.object(forKey: "payout_perference") as? NSDictionary)?.object(forKey: "branch_name") as? String ?? ""
+            cell.txtAccountNumber.text = (self.decryptDataDict.object(forKey: "payout_perference") as? NSDictionary)?.object(forKey: "accno") as? String ?? ""
             
-                cell.txtIfscCode.text = (self.decryptDataDict.object(forKey: "payout_perference") as! NSDictionary).object(forKey: "ifc_code") as! String
+                cell.txtIfscCode.text = (self.decryptDataDict.object(forKey: "payout_perference") as? NSDictionary)?.object(forKey: "ifc_code") as? String ?? ""
             
 //                cell.Submitbtn.addTarget(self, action: #selector(""), for: .touchUpInside)
 //            }

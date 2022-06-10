@@ -30,8 +30,8 @@ class StartViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.btnLogin.setTitle(GlobalLanguageDictionary.object(forKey: "Key_login") as! String, for: .normal)
-        self.btnSignUp.setTitle(GlobalLanguageDictionary.object(forKey: "Key_Csignup") as! String, for: .normal)
+        self.btnLogin.setTitle(GlobalLanguageDictionary.object(forKey: "Key_login") as? String ?? "", for: .normal)
+        self.btnSignUp.setTitle(GlobalLanguageDictionary.object(forKey: "Key_Csignup") as? String ?? "", for: .normal)
 //        self.btnLogin.setTitle(NSLocalizedString("login", comment: "login"), for: .normal)
 //        self.btnSignUp.setTitle(NSLocalizedString("signup", comment: "signup"), for: .normal)
           self.btnLogin.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 18)

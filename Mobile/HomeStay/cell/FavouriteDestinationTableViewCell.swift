@@ -42,10 +42,10 @@ class FavouriteDestinationTableViewCell: UITableViewCell,UICollectionViewDelegat
         cell.cityNameLabel.font = UIFont(name: SemiBoldFont, size: 15)
         cell.proCountLabel.font = UIFont(name: SemiBoldFont, size: 13)
 
-        cell.cityNameLabel.text = (featuredPcities["fav_city_name"] as! String)
-        let imgURL = (featuredPcities["fav_city_image"] as! String)
+        cell.cityNameLabel.text = (featuredPcities["fav_city_name"] as? String ?? "")
+        let imgURL = (featuredPcities["fav_city_image"] as? String ?? "")
         cell.cityImg.sd_setImage(with: URL(string: imgURL), placeholderImage: UIImage(named: "placeholder.png"))
-        cell.proCountLabel.text = "\(featuredPcities["fav_city_pro_count"] as! Int) Homes"
+        cell.proCountLabel.text = "\(featuredPcities["fav_city_pro_count"] as? Int ?? 0) Homes"
         return cell
     }
     

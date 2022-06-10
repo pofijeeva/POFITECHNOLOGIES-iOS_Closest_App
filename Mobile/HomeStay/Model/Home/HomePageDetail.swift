@@ -20,12 +20,12 @@ class HomePageDetail : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        citythumb = dictionary["citythumb"] as? String
-        imageUrl = dictionary["fav_city_image"] as? String
-        name = dictionary["fav_city_name"] as? String
-        overAllUnreadCount = dictionary["overAll_unread_count"] as? Int
-         no_of_listing = dictionary["no_of_listing"] as? Int
-        propertyUrl = dictionary["property_url"] as? String
+        citythumb = dictionary["citythumb"] as? String ?? ""
+        imageUrl = dictionary["fav_city_image"] as? String ?? ""
+        name = dictionary["fav_city_name"] as? String ?? ""
+        overAllUnreadCount = dictionary["overAll_unread_count"] as? Int ?? 0
+         no_of_listing = dictionary["no_of_listing"] as? Int ?? 0
+        propertyUrl = dictionary["property_url"] as? String ?? ""
     }
     
     /**
@@ -61,12 +61,12 @@ class HomePageDetail : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        citythumb = aDecoder.decodeObject(forKey: "citythumb") as? String
-        imageUrl = aDecoder.decodeObject(forKey: "fav_city_image") as? String
-        name = aDecoder.decodeObject(forKey: "fav_city_name") as? String
-        overAllUnreadCount = aDecoder.decodeObject(forKey: "overAll_unread_count") as? Int
-         no_of_listing = aDecoder.decodeObject(forKey: "no_of_listing") as? Int
-        propertyUrl = aDecoder.decodeObject(forKey: "property_url") as? String
+        citythumb = aDecoder.decodeObject(forKey: "citythumb") as? String ?? ""
+        imageUrl = aDecoder.decodeObject(forKey: "fav_city_image") as? String ?? ""
+        name = aDecoder.decodeObject(forKey: "fav_city_name") as? String ?? ""
+        overAllUnreadCount = aDecoder.decodeObject(forKey: "overAll_unread_count") as? Int ?? 0
+         no_of_listing = aDecoder.decodeObject(forKey: "no_of_listing") as? Int ?? 0
+        propertyUrl = aDecoder.decodeObject(forKey: "property_url") as? String ?? ""
     }
     
     /**

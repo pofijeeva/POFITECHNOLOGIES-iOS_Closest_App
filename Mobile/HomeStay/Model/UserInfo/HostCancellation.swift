@@ -25,17 +25,17 @@ class HostCancellation : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        balanceAmount = dictionary["balance_amount"] as? String
-        bookedDate = dictionary["bookedDate"] as? String
-        bookingNo = dictionary["booking_no"] as? String
-        cancellationAmount = dictionary["cancellation_amount"] as? String
-        checkin = dictionary["checkin"] as? String
-        checkout = dictionary["checkout"] as? String
-        currencycode = dictionary["currencycode"] as? String
-        paidAmount = dictionary["paid_amount"] as? String
-        paidStatus = dictionary["paid_status"] as? String
-        productTitle = dictionary["product_title"] as? String
-        userImage = dictionary["user_image"] as? String
+        balanceAmount = dictionary["balance_amount"] as? String ?? ""
+        bookedDate = dictionary["bookedDate"] as? String ?? ""
+        bookingNo = dictionary["booking_no"] as? String ?? ""
+        cancellationAmount = dictionary["cancellation_amount"] as? String ?? ""
+        checkin = dictionary["checkin"] as? String ?? ""
+        checkout = dictionary["checkout"] as? String ?? ""
+        currencycode = dictionary["currencycode"] as? String ?? ""
+        paidAmount = dictionary["paid_amount"] as? String ?? ""
+        paidStatus = dictionary["paid_status"] as? String ?? ""
+        productTitle = dictionary["product_title"] as? String ?? ""
+        userImage = dictionary["user_image"] as? String ?? ""
     }
     
     /**
@@ -86,17 +86,17 @@ class HostCancellation : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        balanceAmount = aDecoder.decodeObject(forKey: "balance_amount") as? String
-        bookedDate = aDecoder.decodeObject(forKey: "bookedDate") as? String
-        bookingNo = aDecoder.decodeObject(forKey: "booking_no") as? String
-        cancellationAmount = aDecoder.decodeObject(forKey: "cancellation_amount") as? String
-        checkin = aDecoder.decodeObject(forKey: "checkin") as? String
-        checkout = aDecoder.decodeObject(forKey: "checkout") as? String
-        currencycode = aDecoder.decodeObject(forKey: "currencycode") as? String
-        paidAmount = aDecoder.decodeObject(forKey: "paid_amount") as? String
-        paidStatus = aDecoder.decodeObject(forKey: "paid_status") as? String
-        productTitle = aDecoder.decodeObject(forKey: "product_title") as? String
-        userImage = aDecoder.decodeObject(forKey: "user_image") as? String
+        balanceAmount = aDecoder.decodeObject(forKey: "balance_amount") as? String ?? ""
+        bookedDate = aDecoder.decodeObject(forKey: "bookedDate") as? String ?? ""
+        bookingNo = aDecoder.decodeObject(forKey: "booking_no") as? String ?? ""
+        cancellationAmount = aDecoder.decodeObject(forKey: "cancellation_amount") as? String ?? ""
+        checkin = aDecoder.decodeObject(forKey: "checkin") as? String ?? ""
+        checkout = aDecoder.decodeObject(forKey: "checkout") as? String ?? ""
+        currencycode = aDecoder.decodeObject(forKey: "currencycode") as? String ?? ""
+        paidAmount = aDecoder.decodeObject(forKey: "paid_amount") as? String ?? ""
+        paidStatus = aDecoder.decodeObject(forKey: "paid_status") as? String ?? ""
+        productTitle = aDecoder.decodeObject(forKey: "product_title") as? String ?? ""
+        userImage = aDecoder.decodeObject(forKey: "user_image") as? String ?? ""
     }
     
     /**

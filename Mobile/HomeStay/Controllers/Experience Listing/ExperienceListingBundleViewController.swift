@@ -108,21 +108,23 @@ extension ExperienceListingBundleViewController: UITableViewDelegate,UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ExperienceTableViewCell") as? ExperienceTableViewCell
-        cell!.NameLbl.font = UIFont(name: RegularFont, size: 14)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ExperienceTableViewCell") as? ExperienceTableViewCell else { return UITableViewCell() }
+
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "ExperienceTableViewCell") as? ExperienceTableViewCell
+        cell.NameLbl.font = UIFont(name: RegularFont, size: 14)
         
         if  self.currentIndexPath == indexPath {
-            cell?.backgroundColor = UIColor.white
-            cell!.NameLbl.textColor = .red
+            cell.backgroundColor = UIColor.white
+            cell.NameLbl.textColor = .red
         } else {
-            cell?.backgroundColor = UIColor.lightGray
-            cell!.NameLbl.textColor = .black
+            cell.backgroundColor = UIColor.lightGray
+            cell.NameLbl.textColor = .black
         }
        
         
-        cell!.NameLbl.text = "\(indexPath.row)."
+        cell.NameLbl.text = "\(indexPath.row)."
       
-        return cell!
+        return cell
     }
     
 //    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?

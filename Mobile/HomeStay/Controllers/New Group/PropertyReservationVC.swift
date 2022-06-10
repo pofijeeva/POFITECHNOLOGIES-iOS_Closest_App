@@ -41,7 +41,7 @@ class PropertyReservationVC: BaseViewController {
     var currentPage = 1
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.headerLbl.text = GlobalLanguageDictionary.object(forKey: "key_propertyReservation") as! String
+        self.headerLbl.text = GlobalLanguageDictionary.object(forKey: "key_propertyReservation") as? String ?? ""
         self.headerLbl.font = UIFont(name: SemiBoldFont, size: 20)
         
         
@@ -52,7 +52,7 @@ class PropertyReservationVC: BaseViewController {
              "page_no": 1
             ]
         self.getPropertyReservationApiResponse(params: parameters)
-        if login_session.object(forKey: "Language")as! String == "en"{
+        if login_session.object(forKey: "Language")as? String ?? "" == "en"{
             headerLbl.textAlignment = .left
         }else{
             headerLbl.textAlignment = .right
@@ -101,7 +101,7 @@ class PropertyReservationVC: BaseViewController {
             }
             
         } else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
 }
@@ -119,8 +119,8 @@ extension PropertyReservationVC : UITableViewDelegate,UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "PropertyReservationCell", for: indexPath) as! PropertyReservationCell
-        cell.totalBookingLbl.text = GlobalLanguageDictionary.object(forKey: "key_totalBookings") as! String
-        cell.cancelledBookingLbl.text = GlobalLanguageDictionary.object(forKey: "key_cancelledBookings") as! String
+        cell.totalBookingLbl.text = GlobalLanguageDictionary.object(forKey: "key_totalBookings") as? String ?? ""
+        cell.cancelledBookingLbl.text = GlobalLanguageDictionary.object(forKey: "key_cancelledBookings") as? String ?? ""
         
         cell.totalBookingLbl.font = UIFont(name: SemiBoldFont, size: 14)
         cell.cancelledBookingLbl.font = UIFont(name: SemiBoldFont, size: 14)

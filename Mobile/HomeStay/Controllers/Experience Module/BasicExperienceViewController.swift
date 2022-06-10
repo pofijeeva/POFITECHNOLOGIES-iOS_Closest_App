@@ -62,8 +62,8 @@ class BasicExperienceViewController: UIViewController,UITextFieldDelegate {
         if dictOfExperience.count > 0 {
             let dict = dictOfExperience["experience_categories"] as! [[String:AnyObject]]
             for item in dict {
-                self.arrayExperienceCategory.add(item["experience_title"] as! String)
-                self.arrayExperienceCategoryID.add(item["id"] as! String)
+                self.arrayExperienceCategory.add(item["experience_title"] as? String ?? "")
+                self.arrayExperienceCategoryID.add(item["id"] as? String ?? "")
             }
         }
     }
@@ -82,7 +82,7 @@ class BasicExperienceViewController: UIViewController,UITextFieldDelegate {
 //            
 //        }
         if arrayOfResult.count > 0 {
-            let dict = (arrayOfResult[0] as! NSDictionary).object(forKey: "Basics") as! NSDictionary
+            let dict = (arrayOfResult[0] as? NSDictionary)?.object(forKey: "Basics") as! NSDictionary
             if "\(dict.object(forKey: "exp_type") as AnyObject)" == "1" {
                 self.textFieldChooseType.text = "Immersion"
                 self.labelNoOfDays.text = "Number of Days *"
@@ -109,7 +109,7 @@ class BasicExperienceViewController: UIViewController,UITextFieldDelegate {
                 
             }else{
                 let index = self.arrayExperienceCategoryID.index(of: "\(catId)")
-                let catName =  self.arrayExperienceCategory.object(at: index) as! String
+                let catName =  self.arrayExperienceCategory.object(at: index) as? String ?? ""
                 self.textFieldExperienceCategory.text = catName
             }
             
@@ -122,7 +122,7 @@ class BasicExperienceViewController: UIViewController,UITextFieldDelegate {
         if Helper.sharedInstance.isConnectedToInternet() {
             Helper.sharedInstance.showActivityIndicator(view: self.view, targetVC: self)
             var params = NSMutableDictionary()
-            params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","exp_id": currentExpId]
+            params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","exp_id": currentExpId]
             let manager = AFHTTPSessionManager()
             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
             print("params",params)
@@ -131,23 +131,23 @@ class BasicExperienceViewController: UIViewController,UITextFieldDelegate {
                 Helper.sharedInstance.hideActivityIndicator(view: self.view)
                 let responseDict:NSDictionary = resultData as! NSDictionary
                 print("Response:",responseDict)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     dictOfExperience = responseDict
                     Helper.sharedInstance.hideActivityIndicator(view: self.view)
                     arrayOfResult = dictOfExperience["result"] as! NSArray
                     arrayOfBoolValues.removeAllObjects()
                     for i in 0..<arrayOfHeadings.count {
-                        let str = ((arrayOfResult[0] as! NSDictionary).value(forKey:  arrayOfHeadings[i] as! String) as! NSDictionary).object(forKey: "step_completed") as AnyObject
+                        let str = ((arrayOfResult[0] as? NSDictionary)?.value(forKey:  arrayOfHeadings[i] as? String ?? "") as? NSDictionary)?.object(forKey: "step_completed") as AnyObject
                         arrayOfBoolValues.add("\(str)")
                     }
-                 TimingsArray = (((dictOfExperience["result"] as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "Timing") as! NSDictionary).object(forKey: "schedules") as! NSArray
+                 TimingsArray = (((dictOfExperience["result"] as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "Timing") as? NSDictionary)?.object(forKey: "schedules") as! NSArray
                 arrayOfResult = dictOfExperience["result"] as! NSArray
                         let dict = dictOfExperience["experience_categories"] as! [[String:AnyObject]]
                         for item in dict {
-                            self.arrayExperienceCategory.add(item["experience_title"] as! String)
-                            self.arrayExperienceCategoryID.add(item["id"] as! String)
+                            self.arrayExperienceCategory.add(item["experience_title"] as? String ?? "")
+                            self.arrayExperienceCategoryID.add(item["id"] as? String ?? "")
                     }
-                    let dictt = (arrayOfResult[0] as! NSDictionary).object(forKey: "Basics") as! NSDictionary
+                    let dictt = (arrayOfResult[0] as? NSDictionary)?.object(forKey: "Basics") as! NSDictionary
                     
                     if "\(dictt.object(forKey: "exp_type") as AnyObject)" == "" || "\(dictt.object(forKey: "exp_type") as AnyObject)" == "0"{
                          
@@ -170,7 +170,7 @@ class BasicExperienceViewController: UIViewController,UITextFieldDelegate {
                             
                         }else{
                             let index = self.arrayExperienceCategoryID.index(of: "\(catId)")
-                            let catName =  self.arrayExperienceCategory.object(at: index) as! String
+                            let catName =  self.arrayExperienceCategory.object(at: index) as? String ?? ""
                             self.textFieldExperienceCategory.text = catName
                            
                         }
@@ -181,7 +181,7 @@ class BasicExperienceViewController: UIViewController,UITextFieldDelegate {
                 }
                 else {
                     Helper.sharedInstance.hideActivityIndicator(view: self.view)
-                  //  self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                  //  self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) in
                 print(error)
@@ -191,7 +191,7 @@ class BasicExperienceViewController: UIViewController,UITextFieldDelegate {
 
         }
         else {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         Helper.sharedInstance.hideActivityIndicator(view: self.view)
     }
@@ -235,7 +235,7 @@ class BasicExperienceViewController: UIViewController,UITextFieldDelegate {
         currencyDropdown.selectionAction = { [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
             self.textFieldExperienceCategory.text = item
-            self.selectedIndexForExperienceCategory = self.arrayExperienceCategoryID[index] as! String
+            self.selectedIndexForExperienceCategory = self.arrayExperienceCategoryID[index] as? String ?? ""
         }
     }
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -288,7 +288,7 @@ class BasicExperienceViewController: UIViewController,UITextFieldDelegate {
                 }
                 
                 
-                params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","experience_type": self.experienceTypeID,"category_id":self.selectedIndexForExperienceCategory,"exp_id":currentExpId,"total_count_time":self.HoursCount,"total_count_date":self.DaysCount]
+                params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","experience_type": self.experienceTypeID,"category_id":self.selectedIndexForExperienceCategory,"exp_id":currentExpId,"total_count_time":self.HoursCount,"total_count_date":self.DaysCount]
                 print(params)
 //
 //                Santhosh SV (svsanthosh@pofitec.com) Timing upload quantity group size
@@ -303,7 +303,7 @@ class BasicExperienceViewController: UIViewController,UITextFieldDelegate {
                     let responseDict:NSDictionary = resultData as! NSDictionary
                     print("Response:",responseDict)
                     
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         currentExpId = "\(responseDict.object(forKey: "experience_id") as AnyObject)"
                         arrayOfdictBasics.addObjects(from: (responseDict.object(forKey: "result") as! NSArray) as! [Any])
                         let aray = arrayOfdictBasics[0] as! NSDictionary
@@ -311,7 +311,7 @@ class BasicExperienceViewController: UIViewController,UITextFieldDelegate {
                         sharedInstanceExperience.gotoStepTwo()
                     }
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) in
                     print(error)
@@ -320,7 +320,7 @@ class BasicExperienceViewController: UIViewController,UITextFieldDelegate {
                 
             }
             else {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
     }

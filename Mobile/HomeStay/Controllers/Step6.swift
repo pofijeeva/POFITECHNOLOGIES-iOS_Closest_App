@@ -21,9 +21,9 @@ class Step6 : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        listName = dictionary["list_name"] as? String
-        propertyid = dictionary["propertyid"] as? Int
-        stepCompleted = dictionary["step_completed"] as? Bool
+        listName = dictionary["list_name"] as? String ?? ""
+        propertyid = dictionary["propertyid"] as? Int ?? 0 ?? 0
+        stepCompleted = dictionary["step_completed"] as? Bool ?? false
         saved_amenities = dictionary["saved_amenities"] as? [[String:Any]]
     }
 
@@ -55,9 +55,9 @@ class Step6 : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        listName = aDecoder.decodeObject(forKey: "list_name") as? String
-        propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int
-        stepCompleted = aDecoder.decodeObject(forKey: "step_completed") as? Bool
+        listName = aDecoder.decodeObject(forKey: "list_name") as? String ?? ""
+        propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int ?? 0
+        stepCompleted = aDecoder.decodeObject(forKey: "step_completed") as? Bool ?? false
         saved_amenities = aDecoder.decodeObject(forKey: "saved_amenities") as? [[String: Any]]
     }
 

@@ -29,21 +29,21 @@ class MessageValue : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        bookingno = dictionary["bookingno"] as? String
-        dateAdded = dictionary["dateAdded"] as? String
-        hostMsgreadStatus = dictionary["host_msgread_status"] as? String
-        id = dictionary["id"] as? String
-        message = dictionary["message"] as? String
-        msgRead = dictionary["msg_read"] as? String
-        msgStatus = dictionary["msg_status"] as? String
-        msgUnreadCount = dictionary["msg_unread_count"] as? String
-        propertyId = dictionary["property_id"] as? String
-        senderName = dictionary["sender_name"] as? String
-        starStatus = dictionary["star_status"] as? String
-        status = dictionary["status"] as? String
-        subject = dictionary["subject"] as? String
-        userImage = dictionary["user_image"] as? String
-        userMsgreadStatus = dictionary["user_msgread_status"] as? String
+        bookingno = dictionary["bookingno"] as? String ?? ""
+        dateAdded = dictionary["dateAdded"] as? String ?? ""
+        hostMsgreadStatus = dictionary["host_msgread_status"] as? String ?? ""
+        id = dictionary["id"] as? String ?? ""
+        message = dictionary["message"] as? String ?? ""
+        msgRead = dictionary["msg_read"] as? String ?? ""
+        msgStatus = dictionary["msg_status"] as? String ?? ""
+        msgUnreadCount = dictionary["msg_unread_count"] as? String ?? ""
+        propertyId = dictionary["property_id"] as? String ?? ""
+        senderName = dictionary["sender_name"] as? String ?? ""
+        starStatus = dictionary["star_status"] as? String ?? ""
+        status = dictionary["status"] as? String ?? ""
+        subject = dictionary["subject"] as? String ?? ""
+        userImage = dictionary["user_image"] as? String ?? ""
+        userMsgreadStatus = dictionary["user_msgread_status"] as? String ?? ""
     }
     
     /**
@@ -106,21 +106,21 @@ class MessageValue : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        bookingno = aDecoder.decodeObject(forKey: "bookingno") as? String
-        dateAdded = aDecoder.decodeObject(forKey: "dateAdded") as? String
-        hostMsgreadStatus = aDecoder.decodeObject(forKey: "host_msgread_status") as? String
-        id = aDecoder.decodeObject(forKey: "id") as? String
-        message = aDecoder.decodeObject(forKey: "message") as? String
-        msgRead = aDecoder.decodeObject(forKey: "msg_read") as? String
-        msgStatus = aDecoder.decodeObject(forKey: "msg_status") as? String
-        msgUnreadCount = aDecoder.decodeObject(forKey: "msg_unread_count") as? String
-        propertyId = aDecoder.decodeObject(forKey: "property_id") as? String
-        senderName = aDecoder.decodeObject(forKey: "sender_name") as? String
-        starStatus = aDecoder.decodeObject(forKey: "star_status") as? String
-        status = aDecoder.decodeObject(forKey: "status") as? String
-        subject = aDecoder.decodeObject(forKey: "subject") as? String
-        userImage = aDecoder.decodeObject(forKey: "user_image") as? String
-        userMsgreadStatus = aDecoder.decodeObject(forKey: "user_msgread_status") as? String
+        bookingno = aDecoder.decodeObject(forKey: "bookingno") as? String ?? ""
+        dateAdded = aDecoder.decodeObject(forKey: "dateAdded") as? String ?? ""
+        hostMsgreadStatus = aDecoder.decodeObject(forKey: "host_msgread_status") as? String ?? ""
+        id = aDecoder.decodeObject(forKey: "id") as? String ?? ""
+        message = aDecoder.decodeObject(forKey: "message") as? String ?? ""
+        msgRead = aDecoder.decodeObject(forKey: "msg_read") as? String ?? ""
+        msgStatus = aDecoder.decodeObject(forKey: "msg_status") as? String ?? ""
+        msgUnreadCount = aDecoder.decodeObject(forKey: "msg_unread_count") as? String ?? ""
+        propertyId = aDecoder.decodeObject(forKey: "property_id") as? String ?? ""
+        senderName = aDecoder.decodeObject(forKey: "sender_name") as? String ?? ""
+        starStatus = aDecoder.decodeObject(forKey: "star_status") as? String ?? ""
+        status = aDecoder.decodeObject(forKey: "status") as? String ?? ""
+        subject = aDecoder.decodeObject(forKey: "subject") as? String ?? ""
+        userImage = aDecoder.decodeObject(forKey: "user_image") as? String ?? ""
+        userMsgreadStatus = aDecoder.decodeObject(forKey: "user_msgread_status") as? String ?? ""
     }
     
     /**

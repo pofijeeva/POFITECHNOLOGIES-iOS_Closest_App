@@ -30,10 +30,10 @@ class Step3 : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        chk = dictionary["chk"] as? String
-        currencyCode = dictionary["currency_code"] as? String
-        price = dictionary["price"] as? Int
-        propertyid = dictionary["propertyid"] as? Int
+        chk = dictionary["chk"] as? String ?? ""
+        currencyCode = dictionary["currency_code"] as? String ?? ""
+        price = dictionary["price"] as? Int ?? 0
+        propertyid = dictionary["propertyid"] as? Int ?? 0
         stepCompleted = dictionary["step_completed"] as? Bool
         daily_booking_status = dictionary["daily_booking_status"] as? Bool
         hourly_booking_status = dictionary["hourly_booking_status"] as? Bool
@@ -124,10 +124,10 @@ class Step3 : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        chk = aDecoder.decodeObject(forKey: "chk") as? String
-        currencyCode = aDecoder.decodeObject(forKey: "currency_code") as? String
-        price = aDecoder.decodeObject(forKey: "price") as? Int
-        propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int
+        chk = aDecoder.decodeObject(forKey: "chk") as? String ?? ""
+        currencyCode = aDecoder.decodeObject(forKey: "currency_code") as? String ?? ""
+        price = aDecoder.decodeObject(forKey: "price") as? Int ?? 0
+        propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int ?? 0
         stepCompleted = aDecoder.decodeObject(forKey: "step_completed") as? Bool
         daily_booking_status = aDecoder.decodeObject(forKey: "daily_booking_status") as? Bool
         hourly_booking_status = aDecoder.decodeObject(forKey: "hourly_booking_status") as? Bool

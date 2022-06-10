@@ -17,8 +17,8 @@ class YourTripModel : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        message = dictionary["message"] as? String
-        status = dictionary["status"] as? Int
+        message = dictionary["message"] as? String ?? ""
+        status = dictionary["status"] as? Int ?? 0
         mytrips = [Mytrip]()
         if let mytripsArray = dictionary["mytrips"] as? [[String:Any]]{
             for dic in mytripsArray{
@@ -56,9 +56,9 @@ class YourTripModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        message = aDecoder.decodeObject(forKey: "message") as? String
+        message = aDecoder.decodeObject(forKey: "message") as? String ?? ""
         mytrips = aDecoder.decodeObject(forKey: "mytrips") as? [Mytrip]
-        status = aDecoder.decodeObject(forKey: "status") as? Int
+        status = aDecoder.decodeObject(forKey: "status") as? Int ?? 0
     }
 
     /**

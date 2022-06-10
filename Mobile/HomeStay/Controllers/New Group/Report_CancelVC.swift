@@ -18,7 +18,7 @@ class Report_CancelVC: BaseViewController {
     var isLoading:Bool = true
     var currentPage = 1
     
-    let titlesArr = [GlobalLanguageDictionary.object(forKey: "key_myPropertyReport") as! String, GlobalLanguageDictionary.object(forKey: "key_myBookingReport") as! String, GlobalLanguageDictionary.object(forKey: "key_myPropertyCancel") as! String, GlobalLanguageDictionary.object(forKey: "key_myBookingCancel") as! String]
+    let titlesArr = [GlobalLanguageDictionary.object(forKey: "key_myPropertyReport") as? String ?? "", GlobalLanguageDictionary.object(forKey: "key_myBookingReport") as? String ?? "", GlobalLanguageDictionary.object(forKey: "key_myPropertyCancel") as? String ?? "", GlobalLanguageDictionary.object(forKey: "key_myBookingCancel") as? String ?? ""]
     override func viewDidLoad() {
         super.viewDidLoad()
         let parameters:[String : Any] =
@@ -71,7 +71,7 @@ class Report_CancelVC: BaseViewController {
             }
         }
         else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         
     }
@@ -115,7 +115,7 @@ class Report_CancelVC: BaseViewController {
             }
         }
         else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         
     }
@@ -125,7 +125,7 @@ class Report_CancelVC: BaseViewController {
 extension Report_CancelVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if details.count == 0 {
-            self.tblView.EmptyMessage(message: GlobalLanguageDictionary.object(forKey: "key_nodatafound") as! String, tableView: tblView)
+            self.tblView.EmptyMessage(message: GlobalLanguageDictionary.object(forKey: "key_nodatafound") as? String ?? "", tableView: tblView)
         }
         else {
             self.tblView.EmptyMessage(message: "", tableView: tblView)
@@ -145,15 +145,15 @@ extension Report_CancelVC: UITableViewDelegate, UITableViewDataSource {
         if self.selectedSegmentedIndex == 0 || self.selectedSegmentedIndex == 1 {
             cell?.bottomView.isHidden = true
             let imgURL = (obj["user_image"] as? String ?? "")
-            let normalString =  NSMutableAttributedString(string: "\(GlobalLanguageDictionary.object(forKey: "key_at") as! String) ")
-            let bookingNumString =  NSMutableAttributedString(string: " \(GlobalLanguageDictionary.object(forKey: "key_forBookingNo") as! String):  " + (obj ["booking_no"] as? String ?? ""))
+            let normalString =  NSMutableAttributedString(string: "\(GlobalLanguageDictionary.object(forKey: "key_at") as? String ?? "") ")
+            let bookingNumString =  NSMutableAttributedString(string: " \(GlobalLanguageDictionary.object(forKey: "key_forBookingNo") as? String ?? ""):  " + (obj ["booking_no"] as? String ?? ""))
             let attrs = [NSAttributedString.Key.font : UIFont(name: SemiBoldFont, size: 17)]
             let boldString = NSMutableAttributedString(string: (obj ["rental_name"] as? String ?? ""), attributes:attrs)
             normalString.append(boldString)
             normalString.append(bookingNumString)
             cell?.lblDate.attributedText = normalString
             cell?.imgProfile.sd_setImage(with: URL(string: imgURL), placeholderImage: UIImage(named: "placeholder.png"))
-            let reportMsg = (obj["message"] as? String ?? "") + " \(GlobalLanguageDictionary.object(forKey: "key_at") as! String) " + (obj["host_name"] as? String ?? "")
+            let reportMsg = (obj["message"] as? String ?? "") + " \(GlobalLanguageDictionary.object(forKey: "key_at") as? String ?? "") " + (obj["host_name"] as? String ?? "")
             cell?.lblName.text = reportMsg + "" + (obj["created_date"] as? String ?? "")
         }
         
@@ -161,8 +161,8 @@ extension Report_CancelVC: UITableViewDelegate, UITableViewDataSource {
         else {
             cell?.bottomView.isHidden = false
             let imgURL = (obj["user_image"] as? String ?? "")
-            let normalString =  NSMutableAttributedString(string: "\(GlobalLanguageDictionary.object(forKey: "key_at") as! String) ")
-            let bookingNumString =  NSMutableAttributedString(string: " \(GlobalLanguageDictionary.object(forKey: "key_forBookingNo") as! String):  " + (obj ["booking_no"] as? String ?? ""))
+            let normalString =  NSMutableAttributedString(string: "\(GlobalLanguageDictionary.object(forKey: "key_at") as? String ?? "") ")
+            let bookingNumString =  NSMutableAttributedString(string: " \(GlobalLanguageDictionary.object(forKey: "key_forBookingNo") as? String ?? ""):  " + (obj ["booking_no"] as? String ?? ""))
             let attrs = [NSAttributedString.Key.font : UIFont(name: RegularFont, size: 15)]
             let boldString = NSMutableAttributedString(string: (obj ["property_name"] as? String ?? ""), attributes:attrs)
             normalString.append(boldString)
@@ -173,14 +173,14 @@ extension Report_CancelVC: UITableViewDelegate, UITableViewDataSource {
             cell?.lblName.text = hostName
             cell?.thirdDescriptionLbl.text = obj["message"] as? String ?? ""
             cell?.cancelByGuestLbl.text = "   \(obj["cancelled_by"] as? String ?? "")   "
-            cell?.totalBookingAmountLbl.text = "\(GlobalLanguageDictionary.object(forKey: "key_totalBookingCount") as! String): $\(obj["total_amt"] as? String ?? "") "
-            cell?.cancelPerCentLbl.text = "\(GlobalLanguageDictionary.object(forKey: "key_cancelPercent") as! String): \(obj["cancelled_percent"] as? Int ?? 0) % "
-            cell?.refundAmountLbl.text = "\(GlobalLanguageDictionary.object(forKey: "key_refund_amount") as! String): \(obj["total_amt"] as? String ?? "") "
+            cell?.totalBookingAmountLbl.text = "\(GlobalLanguageDictionary.object(forKey: "key_totalBookingCount") as? String ?? ""): $\(obj["total_amt"] as? String ?? "") "
+            cell?.cancelPerCentLbl.text = "\(GlobalLanguageDictionary.object(forKey: "key_cancelPercent") as? String ?? ""): \(obj["cancelled_percent"] as? Int ?? 0) % "
+            cell?.refundAmountLbl.text = "\(GlobalLanguageDictionary.object(forKey: "key_refund_amount") as? String ?? ""): \(obj["total_amt"] as? String ?? "") "
             cell?.cancelByGuestLbl.layer.borderColor = AppColor.cgColor
             cell?.cancelByGuestLbl.layer.borderWidth = 3
             cell?.cancelByGuestLbl.layer.cornerRadius = 6
             cell?.hostAmountLbl.isHidden = (self.selectedSegmentedIndex == 2) ? false : true
-            cell?.hostAmountLbl.text = "\(GlobalLanguageDictionary.object(forKey: "key_hostAmount") as! String): \(obj["total_amt"] as? String ?? "") "
+            cell?.hostAmountLbl.text = "\(GlobalLanguageDictionary.object(forKey: "key_hostAmount") as? String ?? ""): \(obj["total_amt"] as? String ?? "") "
            
 
         }

@@ -39,11 +39,11 @@ class ProfileViewController: BaseViewController {
         self.img_Profile.layer.cornerRadius = 50
         Network.shared.HTTP_POST_STRING_REQUEST_DELEGATE = self
         //self.img_Profile.imageFromURL(urlString: self.UserImg)
-        self.userpic = UserDefaults.standard.value(forKey: "USER_IMAGE") as! String
+        self.userpic = UserDefaults.standard.value(forKey: "USER_IMAGE") as? String ?? ""
         print(userpic)
-        let url = URL(string: UserDefaults.standard.value(forKey: "USER_IMAGE") as! String)
+        let url = URL(string: UserDefaults.standard.value(forKey: "USER_IMAGE") as? String ?? "")
         self.img_Profile.kf.setImage(with: url, placeholder:UIImage(named:"user"))
-       // self.img_Profile.imageFromURL(urlString:  UserDefaults.standard.value(forKey: "USER_IMAGE") as! String)
+       // self.img_Profile.imageFromURL(urlString:  UserDefaults.standard.value(forKey: "USER_IMAGE") as? String ?? "")
         // Do any additional setup after loading the view.
     }
         override func viewWillAppear(_ animated: Bool)
@@ -155,12 +155,12 @@ class ProfileViewController: BaseViewController {
             self.hideActivityIndicator(uiView: self.view)
             //UserDefaults.standard.set(user_image, forKey: "ProfileImage")
             let responseDictionary:NSDictionary = responseObject as! NSDictionary
-            if responseDictionary.value(forKey: "status") as! Int == 1 {
+            if responseDictionary.value(forKey: "status") as? Int ?? 0 == 1 {
                 self.showInformation(title: "Closest", message: "Successfully Updated")
                 let ProfInfo = responseDictionary.value(forKey: "profileinfo") as? NSArray
                 for num in 0..<ProfInfo!.count {
                     let profDict = ProfInfo![num] as! NSDictionary
-                    let imgStr:String = profDict.value(forKey: "user_image") as! String
+                    let imgStr:String = profDict.value(forKey: "user_image") as? String ?? ""
                     print(imgStr)
                     login_session.setValue(imgStr, forKey: "ProfilePic")
                     UserDefaults.standard.set(imgStr, forKey: "ProfileImage")
@@ -171,7 +171,7 @@ class ProfileViewController: BaseViewController {
                 //self.showAlertWithDistructiveButton()
             }
             else {
-                self.showInformation(title: "Warning", message: responseDictionary.value(forKey: "message") as! String)
+                self.showInformation(title: "Warning", message: responseDictionary.value(forKey: "message") as? String ?? "")
             }
         }, failure: {
             (operation, error) in

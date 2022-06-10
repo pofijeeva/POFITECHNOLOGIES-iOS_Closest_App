@@ -30,22 +30,22 @@ class Step8 : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        address = dictionary["address"] as? String
-        city = dictionary["city"] as? String
-        country = dictionary["country"] as? String
-        lat = dictionary["lat"] as? String
-        longField = dictionary["long"] as? String
-        propertyid = dictionary["propertyid"] as? Int
-        state = dictionary["state"] as? String
-        stepCompleted = dictionary["step_completed"] as? Bool
-        street = dictionary["street"] as? String
-        zip = dictionary["zip"] as? String
-        location_id = dictionary["location_id"] as? Int
-        status = dictionary["status"] as? Int
-        street_address = dictionary["street_address"] as? String
-        zip_code = dictionary["zip_code"] as? String
-        latitude = dictionary["latitude"] as? String
-        longitude = dictionary["longitude"] as? String
+        address = dictionary["address"] as? String ?? ""
+        city = dictionary["city"] as? String ?? ""
+        country = dictionary["country"] as? String ?? ""
+        lat = dictionary["lat"] as? String ?? ""
+        longField = dictionary["long"] as? String ?? ""
+        propertyid = dictionary["propertyid"] as? Int ?? 0
+        state = dictionary["state"] as? String ?? ""
+        stepCompleted = dictionary["step_completed"] as? Bool ?? false
+        street = dictionary["street"] as? String ?? ""
+        zip = dictionary["zip"] as? String ?? ""
+        location_id = dictionary["location_id"] as? Int ?? 0
+        status = dictionary["status"] as? Int ?? 0
+        street_address = dictionary["street_address"] as? String ?? ""
+        zip_code = dictionary["zip_code"] as? String ?? ""
+        latitude = dictionary["latitude"] as? String ?? ""
+        longitude = dictionary["longitude"] as? String ?? ""
     }
 
     /**
@@ -111,22 +111,22 @@ class Step8 : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        address = aDecoder.decodeObject(forKey: "address") as? String
-        city = aDecoder.decodeObject(forKey: "city") as? String
-        country = aDecoder.decodeObject(forKey: "country") as? String
-        lat = aDecoder.decodeObject(forKey: "lat") as? String
-        longField = aDecoder.decodeObject(forKey: "long") as? String
-        propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int
-        state = aDecoder.decodeObject(forKey: "state") as? String
-        stepCompleted = aDecoder.decodeObject(forKey: "step_completed") as? Bool
-        street = aDecoder.decodeObject(forKey: "street") as? String
-        zip = aDecoder.decodeObject(forKey: "zip") as? String
-        location_id = aDecoder.decodeObject(forKey: "location_id") as? Int
-        status = aDecoder.decodeObject(forKey: "status") as? Int
-        street_address = aDecoder.decodeObject(forKey: "street_address") as? String
-        zip_code = aDecoder.decodeObject(forKey: "zip_code") as? String
-        latitude = aDecoder.decodeObject(forKey: "latitude") as? String
-        longitude = aDecoder.decodeObject(forKey: "longitude") as? String
+        address = aDecoder.decodeObject(forKey: "address") as? String ?? ""
+        city = aDecoder.decodeObject(forKey: "city") as? String ?? ""
+        country = aDecoder.decodeObject(forKey: "country") as? String ?? ""
+        lat = aDecoder.decodeObject(forKey: "lat") as? String ?? ""
+        longField = aDecoder.decodeObject(forKey: "long") as? String ?? ""
+        propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int ?? 0
+        state = aDecoder.decodeObject(forKey: "state") as? String ?? ""
+        stepCompleted = aDecoder.decodeObject(forKey: "step_completed") as? Bool ?? false
+        street = aDecoder.decodeObject(forKey: "street") as? String ?? ""
+        zip = aDecoder.decodeObject(forKey: "zip") as? String ?? ""
+        location_id = aDecoder.decodeObject(forKey: "location_id") as? Int ?? 0
+        status = aDecoder.decodeObject(forKey: "status") as? Int ?? 0
+        street_address = aDecoder.decodeObject(forKey: "street_address") as? String ?? ""
+        zip_code = aDecoder.decodeObject(forKey: "zip_code") as? String ?? ""
+        latitude = aDecoder.decodeObject(forKey: "latitude") as? String ?? ""
+        longitude = aDecoder.decodeObject(forKey: "longitude") as? String ?? ""
     }
 
     /**

@@ -16,8 +16,8 @@ class Service : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        serviceType = dictionary["service_type"] as? String
-        serviceValue = dictionary["service_value"] as? Float
+        serviceType = dictionary["service_type"] as? String ?? ""
+        serviceValue = dictionary["service_value"] as? Float ?? 0
     }
 
     /**
@@ -41,8 +41,8 @@ class Service : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        serviceType = aDecoder.decodeObject(forKey: "service_type") as? String
-        serviceValue = aDecoder.decodeObject(forKey: "service_value") as? Float
+        serviceType = aDecoder.decodeObject(forKey: "service_type") as? String ?? ""
+        serviceValue = aDecoder.decodeObject(forKey: "service_value") as? Float ?? 0
     }
 
     /**

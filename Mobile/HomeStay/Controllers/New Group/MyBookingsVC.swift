@@ -58,13 +58,13 @@ class MyBookingsVC: BaseViewController {
     }
     
     func showSimpleAlert() {
-        let alert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_areyousureLogin") as! String,         preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_areyousureLogin") as? String ?? "",         preferredStyle: UIAlertControllerStyle.alert)
         
-//        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_cancel") as! String, style: UIAlertActionStyle.default, handler: { _ in
+//        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_cancel") as? String ?? "", style: UIAlertActionStyle.default, handler: { _ in
 //            //Cancel Action
 //            self.dismiss(animated: true, completion: nil)
 //        }))
-        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_login") as! String,
+        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_login") as? String ?? "",
                                       style: UIAlertActionStyle.default,
                                       handler: {(_: UIAlertAction!) in
                                         let navgt = self.storyboard?.instantiateViewController(withIdentifier: "StartViewController") as? StartViewController
@@ -121,7 +121,7 @@ class MyBookingsVC: BaseViewController {
                 self.hideActivityIndicator(uiView: self.view)
                 if error != nil {
                     print(error!.localizedDescription)
-                    self.showInformation(title: GlobalLanguageDictionary.object(forKey: "key_info") as! String, message: error!.localizedDescription)
+                    self.showInformation(title: GlobalLanguageDictionary.object(forKey: "key_info") as? String ?? "", message: error!.localizedDescription)
                     return
                 }
                 let responseDict:NSDictionary = json!
@@ -143,7 +143,7 @@ class MyBookingsVC: BaseViewController {
             }
         }
         else {
-            self.showInformation(title: GlobalLanguageDictionary.object(forKey: "key_info") as! String, message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: GlobalLanguageDictionary.object(forKey: "key_info") as? String ?? "", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         
     }
@@ -197,7 +197,7 @@ class MyBookingsVC: BaseViewController {
             }
             
         } else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         
         
@@ -212,7 +212,7 @@ class MyBookingsVC: BaseViewController {
         self.AddonsArray.addObjects(from: (bookingsObj["add_on_details"] as! NSArray) as! [Any])
         self.add_on_amount = "\(bookingsObj["add_on_amount"] as AnyObject)"
         if self.AddonsArray.count == 0 {
-            self.showInformation(title: GlobalLanguageDictionary.object(forKey: "key_info") as! String, message: GlobalLanguageDictionary.object(forKey: "key_wedonthaveaddonstoDisplay") as! String)
+            self.showInformation(title: GlobalLanguageDictionary.object(forKey: "key_info") as? String ?? "", message: GlobalLanguageDictionary.object(forKey: "key_wedonthaveaddonstoDisplay") as? String ?? "")
 
         }else{
             self.grayView.isHidden = false
@@ -279,7 +279,7 @@ class MyBookingsVC: BaseViewController {
             }
             
         } else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
 
         
@@ -322,7 +322,7 @@ extension MyBookingsVC: UITableViewDelegate, UITableViewDataSource {
                 cell.AddonsLbl.text = "Addons Total Amount - \(self.add_on_amount)"
             }else{
                 cell.AddonsLbl.textColor = .black
-                cell.AddonsLbl.text = "\((self.AddonsArray.object(at: indexPath.row-1) as! NSDictionary).object(forKey: "name") as! String) - \(login_session.value(forKey: "APP_CURRENCYSYM") as? String ?? "$") \((self.AddonsArray.object(at: indexPath.row-1) as! NSDictionary).object(forKey: "id") as AnyObject)"
+                cell.AddonsLbl.text = "\((self.AddonsArray.object(at: indexPath.row-1) as? NSDictionary)?.object(forKey: "name") as? String ?? "") - \(login_session.value(forKey: "APP_CURRENCYSYM") as? String ?? "$") \((self.AddonsArray.object(at: indexPath.row-1) as? NSDictionary)?.object(forKey: "id") as AnyObject)"
             }
             cell.AddonsLbl.font = UIFont(name: SemiBoldFont, size: 15)
             return cell
@@ -352,20 +352,20 @@ extension MyBookingsVC: UITableViewDelegate, UITableViewDataSource {
             cell.btn1.titleLabel?.font = UIFont(name: SemiBoldFont, size: 15)
             cell.btn2.titleLabel?.font = UIFont(name: SemiBoldFont, size: 15)
             cell.btn3.titleLabel?.font = UIFont(name: SemiBoldFont, size: 15)
-            cell.btn3.setTitle(GlobalLanguageDictionary.object(forKey: "Key_cancel") as! String, for: .normal)
+            cell.btn3.setTitle(GlobalLanguageDictionary.object(forKey: "Key_cancel") as? String ?? "", for: .normal)
             cell.btn3.backgroundColor = AppColor
             
             cell.imgProperty.sd_setImage(with: URL(string: imgURL), placeholderImage: UIImage(named: "placeholder.png"))
             cell.lblLoc.text = bookingsObj["pickup_location"] as? String ?? ""
             cell.lblBookingDate.text =  bookingsObj["booked_date"] as? String ?? ""
-            cell.lblGuestCount.text =  "\(GlobalLanguageDictionary.object(forKey: "key_Qty") as! String) \(bookingsObj["num_of_guests"] as AnyObject)"
+            cell.lblGuestCount.text =  "\(GlobalLanguageDictionary.object(forKey: "key_Qty") as? String ?? "") \(bookingsObj["num_of_guests"] as AnyObject)"
 
             cell.lblPickupDate.text =  bookingsObj["check_in"] as? String ?? ""
             cell.lblDropDate.text = bookingsObj["check_out"] as? String ?? ""
             cell.lblPrice.text = "$" + (bookingsObj["total_amt"] as? String ?? "")
-            cell.lblReqID.text = "\(GlobalLanguageDictionary.object(forKey: "key_requestId") as! String): " + (bookingsObj["booking_num"] as? String ?? "")
+            cell.lblReqID.text = "\(GlobalLanguageDictionary.object(forKey: "key_requestId") as? String ?? ""): " + (bookingsObj["booking_num"] as? String ?? "")
             cell.lblPropertyName.text = bookingsObj["ren_title"] as? String ?? ""
-        //    cell.lblDats.text = " \(countBtnTwoDates(mStartDate:  (bookingsObj["check_in"] as? String ?? "").toDate(format: "dd MMM,yyyy"), mEndDate: (bookingsObj["check_out"] as? String ?? "").toDate(format: "dd MMM,yyyy")))" + " \(GlobalLanguageDictionary.object(forKey: "key_Days") as! String)"
+        //    cell.lblDats.text = " \(countBtnTwoDates(mStartDate:  (bookingsObj["check_in"] as? String ?? "").toDate(format: "dd MMM,yyyy"), mEndDate: (bookingsObj["check_out"] as? String ?? "").toDate(format: "dd MMM,yyyy")))" + " \(GlobalLanguageDictionary.object(forKey: "key_Days") as? String ?? "")"
             
 //             if (bookingsObj["add_on_details"] as! NSArray).count == 0 {
 //                cell.btn1.isHidden = true

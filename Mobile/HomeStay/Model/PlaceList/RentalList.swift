@@ -29,21 +29,21 @@ class RentalList : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        descriptionField = dictionary["description"] as? String
-        homeType = dictionary["home_type"] as? String
-        hostId = dictionary["host_id"] as? Int
-        hostname = dictionary["hostname"] as? String
-        isFavourite = dictionary["is_favourite"] as? Int
-        latitude = dictionary["latitude"] as? String
-        longitude = dictionary["longitude"] as? String
-        propertyCurrencyCode = dictionary["property_currency_code"] as? String
-        propertyCurrencySymbol = dictionary["property_currency_symbol"] as? String
-        rentalId = dictionary["rental_id"] as? Int
-        rentalImage = dictionary["rental_image"] as? String
+        descriptionField = dictionary["description"] as? String ?? ""
+        homeType = dictionary["home_type"] as? String ?? ""
+        hostId = dictionary["host_id"] as? Int ?? 0
+        hostname = dictionary["hostname"] as? String ?? ""
+        isFavourite = dictionary["is_favourite"] as? Int ?? 0
+        latitude = dictionary["latitude"] as? String ?? ""
+        longitude = dictionary["longitude"] as? String ?? ""
+        propertyCurrencyCode = dictionary["property_currency_code"] as? String ?? ""
+        propertyCurrencySymbol = dictionary["property_currency_symbol"] as? String ?? ""
+        rentalId = dictionary["rental_id"] as? Int ?? 0
+        rentalImage = dictionary["rental_image"] as? String ?? ""
         rentalPrice = dictionary["rental_price"] as AnyObject
-        rentalTitle = dictionary["rental_title"] as? String
-        userCurrency = dictionary["user_currency"] as? String
-        userphoto = dictionary["userphoto"] as? String
+        rentalTitle = dictionary["rental_title"] as? String ?? ""
+        userCurrency = dictionary["user_currency"] as? String ?? ""
+        userphoto = dictionary["userphoto"] as? String ?? ""
         rental_hourly_price = dictionary["rental_hourly_price"] as AnyObject
     }
 
@@ -110,21 +110,21 @@ class RentalList : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        descriptionField = aDecoder.decodeObject(forKey: "description") as? String
-        homeType = aDecoder.decodeObject(forKey: "home_type") as? String
-        hostId = aDecoder.decodeObject(forKey: "host_id") as? Int
-        hostname = aDecoder.decodeObject(forKey: "hostname") as? String
-        isFavourite = aDecoder.decodeObject(forKey: "is_favourite") as? Int
-        latitude = aDecoder.decodeObject(forKey: "latitude") as? String
-        longitude = aDecoder.decodeObject(forKey: "longitude") as? String
-        propertyCurrencyCode = aDecoder.decodeObject(forKey: "property_currency_code") as? String
-        propertyCurrencySymbol = aDecoder.decodeObject(forKey: "property_currency_symbol") as? String
-        rentalId = aDecoder.decodeObject(forKey: "rental_id") as? Int
-        rentalImage = aDecoder.decodeObject(forKey: "rental_image") as? String
+        descriptionField = aDecoder.decodeObject(forKey: "description") as? String ?? ""
+        homeType = aDecoder.decodeObject(forKey: "home_type") as? String ?? ""
+        hostId = aDecoder.decodeObject(forKey: "host_id") as? Int ?? 0
+        hostname = aDecoder.decodeObject(forKey: "hostname") as? String ?? ""
+        isFavourite = aDecoder.decodeObject(forKey: "is_favourite") as? Int ?? 0
+        latitude = aDecoder.decodeObject(forKey: "latitude") as? String ?? ""
+        longitude = aDecoder.decodeObject(forKey: "longitude") as? String ?? ""
+        propertyCurrencyCode = aDecoder.decodeObject(forKey: "property_currency_code") as? String ?? ""
+        propertyCurrencySymbol = aDecoder.decodeObject(forKey: "property_currency_symbol") as? String ?? ""
+        rentalId = aDecoder.decodeObject(forKey: "rental_id") as? Int ?? 0
+        rentalImage = aDecoder.decodeObject(forKey: "rental_image") as? String ?? ""
         rentalPrice = aDecoder.decodeObject(forKey: "rental_price") as AnyObject
-        rentalTitle = aDecoder.decodeObject(forKey: "rental_title") as? String
-        userCurrency = aDecoder.decodeObject(forKey: "user_currency") as? String
-        userphoto = aDecoder.decodeObject(forKey: "userphoto") as? String
+        rentalTitle = aDecoder.decodeObject(forKey: "rental_title") as? String ?? ""
+        userCurrency = aDecoder.decodeObject(forKey: "user_currency") as? String ?? ""
+        userphoto = aDecoder.decodeObject(forKey: "userphoto") as? String ?? ""
         rental_hourly_price = aDecoder.decodeObject(forKey: "rental_hourly_price") as AnyObject
     }
 

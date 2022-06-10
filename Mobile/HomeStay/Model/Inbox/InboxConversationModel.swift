@@ -33,23 +33,23 @@ class InboxConversationModel : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        approval = dictionary["approval"] as? String
-        bookingId = dictionary["booking_id"] as? String
-        checkin = dictionary["checkin"] as? String
-        checkout = dictionary["checkout"] as? String
-        hostId = dictionary["host_id"] as? String
-        hostImage = dictionary["host_image"] as? String
-        hostName = dictionary["host_name"] as? String
-        memberFrom = dictionary["member_from"] as? String
-        message = dictionary["message"] as? String
-        noOfGuest = dictionary["no_of_guest"] as? String
-        propertyCurrencyCode = dictionary["property_currency_code"] as? String
-        propertyId = dictionary["property_id"] as? String
-        propertyName = dictionary["property_name"] as? String
-        requesterId = dictionary["requester_id"] as? String
-        requesterImage = dictionary["requester_image"] as? String
-        requesterName = dictionary["requester_name"] as? String
-        status = dictionary["status"] as? Int
+        approval = dictionary["approval"] as? String ?? ""
+        bookingId = dictionary["booking_id"] as? String ?? ""
+        checkin = dictionary["checkin"] as? String ?? ""
+        checkout = dictionary["checkout"] as? String ?? ""
+        hostId = dictionary["host_id"] as? String ?? ""
+        hostImage = dictionary["host_image"] as? String ?? ""
+        hostName = dictionary["host_name"] as? String ?? ""
+        memberFrom = dictionary["member_from"] as? String ?? ""
+        message = dictionary["message"] as? String ?? ""
+        noOfGuest = dictionary["no_of_guest"] as? String ?? ""
+        propertyCurrencyCode = dictionary["property_currency_code"] as? String ?? ""
+        propertyId = dictionary["property_id"] as? String ?? ""
+        propertyName = dictionary["property_name"] as? String ?? ""
+        requesterId = dictionary["requester_id"] as? String ?? ""
+        requesterImage = dictionary["requester_image"] as? String ?? ""
+        requesterName = dictionary["requester_name"] as? String ?? ""
+        status = dictionary["status"] as? Int ?? 0
         totalAmount = dictionary["total_amount"] as? Float
         messages = [Message]()
         if let messagesArray = dictionary["messages"] as? [[String:Any]]{
@@ -136,24 +136,24 @@ class InboxConversationModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        approval = aDecoder.decodeObject(forKey: "approval") as? String
-        bookingId = aDecoder.decodeObject(forKey: "booking_id") as? String
-        checkin = aDecoder.decodeObject(forKey: "checkin") as? String
-        checkout = aDecoder.decodeObject(forKey: "checkout") as? String
-        hostId = aDecoder.decodeObject(forKey: "host_id") as? String
-        hostImage = aDecoder.decodeObject(forKey: "host_image") as? String
-        hostName = aDecoder.decodeObject(forKey: "host_name") as? String
-        memberFrom = aDecoder.decodeObject(forKey: "member_from") as? String
-        message = aDecoder.decodeObject(forKey: "message") as? String
+        approval = aDecoder.decodeObject(forKey: "approval") as? String ?? ""
+        bookingId = aDecoder.decodeObject(forKey: "booking_id") as? String ?? ""
+        checkin = aDecoder.decodeObject(forKey: "checkin") as? String ?? ""
+        checkout = aDecoder.decodeObject(forKey: "checkout") as? String ?? ""
+        hostId = aDecoder.decodeObject(forKey: "host_id") as? String ?? ""
+        hostImage = aDecoder.decodeObject(forKey: "host_image") as? String ?? ""
+        hostName = aDecoder.decodeObject(forKey: "host_name") as? String ?? ""
+        memberFrom = aDecoder.decodeObject(forKey: "member_from") as? String ?? ""
+        message = aDecoder.decodeObject(forKey: "message") as? String ?? ""
         messages = aDecoder.decodeObject(forKey: "messages") as? [Message]
-        noOfGuest = aDecoder.decodeObject(forKey: "no_of_guest") as? String
-        propertyCurrencyCode = aDecoder.decodeObject(forKey: "property_currency_code") as? String
-        propertyId = aDecoder.decodeObject(forKey: "property_id") as? String
-        propertyName = aDecoder.decodeObject(forKey: "property_name") as? String
-        requesterId = aDecoder.decodeObject(forKey: "requester_id") as? String
-        requesterImage = aDecoder.decodeObject(forKey: "requester_image") as? String
-        requesterName = aDecoder.decodeObject(forKey: "requester_name") as? String
-        status = aDecoder.decodeObject(forKey: "status") as? Int
+        noOfGuest = aDecoder.decodeObject(forKey: "no_of_guest") as? String ?? ""
+        propertyCurrencyCode = aDecoder.decodeObject(forKey: "property_currency_code") as? String ?? ""
+        propertyId = aDecoder.decodeObject(forKey: "property_id") as? String ?? ""
+        propertyName = aDecoder.decodeObject(forKey: "property_name") as? String ?? ""
+        requesterId = aDecoder.decodeObject(forKey: "requester_id") as? String ?? ""
+        requesterImage = aDecoder.decodeObject(forKey: "requester_image") as? String ?? ""
+        requesterName = aDecoder.decodeObject(forKey: "requester_name") as? String ?? ""
+        status = aDecoder.decodeObject(forKey: "status") as? Int ?? 0
         totalAmount = aDecoder.decodeObject(forKey: "total_amount") as? Float
     }
 

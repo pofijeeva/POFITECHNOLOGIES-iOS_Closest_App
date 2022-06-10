@@ -34,7 +34,7 @@ class ExperienceGroupSizeViewController: UIViewController {
         
         Helper.sharedInstance.UpdateTextfield(self.AddGroupSize)
         if arrayOfResult.count > 0 {
-            self.AddGroupSize.text = ((arrayOfResult[0] as! NSDictionary).object(forKey: "group_size") as! NSDictionary).object(forKey: "group_size") as! String
+            self.AddGroupSize.text = ((arrayOfResult[0] as? NSDictionary)?.object(forKey: "group_size") as? NSDictionary)?.object(forKey: "group_size") as? String ?? ""
         }
         // Do any additional setup after loading the view.
     }
@@ -45,7 +45,7 @@ class ExperienceGroupSizeViewController: UIViewController {
         }else{
             Helper.sharedInstance.showActivityIndicator(view: self.view, targetVC: self)
             var params = NSMutableDictionary()
-            params = ["user_id":login_session.value(forKey: "UserId")!,"exp_id":currentExpId,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"group_size":self.AddGroupSize.text!,"device_type":"ios"]
+            params = ["user_id":login_session.value(forKey: "UserId")!,"exp_id":currentExpId,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","group_size":self.AddGroupSize.text!,"device_type":"ios"]
             let manager = AFHTTPSessionManager()
             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
             manager.post(ExperienceGroupSize, parameters: params, headers: ["Authorization":""], progress: nil, success: { (operation, responseObject) -> Void in
@@ -54,7 +54,7 @@ class ExperienceGroupSizeViewController: UIViewController {
                 Helper.sharedInstance.hideActivityIndicator(view: self.view)
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     currentExpId = "\(responseDict.object(forKey: "experience_id") as AnyObject)"
                     sharedInstanceExperience.gotoStepSixteen()
                     //let mod = RentYourSpaceModel(fromDictionary: responseDict as! [String : Any])
@@ -62,7 +62,7 @@ class ExperienceGroupSizeViewController: UIViewController {
                    // self.showInformation(title: "Closest", message: mod.message)
                 }
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {

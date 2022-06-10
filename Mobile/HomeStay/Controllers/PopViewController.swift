@@ -106,7 +106,7 @@ extension PopViewController: UITableViewDelegate,UITableViewDataSource {
         listingIndex = indexPath.row
 
         print(self.dropDownArray[indexPath.row])
-        self.updateDropDown(str: dropDownArray[indexPath.row] as! String)
+        self.updateDropDown(str: dropDownArray[indexPath.row] as? String ?? "")
         self.dismiss(animated: true, completion: nil)
         // self.navigationController?.popViewController(animated: true)
     }

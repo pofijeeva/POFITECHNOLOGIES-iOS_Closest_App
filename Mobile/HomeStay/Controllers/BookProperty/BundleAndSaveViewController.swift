@@ -187,7 +187,7 @@ class BundleAndSaveViewController: BaseViewController,UITableViewDelegate,UITabl
         else{
             var bundleAmt = Int()
             for i in 0..<self.BundleSelectedDict.count {
-                let BundlePrice = "\((self.BundleSelectedDict.object(at: i) as! NSDictionary).object(forKey: "total_amount") as AnyObject)"
+                let BundlePrice = "\((self.BundleSelectedDict.object(at: i) as? NSDictionary)?.object(forKey: "total_amount") as AnyObject)"
                 let decimal = Decimal(floatLiteral: Double(BundlePrice)!)
                 let intValue = (decimal as NSDecimalNumber).intValue
                 bundleAmt = bundleAmt + intValue
@@ -236,7 +236,7 @@ class BundleAndSaveViewController: BaseViewController,UITableViewDelegate,UITabl
             cell?.FirstView.isHidden = false
             cell?.SecondView.isHidden = false
             let actualIndex = indexPath.row + indexPath.row
-            cell?.loadFirstFoodItems(item: BundleArray.object(at: actualIndex)as! NSDictionary)
+            cell?.loadFirstFoodItems(item: BundleArray.object(at: actualIndex) as? NSDictionary ?? [:])
             cell?.SecondView.isHidden = true
             cell!.FirstGuestLbl.accessibilityLabel = "\(actualIndex)"
             cell!.SecondGuestLbl.tag = actualIndex + 1
@@ -244,7 +244,7 @@ class BundleAndSaveViewController: BaseViewController,UITableViewDelegate,UITabl
             cell!.SecondGuestLbl.delegate = self
 
             if actualIndex+1 < BundleArray.count{
-                cell?.loadSecondFoodItems(item: BundleArray.object(at: actualIndex+1)as! NSDictionary)
+                cell?.loadSecondFoodItems(item: BundleArray.object(at: actualIndex+1) as? NSDictionary ?? [:])
                 cell?.SecondView.isHidden = false
             }
             cell?.FirstView.tag = actualIndex
@@ -286,7 +286,7 @@ class BundleAndSaveViewController: BaseViewController,UITableViewDelegate,UITabl
             self.showInformation(title: "Closest", message: "Please Enter Guest Count")
 
         }else{
-            resultdata.addEntries(from: (BundleArray.object(at: index!)as! NSDictionary) as! [AnyHashable : Any])
+            resultdata.addEntries(from: (BundleArray.object(at: index!)as? NSDictionary) as? [AnyHashable : Any] ?? [:])
             let BundleId = "\(resultdata.object(forKey: "bundle_id") as AnyObject)"
             let bundle_name = "\(resultdata.object(forKey: "bundle_Name") as AnyObject)"
 
@@ -296,7 +296,7 @@ class BundleAndSaveViewController: BaseViewController,UITableViewDelegate,UITabl
                 BUndleSelectedArray.remove(BundleId)
                 
                 for i in 0..<self.BundleSelectedDict.count{
-                    let addonIds = "\((self.BundleSelectedDict.object(at: i) as! NSDictionary).object(forKey: "bundle_id") as AnyObject)"
+                    let addonIds = "\((self.BundleSelectedDict.object(at: i) as? NSDictionary)?.object(forKey: "bundle_id") as AnyObject)"
                     if BundleId == addonIds{
                         self.BundleSelectedDict.removeObject(at: i)
                         BundleSelectedDictValues = self.BundleSelectedDict
@@ -365,7 +365,7 @@ class BundleAndSaveViewController: BaseViewController,UITableViewDelegate,UITabl
         if count == nil {
             self.showInformation(title: "Closest", message: "Please Enter Guest Count")
         }else{
-            resultdata.addEntries(from: (BundleArray.object(at: index!)as! NSDictionary) as! [AnyHashable : Any])
+            resultdata.addEntries(from: (BundleArray.object(at: index!)as? NSDictionary) as? [AnyHashable : Any] ?? [:])
             let BundleId = "\(resultdata.object(forKey: "bundle_id") as AnyObject)"
             let bundle_name = "\(resultdata.object(forKey: "bundle_Name") as AnyObject)"
 
@@ -374,7 +374,7 @@ class BundleAndSaveViewController: BaseViewController,UITableViewDelegate,UITabl
 
                 BUndleSelectedArray.remove(BundleId)
                 for i in 0..<self.BundleSelectedDict.count{
-                    let addonIds = "\((self.BundleSelectedDict.object(at: i) as! NSDictionary).object(forKey: "bundle_id") as AnyObject)"
+                    let addonIds = "\((self.BundleSelectedDict.object(at: i) as? NSDictionary)?.object(forKey: "bundle_id") as AnyObject)"
                     if BundleId == addonIds{
                         self.BundleSelectedDict.removeObject(at: i)
                         BundleSelectedDictValues = self.BundleSelectedDict
@@ -465,12 +465,12 @@ extension BundleAndSaveViewController: UICollectionViewDelegate,UICollectionView
     
     let DataDict = BundleArray.object(at: indexPath.row)as! NSDictionary
       
-    let imgURL = URL(string: DataDict.object(forKey: "bundle_image") as! String)
+    let imgURL = URL(string: DataDict.object(forKey: "bundle_image") as? String ?? "")
     cell.FirstImg.kf.setImage(with: imgURL)
-    cell.FirstNameLbl.text = (DataDict.object(forKey: "bundle_Name") as! String)
-    cell.FirstDescLbl.text = (DataDict.object(forKey: "bundle_description") as! String)
+    cell.FirstNameLbl.text = (DataDict.object(forKey: "bundle_Name") as? String ?? "")
+    cell.FirstDescLbl.text = (DataDict.object(forKey: "bundle_description") as? String ?? "")
     
-   // let BundleId = "\(DataDict.object(forKey: "bundle_id") as! String)"
+   // let BundleId = "\(DataDict.object(forKey: "bundle_id") as? String ?? "")"
 
             
         if "\(DataDict.object(forKey: "Selected") as AnyObject)" == "Yes" {
@@ -537,7 +537,7 @@ extension BundleAndSaveViewController: UICollectionViewDelegate,UICollectionView
     }else{
         let resultdata = NSMutableDictionary()
 
-        resultdata.addEntries(from: (BundleArray.object(at: indexPath.row)as! NSDictionary) as! [AnyHashable : Any])
+        resultdata.addEntries(from: (BundleArray.object(at: indexPath.row)as? NSDictionary) as? [AnyHashable : Any] ?? [:])
         let BundleId = "\(resultdata.object(forKey: "bundle_id") as AnyObject)"
         let bundle_name = "\(resultdata.object(forKey: "bundle_Name") as AnyObject)"
 
@@ -545,7 +545,7 @@ extension BundleAndSaveViewController: UICollectionViewDelegate,UICollectionView
             self.showActivityIndicator(uiView: self.view)
 
             BUndleSelectedArray.remove(BundleId)
-            let tempDict = (BundleArray[indexPath.row] as! NSDictionary).mutableCopy()
+            let tempDict = (BundleArray[indexPath.row] as? NSDictionary)?.mutableCopy()
             
             (tempDict as AnyObject).setValue(count, forKey: "No_of_Guests")
             (tempDict as AnyObject).setValue("No", forKey: "Selected")
@@ -553,7 +553,7 @@ extension BundleAndSaveViewController: UICollectionViewDelegate,UICollectionView
             BundleArray[indexPath.row] = tempDict as! NSDictionary
             
             for i in 0..<self.BundleSelectedDict.count{
-                let addonIds = "\((self.BundleSelectedDict.object(at: i) as! NSDictionary).object(forKey: "bundle_id") as AnyObject)"
+                let addonIds = "\((self.BundleSelectedDict.object(at: i) as? NSDictionary)?.object(forKey: "bundle_id") as AnyObject)"
                 if BundleId == addonIds{
                     self.BundleSelectedDict.removeObject(at: i)
                     BundleSelectedDictValues = self.BundleSelectedDict
@@ -600,7 +600,7 @@ extension BundleAndSaveViewController: UICollectionViewDelegate,UICollectionView
             Data.setValue(count, forKey: "No_of_Guests")
             self.BundleSelectedDict.add(Data)
             
-            let tempDict = (BundleArray[indexPath.row] as! NSDictionary).mutableCopy()
+            let tempDict = (BundleArray[indexPath.row] as? NSDictionary)?.mutableCopy()
             
             (tempDict as AnyObject).setValue(count, forKey: "No_of_Guests")
             (tempDict as AnyObject).setValue("Yes", forKey: "Selected")

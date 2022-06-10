@@ -1,16 +1,16 @@
- //
- //  UserCancellationViewController.swift
- //  HomeStay
- //
- //  Created by saravanan2 on 20/12/19.
- //  Copyright © 2019 POFI TECHNOLOGIES. All rights reserved.
- //
- 
- import UIKit
- import AFNetworking
- 
- 
- class UserCancellationViewController: BaseViewController {
+//
+//  UserCancellationViewController.swift
+//  HomeStay
+//
+//  Created by saravanan2 on 20/12/19.
+//  Copyright © 2019 POFI TECHNOLOGIES. All rights reserved.
+//
+
+import UIKit
+import AFNetworking
+
+
+class UserCancellationViewController: BaseViewController {
     
     
     
@@ -21,7 +21,7 @@
     @IBOutlet weak var CancelAboutCountLbl: UILabel!
     @IBOutlet weak var noDataLbl: UILabel!
     @IBOutlet weak var NavTitleLbl: UILabel!
-
+    
     @IBOutlet weak var CancellationTable: UITableView!
     
     @IBOutlet weak var CancelByYouCountBtn: UIButton!
@@ -45,8 +45,8 @@
         self.CancelByYouCountLbl.font = UIFont(name: SemiBoldFont, size: 12)
         self.CancelAboutCountLbl.font = UIFont(name: SemiBoldFont, size: 12)
         
-         self.CancelByYouCountBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 12)
-         self.CancelAboutCountBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 12)
+        self.CancelByYouCountBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 12)
+        self.CancelAboutCountBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 12)
         
         
         CancellationTable.tableFooterView = UIView()
@@ -70,7 +70,7 @@
                 self.CancellationTable.isHidden = true
                 self.noDataLbl.isHidden = false
                 self.EmptyImg.isHidden = false
-
+                
             }
         }
         
@@ -90,13 +90,13 @@
                 self.CancellationTable.isHidden = false
                 self.noDataLbl.isHidden = true
                 self.EmptyImg.isHidden = true
-
+                
                 self.CancellationTable.reloadData()
             }else{
                 self.CancellationTable.isHidden = true
                 self.noDataLbl.isHidden = false
                 self.EmptyImg.isHidden = false
-
+                
             }
         }
         UIView.animate(withDuration: 0.25, animations: {
@@ -110,13 +110,13 @@
                 self.CancellationTable.isHidden = false
                 self.noDataLbl.isHidden = true
                 self.EmptyImg.isHidden = true
-
+                
                 self.CancellationTable.reloadData()
             }else{
                 self.CancellationTable.isHidden = true
                 self.noDataLbl.isHidden = false
                 self.EmptyImg.isHidden = false
-
+                
             }
         }
         UIView.animate(withDuration: 0.25, animations: {
@@ -153,7 +153,7 @@
         {
             showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
-            params = ["language":login_session.value(forKey: "APP_LANGUAGE") as! String,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"user_id":login_session.value(forKey: "UserId")!,"device_type":"ios","booking_no":BookingID!,"cancel_id":CancelID!]
+            params = ["language":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "","currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","user_id":login_session.value(forKey: "UserId")!,"device_type":"ios","booking_no":BookingID!,"cancel_id":CancelID!]
             let manager = AFHTTPSessionManager()
             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
             
@@ -164,7 +164,7 @@
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     
                     self.Reload = Index
                     self.UserInformation()
@@ -173,9 +173,9 @@
                     
                     
                 }
-                    
+                
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -186,7 +186,7 @@
             })
         }else
         {
-            self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         
     }
@@ -199,7 +199,7 @@
         {
             showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
-            params = ["language":login_session.value(forKey: "APP_LANGUAGE") as! String,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"user_id":login_session.value(forKey: "UserId")!,"device_type":"ios","booking_no":BookingID!,"cancel_id":CancelID!]
+            params = ["language":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "","currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","user_id":login_session.value(forKey: "UserId")!,"device_type":"ios","booking_no":BookingID!,"cancel_id":CancelID!]
             let manager = AFHTTPSessionManager()
             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
             
@@ -210,7 +210,7 @@
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     
                     
                     self.ReloadReject = Index
@@ -219,9 +219,9 @@
                     
                     
                 }
-                    
+                
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -232,7 +232,7 @@
             })
         }else
         {
-            self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         
     }
@@ -243,7 +243,7 @@
             
             showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
-            params = ["language":login_session.value(forKey: "APP_LANGUAGE") as! String,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"userid":login_session.value(forKey: "UserId")!]
+            params = ["language":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "","currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","userid":login_session.value(forKey: "UserId")!]
             let manager = AFHTTPSessionManager()
             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
             
@@ -254,15 +254,15 @@
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     let mod = UserInfo(fromDictionary: responseDict as! [String : Any])
                     Singleton.sharedInstance.userInfoModel = mod
                     self.CancellationTable.reloadData()
                     
                 }
-                    
+                
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -273,7 +273,7 @@
             })
         }else
         {
-            self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
     
@@ -287,8 +287,8 @@
      }
      */
     
- }
- extension UserCancellationViewController : UITableViewDataSource , UITableViewDelegate {
+}
+extension UserCancellationViewController : UITableViewDataSource , UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int
     {
@@ -322,77 +322,79 @@
         
         
         if self.AboutYou == true {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ReviewsTableViewCell
-            cell?.selectionStyle = .none
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ReviewsTableViewCell else { return UITableViewCell() }
+            
+            //            let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ReviewsTableViewCell
+            cell.selectionStyle = .none
             let Image = URL(string: Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].userImage)
-            cell?.img_user.setImageWith(Image!)
+            cell.img_user.setImageWith(Image!)
             
-            cell!.lbl_reviewComments.font = UIFont(name: SemiBoldFont, size: 15)
-                        cell!.rentalName.font = UIFont(name: RegularFont, size: 15)
-                         cell!.lbl_userName.font = UIFont(name: RegularFont, size: 15)
-                         cell!.bookingDateLabel.font = UIFont(name: RegularFont, size: 13)
-                         cell!.bookingIdLabel.font = UIFont(name: RegularFont, size: 13)
+            cell.lbl_reviewComments.font = UIFont(name: SemiBoldFont, size: 15)
+            cell.rentalName.font = UIFont(name: RegularFont, size: 15)
+            cell.lbl_userName.font = UIFont(name: RegularFont, size: 15)
+            cell.bookingDateLabel.font = UIFont(name: RegularFont, size: 13)
+            cell.bookingIdLabel.font = UIFont(name: RegularFont, size: 13)
             
-             cell!.AcceptRejectStatus.font = UIFont(name: SemiBoldFont, size: 14)
-                        
-                        cell!.acceptBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
-                        cell!.rejectBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
+            cell.AcceptRejectStatus.font = UIFont(name: SemiBoldFont, size: 14)
             
-            cell!.rejectBtn.layer.borderWidth = 0.5
-            cell!.rejectBtn.layer.borderColor = UIColor.lightGray.cgColor
+            cell.acceptBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
+            cell.rejectBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
             
-            cell?.rentalName.text = Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].propertyName
+            cell.rejectBtn.layer.borderWidth = 0.5
+            cell.rejectBtn.layer.borderColor = UIColor.lightGray.cgColor
             
-            cell?.lbl_reviewComments.text = Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].message
+            cell.rentalName.text = Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].propertyName
             
-            cell?.lbl_userName.text = "By " + Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].userName
+            cell.lbl_reviewComments.text = Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].message
+            
+            cell.lbl_userName.text = "By " + Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].userName
             
             let dateFormatterGet = DateFormatter()
-                   dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                   dateFormatterGet.locale = Locale(identifier: "en_US_POSIX")
-                   let dateFormatterPrint3 = DateFormatter()
-                   dateFormatterPrint3.dateFormat = "yyyy-MM-dd"
-                   dateFormatterPrint3.locale = Locale(identifier: "en_US_POSIX")
-                   // let orderDateStringPasser = checkin
-                   
-                   if let date = dateFormatterGet.date(from: Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].createdDate!)
-                   {
-                       print(dateFormatterPrint3.string(from: date))
-                    cell?.bookingDateLabel.text = dateFormatterPrint3.string(from: date)
-                       
-                   }
+            dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            dateFormatterGet.locale = Locale(identifier: "en_US_POSIX")
+            let dateFormatterPrint3 = DateFormatter()
+            dateFormatterPrint3.dateFormat = "yyyy-MM-dd"
+            dateFormatterPrint3.locale = Locale(identifier: "en_US_POSIX")
+            // let orderDateStringPasser = checkin
+            
+            if let date = dateFormatterGet.date(from: Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].createdDate!)
+            {
+                print(dateFormatterPrint3.string(from: date))
+                cell.bookingDateLabel.text = dateFormatterPrint3.string(from: date)
+                
+            }
             
             
             
-           // cell?.bookingDateLabel.text = Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].createdDate
-            cell?.bookingIdLabel.text = Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].bookingNo
+            // cell.bookingDateLabel.text = Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].createdDate
+            cell.bookingIdLabel.text = Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].bookingNo
             let Status =  Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].status!
             let Email = Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].reviewEmail!
-            cell?.acceptBtn.isHidden = true
-            cell?.rejectBtn.isHidden = true
+            cell.acceptBtn.isHidden = true
+            cell.rejectBtn.isHidden = true
             
             //            if self.Reload == indexPath.section {
-            //                  cell?.AcceptRejectStatus.text = "Cancelled"
+            //                  cell.AcceptRejectStatus.text = "Cancelled"
             //            }else if self.ReloadReject == indexPath.section {
-            //                cell?.AcceptRejectStatus.text = "Rejected"
+            //                cell.AcceptRejectStatus.text = "Rejected"
             //            }
             //            else{
             if Status == "Pending" {
-                cell?.acceptBtn.isHidden = false
-                cell?.rejectBtn.isHidden = false
-                cell?.AcceptRejectStatus.isHidden = true
+                cell.acceptBtn.isHidden = false
+                cell.rejectBtn.isHidden = false
+                cell.AcceptRejectStatus.isHidden = true
             }else if Status == "Accept" {
-                cell?.AcceptRejectStatus.isHidden = false
-                cell?.AcceptRejectStatus.text = "Cancelled"
+                cell.AcceptRejectStatus.isHidden = false
+                cell.AcceptRejectStatus.text = "Cancelled"
             }else if Status == "Reject" {
-                cell?.AcceptRejectStatus.isHidden = false
-                cell?.AcceptRejectStatus.text = "Rejected"
+                cell.AcceptRejectStatus.isHidden = false
+                cell.AcceptRejectStatus.text = "Rejected"
             }else if String(describing: login_session.value(forKey: "UserId") as AnyObject) == Email {
-                cell?.AcceptRejectStatus.isHidden = false
-                cell?.AcceptRejectStatus.text = "Host Cancelled"
+                cell.AcceptRejectStatus.isHidden = false
+                cell.AcceptRejectStatus.text = "Host Cancelled"
             }else{
-                cell?.AcceptRejectStatus.isHidden = false
-                cell?.AcceptRejectStatus.text = Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].status!
+                cell.AcceptRejectStatus.isHidden = false
+                cell.AcceptRejectStatus.text = Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].status!
             }
             //  }
             
@@ -400,53 +402,54 @@
             
             
             
-            cell?.acceptBtn.tag = indexPath.section
-            cell?.acceptBtn.addTarget(self, action:#selector(self.HostAccept(sender:)), for: .touchUpInside)
-            cell?.rejectBtn.tag = indexPath.section
-            cell?.rejectBtn.addTarget(self, action:#selector(self.HostCancel(sender:)), for: .touchUpInside)
-            return cell!
+            cell.acceptBtn.tag = indexPath.section
+            cell.acceptBtn.addTarget(self, action:#selector(self.HostAccept(sender:)), for: .touchUpInside)
+            cell.rejectBtn.tag = indexPath.section
+            cell.rejectBtn.addTarget(self, action:#selector(self.HostCancel(sender:)), for: .touchUpInside)
+            return cell
         }else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ByCell") as? ReviewsByTableViewCell
-            cell?.selectionStyle = .none
-            cell?.img_User.layer.cornerRadius = (cell?.img_User.frame.width)!/2
-            cell?.img_User.layer.masksToBounds = true
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ByCell") as? ReviewsByTableViewCell else { return UITableViewCell() }
+            
+            //            let cell = tableView.dequeueReusableCell(withIdentifier: "ByCell") as? ReviewsByTableViewCell
+            cell.selectionStyle = .none
+            cell.img_User.layer.cornerRadius = (cell.img_User.frame.width)/2
+            cell.img_User.layer.masksToBounds = true
             
             
-            
-            cell!.lbl_reviews.font = UIFont(name: SemiBoldFont, size: 14)
-                                      cell!.rentalName.font = UIFont(name: RegularFont, size: 14)
-                                       cell!.hostName.font = UIFont(name: RegularFont, size: 14)
-                                       cell!.bookingDateLabel.font = UIFont(name: RegularFont, size: 13)
-                                       cell!.bookingIdLabel.font = UIFont(name: RegularFont, size: 13)
-                                       cell!.statusLabel.font = UIFont(name: RegularFont, size: 14)
+            cell.lbl_reviews.font = UIFont(name: SemiBoldFont, size: 14)
+            cell.rentalName.font = UIFont(name: RegularFont, size: 14)
+            cell.hostName.font = UIFont(name: RegularFont, size: 14)
+            cell.bookingDateLabel.font = UIFont(name: RegularFont, size: 13)
+            cell.bookingIdLabel.font = UIFont(name: RegularFont, size: 13)
+            cell.statusLabel.font = UIFont(name: RegularFont, size: 14)
             let image = URL(string: Singleton.sharedInstance.userInfoModel.cancellationByYou[indexPath.section].userImage)
-            cell?.img_User.setImageWith(image!)
-            cell?.rentalName.text = Singleton.sharedInstance.userInfoModel.cancellationByYou[indexPath.section].propertyName
-            cell?.hostName.text = "By " + Singleton.sharedInstance.userInfoModel.cancellationByYou[indexPath.section].hostName
-            cell?.lbl_reviews.text = Singleton.sharedInstance.userInfoModel.cancellationByYou[indexPath.section].message
-            cell?.bookingIdLabel.text = Singleton.sharedInstance.userInfoModel.cancellationByYou[indexPath.section].bookingNo
+            cell.img_User.setImageWith(image!)
+            cell.rentalName.text = Singleton.sharedInstance.userInfoModel.cancellationByYou[indexPath.section].propertyName
+            cell.hostName.text = "By " + Singleton.sharedInstance.userInfoModel.cancellationByYou[indexPath.section].hostName
+            cell.lbl_reviews.text = Singleton.sharedInstance.userInfoModel.cancellationByYou[indexPath.section].message
+            cell.bookingIdLabel.text = Singleton.sharedInstance.userInfoModel.cancellationByYou[indexPath.section].bookingNo
             
             let dateFormatterGet = DateFormatter()
-                   dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
-                   dateFormatterGet.locale = Locale(identifier: "en_US_POSIX")
-                   let dateFormatterPrint3 = DateFormatter()
-                   dateFormatterPrint3.dateFormat = "yyyy-MM-dd"
-                   dateFormatterPrint3.locale = Locale(identifier: "en_US_POSIX")
-                   // let orderDateStringPasser = checkin
-                   
-                   if let date = dateFormatterGet.date(from: Singleton.sharedInstance.userInfoModel.cancellationByYou[indexPath.section].createdDate!)
-                   {
-                       print(dateFormatterPrint3.string(from: date))
-                    cell?.bookingDateLabel.text = dateFormatterPrint3.string(from: date)
-                       
-                   }
-//            cell?.bookingDateLabel.text = Singleton.sharedInstance.userInfoModel.cancellationByYou[indexPath.section].createdDate
-            cell?.statusLabel.text = Singleton.sharedInstance.userInfoModel.cancellationByYou[indexPath.section].status
+            dateFormatterGet.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            dateFormatterGet.locale = Locale(identifier: "en_US_POSIX")
+            let dateFormatterPrint3 = DateFormatter()
+            dateFormatterPrint3.dateFormat = "yyyy-MM-dd"
+            dateFormatterPrint3.locale = Locale(identifier: "en_US_POSIX")
+            // let orderDateStringPasser = checkin
+            
+            if let date = dateFormatterGet.date(from: Singleton.sharedInstance.userInfoModel.cancellationByYou[indexPath.section].createdDate!)
+            {
+                print(dateFormatterPrint3.string(from: date))
+                cell.bookingDateLabel.text = dateFormatterPrint3.string(from: date)
+                
+            }
+            //            cell.bookingDateLabel.text = Singleton.sharedInstance.userInfoModel.cancellationByYou[indexPath.section].createdDate
+            cell.statusLabel.text = Singleton.sharedInstance.userInfoModel.cancellationByYou[indexPath.section].status
             
             
             
             
-            return cell!
+            return cell
         }
         
         
@@ -466,5 +469,5 @@
     //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     //        return 245
     //    }
- }
+}
 

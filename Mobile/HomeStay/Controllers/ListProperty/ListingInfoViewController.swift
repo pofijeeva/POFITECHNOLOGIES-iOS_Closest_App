@@ -136,19 +136,19 @@ class ListingInfoViewController: BaseViewController,UITextViewDelegate {
         self.txt_MiniStay.font = UIFont(name: SemiBoldFont, size: 15)
         self.QtyTxt.font = UIFont(name: SemiBoldFont, size: 15)
         
-      //  self.lblaccomdates.text = GlobalLanguageDictionary.object(forKey: "key_accommodates") as! String
-        self.txt_Accommodities.placeholder = GlobalLanguageDictionary.object(forKey: "key_select") as! String
-        self.txt_Bathrooms.placeholder = GlobalLanguageDictionary.object(forKey: "key_select") as! String
-        self.txt_BedRooms.placeholder = GlobalLanguageDictionary.object(forKey: "key_select") as! String
-        self.txt_MiniStay.placeholder = GlobalLanguageDictionary.object(forKey: "key_select") as! String
-        self.bathroomLbl.text = GlobalLanguageDictionary.object(forKey: "key_bathRoom") as! String
-        self.BedroomLbl.text = GlobalLanguageDictionary.object(forKey: "key_bedRooms") as! String
-        self.minimumStayLbl.text = GlobalLanguageDictionary.object(forKey: "key_minimumStay") as! String
-        self.minimumStayLbl.text = GlobalLanguageDictionary.object(forKey: "key_minimumStay") as! String
-        self.allowMultipleQtyLbl.text = GlobalLanguageDictionary.object(forKey: "key_allowMultipleQty") as! String
-        self.lblQtyEnable.text = GlobalLanguageDictionary.object(forKey: "key_enable") as! String
-        self.lblQtyDisable.text = GlobalLanguageDictionary.object(forKey: "key_disable") as! String
-        self.btn_Save.setTitle(GlobalLanguageDictionary.object(forKey: "key_save") as! String, for: .normal)
+      //  self.lblaccomdates.text = GlobalLanguageDictionary.object(forKey: "key_accommodates") as? String ?? ""
+        self.txt_Accommodities.placeholder = GlobalLanguageDictionary.object(forKey: "key_select") as? String ?? ""
+        self.txt_Bathrooms.placeholder = GlobalLanguageDictionary.object(forKey: "key_select") as? String ?? ""
+        self.txt_BedRooms.placeholder = GlobalLanguageDictionary.object(forKey: "key_select") as? String ?? ""
+        self.txt_MiniStay.placeholder = GlobalLanguageDictionary.object(forKey: "key_select") as? String ?? ""
+        self.bathroomLbl.text = GlobalLanguageDictionary.object(forKey: "key_bathRoom") as? String ?? ""
+        self.BedroomLbl.text = GlobalLanguageDictionary.object(forKey: "key_bedRooms") as? String ?? ""
+        self.minimumStayLbl.text = GlobalLanguageDictionary.object(forKey: "key_minimumStay") as? String ?? ""
+        self.minimumStayLbl.text = GlobalLanguageDictionary.object(forKey: "key_minimumStay") as? String ?? ""
+        self.allowMultipleQtyLbl.text = GlobalLanguageDictionary.object(forKey: "key_allowMultipleQty") as? String ?? ""
+        self.lblQtyEnable.text = GlobalLanguageDictionary.object(forKey: "key_enable") as? String ?? ""
+        self.lblQtyDisable.text = GlobalLanguageDictionary.object(forKey: "key_disable") as? String ?? ""
+        self.btn_Save.setTitle(GlobalLanguageDictionary.object(forKey: "key_save") as? String ?? "", for: .normal)
 
         Network.shared.HTTP_POST_STRING_REQUEST_DELEGATE = self
 
@@ -277,7 +277,7 @@ class ListingInfoViewController: BaseViewController,UITextViewDelegate {
 //            var chilValue = String()
 //            //            let str1 = String(ListingInfoArr[0].attributeId)
 //            //            let str2 = dict.key
-//            //            if str1 == str2 as! String
+//            //            if str1 == str2 as? String ?? ""
 //            //            {
 //            let guestcc = Singleton.sharedInstance.rentYourSpace.propertyAttributes
 //            print(guestcc!)
@@ -353,11 +353,11 @@ class ListingInfoViewController: BaseViewController,UITextViewDelegate {
 //        let propertyArray = NSMutableArray()
 //        propertyArray.addObjects(from: (commonMaintainListDataDict.object(forKey: "property")as! NSArray) as! [Any])
 //        let optionsArray = NSMutableArray()
-//        optionsArray.addObjects(from: ((propertyArray.object(at: 0)as! NSDictionary).object(forKey: "options")as! NSArray) as! [Any])
+//        optionsArray.addObjects(from: ((propertyArray.object(at: 0)as? NSDictionary)?.object(forKey: "options")as! NSArray) as! [Any])
 //        //let props = Singleton.sharedInstance.rentYourSpace.property[0].options
 //        for nums in 0..<optionsArray.count
 //        {
-//            let propInt = ((optionsArray.object(at: nums)as! NSDictionary).object(forKey: "child_id")as! String)
+//            let propInt = ((optionsArray.object(at: nums)as? NSDictionary)?.object(forKey: "child_id")as? String ?? "")
 ////            propInt = Singleton.sharedInstance.rentYourSpace.property[0].options[nums].childId
 ////            let PropStr = String(propInt)
 //
@@ -386,11 +386,11 @@ class ListingInfoViewController: BaseViewController,UITextViewDelegate {
 //            let roomArray = NSMutableArray()
 //            roomArray.addObjects(from: (commonMaintainListDataDict.object(forKey: "rooms")as! NSArray) as! [Any])
 //            let roomOptionsArray = NSMutableArray()
-//            roomOptionsArray.addObjects(from: ((roomArray.object(at: 0)as! NSDictionary).object(forKey: "options")as! NSArray) as! [Any])
+//            roomOptionsArray.addObjects(from: ((roomArray.object(at: 0)as? NSDictionary)?.object(forKey: "options")as! NSArray) as! [Any])
 //
 //            for nums in 0..<roomOptionsArray.count
 //            {
-//                let roomInt = ((roomOptionsArray.object(at: nums)as! NSDictionary).object(forKey: "child_id")as! String)
+//                let roomInt = ((roomOptionsArray.object(at: nums)as? NSDictionary)?.object(forKey: "child_id")as? String ?? "")
 //
 //                if roomInt == Singleton.sharedInstance.rentYourSpace.result[0].step7.roomType!
 //                {
@@ -485,9 +485,9 @@ class ListingInfoViewController: BaseViewController,UITextViewDelegate {
 //            let propertyArray = NSMutableArray()
 //            propertyArray.addObjects(from: (commonMaintainListDataDict.object(forKey: "property")as! NSArray) as! [Any])
 //            let optionsArray = NSMutableArray()
-//            optionsArray.addObjects(from: ((propertyArray.object(at: 0)as! NSDictionary).object(forKey: "options")as! NSArray) as! [Any])
+//            optionsArray.addObjects(from: ((propertyArray.object(at: 0)as? NSDictionary)?.object(forKey: "options")as! NSArray) as! [Any])
 //
-//            self.PropertyType = (optionsArray.object(at: index) as! NSDictionary).object(forKey: "child_id") as! String
+//            self.PropertyType = (optionsArray.object(at: index) as? NSDictionary)?.object(forKey: "child_id") as? String ?? ""
 //
 //        }
 //    }
@@ -505,9 +505,9 @@ class ListingInfoViewController: BaseViewController,UITextViewDelegate {
 //            let propertyArray = NSMutableArray()
 //            propertyArray.addObjects(from: (commonMaintainListDataDict.object(forKey: "rooms")as! NSArray) as! [Any])
 //            let optionsArray = NSMutableArray()
-//            optionsArray.addObjects(from: ((propertyArray.object(at: 0)as! NSDictionary).object(forKey: "options")as! NSArray) as! [Any])
+//            optionsArray.addObjects(from: ((propertyArray.object(at: 0)as? NSDictionary)?.object(forKey: "options")as! NSArray) as! [Any])
 //
-//            self.RoomType = (optionsArray.object(at: index) as! NSDictionary).object(forKey: "child_id") as! String
+//            self.RoomType = (optionsArray.object(at: index) as? NSDictionary)?.object(forKey: "child_id") as? String ?? ""
 //
 //        }
 //    }
@@ -611,7 +611,7 @@ class ListingInfoViewController: BaseViewController,UITextViewDelegate {
 //            var str = String()
 //            for dict in propertyDict {
 //                let one =  dict.key
-//                var value = dict.value as! String
+//                var value = dict.value as? String ?? ""
 //                let minimStay = Singleton.sharedInstance.rentYourSpace.propertyAttributes
 //                for num in 0..<minimStay!.count
 //                {
@@ -651,7 +651,7 @@ class ListingInfoViewController: BaseViewController,UITextViewDelegate {
 ////                let responseDict:NSDictionary = responseObject as! NSDictionary
 ////                print(responseDict)
 ////                self.hideActivityIndicator(uiView: self.view)
-////                if responseDict.value(forKey: "status") as! Int == 1 {
+////                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
 ////                    let mod = RentYourSpaceModel(fromDictionary: responseDict as! [String : Any])
 ////                    Singleton.sharedInstance.rentYourSpace = mod
 ////                   // self.showInformation(title: "Closest", message: mod.message)
@@ -661,7 +661,7 @@ class ListingInfoViewController: BaseViewController,UITextViewDelegate {
 ////                }
 ////
 ////                else {
-////                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+////                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
 ////                }
 ////            }, failure: { (operation, error) -> Void in
 ////                DispatchQueue.main.async {
@@ -678,7 +678,7 @@ class ListingInfoViewController: BaseViewController,UITextViewDelegate {
 ////            print(parameterStr)
 ////            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: SAVE_LISTINGINFO_LISTING, APIKEY: "SAVE_LISTINGINFO_LISTING")
 //        } else {
-//            showInformation(title: "Network Error", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as! String)
+//            showInformation(title: "Network Error", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
 //        }
 //        }
 
@@ -719,34 +719,36 @@ extension ListingInfoViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ListingInfoCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ListingInfoCell else { return UITableViewCell() }
+
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ListingInfoCell
         
         
-//        cell!.BaseView.layer.borderWidth = 1.0
-//        cell!.BaseView.layer.borderColor = UIColor.lightGray.cgColor
+//        cell.BaseView.layer.borderWidth = 1.0
+//        cell.BaseView.layer.borderColor = UIColor.lightGray.cgColor
 //
-        cell!.lblPlaceHolder.text = ListingInfoArr[indexPath.row].attributeLabel
+        cell.lblPlaceHolder.text = ListingInfoArr[indexPath.row].attributeLabel
         
-        cell!.txtName.layer.borderWidth = 1
-        cell!.txtName.layer.borderColor = BorderColor.cgColor
+        cell.txtName.layer.borderWidth = 1
+        cell.txtName.layer.borderColor = BorderColor.cgColor
         
         if ListingInfoArr[indexPath.row].attributeLabel == "User  Capacity" {
-            cell!.txtName.text = self.accommdates
+            cell.txtName.text = self.accommdates
         }else{
             
         }
         
         if ListingInfoArr[indexPath.row].attributeType == "option" {
-            cell!.viewCell.isHidden = false
-            cell!.imgDropDown.isHidden = false
-            cell!.txtName.font = UIFont(name: RegularFont, size: 14.0)
+            cell.viewCell.isHidden = false
+            cell.imgDropDown.isHidden = false
+            cell.txtName.font = UIFont(name: RegularFont, size: 14.0)
             let attrs = Singleton.sharedInstance.rentYourSpace.result[0].step7.attribute! as NSDictionary
 
             for dict in attrs {
                 var chilValue = String()
                 let str1 = String(ListingInfoArr[indexPath.row].attributeId)
                 let str2 = dict.key
-                if str1 == str2 as! String
+                if str1 == str2 as? String ?? ""
                 {
                     let guestcc = Singleton.sharedInstance.rentYourSpace.propertyAttributes
                     print(guestcc!)
@@ -763,7 +765,7 @@ extension ListingInfoViewController: UITableViewDelegate,UITableViewDataSource {
 
                         }
                     }
-                    cell?.txtName.text = chilValue
+                    cell.txtName.text = chilValue
                     break
                 }
             }
@@ -777,7 +779,7 @@ extension ListingInfoViewController: UITableViewDelegate,UITableViewDataSource {
                 var chilValue = String()
                 let str1 = String(ListingInfoArr[indexPath.row].attributeId)
                 let str2 = dict.key
-                if str1 == str2 as! String
+                if str1 == str2 as? String ?? ""
                 {
                     let guestcc = Singleton.sharedInstance.rentYourSpace.propertyAttributes
                     print(guestcc!)
@@ -786,19 +788,19 @@ extension ListingInfoViewController: UITableViewDelegate,UITableViewDataSource {
                         
                         if String(Singleton.sharedInstance.rentYourSpace.propertyAttributes[num].attributeId) == (dict.key as? String)
                         {
-                            chilValue =  dict.value as! String
+                            chilValue =  dict.value as? String ?? ""
                             //String(Singleton.sharedInstance.rentYourSpace.propertyAttributes[num].attributeValue[num].attributeChildValue)
                             print(chilValue)
                         }
                     }
-                    cell?.txtName.text = chilValue
+                    cell.txtName.text = chilValue
                     break
                 }
             }//{
 //            var chilValue = String()
 //            let str1 = String(ListingInfoArr[indexPath.row].attributeId)
 //            let str2 = dict.key
-//            if str1 == str2 as! String
+//            if str1 == str2 as? String ?? ""
 //            {
 //                let guestcc = Singleton.sharedInstance.rentYourSpace.propertyAttributes
 //                print(guestcc!)
@@ -809,25 +811,25 @@ extension ListingInfoViewController: UITableViewDelegate,UITableViewDataSource {
 //                    {
 //                        if String(Singleton.sharedInstance.rentYourSpace.propertyAttributes[num].attributeId) == (dict.key as? String)
 //                        {
-//                            chilValue =  dict.value as! String
+//                            chilValue =  dict.value as? String ?? ""
 //                            print(chilValue)
 //                        }
 //
 //                    }
 //                }
-//                cell?.txtName.text = chilValue
+//                cell.txtName.text = chilValue
 //                break
 //            }
 //            }
-            cell!.viewCell.isHidden = false
-            cell!.imgDropDown.isHidden = true
+            cell.viewCell.isHidden = false
+            cell.imgDropDown.isHidden = true
 
         }
 
        
         
-        cell!.txtName.tag = indexPath.row
-        return cell!
+        cell.txtName.tag = indexPath.row
+        return cell
 
     }
 
@@ -1089,7 +1091,7 @@ extension ListingInfoViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
 //            var chilValue = String()
 //            //            let str1 = String(ListingInfoArr[0].attributeId)
 //            //            let str2 = dict.key
-//            //            if str1 == str2 as! String
+//            //            if str1 == str2 as? String ?? ""
 //            //            {
 //            let guestcc = Singleton.sharedInstance.rentYourSpace.propertyAttributes
 //            print(guestcc!)
@@ -1293,7 +1295,7 @@ extension ListingInfoViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
 //
 //                //                for dicts in StaticDict {
 //                //                    let one =  dicts.key
-//                //                    var value = dicts.value as! String
+//                //                    var value = dicts.value as? String ?? ""
 //                //
 //                //
 //                //                      let strn = "\"\(one)\""+":"+"\"\(value)\","
@@ -1301,7 +1303,7 @@ extension ListingInfoViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
 //                //                }
 //                for dict in propertyDict {
 //                    let one =  dict.key
-//                    var value = dict.value as! String
+//                    var value = dict.value as? String ?? ""
 //                    let minimStay = Singleton.sharedInstance.rentYourSpace.propertyAttributes
 //                    //                for num in 0..<minimStay!.count
 //                    //                {
@@ -1341,7 +1343,7 @@ extension ListingInfoViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
 //                                let responseDict:NSDictionary = responseObject as! NSDictionary
 //                                print(responseDict)
 //                                self.hideActivityIndicator(uiView: self.view)
-//                                if responseDict.value(forKey: "status") as! Int == 1 {
+//                                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
 //                                    let mod = RentYourSpaceModel(fromDictionary: responseDict as! [String : Any])
 //                                    Singleton.sharedInstance.rentYourSpace = mod
 //                                    self.showInformation(title: "Closest", message: mod.message)
@@ -1350,7 +1352,7 @@ extension ListingInfoViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
 //                                }
 //
 //                                else {
-//                                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+//                                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
 //                                }
 //                            }, failure: { (operation, error) -> Void in
 //                                DispatchQueue.main.async {
@@ -1367,7 +1369,7 @@ extension ListingInfoViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
 ////                print(parameterStr)
 ////                Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: SAVE_LISTINGINFO_LISTING, APIKEY: "SAVE_LISTINGINFO_LISTING")
 ////            } else {
-//                showInformation(title: "Network Error", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as! String)
+//                showInformation(title: "Network Error", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
 //            }
 //        }
 //    }
@@ -1396,7 +1398,7 @@ extension ListingInfoViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
 //        //
 //        //            if indexPath.row == 0 {
 //        //                 var chilValue = String()
-//        //                cell!.lblPlaceHolder.text = Singleton.sharedInstance.rentYourSpace.property[0].optionName!
+//        //                cell.lblPlaceHolder.text = Singleton.sharedInstance.rentYourSpace.property[0].optionName!
 //        //
 //        //                let props = Singleton.sharedInstance.rentYourSpace.property[0].options
 //        //                for nums in 0..<props!.count
@@ -1409,7 +1411,7 @@ extension ListingInfoViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
 //        //
 //        //                }
 //        //
-//        //                  cell?.txtName.text = chilValue
+//        //                  cell.txtName.text = chilValue
 //        //
 //        //            }else {
 //        //                 var chilValue = String()
@@ -1424,8 +1426,8 @@ extension ListingInfoViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
 //        //
 //        //                }
 //        //
-//        //                 cell!.lblPlaceHolder.text = Singleton.sharedInstance.rentYourSpace.rooms[0].optionName!
-//        //                  cell?.txtName.text = chilValue
+//        //                 cell.lblPlaceHolder.text = Singleton.sharedInstance.rentYourSpace.rooms[0].optionName!
+//        //                  cell.txtName.text = chilValue
 //        //            }
 //        //
 //        //
@@ -1433,15 +1435,15 @@ extension ListingInfoViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
 //
 //
 //        if ListingInfoArr[indexPath.row].attributeType == "option" {
-//            cell!.viewCell.isHidden = false
-//            cell!.imgDropDown.isHidden = false
+//            cell.viewCell.isHidden = false
+//            cell.imgDropDown.isHidden = false
 //            let attrs = Singleton.sharedInstance.rentYourSpace.result[0].step7.attribute! as NSDictionary
 //
 //            for dict in attrs {
 //                var chilValue = String()
 //                let str1 = String(ListingInfoArr[indexPath.row].attributeId)
 //                let str2 = dict.key
-//                if str1 == str2 as! String
+//                if str1 == str2 as? String ?? ""
 //                {
 //                    let guestcc = Singleton.sharedInstance.rentYourSpace.propertyAttributes
 //                    print(guestcc!)
@@ -1458,7 +1460,7 @@ extension ListingInfoViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
 //
 //                        }
 //                    }
-//                    cell?.txtName.text = chilValue
+//                    cell.txtName.text = chilValue
 //                    break
 //                }
 //            }
@@ -1470,7 +1472,7 @@ extension ListingInfoViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
 //                var chilValue = String()
 //                let str1 = String(ListingInfoArr[indexPath.row].attributeId)
 //                let str2 = dict.key
-//                if str1 == str2 as! String
+//                if str1 == str2 as? String ?? ""
 //                {
 //                    let guestcc = Singleton.sharedInstance.rentYourSpace.propertyAttributes
 //                    print(guestcc!)
@@ -1479,25 +1481,25 @@ extension ListingInfoViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
 //
 //                        if String(Singleton.sharedInstance.rentYourSpace.propertyAttributes[num].attributeId) == (dict.key as? String)
 //                        {
-//                            chilValue =  dict.value as! String
+//                            chilValue =  dict.value as? String ?? ""
 //                            //String(Singleton.sharedInstance.rentYourSpace.propertyAttributes[num].attributeValue[num].attributeChildValue)
 //                            print(chilValue)
 //                        }
 //                    }
-//                    cell?.txtName.text = chilValue
+//                    cell.txtName.text = chilValue
 //                    break
 //                }
 //            }
 //
-//            cell!.viewCell.isHidden = false
-//            cell!.imgDropDown.isHidden = true
+//            cell.viewCell.isHidden = false
+//            cell.imgDropDown.isHidden = true
 //        }
 //
-//        cell!.lblPlaceHolder.text = ListingInfoArr[indexPath.row].attributeLabel
+//        cell.lblPlaceHolder.text = ListingInfoArr[indexPath.row].attributeLabel
 //
-//        cell!.txtName.tag = indexPath.row
+//        cell.txtName.tag = indexPath.row
 //        //}
-//        return cell!
+//        return cell
 //
 //    }
 //

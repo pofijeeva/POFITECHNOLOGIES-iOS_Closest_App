@@ -27,8 +27,8 @@ class UserInfo : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        message = dictionary["message"] as? String
-        status = dictionary["status"] as? Int
+        message = dictionary["message"] as? String ?? ""
+        status = dictionary["status"] as? Int ?? 0
         cancellationAboutYou = [CancellationAboutYou]()
         if let cancellationAboutYouArray = dictionary["cancellation_about_you"] as? [[String:Any]]{
             for dic in cancellationAboutYouArray{
@@ -212,12 +212,12 @@ class UserInfo : NSObject, NSCoding{
         disputeAboutYou = aDecoder.decodeObject(forKey: "dispute_about_you") as? [DisputeAboutYou]
         disputeByYou = aDecoder.decodeObject(forKey: "dispute_by_you") as? [DisputeByYou]
         hostCancellation = aDecoder.decodeObject(forKey: "host_cancellation") as? [HostCancellation]
-        message = aDecoder.decodeObject(forKey: "message") as? String
+        message = aDecoder.decodeObject(forKey: "message") as? String ?? ""
         profileinfo = aDecoder.decodeObject(forKey: "profileinfo") as? [Profileinfo]
         propertyListing = aDecoder.decodeObject(forKey: "property_listing") as? [PropertyListing]
         reviewsAboutYou = aDecoder.decodeObject(forKey: "reviews_about_you") as? [ReviewsAboutYou]
         reviewsByYou = aDecoder.decodeObject(forKey: "reviews_by_you") as? [ReviewsByYou]
-        status = aDecoder.decodeObject(forKey: "status") as? Int
+        status = aDecoder.decodeObject(forKey: "status") as? Int ?? 0
         trustVerify = aDecoder.decodeObject(forKey: "trust_verify") as? [TrustVerify]
     }
     

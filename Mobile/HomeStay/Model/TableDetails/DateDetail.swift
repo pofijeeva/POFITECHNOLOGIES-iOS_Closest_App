@@ -15,7 +15,7 @@ class DateDetail : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        timingFor = dictionary["Timing_for"] as? String
+        timingFor = dictionary["Timing_for"] as? String ?? ""
         tableDetails = [RestTableDetail]()
         if let tableDetailsArray = dictionary["table_details"] as? [[String:Any]]{
             for dic in tableDetailsArray{
@@ -51,7 +51,7 @@ class DateDetail : NSObject, NSCoding{
     @objc required init(coder aDecoder: NSCoder)
     {
         tableDetails = aDecoder.decodeObject(forKey: "table_details") as? [RestTableDetail]
-        timingFor = aDecoder.decodeObject(forKey: "Timing_for") as? String
+        timingFor = aDecoder.decodeObject(forKey: "Timing_for") as? String ?? ""
     }
     
     /**

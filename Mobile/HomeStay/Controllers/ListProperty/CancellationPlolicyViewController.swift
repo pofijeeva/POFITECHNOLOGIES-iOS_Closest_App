@@ -71,7 +71,7 @@ class CancellationPlolicyViewController: UIViewController {
         super.viewDidLoad()
         
         setData()
-//        self.lblCurrencySymbol.text = login_session.value(forKey: "APP_CURRENCY") as! String
+//        self.lblCurrencySymbol.text = login_session.value(forKey: "APP_CURRENCY") as? String ?? ""
         Network.shared.HTTP_POST_STRING_REQUEST_DELEGATE = self
         
         
@@ -126,19 +126,19 @@ class CancellationPlolicyViewController: UIViewController {
         self.metaDescription.font = UIFont(name: SemiBoldFont, size: 14)
 //        self..font = UIFont(name: SemiBoldFont, size: 14)
         
-        self.lblLang.text = GlobalLanguageDictionary.object(forKey: "key_languageStar") as! String
-        self.txtLang.placeholder = GlobalLanguageDictionary.object(forKey: "key_english") as! String
-        self.cancelPolicy.text = GlobalLanguageDictionary.object(forKey: "key_selectPolicy") as! String
-        self.cancelPercentage.text = GlobalLanguageDictionary.object(forKey: "key_returnAMountinPercent") as! String
-        self.lblDeposit.text = GlobalLanguageDictionary.object(forKey: "key_securityDeposiStar") as! String
-        self.lbltax.text = GlobalLanguageDictionary.object(forKey: "key_taxNameStar") as! String
-    //    self.txtTaxPercentage.text = GlobalLanguageDictionary.object(forKey: "key_taxPercentageStar") as! String
-        self.cancelDescriptionLbl.text = GlobalLanguageDictionary.object(forKey: "key_sDescription") as! String
-        self.lblsecurityDepositInfo.text = GlobalLanguageDictionary.object(forKey: "key_securityDepositInfo") as! String
-        self.metaTitle.text = GlobalLanguageDictionary.object(forKey: "key_metaTitle") as! String
-        self.keyboards.text = GlobalLanguageDictionary.object(forKey: "key_Keywords") as! String
-        self.metaDescription.text = GlobalLanguageDictionary.object(forKey: "key_metaDescription") as! String
-        self.btnSave.setTitle(GlobalLanguageDictionary.object(forKey: "key_submit") as! String, for: .normal)
+        self.lblLang.text = GlobalLanguageDictionary.object(forKey: "key_languageStar") as? String ?? ""
+        self.txtLang.placeholder = GlobalLanguageDictionary.object(forKey: "key_english") as? String ?? ""
+        self.cancelPolicy.text = GlobalLanguageDictionary.object(forKey: "key_selectPolicy") as? String ?? ""
+        self.cancelPercentage.text = GlobalLanguageDictionary.object(forKey: "key_returnAMountinPercent") as? String ?? ""
+        self.lblDeposit.text = GlobalLanguageDictionary.object(forKey: "key_securityDeposiStar") as? String ?? ""
+        self.lbltax.text = GlobalLanguageDictionary.object(forKey: "key_taxNameStar") as? String ?? ""
+    //    self.txtTaxPercentage.text = GlobalLanguageDictionary.object(forKey: "key_taxPercentageStar") as? String ?? ""
+        self.cancelDescriptionLbl.text = GlobalLanguageDictionary.object(forKey: "key_sDescription") as? String ?? ""
+        self.lblsecurityDepositInfo.text = GlobalLanguageDictionary.object(forKey: "key_securityDepositInfo") as? String ?? ""
+        self.metaTitle.text = GlobalLanguageDictionary.object(forKey: "key_metaTitle") as? String ?? ""
+        self.keyboards.text = GlobalLanguageDictionary.object(forKey: "key_Keywords") as? String ?? ""
+        self.metaDescription.text = GlobalLanguageDictionary.object(forKey: "key_metaDescription") as? String ?? ""
+        self.btnSave.setTitle(GlobalLanguageDictionary.object(forKey: "key_submit") as? String ?? "", for: .normal)
         
         txtDeposit.keyboardType = UIKeyboardType.numberPad
         txtPercentage.keyboardType = UIKeyboardType.numberPad
@@ -422,12 +422,12 @@ class CancellationPlolicyViewController: UIViewController {
 //                "ren_meta_desc":"Rental meta  desc",
 //
                 
-//                params = ["user_id":login_session.value(forKey: "UserId")!,"property_id":self.PropertyID,"cancellation_policy":self.txtPolicy.text!,"security_deposit":self.txtPrice.text!,"meta_title":self.txtMetaTitle.text!,"meta_keyword":self.txtViewKeywords.text!,"meta_description":self.metaDiscription.text!,"lang_code":login_session.value(forKey: "APP_LANGUAGE") as! String,"base_id":Singleton.sharedInstance.selectedCategory!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"cancel_percentage":self.cancelPercentTxt.text!,"cancel_description":self.cencelDescriptionEnTxt.text!]
+//                params = ["user_id":login_session.value(forKey: "UserId")!,"property_id":self.PropertyID,"cancellation_policy":self.txtPolicy.text!,"security_deposit":self.txtPrice.text!,"meta_title":self.txtMetaTitle.text!,"meta_keyword":self.txtViewKeywords.text!,"meta_description":self.metaDiscription.text!,"lang_code":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "","base_id":Singleton.sharedInstance.selectedCategory!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","cancel_percentage":self.cancelPercentTxt.text!,"cancel_description":self.cencelDescriptionEnTxt.text!]
                 
                 
                 
                 
-                params   =      [ "lang_code":login_session.value(forKey: "APP_LANGUAGE") as! String,
+                params   =      [ "lang_code":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "",
                                   "property_id":self.PropertyID,
                                   "ren_tax_percent":self.cancelPercentTxt.text!,
                                   "cancel_policy_type":self.txtPolicy.text!,  //Flexible,Strict,Moderate
@@ -474,7 +474,7 @@ class CancellationPlolicyViewController: UIViewController {
 //                    let responseDict:NSDictionary = responseObject as! NSDictionary
 //                    print(responseDict)
 //                    self.ListingActivityDelegate?.hideActivity()
-//                    if responseDict.value(forKey: "status") as! Int == 1 {
+//                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
 //
 //                        let mod = RentYourSpaceModel(fromDictionary: responseDict as! [String : Any])
 //                        Singleton.sharedInstance.rentYourSpace = mod
@@ -488,7 +488,7 @@ class CancellationPlolicyViewController: UIViewController {
 ////                        self.present(nav!, animated: true, completion: nil)
 //                    }
 //                    else {
-//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
 //                    }
 //                },
 //                failure: { (operation, error) -> Void in
@@ -503,11 +503,11 @@ class CancellationPlolicyViewController: UIViewController {
                 
                 
                 
-//                let parameterStr = "user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(self.PropertyID)&cancellation_policy=\(self.txtPolicy.text!)&security_deposit=\(self.txtPrice.text!)&meta_title=\(self.txtMetaTitle.text!)&meta_keyword=\(self.txtViewKeywords.text!)&meta_description=\(self.metaDiscription.text!)&lang_code=\(login_session.value(forKey: "APP_LANGUAGE") as! String)&base_id=\(Singleton.sharedInstance.selectedCategory!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&cancel_percentage=\(self.cancelPercentTxt.text!)&cancel_description=\(self.cencelDescriptionEnTxt.text!)"
+//                let parameterStr = "user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(self.PropertyID)&cancellation_policy=\(self.txtPolicy.text!)&security_deposit=\(self.txtPrice.text!)&meta_title=\(self.txtMetaTitle.text!)&meta_keyword=\(self.txtViewKeywords.text!)&meta_description=\(self.metaDiscription.text!)&lang_code=\(login_session.value(forKey: "APP_LANGUAGE") as? String ?? "")&base_id=\(Singleton.sharedInstance.selectedCategory!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&cancel_percentage=\(self.cancelPercentTxt.text!)&cancel_description=\(self.cencelDescriptionEnTxt.text!)"
 //                Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: SAVE_CANCELLATION_LISTING, APIKEY: "SAVE_CANCELLATION_LISTING")
 //                print(parameterStr)
             } else {
-                showInformation(title: "Network Error", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as! String)
+                showInformation(title: "Network Error", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
             }
         }
     }

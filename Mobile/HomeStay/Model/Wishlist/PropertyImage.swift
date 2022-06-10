@@ -15,7 +15,7 @@ class PropertyImage : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        propertyImage = dictionary["property_image"] as? String
+        propertyImage = dictionary["property_image"] as? String ?? ""
     }
 
     /**
@@ -36,7 +36,7 @@ class PropertyImage : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        propertyImage = aDecoder.decodeObject(forKey: "property_image") as? String
+        propertyImage = aDecoder.decodeObject(forKey: "property_image") as? String ?? ""
     }
 
     /**

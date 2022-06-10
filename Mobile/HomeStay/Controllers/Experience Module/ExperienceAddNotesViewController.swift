@@ -48,7 +48,7 @@ class ExperienceAddNotesViewController: UIViewController, UITextViewDelegate {
         
         
         if arrayOfResult.count > 0 {
-            self.textViewNotes.text = ((arrayOfResult[0] as! NSDictionary).object(forKey: "notes") as! NSDictionary).object(forKey: "note_to_guest") as! String
+            self.textViewNotes.text = ((arrayOfResult[0] as? NSDictionary)?.object(forKey: "notes") as? NSDictionary)?.object(forKey: "note_to_guest") as? String ?? ""
         }
         // Do any additional setup after loading the view.
     }
@@ -77,7 +77,7 @@ class ExperienceAddNotesViewController: UIViewController, UITextViewDelegate {
         else{
             Helper.sharedInstance.showActivityIndicator(view: self.view, targetVC: self)
             var params = NSMutableDictionary()
-            params = ["user_id":login_session.value(forKey: "UserId")!,"exp_id":currentExpId,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"note_to_guest":self.textViewNotes.text!,"device_type":"ios"]
+            params = ["user_id":login_session.value(forKey: "UserId")!,"exp_id":currentExpId,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","note_to_guest":self.textViewNotes.text!,"device_type":"ios"]
             let manager = AFHTTPSessionManager()
             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
             manager.post(ExperienceAddNotes, parameters: params, headers: ["Authorization":""], progress: nil, success: { (operation, responseObject) -> Void in
@@ -86,7 +86,7 @@ class ExperienceAddNotesViewController: UIViewController, UITextViewDelegate {
                 Helper.sharedInstance.hideActivityIndicator(view: self.view)
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                    // let mod = RentYourSpaceModel(fromDictionary: responseDict as! [String : Any])
                     //   Singleton.sharedInstance.rentYourSpace = mod
                     currentExpId = "\(responseDict.object(forKey: "experience_id") as AnyObject)"
@@ -94,7 +94,7 @@ class ExperienceAddNotesViewController: UIViewController, UITextViewDelegate {
                     //self.showInformation(title: "Closest", message: mod.message)
                 }
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {

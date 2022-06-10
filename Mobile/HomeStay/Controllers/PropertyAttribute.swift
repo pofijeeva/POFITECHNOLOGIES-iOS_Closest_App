@@ -26,11 +26,11 @@ class PropertyAttribute : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        attributeId = dictionary["attribute_id"] as? Int
-        attributeLabel = dictionary["attribute_label"] as? String
-        attributeName = dictionary["attribute_name"] as? String
-        attributeType = dictionary["attribute_type"] as? String
-        usePropertyAttribute = dictionary["use_property_attribute"] as? Bool
+        attributeId = dictionary["attribute_id"] as? Int ?? 0
+        attributeLabel = dictionary["attribute_label"] as? String ?? ""
+        attributeName = dictionary["attribute_name"] as? String ?? ""
+        attributeType = dictionary["attribute_type"] as? String ?? ""
+        usePropertyAttribute = dictionary["use_property_attribute"] as? Bool ?? false
         attributeValue = [Attributevalue]()
         if let attributeArray = dictionary["attribute_value"] as? [[String:Any]]{
             for dic in attributeArray{
@@ -39,9 +39,9 @@ class PropertyAttribute : NSObject, NSCoding{
             }
         }
         
-        host_req = dictionary["host_req"] as? Int
-        list_id = dictionary["list_id"] as? Int
-        list_name = dictionary["list_name"] as? String
+        host_req = dictionary["host_req"] as? Int ?? 0
+        list_id = dictionary["list_id"] as? Int ?? 0
+        list_name = dictionary["list_name"] as? String ?? ""
     }
 
     /**
@@ -92,15 +92,15 @@ class PropertyAttribute : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        attributeId = aDecoder.decodeObject(forKey: "attribute_id") as? Int
-        attributeLabel = aDecoder.decodeObject(forKey: "attribute_label") as? String
-        attributeName = aDecoder.decodeObject(forKey: "attribute_name") as? String
-        attributeType = aDecoder.decodeObject(forKey: "attribute_type") as? String
+        attributeId = aDecoder.decodeObject(forKey: "attribute_id") as? Int ?? 0
+        attributeLabel = aDecoder.decodeObject(forKey: "attribute_label") as? String ?? ""
+        attributeName = aDecoder.decodeObject(forKey: "attribute_name") as? String ?? ""
+        attributeType = aDecoder.decodeObject(forKey: "attribute_type") as? String ?? ""
         attributeValue = aDecoder.decodeObject(forKey: "attribute_value") as? [Attributevalue]
-        usePropertyAttribute = aDecoder.decodeObject(forKey: "use_property_attribute") as? Bool
-        host_req = aDecoder.decodeObject(forKey: "host_req") as? Int
-        list_id = aDecoder.decodeObject(forKey: "list_id") as? Int
-        list_name = aDecoder.decodeObject(forKey: "list_name") as? String
+        usePropertyAttribute = aDecoder.decodeObject(forKey: "use_property_attribute") as? Bool ?? false
+        host_req = aDecoder.decodeObject(forKey: "host_req") as? Int ?? 0
+        list_id = aDecoder.decodeObject(forKey: "list_id") as? Int ?? 0
+        list_name = aDecoder.decodeObject(forKey: "list_name") as? String ?? ""
     }
 
     /**

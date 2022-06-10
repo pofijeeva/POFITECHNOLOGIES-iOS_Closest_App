@@ -44,11 +44,11 @@ class FeaturedCitiesTableViewCell: UITableViewCell,UICollectionViewDelegate,UICo
         //
         cell.cityImg.layer.cornerRadius = 5.0
         let featuredPcities = self.feature_city_list[indexPath.item]
-        cell.nameLabel.text = (featuredPcities["fcty_name"] as! String)
+        cell.nameLabel.text = (featuredPcities["fcty_name"] as? String ?? "")
         cell.nameLabel.font = UIFont(name: SemiBoldFont, size: 17)
         cell.BtnExplore.titleLabel?.font = UIFont(name: SemiBoldFont, size: 17)
 
-        let imgURL = (featuredPcities["fcty_image"] as! String)
+        let imgURL = (featuredPcities["fcty_image"] as? String ?? "")
         let urlString = imgURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
 
         cell.cityImg.sd_setImage(with: URL(string: urlString), placeholderImage: UIImage(named: "placeholder.png"))
@@ -57,7 +57,7 @@ class FeaturedCitiesTableViewCell: UITableViewCell,UICollectionViewDelegate,UICo
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let featuredPcities = self.feature_city_list[indexPath.item]
-        self.delegate?.passFeatureData(storeName: (featuredPcities["fcty_name"] as! String), restId: "")
+        self.delegate?.passFeatureData(storeName: (featuredPcities["fcty_name"] as? String ?? ""), restId: "")
     }
     
   
@@ -76,4 +76,4 @@ class FeaturedCitiesTableViewCell: UITableViewCell,UICollectionViewDelegate,UICo
 //    return UICollectionViewCell()
 //}
 //let featuredPcities = self.feature_city_list[indexPath.item]
-//cell.nameLabel.text = (featuredPcities["fcty_name"] as! String)
+//cell.nameLabel.text = (featuredPcities["fcty_name"] as? String ?? "")

@@ -26,15 +26,15 @@ class CouponDetail : NSObject, NSCoding{
      */
     init(fromDictionary dictionary: [String:Any]){
         couponAvailableCount = dictionary["coupon_available_count"] as AnyObject
-        couponCode = dictionary["coupon_code"] as? String
-        couponDatefrom = dictionary["coupon_datefrom"] as? String
-        couponDateto = dictionary["coupon_dateto"] as? String
-        couponLimit = dictionary["coupon_limit"] as? String
-        couponName = dictionary["coupon_name"] as? String
-        couponPriceValue = dictionary["coupon_price_value"] as? String
-        couponPurchaseCount = dictionary["coupon_purchase_count"] as? String
-        couponStatus = dictionary["coupon_status"] as? String
-        couponType = dictionary["coupon_type"] as? String
+        couponCode = dictionary["coupon_code"] as? String ?? "" ?? ""
+        couponDatefrom = dictionary["coupon_datefrom"] as? String ?? ""
+        couponDateto = dictionary["coupon_dateto"] as? String ?? ""
+        couponLimit = dictionary["coupon_limit"] as? String ?? ""
+        couponName = dictionary["coupon_name"] as? String ?? ""
+        couponPriceValue = dictionary["coupon_price_value"] as? String ?? ""
+        couponPurchaseCount = dictionary["coupon_purchase_count"] as? String ?? ""
+        couponStatus = dictionary["coupon_status"] as? String ?? ""
+        couponType = dictionary["coupon_type"] as? String ?? ""
         couponAssignedProducts = [CouponAssignedProduct]()
         if let couponAssignedProductsArray = dictionary["coupon_assigned_products"] as? [[String:Any]]{
             for dic in couponAssignedProductsArray{
@@ -98,15 +98,15 @@ class CouponDetail : NSObject, NSCoding{
     {
         couponAssignedProducts = aDecoder.decodeObject(forKey: "coupon_assigned_products") as? [CouponAssignedProduct]
         couponAvailableCount = aDecoder.decodeObject(forKey: "coupon_available_count") as AnyObject
-        couponCode = aDecoder.decodeObject(forKey: "coupon_code") as? String
-        couponDatefrom = aDecoder.decodeObject(forKey: "coupon_datefrom") as? String
-        couponDateto = aDecoder.decodeObject(forKey: "coupon_dateto") as? String
-        couponLimit = aDecoder.decodeObject(forKey: "coupon_limit") as? String
-        couponName = aDecoder.decodeObject(forKey: "coupon_name") as? String
-        couponPriceValue = aDecoder.decodeObject(forKey: "coupon_price_value") as? String
-        couponPurchaseCount = aDecoder.decodeObject(forKey: "coupon_purchase_count") as? String
-        couponStatus = aDecoder.decodeObject(forKey: "coupon_status") as? String
-        couponType = aDecoder.decodeObject(forKey: "coupon_type") as? String
+        couponCode = aDecoder.decodeObject(forKey: "coupon_code") as? String ?? ""
+        couponDatefrom = aDecoder.decodeObject(forKey: "coupon_datefrom") as? String ?? ""
+        couponDateto = aDecoder.decodeObject(forKey: "coupon_dateto") as? String ?? ""
+        couponLimit = aDecoder.decodeObject(forKey: "coupon_limit") as? String ?? ""
+        couponName = aDecoder.decodeObject(forKey: "coupon_name") as? String ?? ""
+        couponPriceValue = aDecoder.decodeObject(forKey: "coupon_price_value") as? String ?? ""
+        couponPurchaseCount = aDecoder.decodeObject(forKey: "coupon_purchase_count") as? String ?? ""
+        couponStatus = aDecoder.decodeObject(forKey: "coupon_status") as? String ?? ""
+        couponType = aDecoder.decodeObject(forKey: "coupon_type") as? String ?? ""
     }
 
     /**

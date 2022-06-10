@@ -93,7 +93,7 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
         setupSOAppleSignIn1()
         
         if UserDefaults.standard.value(forKey: "fcmToken") != nil {
-            let fcmRegToken:String = UserDefaults.standard.value(forKey: "fcmToken") as! String
+            let fcmRegToken:String = UserDefaults.standard.value(forKey: "fcmToken") as? String ?? ""
             print(fcmRegToken)
             fcmTokenStr = fcmRegToken
             print("Fcm Token is: ",fcmTokenStr)
@@ -146,7 +146,7 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
     override func viewWillAppear(_ animated: Bool) {
     
         
-        if login_session.object(forKey: "Language")as! String == "en"{
+        if login_session.object(forKey: "Language")as? String ?? "" == "en"{
             self.txtEmail.textAlignment = .left
             self.txtPassword.textAlignment = .left
         }else{
@@ -169,22 +169,22 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
              self.btnSignupNow.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 13)
             self.WelcomeLbl.font = UIFont(name: SemiBoldFont, size: 22
             )
-            self.LoginWithLbl.text = GlobalLanguageDictionary.object(forKey: "Key_LoginWith") as! String
-            self.WelcomeLbl.text = GlobalLanguageDictionary.object(forKey: "Key_Welcome") as! String
-            self.WelcomeDescLbl.text = GlobalLanguageDictionary.object(forKey: "Key_WelcomeDesc") as! String
-            self.txtEmail.placeholder = GlobalLanguageDictionary.object(forKey: "Key_Email") as! String
-            self.txtPassword.placeholder = GlobalLanguageDictionary.object(forKey: "Key_Password") as! String
-            self.rememberme.text = GlobalLanguageDictionary.object(forKey: "Key_Remember") as! String
-            self.btnForgetPassWord.setTitle(GlobalLanguageDictionary.object(forKey: "Key_ForgotPasword") as! String, for: .normal)
-            self.btnLogin.setTitle(GlobalLanguageDictionary.object(forKey: "Key_login") as! String, for: .normal)
-            self.idonthaveacc.text = GlobalLanguageDictionary.object(forKey: "Key_DonthaveAcc") as! String
-            self.btnSignupNow.setTitle(GlobalLanguageDictionary.object(forKey: "Key_signUp") as! String, for: .normal)
-            self.OrsignLbl.text = GlobalLanguageDictionary.object(forKey: "Key_orSignLbl") as! String
-            self.btnFaceBook.setTitle(GlobalLanguageDictionary.object(forKey: "Key_facebook") as! String, for: .normal)
-            self.btnGooglePlus.setTitle(GlobalLanguageDictionary.object(forKey: "Key_google") as! String, for: .normal)
-            self.btnLinkedin.setTitle(GlobalLanguageDictionary.object(forKey: "Key_Apple") as! String, for: .normal)
-            self.CountinueLbl.text = GlobalLanguageDictionary.object(forKey: "Key_countinueDesc") as! String
-            self.btntermsConditions.setTitle(GlobalLanguageDictionary.object(forKey: "Key_TermsOfService") as! String, for: .normal)
+            self.LoginWithLbl.text = GlobalLanguageDictionary.object(forKey: "Key_LoginWith") as? String ?? ""
+            self.WelcomeLbl.text = GlobalLanguageDictionary.object(forKey: "Key_Welcome") as? String ?? ""
+            self.WelcomeDescLbl.text = GlobalLanguageDictionary.object(forKey: "Key_WelcomeDesc") as? String ?? ""
+            self.txtEmail.placeholder = GlobalLanguageDictionary.object(forKey: "Key_Email") as? String ?? ""
+            self.txtPassword.placeholder = GlobalLanguageDictionary.object(forKey: "Key_Password") as? String ?? ""
+            self.rememberme.text = GlobalLanguageDictionary.object(forKey: "Key_Remember") as? String ?? ""
+            self.btnForgetPassWord.setTitle(GlobalLanguageDictionary.object(forKey: "Key_ForgotPasword") as? String ?? "", for: .normal)
+            self.btnLogin.setTitle(GlobalLanguageDictionary.object(forKey: "Key_login") as? String ?? "", for: .normal)
+            self.idonthaveacc.text = GlobalLanguageDictionary.object(forKey: "Key_DonthaveAcc") as? String ?? ""
+            self.btnSignupNow.setTitle(GlobalLanguageDictionary.object(forKey: "Key_signUp") as? String ?? "", for: .normal)
+            self.OrsignLbl.text = GlobalLanguageDictionary.object(forKey: "Key_orSignLbl") as? String ?? ""
+            self.btnFaceBook.setTitle(GlobalLanguageDictionary.object(forKey: "Key_facebook") as? String ?? "", for: .normal)
+            self.btnGooglePlus.setTitle(GlobalLanguageDictionary.object(forKey: "Key_google") as? String ?? "", for: .normal)
+            self.btnLinkedin.setTitle(GlobalLanguageDictionary.object(forKey: "Key_Apple") as? String ?? "", for: .normal)
+            self.CountinueLbl.text = GlobalLanguageDictionary.object(forKey: "Key_countinueDesc") as? String ?? ""
+            self.btntermsConditions.setTitle(GlobalLanguageDictionary.object(forKey: "Key_TermsOfService") as? String ?? "", for: .normal)
             
 //        }
     }
@@ -250,14 +250,14 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
                     
                     print("Userdetails",userDetailsArr ?? "NIL")
                     
-                    let token = userDetailsArr!.object(forKey: "token")as! String
+                    let token = userDetailsArr!.object(forKey: "token")as? String ?? ""
                     
                     login_session.setValue(token, forKey: "user_token")
-                    let tokenStr:String = login_session.object(forKey: "user_token") as! String
+                    let tokenStr:String = login_session.object(forKey: "user_token") as? String ?? ""
                     print("TokenString",tokenStr)
                    
                     if UserDefaults.standard.object(forKey: "fcmToken") != nil{
-                        self.fcmToken = UserDefaults.standard.object(forKey: "fcmToken") as! String
+                        self.fcmToken = UserDefaults.standard.object(forKey: "fcmToken") as? String ?? ""
                     }else{
                         self.fcmToken = ""
                     }
@@ -286,8 +286,8 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
                                 }else{
                     
                     self.hideActivityIndicator(uiView: self.view)
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
-                    //self.showInformation(title: AppName, message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
+                    //self.showInformation(title: AppName, message: responseDict.value(forKey: "message") as? String ?? "")
                 }
 
         }
@@ -360,9 +360,9 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
                  else
                  {
                      if login_session.object(forKey: "user_apple_id") != nil {
-                         userIdentifier = login_session.object(forKey: "user_apple_id") as! String
-                         email = login_session.object(forKey: "user_apple_mailid") as! String
-                         fullName = login_session.object(forKey: "user_apple_name") as! String
+                         userIdentifier = login_session.object(forKey: "user_apple_id") as? String ?? ""
+                         email = login_session.object(forKey: "user_apple_mailid") as? String ?? ""
+                         fullName = login_session.object(forKey: "user_apple_name") as? String ?? ""
                      }
                  }
                 
@@ -463,12 +463,12 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "code") as! Int == 200 {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                if responseDict.value(forKey: "code") as? Int ?? 0 == 200 {
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
                     
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -480,7 +480,7 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
             
    
         } else {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
     
@@ -509,7 +509,7 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
                 let responseDict:NSDictionary = json!
                 print(responseDict)
             
-                if responseDict.value(forKey: "code") as! Int == 200 {
+                if responseDict.value(forKey: "code") as? Int ?? 0 == 200 {
                     
                     
                    // let userDetailsArr = (responseDict.value(forKey: "user_details") as? NSDictionary)
@@ -518,10 +518,10 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
                     
                     print("Userdetails",userDetailsArr ?? "NIL")
                     
-                    let token = userDetailsArr!.object(forKey: "token")as! String
+                    let token = userDetailsArr!.object(forKey: "token")as? String ?? ""
                     
                     login_session.setValue(token, forKey: "user_token")
-                    let tokenStr:String = login_session.object(forKey: "user_token") as! String
+                    let tokenStr:String = login_session.object(forKey: "user_token") as? String ?? ""
                     print("TokenString",tokenStr)
                     
                     if userDetailsArr!.count != 0 {
@@ -542,7 +542,7 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
             
 
         } else {
-            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
         }
     }
         }
@@ -551,22 +551,22 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
     {
         if (self.email.count) < 5
         {
-            let alert = UIAlertController(title: "Closest", message: "\(GlobalLanguageDictionary.object(forKey: "Key_your") as! String) \(loginType) \(GlobalLanguageDictionary.object(forKey: "Key_noemail_warning") as! String)", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Closest", message: "\(GlobalLanguageDictionary.object(forKey: "Key_your") as? String ?? "") \(loginType) \(GlobalLanguageDictionary.object(forKey: "Key_noemail_warning") as? String ?? "")", preferredStyle: .alert)
             
             //2. Add the text field. You can configure it however you need.
             alert.addTextField { (textField) in
-                textField.placeholder = GlobalLanguageDictionary.object(forKey: "Key_Email") as! String
+                textField.placeholder = GlobalLanguageDictionary.object(forKey: "Key_Email") as? String ?? ""
             }
             
-            let okButton = UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "ok") as! String, style: .default, handler: {  (_) in
+            let okButton = UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "ok") as? String ?? "", style: .default, handler: {  (_) in
                 let textField = alert.textFields![0] // Force unwrapping because we know it exists.
                 self.email = textField.text ?? ""
                 if (self.email.count) == 0
                 {
-                    self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_enterEmailId") as! String)
+                    self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_enterEmailId") as? String ?? "")
                 }
                 else if isValidEmail(email: self.email) == false {
-                    self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_pleaseentervalidemailid") as! String)
+                    self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_pleaseentervalidemailid") as? String ?? "")
                 }
                 else
                 {
@@ -630,15 +630,15 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
     }
     
     @IBAction func act_ForgotPassword(_ sender: UIButton) {
-        let alert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_ForgotDesc") as! String, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_ForgotDesc") as? String ?? "", preferredStyle: .alert)
         alert.addTextField { (textField) in
-            textField.placeholder = GlobalLanguageDictionary.object(forKey: "Key_Email") as! String
+            textField.placeholder = GlobalLanguageDictionary.object(forKey: "Key_Email") as? String ?? ""
         }
-        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "ok") as! String, style: .default, handler: { [weak alert] (_) in
+        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "ok") as? String ?? "", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]
             self.email = (textField?.text)!
             if self.email == "" {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_enterEmailId") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_enterEmailId") as? String ?? "")
             }
             else{
                 
@@ -647,19 +647,19 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
 
             }
         }))
-        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_cancel") as! String, style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_cancel") as? String ?? "", style: .cancel, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
     
     @IBAction func act_Login(_ sender: UIButton) {
         if self.txtEmail.text?.count == 0 {
-            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_enterEmailId") as! String)
+            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_enterEmailId") as? String ?? "")
             self.viewLoginFeild.shakeEffect()
         } else if isValidEmail(email: self.txtEmail.text) == false {
-            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_pleaseentervalidemailid") as! String)
+            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_pleaseentervalidemailid") as? String ?? "")
              self.viewLoginFeild.shakeEffect()
         } else if self.txtPassword.text?.count == 0 {
-            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_pleaseenteryourpassword") as! String)
+            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_pleaseenteryourpassword") as? String ?? "")
              self.viewLoginFeild.shakeEffect()
         }
 //        else if (self.txtPassword.text?.count)! < 8 {
@@ -728,9 +728,9 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
                     //    self.dict = result as! [String : AnyObject]
                     let responseDict = result as! NSDictionary
                     self.showActivityIndicator(uiView: self.view)
-                     self.email = responseDict.object(forKey: "email")as! String
-                    self.key = responseDict.object(forKey: "id")as! String
-                    self.firstName = responseDict.object(forKey: "name")as! String
+                     self.email = responseDict.object(forKey: "email")as? String ?? ""
+                    self.key = responseDict.object(forKey: "id")as? String ?? ""
+                    self.firstName = responseDict.object(forKey: "name")as? String ?? ""
                     self.loginType = "facebook"
                                                 self.deviceType = "iphone"
                                                 self.password = "facebook"
@@ -762,7 +762,7 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
             GIDSignIn.sharedInstance().delegate = self
             GIDSignIn.sharedInstance().signIn()
         } else {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
        
     }
@@ -814,10 +814,10 @@ extension LoginViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
         if APIKEY == "USER_LOGIN" {
             if errorDict == "" {
                 if responseDict.count != 0 {
-                    if responseDict.value(forKey: "status") as! Int == 0 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 0 {
                         linkedlnBGView.isHidden = true
                         hideActivityIndicator(uiView: self.view)
-                        showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                      }
                     else
                     {
@@ -840,7 +840,7 @@ extension LoginViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
 //                            }
                             login_session.synchronize()
                         }
-                        let requestStr = "email_id=\(login_session.value(forKey: "Email") as! String)&page_Id=\(1)&lang_code=en"
+                        let requestStr = "email_id=\(login_session.value(forKey: "Email") as? String ?? "")&page_Id=\(1)&lang_code=en"
                         Network.shared.POSTRequest(withParameterString: requestStr, serviceURL:DISCOVER_API , APIKEY: "DISCOVER_API")
                     }
                     print(responseDict)
@@ -858,7 +858,7 @@ extension LoginViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
         {
             if  responseDict.count != 0
             {
-              showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+              showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
             else
             {

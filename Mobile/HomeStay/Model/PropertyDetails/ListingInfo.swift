@@ -16,8 +16,8 @@ class ListingInfo : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        label = dictionary["label"] as? String
-        value = dictionary["value"] as? String
+        label = dictionary["label"] as? String ?? ""
+        value = dictionary["value"] as? String ?? ""
     }
 
     /**
@@ -41,8 +41,8 @@ class ListingInfo : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        label = aDecoder.decodeObject(forKey: "label") as? String
-        value = aDecoder.decodeObject(forKey: "value") as? String
+        label = aDecoder.decodeObject(forKey: "label") as? String ?? ""
+        value = aDecoder.decodeObject(forKey: "value") as? String ?? ""
     }
 
     /**

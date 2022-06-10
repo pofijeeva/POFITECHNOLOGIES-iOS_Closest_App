@@ -138,8 +138,8 @@ class AddScheduleExperienceViewController: BaseViewController, UITableViewDelega
         let buttonPosition = sender.convert(CGPoint.zero, to: self.tableViewSchedules)
         let indexPath = self.tableViewSchedules.indexPathForRow(at: buttonPosition)
         print("indexPath?.row",indexPath?.row)
-        status = "\((TimingsArray.object(at: indexPath!.row) as! NSDictionary).object(forKey: "date_status") as AnyObject)"
-        dateId = (TimingsArray.object(at: indexPath!.row) as! NSDictionary).object(forKey: "date_id") as! String
+        status = "\((TimingsArray.object(at: indexPath!.row) as? NSDictionary)?.object(forKey: "date_status") as AnyObject)"
+        dateId = (TimingsArray.object(at: indexPath!.row) as? NSDictionary)?.object(forKey: "date_id") as? String ?? ""
         print(status)
         print(dateId)
         self.activeDeactiveStatus()
@@ -149,7 +149,7 @@ class AddScheduleExperienceViewController: BaseViewController, UITableViewDelega
         let buttonPosition = sender.convert(CGPoint.zero, to: self.tableViewSchedules)
         let indexPath = self.tableViewSchedules.indexPathForRow(at: buttonPosition)
         print("indexPath?.row",indexPath?.row)
-        dateId = (TimingsArray.object(at: indexPath!.row) as! NSDictionary).object(forKey: "date_id") as! String
+        dateId = (TimingsArray.object(at: indexPath!.row) as? NSDictionary)?.object(forKey: "date_id") as? String ?? ""
         print(dateId)
         self.deleteSchedule()
     }
@@ -229,11 +229,11 @@ class AddScheduleExperienceViewController: BaseViewController, UITableViewDelega
             labelArchive.font = UIFont(name: RegularFont, size: 16)
             labelArchive.text = "  Active"
             if TimingsArray.count > 0 {
-                let fromdatee = (TimingsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "from_date") as! String
+                let fromdatee = (TimingsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "from_date") as? String ?? ""
                 labelFromDate.text = "   " + fromdatee
-                let toDatee = (TimingsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "to_date") as! String
+                let toDatee = (TimingsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "to_date") as? String ?? ""
                 labelTODate.text = "   " + toDatee
-                if "\((TimingsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "date_status") as AnyObject)" == "1" {
+                if "\((TimingsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "date_status") as AnyObject)" == "1" {
                     imageViewArchive.image = UIImage(named: "greenTick")
                 }
                 else {
@@ -260,15 +260,15 @@ class AddScheduleExperienceViewController: BaseViewController, UITableViewDelega
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
        
         var dict = [String:AnyObject]()
-        dict["from_date"] = (TimingsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "from_date") as AnyObject
-        dict["to_date"] = (TimingsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "to_date") as AnyObject
-       // self.differenceBetweenDates(startDate: (TimingsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "from_date") as! String, endDate: (TimingsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "to_date") as! String)
+        dict["from_date"] = (TimingsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "from_date") as AnyObject
+        dict["to_date"] = (TimingsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "to_date") as AnyObject
+       // self.differenceBetweenDates(startDate: (TimingsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "from_date") as? String ?? "", endDate: (TimingsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "to_date") as? String ?? "")
 //        vc.dictValues = dict
-        dateId = (TimingsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "date_id") as! String
-        //status = (TimingsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "date_status") as! String
+        dateId = (TimingsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "date_id") as? String ?? ""
+        //status = (TimingsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "date_status") as? String ?? ""
         let vc = storyBoardExperience.instantiateViewController(withIdentifier: "AddTimeSheetViewController") as! AddTimeSheetViewController
-        vc.startDate = (TimingsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "from_date") as! String
-        vc.endDate = (TimingsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "to_date") as! String
+        vc.startDate = (TimingsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "from_date") as? String ?? ""
+        vc.endDate = (TimingsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "to_date") as? String ?? ""
         vc.dateId = dateId
         self.navigationController?.pushViewController(vc, animated: true)
        
@@ -278,7 +278,7 @@ class AddScheduleExperienceViewController: BaseViewController, UITableViewDelega
         if Helper.sharedInstance.isConnectedToInternet() {
             Helper.sharedInstance.showActivityIndicator(view: self.view, targetVC: self)
             var params = NSMutableDictionary()
-            params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","exp_id":currentExpId]
+            params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","exp_id":currentExpId]
             let manager = AFHTTPSessionManager()
             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
             print("API",ExperienceBaseDetails)
@@ -287,13 +287,13 @@ class AddScheduleExperienceViewController: BaseViewController, UITableViewDelega
                 Helper.sharedInstance.hideActivityIndicator(view: self.view)
                 let responseDict:NSDictionary = resultData as! NSDictionary
                 print(responseDict)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     currentExpId = "\(responseDict.object(forKey: "experience_id") as AnyObject)"
                     dictOfExperience = responseDict
                     sharedInstanceExperience.gotoStepSix()
                 }
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) in
                 print(error)
@@ -301,7 +301,7 @@ class AddScheduleExperienceViewController: BaseViewController, UITableViewDelega
             })
         }
         else {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
     func differenceBetweenDates(startDate:String, endDate:String) {
@@ -349,7 +349,7 @@ class AddScheduleExperienceViewController: BaseViewController, UITableViewDelega
         if Helper.sharedInstance.isConnectedToInternet() {
             self.showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
-            params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","exp_id":currentExpId,"date_id":dateId]
+            params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","exp_id":currentExpId,"date_id":dateId]
             let manager = AFHTTPSessionManager()
             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
             print("API",DeleteScheduledExperience)
@@ -358,12 +358,12 @@ class AddScheduleExperienceViewController: BaseViewController, UITableViewDelega
                 self.hideActivityIndicator(uiView: self.view)
                 let responseDict:NSDictionary = resultData as! NSDictionary
                 print(responseDict)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     Helper.sharedInstance.hideActivityIndicator(view: self.view)
                     dictOfExperience = responseDict as! NSDictionary
                     let DataDict = responseDict.value(forKey: "result") as? NSArray
-                    ((DataDict?.object(at: 0) as! NSDictionary).object(forKey: "Timing") as! NSDictionary).object(forKey: "schedules") as! NSArray
-                    TimingsArray = (((DataDict?.object(at: 0) as! NSDictionary).object(forKey: "Timing") as! NSDictionary).object(forKey: "schedules") as! NSArray).copy() as! NSArray
+                    ((DataDict?.object(at: 0) as? NSDictionary)?.object(forKey: "Timing") as? NSDictionary)?.object(forKey: "schedules") as! NSArray
+                    TimingsArray = (((DataDict?.object(at: 0) as? NSDictionary)?.object(forKey: "Timing") as? NSDictionary)?.object(forKey: "schedules") as! NSArray).copy() as! NSArray
                     print(TimingsArray)
                     if TimingsArray.count > 0 {
                         Helper.sharedInstance.hideActivityIndicator(view: self.view)
@@ -383,7 +383,7 @@ class AddScheduleExperienceViewController: BaseViewController, UITableViewDelega
                 }
                 else {
                     self.hideActivityIndicator(uiView: self.view)
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) in
                 print(error)
@@ -392,7 +392,7 @@ class AddScheduleExperienceViewController: BaseViewController, UITableViewDelega
             })
         }
         else {//
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         Helper.sharedInstance.hideActivityIndicator(view: self.view)
         
@@ -402,7 +402,7 @@ class AddScheduleExperienceViewController: BaseViewController, UITableViewDelega
         if Helper.sharedInstance.isConnectedToInternet() {
             self.showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
-            params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","exp_id":currentExpId,"date_id":dateId,"status":status]
+            params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","exp_id":currentExpId,"date_id":dateId,"status":status]
             let manager = AFHTTPSessionManager()
             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
             print("API",ChangeScheduledExperienceStatus)
@@ -411,12 +411,12 @@ class AddScheduleExperienceViewController: BaseViewController, UITableViewDelega
                 self.hideActivityIndicator(uiView: self.view)
                 let responseDict:NSDictionary = resultData as! NSDictionary
                 print(responseDict)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     self.hideActivityIndicator(uiView: self.view)
                     dictOfExperience = responseDict as! NSDictionary
                     let DataDict = responseDict.value(forKey: "result") as? NSArray
-                    ((DataDict?.object(at: 0) as! NSDictionary).object(forKey: "Timing") as! NSDictionary).object(forKey: "schedules") as! NSArray
-                    TimingsArray = (((DataDict?.object(at: 0) as! NSDictionary).object(forKey: "Timing") as! NSDictionary).object(forKey: "schedules") as! NSArray).copy() as! NSArray
+                    ((DataDict?.object(at: 0) as? NSDictionary)?.object(forKey: "Timing") as? NSDictionary)?.object(forKey: "schedules") as! NSArray
+                    TimingsArray = (((DataDict?.object(at: 0) as? NSDictionary)?.object(forKey: "Timing") as? NSDictionary)?.object(forKey: "schedules") as! NSArray).copy() as! NSArray
                     print(TimingsArray)
                     if TimingsArray.count > 0 {
                         self.imageViewEmpty.isHidden = true
@@ -436,7 +436,7 @@ class AddScheduleExperienceViewController: BaseViewController, UITableViewDelega
                 else {
                     self.hideActivityIndicator(uiView: self.view)
 
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) in
                 print(error)
@@ -446,7 +446,7 @@ class AddScheduleExperienceViewController: BaseViewController, UITableViewDelega
             })
         }
         else {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         
     }
@@ -578,7 +578,7 @@ class AddScheduleExperienceViewController: BaseViewController, UITableViewDelega
             if Helper.sharedInstance.isConnectedToInternet() {
                 self.showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
-                params = ["user_id":login_session.value(forKey: "UserId")!,"exp_id":currentExpId,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","from_date":self.fromDateStr,"to_date":self.toDateStr]
+                params = ["user_id":login_session.value(forKey: "UserId")!,"exp_id":currentExpId,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","from_date":self.fromDateStr,"to_date":self.toDateStr]
                 print(params)
                 
                 let manager = AFHTTPSessionManager()
@@ -588,13 +588,13 @@ class AddScheduleExperienceViewController: BaseViewController, UITableViewDelega
                 manager.post(ExperienceAddSchedule, parameters: params, headers: ["Authorization":""], progress: nil, success: { (operation, responseObject) -> Void in
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         self.hideActivityIndicator(uiView: self.view)
                         let DataDict = responseDict.value(forKey: "result") as? NSArray
                         
                         currentExpId = "\(responseDict.object(forKey: "experience_id") as AnyObject)"
                         
-                        TimingsArray = (((DataDict?.object(at: 0) as! NSDictionary).object(forKey: "Timing") as! NSDictionary).object(forKey: "schedules") as! NSArray).copy() as! NSArray
+                        TimingsArray = (((DataDict?.object(at: 0) as? NSDictionary)?.object(forKey: "Timing") as? NSDictionary)?.object(forKey: "schedules") as! NSArray).copy() as! NSArray
                         print(TimingsArray)
                         if TimingsArray.count > 0 {
                             self.imageViewEmpty.isHidden = true
@@ -614,7 +614,7 @@ class AddScheduleExperienceViewController: BaseViewController, UITableViewDelega
                     else {
 
                         self.hideActivityIndicator(uiView: self.view)
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {

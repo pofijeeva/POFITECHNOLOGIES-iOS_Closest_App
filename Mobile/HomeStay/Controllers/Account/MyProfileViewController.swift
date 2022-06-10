@@ -69,7 +69,7 @@ class MyProfileViewController: UIViewController {
         let parameters:[String : Any] =
                     ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
                      "u_first_name":PFirstName.text ?? "" , "u_last_name":PLastName.text ?? "" ,
-                     "u_phone":PPhoneNumber.text ?? "","email": login_session.value(forKey: "Email") as! String
+                     "u_phone":PPhoneNumber.text ?? "","email": login_session.value(forKey: "Email") as? String ?? ""
                 ]
                 print(parameters)
                 APIManager.apiPostWithHeaders(serviceName: UPDATE_USER_PROF_API, parameters: parameters) { (json:NSDictionary?, error:NSError?) in
@@ -96,8 +96,8 @@ class MyProfileViewController: UIViewController {
                     {
                         
                      //   self.hideActivityIndicator(uiView: self.view)
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
-                        //self.showInformation(title: AppName, message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
+                        //self.showInformation(title: AppName, message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                     
                 }
@@ -138,7 +138,7 @@ class MyProfileViewController: UIViewController {
         let parameters:[String : Any] =
                     ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
                       
-                     "u_phone":PPhoneNumber.text ?? "","email": login_session.value(forKey: "Email") as! String
+                     "u_phone":PPhoneNumber.text ?? "","email": login_session.value(forKey: "Email") as? String ?? ""
                 ]
                 print(parameters)
                 APIManager.apiPostWithHeaders(serviceName: UPDATE_USER_PROF_API, parameters: parameters) { (json:NSDictionary?, error:NSError?) in
@@ -165,8 +165,8 @@ class MyProfileViewController: UIViewController {
                     {
                         
                      //   self.hideActivityIndicator(uiView: self.view)
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
-                        //self.showInformation(title: AppName, message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
+                        //self.showInformation(title: AppName, message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                     
                 }
@@ -192,23 +192,25 @@ extension MyProfileViewController: UICollectionViewDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MoveCollectionViewCell", for: indexPath) as? MoveCollectionViewCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MoveCollectionViewCell", for: indexPath) as? MoveCollectionViewCell else { return UICollectionViewCell() }
+
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MoveCollectionViewCell", for: indexPath) as? MoveCollectionViewCell
        
-        cell?.MoveLbl.font = UIFont(name: SemiBoldFont, size: 14)
+        cell.MoveLbl.font = UIFont(name: SemiBoldFont, size: 14)
        
-        cell?.MoveLbl.text = Array.object(at: indexPath.row)  as? String
+        cell.MoveLbl.text = Array.object(at: indexPath.row)  as? String
         
         if SelectedRow == indexPath.row {
-            cell?.MoveLbl.backgroundColor = AppSecondColor
-            cell?.MoveLbl.textColor = .white
+            cell.MoveLbl.backgroundColor = AppSecondColor
+            cell.MoveLbl.textColor = .white
         }else{
-             cell?.MoveLbl.textColor = .black
-            cell?.MoveLbl.backgroundColor = hexStringToUIColor(hex: "#F1F1F1")
+             cell.MoveLbl.textColor = .black
+            cell.MoveLbl.backgroundColor = hexStringToUIColor(hex: "#F1F1F1")
         }
-       // cell?.lblWishlistCount.text = String(Singleton.sharedInstance.wishListModel.wishlist.count)
+       // cell.lblWishlistCount.text = String(Singleton.sharedInstance.wishListModel.wishlist.count)
         
         
-        return cell!
+        return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {

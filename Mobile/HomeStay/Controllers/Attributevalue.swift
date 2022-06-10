@@ -19,12 +19,12 @@ class Attributevalue : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        attributeChildId = dictionary["attribute_child_id"] as? Int
-        attributeChildValue = dictionary["attribute_child_value"] as? String
-        attributeParentName = dictionary["attribute_parent_name"] as? String
-        list_id = dictionary["list_id"] as? Int
-        list_val_id = dictionary["list_val_id"] as? Int
-        list_val_name = dictionary["list_val_name"] as? String
+        attributeChildId = dictionary["attribute_child_id"] as? Int ?? 0
+        attributeChildValue = dictionary["attribute_child_value"] as? String ?? ""
+        attributeParentName = dictionary["attribute_parent_name"] as? String ?? ""
+        list_id = dictionary["list_id"] as? Int ?? 0
+        list_val_id = dictionary["list_val_id"] as? Int ?? 0
+        list_val_name = dictionary["list_val_name"] as? String ?? ""
     }
 
     /**
@@ -62,12 +62,12 @@ class Attributevalue : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        attributeChildId = aDecoder.decodeObject(forKey: "attribute_child_id") as? Int
-        attributeChildValue = aDecoder.decodeObject(forKey: "attribute_child_value") as? String
-        attributeParentName = aDecoder.decodeObject(forKey: "attribute_parent_name") as? String
-        list_id = aDecoder.decodeObject(forKey: "list_id") as? Int
-        list_val_id = aDecoder.decodeObject(forKey: "list_val_id") as? Int
-        list_val_name = aDecoder.decodeObject(forKey: "list_val_name") as? String
+        attributeChildId = aDecoder.decodeObject(forKey: "attribute_child_id") as? Int ?? 0
+        attributeChildValue = aDecoder.decodeObject(forKey: "attribute_child_value") as? String ?? ""
+        attributeParentName = aDecoder.decodeObject(forKey: "attribute_parent_name") as? String ?? ""
+        list_id = aDecoder.decodeObject(forKey: "list_id") as? Int ?? 0
+        list_val_id = aDecoder.decodeObject(forKey: "list_val_id") as? Int ?? 0
+        list_val_name = aDecoder.decodeObject(forKey: "list_val_name") as? String ?? ""
     }
 
     /**

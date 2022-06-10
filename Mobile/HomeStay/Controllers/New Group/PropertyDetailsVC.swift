@@ -55,8 +55,8 @@ class PropertyDetailsVC: BaseViewController {
         self.earningTitle.font = UIFont(name: SemiBoldFont, size: 15)
         self.bookedCustomeersBtn.titleLabel?.font = UIFont(name: SemiBoldFont, size: 17
         )
-        self.headerLbl.text = GlobalLanguageDictionary.object(forKey: "key_myPropertyDetails") as! String
-        self.bookedCustomeersBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_viewBookedCust") as! String, for: .normal)
+        self.headerLbl.text = GlobalLanguageDictionary.object(forKey: "key_myPropertyDetails") as? String ?? ""
+        self.bookedCustomeersBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_viewBookedCust") as? String ?? "", for: .normal)
         
         self.dayPriceLbl.textColor = AppColor
         bookedCustomeersBtn.layer.cornerRadius = 6
@@ -65,7 +65,7 @@ class PropertyDetailsVC: BaseViewController {
         img.layer.borderColor = UIColor.black.cgColor
         img.layer.cornerRadius = img.frame.height/2
         img.clipsToBounds = true
-        self.earningTitle.text = GlobalLanguageDictionary.object(forKey: "key_earingsmonth") as! String
+        self.earningTitle.text = GlobalLanguageDictionary.object(forKey: "key_earingsmonth") as? String ?? ""
 
         self.getNotificationListApiCall()
        
@@ -75,28 +75,28 @@ class PropertyDetailsVC: BaseViewController {
     func populateData() {
  
             
-            let imgURL =  (self.ReservationData.object(forKey: "property_details") as! NSDictionary).object(forKey: "ren_image") as! String
+            let imgURL =  (self.ReservationData.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "ren_image") as? String ?? ""
             
             self.proImg.sd_setImage(with: URL(string: imgURL), placeholderImage: UIImage(named: "placeholder.png"))
-            self.dayPriceLbl.text = "\(login_session.value(forKey: "APP_CURRENCYSYM") as? String ?? "$") \((self.ReservationData.object(forKey: "property_details") as! NSDictionary).object(forKey: "price_list") as AnyObject)"
-        self.dayPriceLbl.attributedText  = totalBookingAttributeString(harcodName: "\(login_session.value(forKey: "APP_CURRENCYSYM") as? String ?? "$") \((self.ReservationData.object(forKey: "property_details") as! NSDictionary).object(forKey: "price_list") as AnyObject)", name: "  / \(GlobalLanguageDictionary.object(forKey: "Key_day") as! String)", firstStringColor: AppColor)
+            self.dayPriceLbl.text = "\(login_session.value(forKey: "APP_CURRENCYSYM") as? String ?? "$") \((self.ReservationData.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "price_list") as AnyObject)"
+        self.dayPriceLbl.attributedText  = totalBookingAttributeString(harcodName: "\(login_session.value(forKey: "APP_CURRENCYSYM") as? String ?? "$") \((self.ReservationData.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "price_list") as AnyObject)", name: "  / \(GlobalLanguageDictionary.object(forKey: "Key_day") as? String ?? "")", firstStringColor: AppColor)
             
-            self.nameLbl.text = "\((self.ReservationData.object(forKey: "property_details") as! NSDictionary).object(forKey: "ren_title") as AnyObject)"
-            self.textLbl.text = (self.ReservationData.object(forKey: "property_details") as! NSDictionary).object(forKey: "ren_summary") as! String
+            self.nameLbl.text = "\((self.ReservationData.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "ren_title") as AnyObject)"
+            self.textLbl.text = (self.ReservationData.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "ren_summary") as? String ?? ""
             
 //            let imggURL =  model.ren_image ?? ""
             self.img.sd_setImage(with: URL(string: imgURL), placeholderImage: UIImage(named: "placeholder.png"))
-            self.inameLbl.text = (self.ReservationData.object(forKey: "property_details") as! NSDictionary).object(forKey: "name") as! String
-            self.ilocationLbl.text = "\((self.ReservationData.object(forKey: "property_details") as! NSDictionary).object(forKey: "address") as AnyObject)"
+            self.inameLbl.text = (self.ReservationData.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "name") as? String ?? ""
+            self.ilocationLbl.text = "\((self.ReservationData.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "address") as AnyObject)"
             self.totalBookingsLbl.font = UIFont(name: SemiBoldFont, size: 16)
             self.cancelledLbl.font = UIFont(name: SemiBoldFont, size: 16)
             self.receivedLbl.font = UIFont(name: SemiBoldFont, size: 16)
             self.totalEarningsLbl.font = UIFont(name: SemiBoldFont, size: 16)
-        self.totalBookingsLbl.attributedText =  totalBookingAttributeString(harcodName: "\(GlobalLanguageDictionary.object(forKey: "key_totalBooking") as! String)  ", name: "\((self.ReservationData.object(forKey: "property_details") as! NSDictionary).object(forKey: "booking_count") as AnyObject)")
-        self.cancelledLbl.attributedText = totalBookingAttributeString(harcodName: "\(GlobalLanguageDictionary.object(forKey: "key_CcancelledBooking") as! String)  ", name: "\((self.ReservationData.object(forKey: "property_details") as! NSDictionary).object(forKey: "cancel_bk_count") as AnyObject)")
-        self.receivedLbl.attributedText = totalBookingAttributeString(harcodName: "\(GlobalLanguageDictionary.object(forKey: "key_received") as! String):  ", name: "\(login_session.value(forKey: "APP_CURRENCYSYM") as? String ?? "$") \((self.ReservationData.object(forKey: "property_details") as! NSDictionary).object(forKey: "received_amnt") as AnyObject)", secondStringColor: AppColor)
-        self.totalEarningsLbl.attributedText =  totalBookingAttributeString(harcodName: "\(GlobalLanguageDictionary.object(forKey: "key_totalEarnings") as! String):  ", name: "\(login_session.value(forKey: "APP_CURRENCYSYM") as? String ?? "$") \((self.ReservationData.object(forKey: "property_details") as! NSDictionary).object(forKey: "total_amnt") as AnyObject)")
-            self.earningpermonthLbl.text =  "\(login_session.value(forKey: "APP_CURRENCYSYM") as? String ?? "$") \((self.ReservationData.object(forKey: "property_details") as! NSDictionary).object(forKey: "month_amnt") as AnyObject)"
+        self.totalBookingsLbl.attributedText =  totalBookingAttributeString(harcodName: "\(GlobalLanguageDictionary.object(forKey: "key_totalBooking") as? String ?? "")  ", name: "\((self.ReservationData.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "booking_count") as AnyObject)")
+        self.cancelledLbl.attributedText = totalBookingAttributeString(harcodName: "\(GlobalLanguageDictionary.object(forKey: "key_CcancelledBooking") as? String ?? "")  ", name: "\((self.ReservationData.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "cancel_bk_count") as AnyObject)")
+        self.receivedLbl.attributedText = totalBookingAttributeString(harcodName: "\(GlobalLanguageDictionary.object(forKey: "key_received") as? String ?? ""):  ", name: "\(login_session.value(forKey: "APP_CURRENCYSYM") as? String ?? "$") \((self.ReservationData.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "received_amnt") as AnyObject)", secondStringColor: AppColor)
+        self.totalEarningsLbl.attributedText =  totalBookingAttributeString(harcodName: "\(GlobalLanguageDictionary.object(forKey: "key_totalEarnings") as? String ?? ""):  ", name: "\(login_session.value(forKey: "APP_CURRENCYSYM") as? String ?? "$") \((self.ReservationData.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "total_amnt") as AnyObject)")
+            self.earningpermonthLbl.text =  "\(login_session.value(forKey: "APP_CURRENCYSYM") as? String ?? "$") \((self.ReservationData.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "month_amnt") as AnyObject)"
             
      }
     func totalBookingAttributeString(harcodName: String, name: String, firstStringColor: UIColor =  UIColor.black, secondStringColor: UIColor = UIColor.black) -> NSAttributedString {
@@ -121,7 +121,7 @@ class PropertyDetailsVC: BaseViewController {
         let parameters:[String : Any] =
             ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
              "page_no": 1,
-             "property_id": pid,
+             "property_id": pid ?? 0,
              "currency_code": "USD"
             ]
             print(parameters)
@@ -136,7 +136,7 @@ class PropertyDetailsVC: BaseViewController {
                 print(responseDict)
                 if responseDict.value(forKey: "code") as! NSNumber == 200 {
                     self.ReservationData.removeAllObjects()
-                    self.ReservationData.addEntries(from: (responseDict.object(forKey: "data") as! NSDictionary) as! [AnyHashable : Any])
+                    self.ReservationData.addEntries(from: (responseDict.object(forKey: "data") as? NSDictionary) as? [AnyHashable : Any] ?? [:])
                     self.populateData()
 
                 }
@@ -144,7 +144,7 @@ class PropertyDetailsVC: BaseViewController {
                 {
                     
                     self.hideActivityIndicator(uiView: self.view)
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
                 
             }
@@ -180,7 +180,7 @@ class PropertyDetailsVC: BaseViewController {
             }
             
         } else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         }
     
@@ -189,7 +189,7 @@ class PropertyDetailsVC: BaseViewController {
     
     @IBAction func bookedCustomersAct(_ sender: Any) {
         if (self.ReservationData.object(forKey: "booking_list") as! NSArray).count == 0 {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "key_donthavebookedcust") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "key_donthavebookedcust") as? String ?? "")
 
         }else{
             let nav = self.storyboard?.instantiateViewController(withIdentifier: "BookedCustomerVC") as? BookedCustomerVC

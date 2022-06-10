@@ -16,8 +16,8 @@ class ListDetail : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        listImage = dictionary["list_image"] as? String
-        listName = dictionary["list_name"] as? String
+        listImage = dictionary["list_image"] as? String ?? ""
+        listName = dictionary["list_name"] as? String ?? ""
     }
 
     /**
@@ -41,8 +41,8 @@ class ListDetail : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        listImage = aDecoder.decodeObject(forKey: "list_image") as? String
-        listName = aDecoder.decodeObject(forKey: "list_name") as? String
+        listImage = aDecoder.decodeObject(forKey: "list_image") as? String ?? ""
+        listName = aDecoder.decodeObject(forKey: "list_name") as? String ?? ""
     }
 
     /**

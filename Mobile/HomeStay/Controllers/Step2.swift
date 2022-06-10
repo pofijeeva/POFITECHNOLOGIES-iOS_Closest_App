@@ -39,23 +39,23 @@ class Step2 : NSObject, NSCoding{
         min_hour = dictionary["min_hour"] as? AnyObject
         min_hour_price = dictionary["min_hour_price"] as? AnyObject
 
-        calendarChecked = dictionary["calendar_checked"] as? String
-        calendarStatus = dictionary["calendar_status"] as? Bool
-        datefrom = dictionary["datefrom"] as? String
-        dateto = dictionary["dateto"] as? String
-        propertyid = dictionary["propertyid"] as? Int
-        stepCompleted = dictionary["step_completed"] as? Bool
+        calendarChecked = dictionary["calendar_checked"] as? String ?? ""
+        calendarStatus = dictionary["calendar_status"] as? Bool ?? false
+        datefrom = dictionary["datefrom"] as? String ?? ""
+        dateto = dictionary["dateto"] as? String ?? ""
+        propertyid = dictionary["propertyid"] as? Int ?? 0
+        stepCompleted = dictionary["step_completed"] as? Bool ?? false
         
-        monthly_price_list = dictionary["monthly_price_list"] as? Double
-        monthly_price_status = dictionary["monthly_price_status"] as? Bool
-        price_list = dictionary["price_list"] as? Double
-        weekly_price_list = dictionary["weekly_price_list"] as? Double
-        weekly_price_status = dictionary["weekly_price_status"] as? Bool
-        yearly_price_list = dictionary["yearly_price_list"] as? Double
-        yearly_price_status = dictionary["yearly_price_status"] as? Bool
-        currencyCode = dictionary["host_currency_code"] as? String
-        daily_sts = dictionary["daily_sts"] as? Bool
-        hourly_sts = dictionary["hourly_sts"] as? Bool
+        monthly_price_list = dictionary["monthly_price_list"] as? Double ?? 0
+        monthly_price_status = dictionary["monthly_price_status"] as? Bool ?? false
+        price_list = dictionary["price_list"] as? Double ?? 0
+        weekly_price_list = dictionary["weekly_price_list"] as? Double ?? 0
+        weekly_price_status = dictionary["weekly_price_status"] as? Bool ?? false
+        yearly_price_list = dictionary["yearly_price_list"] as? Double ?? 0
+        yearly_price_status = dictionary["yearly_price_status"] as? Bool ?? false
+        currencyCode = dictionary["host_currency_code"] as? String ?? ""
+        daily_sts = dictionary["daily_sts"] as? Bool ?? false
+        hourly_sts = dictionary["hourly_sts"] as? Bool ?? false
 
     }
 
@@ -146,25 +146,25 @@ class Step2 : NSObject, NSCoding{
         min_hour = aDecoder.decodeObject(forKey: "min_hour") as? AnyObject
         hour_price = aDecoder.decodeObject(forKey: "hour_price") as? AnyObject
 
-        calendarChecked = aDecoder.decodeObject(forKey: "calendar_checked") as? String
-        calendarStatus = aDecoder.decodeObject(forKey: "calendar_status") as? Bool
-        datefrom = aDecoder.decodeObject(forKey: "datefrom") as? String
-        dateto = aDecoder.decodeObject(forKey: "dateto") as? String
-        propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int
+        calendarChecked = aDecoder.decodeObject(forKey: "calendar_checked") as? String ?? ""
+        calendarStatus = aDecoder.decodeObject(forKey: "calendar_status") as? Bool ?? false
+        datefrom = aDecoder.decodeObject(forKey: "datefrom") as? String ?? ""
+        dateto = aDecoder.decodeObject(forKey: "dateto") as? String ?? ""
+        propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int ?? 0
         seasonalCalendarPrice = aDecoder.decodeObject(forKey: "seasonal_calendar_price") as? [AnyObject]
-        stepCompleted = aDecoder.decodeObject(forKey: "step_completed") as? Bool
+        stepCompleted = aDecoder.decodeObject(forKey: "step_completed") as? Bool ?? false
         
-        monthly_price_list = aDecoder.decodeObject(forKey: "monthly_price_list") as? Double
-        monthly_price_status = aDecoder.decodeObject(forKey: "monthly_price_status") as? Bool
-        price_list = aDecoder.decodeObject(forKey: "price_list") as? Double
-        weekly_price_list = aDecoder.decodeObject(forKey: "weekly_price_list") as? Double
-        weekly_price_status = aDecoder.decodeObject(forKey: "weekly_price_status") as? Bool
-        yearly_price_list = aDecoder.decodeObject(forKey: "yearly_price_list") as? Double
-        yearly_price_status = aDecoder.decodeObject(forKey: "yearly_price_status") as? Bool
-        daily_sts = aDecoder.decodeObject(forKey: "daily_sts") as? Bool
-        hourly_sts = aDecoder.decodeObject(forKey: "hourly_sts") as? Bool
+        monthly_price_list = aDecoder.decodeObject(forKey: "monthly_price_list") as? Double ?? 0
+        monthly_price_status = aDecoder.decodeObject(forKey: "monthly_price_status") as? Bool ?? false
+        price_list = aDecoder.decodeObject(forKey: "price_list") as? Double ?? 0
+        weekly_price_list = aDecoder.decodeObject(forKey: "weekly_price_list") as? Double ?? 0
+        weekly_price_status = aDecoder.decodeObject(forKey: "weekly_price_status") as? Bool ?? false
+        yearly_price_list = aDecoder.decodeObject(forKey: "yearly_price_list") as? Double ?? 0
+        yearly_price_status = aDecoder.decodeObject(forKey: "yearly_price_status") as? Bool ?? false
+        daily_sts = aDecoder.decodeObject(forKey: "daily_sts") as? Bool ?? false
+        hourly_sts = aDecoder.decodeObject(forKey: "hourly_sts") as? Bool ?? false
 
-        currencyCode = aDecoder.decodeObject(forKey: "host_currency_code") as? String
+        currencyCode = aDecoder.decodeObject(forKey: "host_currency_code") as? String ?? ""
     }
 
     /**

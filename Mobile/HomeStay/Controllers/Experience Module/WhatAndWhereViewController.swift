@@ -50,11 +50,11 @@ class WhatAndWhereViewController: UIViewController,UITextViewDelegate {
         
         if self.isWhatOrWhere == "what" {
             if arrayOfResult.count > 0 {
-                self.textViewDescription.text = ((arrayOfResult[0] as! NSDictionary).object(forKey: "What_you_will_do") as! NSDictionary).object(forKey: "experience_description") as! String
+                self.textViewDescription.text = ((arrayOfResult[0] as? NSDictionary)?.object(forKey: "What_you_will_do") as? NSDictionary)?.object(forKey: "experience_description") as? String ?? ""
             }
         }else {
             if arrayOfResult.count > 0 {
-                self.textViewDescription.text = ((arrayOfResult[0] as! NSDictionary).object(forKey: "where_you_will_be") as! NSDictionary).object(forKey: "location_description") as! String
+                self.textViewDescription.text = ((arrayOfResult[0] as? NSDictionary)?.object(forKey: "where_you_will_be") as? NSDictionary)?.object(forKey: "location_description") as? String ?? ""
             }
         }
        
@@ -72,11 +72,11 @@ class WhatAndWhereViewController: UIViewController,UITextViewDelegate {
         
         if self.isWhatOrWhere == "what" {
             if arrayOfResult.count > 0 {
-                self.textViewDescription.text = ((arrayOfResult[0] as! NSDictionary).object(forKey: "What_you_will_do") as! NSDictionary).object(forKey: "experience_description") as! String
+                self.textViewDescription.text = ((arrayOfResult[0] as? NSDictionary)?.object(forKey: "What_you_will_do") as? NSDictionary)?.object(forKey: "experience_description") as? String ?? ""
             }
         }else {
             if arrayOfResult.count > 0 {
-                self.textViewDescription.text = ((arrayOfResult[0] as! NSDictionary).object(forKey: "where_you_will_be") as! NSDictionary).object(forKey: "location_description") as! String
+                self.textViewDescription.text = ((arrayOfResult[0] as? NSDictionary)?.object(forKey: "where_you_will_be") as? NSDictionary)?.object(forKey: "location_description") as? String ?? ""
             }
         }    }
     
@@ -93,7 +93,7 @@ class WhatAndWhereViewController: UIViewController,UITextViewDelegate {
                 if Helper.sharedInstance.isConnectedToInternet() {
                     Helper.sharedInstance.showActivityIndicator(view: self.view, targetVC: self)
                     var params = NSMutableDictionary()
-                    params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","exp_id":currentExpId,"what_we_do":self.textViewDescription.text]
+                    params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","exp_id":currentExpId,"what_we_do":self.textViewDescription.text]
                     let manager = AFHTTPSessionManager()
                     manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
                     print("params",params)
@@ -102,7 +102,7 @@ class WhatAndWhereViewController: UIViewController,UITextViewDelegate {
                         Helper.sharedInstance.hideActivityIndicator(view: self.view)
                         let responseDict:NSDictionary = resultData as! NSDictionary
                         print("Response:",responseDict)
-                        if responseDict.value(forKey: "status") as! Int == 1 {
+                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                             currentExpId = "\(responseDict.object(forKey: "experience_id") as AnyObject)"
                             sharedInstanceExperience.gotoStepNine()
                             self.isWhatOrWhere = "where"
@@ -110,7 +110,7 @@ class WhatAndWhereViewController: UIViewController,UITextViewDelegate {
                             self.labelSubTitle.text = "Where we will be*"
                         }
                         else {
-                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                         }
                     }, failure: { (operation, error) in
                         print(error)
@@ -118,14 +118,14 @@ class WhatAndWhereViewController: UIViewController,UITextViewDelegate {
                     })
                 }
                 else {
-                    self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                    self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
                 }
             }
             else {
                 if Helper.sharedInstance.isConnectedToInternet() {
                     Helper.sharedInstance.showActivityIndicator(view: self.view, targetVC: self)
                     var params = NSMutableDictionary()
-                    params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","exp_id":currentExpId,"location_description":self.textViewDescription.text]
+                    params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","exp_id":currentExpId,"location_description":self.textViewDescription.text]
                     let manager = AFHTTPSessionManager()
                     manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
                     print("params",params)
@@ -134,12 +134,12 @@ class WhatAndWhereViewController: UIViewController,UITextViewDelegate {
                         Helper.sharedInstance.hideActivityIndicator(view: self.view)
                         let responseDict:NSDictionary = resultData as! NSDictionary
                         print("Response:",responseDict)
-                        if responseDict.value(forKey: "status") as! Int == 1 {
+                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                             currentExpId = "\(responseDict.object(forKey: "experience_id") as AnyObject)"
                             sharedInstanceExperience.gotoStepTen()
                         }
                         else {
-                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                         }
                     }, failure: { (operation, error) in
                         print(error)
@@ -147,7 +147,7 @@ class WhatAndWhereViewController: UIViewController,UITextViewDelegate {
                     })
                 }
                 else {
-                    self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                    self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
                 }
             }
         }

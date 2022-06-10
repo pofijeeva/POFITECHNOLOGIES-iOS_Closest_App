@@ -16,8 +16,8 @@ class Attribute : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        optionId = dictionary["option_id"] as? String
-        optionName = dictionary["option_name"] as? String
+        optionId = dictionary["option_id"] as? String ?? ""
+        optionName = dictionary["option_name"] as? String ?? ""
         options = [Option]()
         if let optionsArray = dictionary["options"] as? [[String:Any]]{
             for dic in optionsArray{
@@ -55,8 +55,8 @@ class Attribute : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        optionId = aDecoder.decodeObject(forKey: "option_id") as? String
-        optionName = aDecoder.decodeObject(forKey: "option_name") as? String
+        optionId = aDecoder.decodeObject(forKey: "option_id") as? String ?? ""
+        optionName = aDecoder.decodeObject(forKey: "option_name") as? String ?? ""
         options = aDecoder.decodeObject(forKey: "options") as? [Option]
     }
 

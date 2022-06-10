@@ -23,15 +23,15 @@ class CancellationByYou : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        bookingNo = dictionary["booking_no"] as? String
-        cancelId = dictionary["cancel_id"] as? String
-        createdDate = dictionary["created_date"] as? String
-        hostName = dictionary["host_name"] as? String
-        message = dictionary["message"] as? String
-        propertyName = dictionary["property_name"] as? String
-        reviewEmail = dictionary["review_email"] as? String
-        status = dictionary["status"] as? String
-        userImage = dictionary["user_image"] as? String
+        bookingNo = dictionary["booking_no"] as? String ?? ""
+        cancelId = dictionary["cancel_id"] as? String ?? ""
+        createdDate = dictionary["created_date"] as? String ?? ""
+        hostName = dictionary["host_name"] as? String ?? ""
+        message = dictionary["message"] as? String ?? ""
+        propertyName = dictionary["property_name"] as? String ?? ""
+        reviewEmail = dictionary["review_email"] as? String ?? ""
+        status = dictionary["status"] as? String ?? ""
+        userImage = dictionary["user_image"] as? String ?? ""
     }
     
     /**
@@ -76,15 +76,15 @@ class CancellationByYou : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        bookingNo = aDecoder.decodeObject(forKey: "booking_no") as? String
-        cancelId = aDecoder.decodeObject(forKey: "cancel_id") as? String
-        createdDate = aDecoder.decodeObject(forKey: "created_date") as? String
-        hostName = aDecoder.decodeObject(forKey: "host_name") as? String
-        message = aDecoder.decodeObject(forKey: "message") as? String
-        propertyName = aDecoder.decodeObject(forKey: "property_name") as? String
-        reviewEmail = aDecoder.decodeObject(forKey: "review_email") as? String
-        status = aDecoder.decodeObject(forKey: "status") as? String
-        userImage = aDecoder.decodeObject(forKey: "user_image") as? String
+        bookingNo = aDecoder.decodeObject(forKey: "booking_no") as? String ?? ""
+        cancelId = aDecoder.decodeObject(forKey: "cancel_id") as? String ?? ""
+        createdDate = aDecoder.decodeObject(forKey: "created_date") as? String ?? ""
+        hostName = aDecoder.decodeObject(forKey: "host_name") as? String ?? ""
+        message = aDecoder.decodeObject(forKey: "message") as? String ?? ""
+        propertyName = aDecoder.decodeObject(forKey: "property_name") as? String ?? ""
+        reviewEmail = aDecoder.decodeObject(forKey: "review_email") as? String ?? ""
+        status = aDecoder.decodeObject(forKey: "status") as? String ?? ""
+        userImage = aDecoder.decodeObject(forKey: "user_image") as? String ?? ""
     }
     
     /**

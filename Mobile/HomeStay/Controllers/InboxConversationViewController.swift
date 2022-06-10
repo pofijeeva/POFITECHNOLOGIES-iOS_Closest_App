@@ -68,7 +68,7 @@ class InboxConversationViewController: BaseViewController {
             InboxConversationApiCall()
 //            let id = Singleton.sharedInstance.selectedCategory!
 //            self.showActivityIndicator(uiView: self.view)
-//            let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&bookingid=\(BookingId)&base_id=\(id)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
+//            let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&bookingid=\(BookingId)&base_id=\(id)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
 //            print(parameterStr)
 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: INBOX_HISTORY, APIKEY: "INBOX_HISTORY")
         }else {
@@ -109,7 +109,7 @@ class InboxConversationViewController: BaseViewController {
        }
     func InboxConversationApiCall() {
        
-         params = ["userid":login_session.value(forKey: "UserId")!,"bookingid":BookingId,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","base_id":1]
+         params = ["userid":login_session.value(forKey: "UserId")!,"bookingid":BookingId,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","base_id":1]
         let manager = AFHTTPSessionManager()
         manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
         
@@ -119,7 +119,7 @@ class InboxConversationViewController: BaseViewController {
             }
             let responseDict:NSDictionary = responseObject as! NSDictionary
             print(responseDict)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                   self.tblInbox.isHidden = false
                 let mod = InboxConversationModel(fromDictionary: responseDict as! [String : Any])
                 Singleton.sharedInstance.inboxConversationModel = mod
@@ -130,7 +130,7 @@ class InboxConversationViewController: BaseViewController {
             }
                 
             else {
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -154,12 +154,12 @@ class InboxConversationViewController: BaseViewController {
              self.hideActivityIndicator(uiView: self.view)
             let responseDict:NSDictionary = responseObject as! NSDictionary
             print(responseDict)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 self.InboxConversationApiCall()
             }
                 
             else {
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -213,7 +213,7 @@ class InboxConversationViewController: BaseViewController {
                 let id = Singleton.sharedInstance.selectedCategory!
                 //            showActivityIndicator(uiView: self.view)
                 //            var params = NSMutableDictionary()
-                params = ["sender_id":login_session.value(forKey: "UserId")!,"subject":BookingId,"message":self.txtMessage.text!,"property_id":Singleton.sharedInstance.inboxConversationModel.propertyId!,"receiver_id":Singleton.sharedInstance.inboxConversationModel.requesterId!,"bookingno":Singleton.sharedInstance.inboxConversationModel.bookingId!,"status":"Accept","currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","base_id":id]
+                params = ["sender_id":login_session.value(forKey: "UserId")!,"subject":BookingId,"message":self.txtMessage.text!,"property_id":Singleton.sharedInstance.inboxConversationModel.propertyId!,"receiver_id":Singleton.sharedInstance.inboxConversationModel.requesterId!,"bookingno":Singleton.sharedInstance.inboxConversationModel.bookingId!,"status":"Accept","currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","base_id":id]
                 
                 
                 //            APIManager.apiPost(serviceName: HOST_ACCEPT, parameters: params as? [String : Any]) { (json:NSDictionary?, error:NSError?) in
@@ -258,7 +258,7 @@ class InboxConversationViewController: BaseViewController {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         
                         let mod = InboxConversationModel(fromDictionary: responseDict as! [String : Any])
                         Singleton.sharedInstance.inboxConversationModel = mod
@@ -279,7 +279,7 @@ class InboxConversationViewController: BaseViewController {
                     }
                         
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -296,7 +296,7 @@ class InboxConversationViewController: BaseViewController {
                 
                 
                 //            self.showActivityIndicator(uiView: self.view)
-                //            let parameterStr = "sender_id=\(login_session.value(forKey: "UserId")!)&subject=\(BookingId)&message=\(self.txtMessage.text!)&property_id=\(Singleton.sharedInstance.inboxConversationModel.propertyId!)&receiver_id=\(Singleton.sharedInstance.inboxConversationModel.requesterId!)&bookingno=\(Singleton.sharedInstance.inboxConversationModel.bookingId!)&status=Accept&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&base_id=\(id)"
+                //            let parameterStr = "sender_id=\(login_session.value(forKey: "UserId")!)&subject=\(BookingId)&message=\(self.txtMessage.text!)&property_id=\(Singleton.sharedInstance.inboxConversationModel.propertyId!)&receiver_id=\(Singleton.sharedInstance.inboxConversationModel.requesterId!)&bookingno=\(Singleton.sharedInstance.inboxConversationModel.bookingId!)&status=Accept&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&base_id=\(id)"
                 //            print(parameterStr)
                 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: HOST_ACCEPT, APIKEY: "HOST_ACCEPT")
                 //            self.txtMessage.text = ""
@@ -322,7 +322,7 @@ class InboxConversationViewController: BaseViewController {
                        let id = Singleton.sharedInstance.selectedCategory!
                        //            showActivityIndicator(uiView: self.view)
                        //            var params = NSMutableDictionary()
-                       params = ["sender_id":login_session.value(forKey: "UserId")!,"subject":BookingId,"message":self.txtMessage.text!,"property_id":Singleton.sharedInstance.inboxConversationModel.propertyId!,"receiver_id":Singleton.sharedInstance.inboxConversationModel.requesterId!,"bookingno":Singleton.sharedInstance.inboxConversationModel.bookingId!,"status":"Accept","currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","base_id":id]
+                       params = ["sender_id":login_session.value(forKey: "UserId")!,"subject":BookingId,"message":self.txtMessage.text!,"property_id":Singleton.sharedInstance.inboxConversationModel.propertyId!,"receiver_id":Singleton.sharedInstance.inboxConversationModel.requesterId!,"bookingno":Singleton.sharedInstance.inboxConversationModel.bookingId!,"status":"Accept","currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","base_id":id]
             
                        
                        let manager = AFHTTPSessionManager()
@@ -335,7 +335,7 @@ class InboxConversationViewController: BaseViewController {
                            let responseDict:NSDictionary = responseObject as! NSDictionary
                            print(responseDict)
                            self.hideActivityIndicator(uiView: self.view)
-                           if responseDict.value(forKey: "status") as! Int == 1 {
+                           if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                                
                                let mod = InboxConversationModel(fromDictionary: responseDict as! [String : Any])
                                Singleton.sharedInstance.inboxConversationModel = mod
@@ -356,7 +356,7 @@ class InboxConversationViewController: BaseViewController {
                            }
                                
                            else {
-                               self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                               self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                            }
                        }, failure: { (operation, error) -> Void in
                            DispatchQueue.main.async {
@@ -396,13 +396,13 @@ class InboxConversationViewController: BaseViewController {
                         let responseDict:NSDictionary = responseObject as! NSDictionary
                         print(responseDict)
                         self.hideActivityIndicator(uiView: self.view)
-                        if responseDict.value(forKey: "status") as! Int == 1 {
+                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                            
                              self.InboxConversationApiCall()
                         }
                             
                         else {
-                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                         }
                     }, failure: { (operation, error) -> Void in
                         DispatchQueue.main.async {
@@ -416,7 +416,7 @@ class InboxConversationViewController: BaseViewController {
                     
                     
         //            self.showActivityIndicator(uiView: self.view)
-        //            let parameterStr = "sender_id=\(login_session.value(forKey: "UserId") as! String)&subject=\(BookingId)&message=\(self.txtMessage.text!)&property_id=\(Singleton.sharedInstance.inboxConversationModel.propertyId!)&receiver_id=\(Singleton.sharedInstance.inboxConversationModel.requesterId!)&bookingno=\(Singleton.sharedInstance.inboxConversationModel.bookingId!)&status=Decline"
+        //            let parameterStr = "sender_id=\(login_session.value(forKey: "UserId") as? String ?? "")&subject=\(BookingId)&message=\(self.txtMessage.text!)&property_id=\(Singleton.sharedInstance.inboxConversationModel.propertyId!)&receiver_id=\(Singleton.sharedInstance.inboxConversationModel.requesterId!)&bookingno=\(Singleton.sharedInstance.inboxConversationModel.bookingId!)&status=Decline"
         //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: HOST_DECLINE, APIKEY: "HOST_DECLINE")
                     self.txtMessage.text = ""
                 } else {
@@ -471,13 +471,13 @@ class InboxConversationViewController: BaseViewController {
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                    
                      self.InboxConversationApiCall()
                 }
                     
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -491,7 +491,7 @@ class InboxConversationViewController: BaseViewController {
             
             
 //            self.showActivityIndicator(uiView: self.view)
-//            let parameterStr = "sender_id=\(login_session.value(forKey: "UserId") as! String)&subject=\(BookingId)&message=\(self.txtMessage.text!)&property_id=\(Singleton.sharedInstance.inboxConversationModel.propertyId!)&receiver_id=\(Singleton.sharedInstance.inboxConversationModel.requesterId!)&bookingno=\(Singleton.sharedInstance.inboxConversationModel.bookingId!)&status=Decline"
+//            let parameterStr = "sender_id=\(login_session.value(forKey: "UserId") as? String ?? "")&subject=\(BookingId)&message=\(self.txtMessage.text!)&property_id=\(Singleton.sharedInstance.inboxConversationModel.propertyId!)&receiver_id=\(Singleton.sharedInstance.inboxConversationModel.requesterId!)&bookingno=\(Singleton.sharedInstance.inboxConversationModel.bookingId!)&status=Decline"
 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: HOST_DECLINE, APIKEY: "HOST_DECLINE")
             self.txtMessage.text = ""
         } else {
@@ -837,7 +837,7 @@ extension InboxConversationViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
             self.hideActivityIndicator(uiView: self.view)
             self.tblInbox.isHidden = false
             if errorDict.count == 0 {
-                  if responseDict.value(forKey: "status") as! Int == 1{
+                  if responseDict.value(forKey: "status") as? Int ?? 0 == 1{
                 let mod = InboxConversationModel(fromDictionary: responseDict as! [String : Any])
                 Singleton.sharedInstance.inboxConversationModel = mod
                 setData()
@@ -849,12 +849,12 @@ extension InboxConversationViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
         }
         else if APIKEY == "SEND_MESSAGE" {
             if errorDict.count == 0 {
-                if responseDict.value(forKey: "status") as! Int == 1{
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1{
                     self.showActivityIndicator(uiView: self.view)
                   
                     
 //                    let id = Singleton.sharedInstance.selectedCategory!
-//                    let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&bookingid=\(BookingId)&base_id=\(id)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
+//                    let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&bookingid=\(BookingId)&base_id=\(id)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
 //                    Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: INBOX_HISTORY, APIKEY: "INBOX_HISTORY")
                 }
             } else {
@@ -864,12 +864,12 @@ extension InboxConversationViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
         else if APIKEY == "HOST_ACCEPT"{
             print(responseDict)
             if errorDict.count == 0 {
-                if responseDict.value(forKey: "status") as! Int == 1{
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1{
                     self.showActivityIndicator(uiView: self.view)
                     let id = Singleton.sharedInstance.selectedCategory!
                     let mod = InboxConversationModel(fromDictionary: responseDict as! [String : Any])
                     Singleton.sharedInstance.inboxConversationModel = mod
-                    let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&bookingid=\(BookingId)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
+                    let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&bookingid=\(BookingId)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
                     print(parameterStr)
                     if Singleton.sharedInstance.inboxConversationModel.message == "Successfully accepted"
                     {
@@ -891,9 +891,9 @@ extension InboxConversationViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
             }
         } else if APIKEY == "HOST_DECLINE"{
             if errorDict.count == 0 {
-                if responseDict.value(forKey: "status") as! Int == 1{
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1{
                     self.showActivityIndicator(uiView: self.view)
-                    let parameterStr = "userid=\(login_session.value(forKey: "UserId") as! String)&bookingid=\(BookingId)"
+                    let parameterStr = "userid=\(login_session.value(forKey: "UserId") as? String ?? "")&bookingid=\(BookingId)"
                     Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: INBOX_HISTORY, APIKEY: "INBOX_HISTORY")
                 }
             } else {

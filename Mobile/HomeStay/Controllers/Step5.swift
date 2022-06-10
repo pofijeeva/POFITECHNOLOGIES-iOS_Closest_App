@@ -21,8 +21,8 @@ class Step5 : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        propertyid = dictionary["propertyid"] as? Int
-        stepCompleted = dictionary["step_completed"] as? Bool
+        propertyid = dictionary["propertyid"] as? Int ?? 0
+        stepCompleted = dictionary["step_completed"] as? Bool ?? false
         productImage = [ProductImage]()
         if let productImageArray = dictionary["product_image"] as? [[String:Any]]{
             for dic in productImageArray{
@@ -31,8 +31,8 @@ class Step5 : NSObject, NSCoding{
             }
         }
         
-        doc_verified_status = dictionary["doc_verified_status"] as? Bool
-        document = dictionary["document"] as? String
+        doc_verified_status = dictionary["doc_verified_status"] as? Bool ?? false
+        document = dictionary["document"] as? String ?? ""
         photo_list = [ProductImage]()
         if let productImageArray = dictionary["photo_list"] as? [[String:Any]]{
             for dic in productImageArray{
@@ -86,11 +86,11 @@ class Step5 : NSObject, NSCoding{
     @objc required init(coder aDecoder: NSCoder)
     {
         productImage = aDecoder.decodeObject(forKey: "product_image") as? [ProductImage]
-        propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int
-        stepCompleted = aDecoder.decodeObject(forKey: "step_completed") as? Bool
+        propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int ?? 0
+        stepCompleted = aDecoder.decodeObject(forKey: "step_completed") as? Bool ?? false
         
-        doc_verified_status = aDecoder.decodeObject(forKey: "doc_verified_status") as? Bool
-        document = aDecoder.decodeObject(forKey: "document") as? String
+        doc_verified_status = aDecoder.decodeObject(forKey: "doc_verified_status") as? Bool ?? false
+        document = aDecoder.decodeObject(forKey: "document") as? String ?? ""
         photo_list = aDecoder.decodeObject(forKey: "photo_list") as? [ProductImage]
     }
 

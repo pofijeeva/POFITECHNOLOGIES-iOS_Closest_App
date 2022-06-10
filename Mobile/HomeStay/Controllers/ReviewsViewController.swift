@@ -106,7 +106,7 @@ class ReviewsViewController: BaseViewController
             
             
 //            self.showActivityIndicator(uiView: self.view)
-//            let parameterStr = "language=\(login_session.value(forKey: "APP_LANGUAGE") as! String)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&userid=\(login_session.value(forKey: "UserId")!)"
+//            let parameterStr = "language=\(login_session.value(forKey: "APP_LANGUAGE") as? String ?? "")&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&userid=\(login_session.value(forKey: "UserId")!)"
 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: USER_INFO_API, APIKEY: "USER_INFO_API")
 //            print(parameterStr)
        
@@ -120,7 +120,7 @@ func UserInformation(){
         
         showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
-        params = ["language":login_session.value(forKey: "APP_LANGUAGE") as! String,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"userid":login_session.value(forKey: "UserId")!]
+        params = ["language":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "","currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","userid":login_session.value(forKey: "UserId")!]
         let manager = AFHTTPSessionManager()
         manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
         
@@ -131,7 +131,7 @@ func UserInformation(){
             let responseDict:NSDictionary = responseObject as! NSDictionary
             print(responseDict)
             self.hideActivityIndicator(uiView: self.view)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 let mod = UserInfo(fromDictionary: responseDict as! [String : Any])
                 Singleton.sharedInstance.userInfoModel = mod
               
@@ -176,7 +176,7 @@ func UserInformation(){
             }
                 
             else {
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -187,7 +187,7 @@ func UserInformation(){
         })
     }else
     {
-        self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+        self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
     }
 }
 
@@ -1277,7 +1277,7 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
                 cell!.lbl_reviews.text = (self.MainArrayBy[indexPath.section] as AnyObject).value(forKey: "messaeBy") as? String
                 cell!.img_User.layer.masksToBounds = true
                 cell!.img_User.layer.cornerRadius = 40
-                //                let imgURL = URL(string: (self.MainArrayBy[indexPath.row] as AnyObject).value(forKey: "userImageBy") as! String)
+                //                let imgURL = URL(string: (self.MainArrayBy[indexPath.row] as AnyObject).value(forKey: "userImageBy") as? String ?? "")
                 //                cell!.img_User.kf.setImage(with: imgURL!)
                 
                 
@@ -1368,15 +1368,15 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
-                        self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as! String)
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
+                        self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as? String ?? "")
                        self.UserInformation()
                         self.tbl_reviewList.reloadData()
                         
                     }
                         
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -1397,7 +1397,7 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
             }
             else
             {
-                self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
         else
@@ -1438,15 +1438,15 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
-                        self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as! String)
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
+                        self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as? String ?? "")
                         self.UserInformation()
                         self.tbl_reviewList.reloadData()
                         
                     }
                         
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -1466,7 +1466,7 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
             }
             else
             {
-                self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
     }
@@ -1502,15 +1502,15 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
-                        self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as! String)
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
+                        self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as? String ?? "")
                         self.UserInformation()
                         self.tbl_reviewList.reloadData()
                         
                     }
                         
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -1529,7 +1529,7 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
             }
             else
             {
-                self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
         else{
@@ -1560,15 +1560,15 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
-                        self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as! String)
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
+                        self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as? String ?? "")
                         self.UserInformation()
                         self.tbl_reviewList.reloadData()
                         
                     }
                         
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -1587,7 +1587,7 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
             }
             else
             {
-                self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
         
@@ -1660,10 +1660,10 @@ extension ReviewsViewController : HTTP_POST_STRING_REQUEST_PROTOCOL
                 print(responseDict)
                 Network.shared.HTTP_POST_STRING_REQUEST_DELEGATE = self
                 let id = Singleton.sharedInstance.selectedCategory!
-                if responseDict.value(forKey: "status") as! Int == 1{
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1{
                     
-                    self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as! String)
-                    let parameterStr = "lang_code=\(login_session.value(forKey: "APP_LANGUAGE") as! String)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&userid=\(login_session.value(forKey: "UserId")!)&base_id=\(id)"
+                    self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as? String ?? "")
+                    let parameterStr = "lang_code=\(login_session.value(forKey: "APP_LANGUAGE") as? String ?? "")&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&userid=\(login_session.value(forKey: "UserId")!)&base_id=\(id)"
                     Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: USER_INFO_API, APIKEY: "USER_INFO_API")
                     self.tbl_reviewList.reloadData()
                     

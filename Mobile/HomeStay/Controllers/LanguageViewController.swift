@@ -15,7 +15,7 @@ class LanguageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if  lanuguage_selection.value(forKey: "language") as! String == "en" {
+        if  lanuguage_selection.value(forKey: "language") as? String ?? "" == "en" {
               self.englishOutlet.setImage(UIImage(named: "checkbox-2"), for: .normal)
         }else {
              self.spanishOutlet.setImage(UIImage(named: "checkbox-2"), for: .normal)

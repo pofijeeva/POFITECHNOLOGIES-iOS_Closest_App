@@ -59,18 +59,18 @@ class BundleTwoTableViewCell: UITableViewCell {
         
         
        
-        let imgURL = URL(string: item.object(forKey: "bundle_image") as! String)
+        let imgURL = URL(string: item.object(forKey: "bundle_image") as? String ?? "")
         FirstImg.kf.setImage(with: imgURL)
-        FirstNameLbl.text = (item.object(forKey: "bundle_Name") as! String)
-        FirstDescLbl.text = (item.object(forKey: "bundle_description") as! String)
+        FirstNameLbl.text = (item.object(forKey: "bundle_Name") as? String ?? "")
+        FirstDescLbl.text = (item.object(forKey: "bundle_description") as? String ?? "")
         
-        let BundleId = "\(item.object(forKey: "bundle_id") as! String)"
+        let BundleId = "\(item.object(forKey: "bundle_id") as? String ?? "")"
 
         for i in 0..<BundleSelectedDictValues.count {
-            let BundleIds = "\((BundleSelectedDictValues.object(at: i) as! NSDictionary).object(forKey: "bundle_id") as AnyObject)"
+            let BundleIds = "\((BundleSelectedDictValues.object(at: i) as? NSDictionary)?.object(forKey: "bundle_id") as AnyObject)"
             
             if BundleId == BundleIds && BUndleSelectedArray.contains(BundleId) {
-                FirstGuestLbl.text = "\((BundleSelectedDictValues.object(at: i) as! NSDictionary).object(forKey: "No_of_Guests") as AnyObject)"
+                FirstGuestLbl.text = "\((BundleSelectedDictValues.object(at: i) as? NSDictionary)?.object(forKey: "No_of_Guests") as AnyObject)"
                 self.FirstView.layer.borderWidth = 1.2
                 self.FirstView.layer.borderColor = AppSecondColor.cgColor
                 self.FirstSelImg.isHidden = false
@@ -113,23 +113,23 @@ class BundleTwoTableViewCell: UITableViewCell {
     }
     
     func loadSecondFoodItems(item:NSDictionary){
-        let imgURL = URL(string: item.object(forKey: "bundle_image") as! String)
+        let imgURL = URL(string: item.object(forKey: "bundle_image") as? String ?? "")
         SecondImg.kf.setImage(with: imgURL)
-        SecondNameLbl.text = (item.object(forKey: "bundle_Name") as! String)
-        SecondDescLbl.text = (item.object(forKey: "bundle_description") as! String)
+        SecondNameLbl.text = (item.object(forKey: "bundle_Name") as? String ?? "")
+        SecondDescLbl.text = (item.object(forKey: "bundle_description") as? String ?? "")
 
-        SecondPriceLbl.text = (item.object(forKey: "bundle_price") as! String)
+        SecondPriceLbl.text = (item.object(forKey: "bundle_price") as? String ?? "")
         SecondStPriceLbl.text = "\(item.object(forKey: "bundle_discount") as AnyObject)"
         
         
         let BundlePrice = "\(item.object(forKey: "bundle_amount_after_discount") as! AnyObject)"
-        let BundleId = "\(item.object(forKey: "bundle_id") as! String)"
+        let BundleId = "\(item.object(forKey: "bundle_id") as? String ?? "")"
 
         for i in 0..<BundleSelectedDictValues.count {
-            let BundleIds = "\((BundleSelectedDictValues.object(at: i) as! NSDictionary).object(forKey: "bundle_id") as AnyObject)"
+            let BundleIds = "\((BundleSelectedDictValues.object(at: i) as? NSDictionary)?.object(forKey: "bundle_id") as AnyObject)"
             
             if BundleId == BundleIds && BUndleSelectedArray.contains(BundleId){
-                SecondGuestLbl.text = "\((BundleSelectedDictValues.object(at: i) as! NSDictionary).object(forKey: "No_of_Guests") as AnyObject)"
+                SecondGuestLbl.text = "\((BundleSelectedDictValues.object(at: i) as? NSDictionary)?.object(forKey: "No_of_Guests") as AnyObject)"
                 self.SecondView.layer.borderWidth = 1.2
                 self.SecondView.layer.borderColor = AppSecondColor.cgColor
                 self.SecondSelImg.isHidden = false

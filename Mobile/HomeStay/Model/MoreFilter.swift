@@ -21,8 +21,8 @@ class MoreFilter : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        message = dictionary["message"] as? String
-        status = dictionary["status"] as? Int
+        message = dictionary["message"] as? String ?? ""
+        status = dictionary["status"] as? Int ?? 0
         attribute = [Attributes]()
         if let attributeArray = dictionary["attribute"] as? [[String:Any]]{
             for dic in attributeArray{
@@ -104,11 +104,11 @@ class MoreFilter : NSObject, NSCoding{
     {
         attribute = aDecoder.decodeObject(forKey: "attribute") as? [Attributes]
         currencyList = aDecoder.decodeObject(forKey: "currency_list") as? [AnyObject]
-        message = aDecoder.decodeObject(forKey: "message") as? String
+        message = aDecoder.decodeObject(forKey: "message") as? String ?? ""
         property = aDecoder.decodeObject(forKey: "property") as? [Propertys]
         rentalList = aDecoder.decodeObject(forKey: "rentalList") as? [RentalLists]
         rooms = aDecoder.decodeObject(forKey: "rooms") as? [Rooms]
-        status = aDecoder.decodeObject(forKey: "status") as? Int
+        status = aDecoder.decodeObject(forKey: "status") as? Int ?? 0
     }
 
     /**

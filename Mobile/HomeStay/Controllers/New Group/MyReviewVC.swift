@@ -24,10 +24,10 @@ class MyReviewVC: BaseViewController {
     var msgDIct = [String:Any]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.headerLbl.text = GlobalLanguageDictionary.object(forKey: "Key_reviews") as! String
+        self.headerLbl.text = GlobalLanguageDictionary.object(forKey: "Key_reviews") as? String ?? ""
         self.headerLbl.font = UIFont(name: SemiBoldFont, size: 20)
-        self.btnPropertyReview.setTitle(GlobalLanguageDictionary.object(forKey: "Key_myPropertyReviews") as! String, for: .normal)
-        self.btnBookingReview.setTitle(GlobalLanguageDictionary.object(forKey: "Key_myBookingReviews") as! String, for: .normal)
+        self.btnPropertyReview.setTitle(GlobalLanguageDictionary.object(forKey: "Key_myPropertyReviews") as? String ?? "", for: .normal)
+        self.btnBookingReview.setTitle(GlobalLanguageDictionary.object(forKey: "Key_myBookingReviews") as? String ?? "", for: .normal)
         self.btnBookingReview.titleLabel?.font = UIFont(name: SemiBoldFont, size: 20)
         self.btnPropertyReview.titleLabel?.font = UIFont(name: SemiBoldFont, size: 20)
         
@@ -110,7 +110,7 @@ class MyReviewVC: BaseViewController {
             }
         }
         else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         
     }
@@ -134,8 +134,8 @@ extension MyReviewVC: UITableViewDelegate, UITableViewDataSource {
         let imgURL = (reviewObj["reviwer_image"] as? String ?? "")
         cell?.imgProfile.sd_setImage(with: URL(string: imgURL), placeholderImage: UIImage(named: "placeholder.png"))
         cell?.lblName.text = reviewObj["reviewer_comments"] as? String ?? ""
-        cell?.lblDate.text = "\("\(GlobalLanguageDictionary.object(forKey: "key_at") as! String) " +  (reviewObj["review_property_name"] as? String ?? "")):\("\(GlobalLanguageDictionary.object(forKey: "key_forBookingNo") as! String): " +  (reviewObj["review_booking_no"] as? String ?? ""))"
-        cell?.lblName_Date.text = "\("\(GlobalLanguageDictionary.object(forKey: "key_by") as! String) " + (reviewObj["reviewer_name"] as? String ?? "")):\("- " + (reviewObj["review_date"] as? String ?? ""))"
+        cell?.lblDate.text = "\("\(GlobalLanguageDictionary.object(forKey: "key_at") as? String ?? "") " +  (reviewObj["review_property_name"] as? String ?? "")):\("\(GlobalLanguageDictionary.object(forKey: "key_forBookingNo") as? String ?? ""): " +  (reviewObj["review_booking_no"] as? String ?? ""))"
+        cell?.lblName_Date.text = "\("\(GlobalLanguageDictionary.object(forKey: "key_by") as? String ?? "") " + (reviewObj["reviewer_name"] as? String ?? "")):\("- " + (reviewObj["review_date"] as? String ?? ""))"
         cell?.ratingView.rating = Double(reviewObj["reviewer_rating"] as? Int ?? 0)
         return cell!
     }

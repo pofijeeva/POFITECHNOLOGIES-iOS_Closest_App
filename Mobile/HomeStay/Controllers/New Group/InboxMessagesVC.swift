@@ -25,8 +25,8 @@ class InboxMessagesVC: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.txtSearch.font = UIFont(name: SemiBoldFont, size: 15)
-        self.txtSearch.placeholder = GlobalLanguageDictionary.object(forKey: "key_nameorBookingnum") as! String
-        self.headerLbl.text = GlobalLanguageDictionary.object(forKey: "key_inbox") as! String
+        self.txtSearch.placeholder = GlobalLanguageDictionary.object(forKey: "key_nameorBookingnum") as? String ?? ""
+        self.headerLbl.text = GlobalLanguageDictionary.object(forKey: "key_inbox") as? String ?? ""
         
         tblView.delegate = self
         tblView.dataSource = self
@@ -36,7 +36,7 @@ class InboxMessagesVC: BaseViewController {
              "page_no":1
             ]
         self.getInboxApiResponse(params: parameters)
-        if login_session.object(forKey: "Language")as! String == "en"{
+        if login_session.object(forKey: "Language")as? String ?? "" == "en"{
             txtSearch.textAlignment = .left
         }else{
             txtSearch.textAlignment = .right
@@ -60,7 +60,7 @@ class InboxMessagesVC: BaseViewController {
             print(self.messages)
 //            let searchPredicate = NSPredicate(format: "Name CONTAINS[C] %@", txtSearch.text)
 //                filteredArray = self.messages.filter { searchPredicate.evaluate(with: $0) };
-//            self.filteredArray = messages.filter { $0["message"] as! String == searchText }
+//            self.filteredArray = messages.filter { $0["message"] as? String ?? "" == searchText }
                
     
         }
@@ -107,7 +107,7 @@ class InboxMessagesVC: BaseViewController {
             }
         }
         else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         
     }
@@ -141,7 +141,7 @@ extension InboxMessagesVC : UITableViewDelegate, UITableViewDataSource {
         cell.imgprofile.sd_setImage(with: URL(string: imgURL), placeholderImage: UIImage(named: "placeholder.png"))
         cell.lblBookType.text = msgObj["message"] as? String ?? ""
         cell.lblName_ID.text = "\(msgObj["ren_title"] as? String ?? ""):\(msgObj["bookingno"] as? String ?? "")"
-        cell.lblLocation.text = (msgObj["dateAdded"] as! String)
+        cell.lblLocation.text = (msgObj["dateAdded"] as? String ?? "")
 //            .stringToDateFormatter(toFormate: "dd-MM-yyyy HH:mm:ss", fromFormate: "dd MMM,yyyy")
         return cell
     }
@@ -185,7 +185,7 @@ extension InboxMessagesVC : UISearchBarDelegate {
             self.filteredArray.removeAll()
             let searchPredicate = NSPredicate(format: "Name CONTAINS[C] %@", searchText)
                 filteredArray = self.messages.filter { searchPredicate.evaluate(with: $0) };
-//            self.filteredArray = messages.filter { $0["message"] as! String == searchText }
+//            self.filteredArray = messages.filter { $0["message"] as? String ?? "" == searchText }
                 print(filteredArray)
     
         }
