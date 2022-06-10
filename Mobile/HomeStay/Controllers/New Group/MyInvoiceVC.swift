@@ -88,7 +88,7 @@ class MyInvoiceVC: BaseViewController {
             }
             
         } else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
 }
 }

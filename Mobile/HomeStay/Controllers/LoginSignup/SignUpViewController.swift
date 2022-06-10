@@ -86,7 +86,7 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
 
         
         if UserDefaults.standard.value(forKey: "fcmToken") != nil {
-            let fcmRegToken:String = UserDefaults.standard.value(forKey: "fcmToken") as! String
+            let fcmRegToken:String = UserDefaults.standard.value(forKey: "fcmToken") as? String ?? ""
             print(fcmRegToken)
             fcmTokenStr = fcmRegToken
             print("Fcm Token is: ",fcmTokenStr)
@@ -105,11 +105,11 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
 
             let attrs2 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 18), NSAttributedString.Key.foregroundColor : UIColor.red]
 
-        let attributedString1 = NSMutableAttributedString(string:GlobalLanguageDictionary.object(forKey: "Key_TerMess") as! String, attributes:attrs1)
+        let attributedString1 = NSMutableAttributedString(string:GlobalLanguageDictionary.object(forKey: "Key_TerMess") as? String ?? "", attributes:attrs1)
 
-        let attributedString2 = NSMutableAttributedString(string:GlobalLanguageDictionary.object(forKey: "Key_TerMess1") as! String, attributes:attrs2)
-        let attributedString3 = NSMutableAttributedString(string:GlobalLanguageDictionary.object(forKey: "Key_TerMess2") as! String, attributes:attrs1)
-        let attributedString4 = NSMutableAttributedString(string:GlobalLanguageDictionary.object(forKey: "Key_TerMess3") as! String, attributes:attrs2)
+        let attributedString2 = NSMutableAttributedString(string:GlobalLanguageDictionary.object(forKey: "Key_TerMess1") as? String ?? "", attributes:attrs2)
+        let attributedString3 = NSMutableAttributedString(string:GlobalLanguageDictionary.object(forKey: "Key_TerMess2") as? String ?? "", attributes:attrs1)
+        let attributedString4 = NSMutableAttributedString(string:GlobalLanguageDictionary.object(forKey: "Key_TerMess3") as? String ?? "", attributes:attrs2)
 
             attributedString1.append(attributedString2)
         attributedString1.append(attributedString3)
@@ -133,7 +133,7 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
         self.btnLogin.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 13)
         
         
-        if login_session.object(forKey: "Language")as! String == "en"{
+        if login_session.object(forKey: "Language")as? String ?? "" == "en"{
             self.txtFldFirstName.textAlignment = .left
             self.txtFldLastName.textAlignment = .left
             self.txtFldEmail.textAlignment = .left
@@ -259,9 +259,9 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
                  else
                  {
                      if login_session.object(forKey: "user_apple_id") != nil {
-                         userIdentifier = login_session.object(forKey: "user_apple_id") as! String
-                         email = login_session.object(forKey: "user_apple_mailid") as! String
-                         fullName = login_session.object(forKey: "user_apple_name") as! String
+                         userIdentifier = login_session.object(forKey: "user_apple_id") as? String ?? ""
+                         email = login_session.object(forKey: "user_apple_mailid") as? String ?? ""
+                         fullName = login_session.object(forKey: "user_apple_name") as? String ?? ""
                      }
                  }
                 
@@ -345,7 +345,7 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
             GIDSignIn.sharedInstance().delegate = self
             GIDSignIn.sharedInstance().signIn()
         } else {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         
     }
@@ -392,9 +392,9 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
                     let responseDict = result as! NSDictionary
                     self.showActivityIndicator(uiView: self.view)
                     
-                     self.email = responseDict.object(forKey: "email")as! String
-                    self.key = responseDict.object(forKey: "id")as! String
-                    self.firstName = responseDict.object(forKey: "name")as! String
+                     self.email = responseDict.object(forKey: "email")as? String ?? ""
+                    self.key = responseDict.object(forKey: "id")as? String ?? ""
+                    self.firstName = responseDict.object(forKey: "name")as? String ?? ""
                     self.loginType = "facebook"
                                                 self.deviceType = "iphone"
                                                 self.password = "facebook"
@@ -450,26 +450,26 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
     @IBAction func act_SignUp(_ sender: UIButton) {
         
          if self.txtFldFirstName.text?.count == 0 {
-            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_Pleaseenterthefirstnametocontinue") as! String)
+            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_Pleaseenterthefirstnametocontinue") as? String ?? "")
         } else if self.txtFldLastName.text?.count == 0 {
-            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_PleaseentertheLastnametocontinue") as! String)
+            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_PleaseentertheLastnametocontinue") as? String ?? "")
         }
         else if self.txtFldEmail.text?.count == 0 {
-            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_enterEmailId") as! String)
+            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_enterEmailId") as? String ?? "")
         } else if isValidEmail(email: self.txtFldEmail.text) == false {
-            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_pleaseentervalidemailid") as! String)
+            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_pleaseentervalidemailid") as? String ?? "")
         } else if self.txtFldPassword.text?.count == 0 {
-            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_pleaseenteryourpassword") as! String)
+            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_pleaseenteryourpassword") as? String ?? "")
         }
 //        else if (checkTextSufficientComplexity(`var`: self.txtFldPassword.text!)) == false{
 //            showInformation(title: "Closest", message: "Password must be 8 characters(Must contain 1 digit and uppercase)")
 //        }
         else if self.txtFldConfirmPassword.text?.count == 0{
-            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_pleaseenteryourconfirmpassword") as! String)
+            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_pleaseenteryourconfirmpassword") as? String ?? "")
         } else if self.txtFldConfirmPassword.text != self.txtFldPassword.text {
-            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_NotMatch") as! String)
+            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_NotMatch") as? String ?? "")
         } else if  self.isAgreeTerms == false{
-            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_pleaseagreetheterms") as! String)
+            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_pleaseagreetheterms") as? String ?? "")
         } else {
             self.firstName = self.txtFldFirstName.text
             self.lastName = self.txtFldLastName.text
@@ -506,21 +506,21 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
                 print(responseDict)
                 
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "code") as! Int == 200 {
-                    let userDetailsArr = (responseDict.value(forKey: "data") as! NSDictionary).value(forKey: "user_details") as! NSDictionary
+                if responseDict.value(forKey: "code") as? Int ?? 0 == 200 {
+                    let userDetailsArr = (responseDict.value(forKey: "data") as? NSDictionary)?.value(forKey: "user_details") as! NSDictionary
                     
                     
                     if userDetailsArr.count != 0 {
                         let userDetails = userDetailsArr
                         //let userid = String(describing: userDetails?.value(forKey: "userid"))
-                        let token = userDetailsArr.object(forKey: "token")as! String
+                        let token = userDetailsArr.object(forKey: "token")as? String ?? ""
                         
                         login_session.setValue(token, forKey: "user_token")
-                        let tokenStr:String = login_session.object(forKey: "user_token") as! String
+                        let tokenStr:String = login_session.object(forKey: "user_token") as? String ?? ""
                         print("TokenString",tokenStr)
                         
                         if UserDefaults.standard.object(forKey: "fcmToken") != nil{
-                            self.fcmToken = UserDefaults.standard.object(forKey: "fcmToken") as! String
+                            self.fcmToken = UserDefaults.standard.object(forKey: "fcmToken") as? String ?? ""
                         }else{
                             self.fcmToken = ""
                         }
@@ -559,7 +559,7 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
                 }
                     
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
  
     }
@@ -648,8 +648,8 @@ extension SignUpViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
         if APIKEY == "SIGNUP" {
             if errorDict == "" {
                 if responseDict.count != 0 {
-                    if responseDict.value(forKey: "status") as! Int == 0 {
-                        showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 0 {
+                        showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     } else {
                         let userDetailsArr = responseDict.value(forKey: "user_details") as! NSArray
                         if userDetailsArr.count != 0 {
@@ -672,7 +672,7 @@ extension SignUpViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
                             }
                             login_session.synchronize()
                         }
-                        let requestStr = "email_id=\(login_session.value(forKey: "Email") as! String)&page_Id=\(1)&lang_code=en"
+                        let requestStr = "email_id=\(login_session.value(forKey: "Email") as? String ?? "")&page_Id=\(1)&lang_code=en"
                         Network.shared.POSTRequest(withParameterString: requestStr, serviceURL:DISCOVER_API , APIKEY: "DISCOVER_API")
                     }
                     print(responseDict)

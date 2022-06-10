@@ -22,13 +22,13 @@ class Step7 : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        homeType = dictionary["home_type"] as? String
-        propertyid = dictionary["propertyid"] as? Int
-        allow_multiple_qty = dictionary["allow_multiple_qty"] as? Int
-        max_qty = dictionary["max_qty"] as? Int
+        homeType = dictionary["home_type"] as? String ?? ""
+        propertyid = dictionary["propertyid"] as? Int ?? 0
+        allow_multiple_qty = dictionary["allow_multiple_qty"] as? Int ?? 0
+        max_qty = dictionary["max_qty"] as? Int ?? 0
 
-        roomType = dictionary["room_type"] as? String
-        stepCompleted = dictionary["step_completed"] as? Bool
+        roomType = dictionary["room_type"] as? String ?? ""
+        stepCompleted = dictionary["step_completed"] as? Bool ?? false
         attribute = [String:Any]()
         if let attributeArray = dictionary["attribute"] as? [[String:Any]]{
             for dic in attributeArray{
@@ -83,13 +83,13 @@ class Step7 : NSObject, NSCoding{
     @objc required init(coder aDecoder: NSCoder)
     {
         attribute = aDecoder.decodeObject(forKey: "attribute") as? [String:Any]
-        homeType = aDecoder.decodeObject(forKey: "home_type") as? String
-        propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int
-        allow_multiple_qty = aDecoder.decodeObject(forKey: "allow_multiple_qty") as? Int
-        max_qty = aDecoder.decodeObject(forKey: "max_qty") as? Int
+        homeType = aDecoder.decodeObject(forKey: "home_type") as? String ?? ""
+        propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int ?? 0
+        allow_multiple_qty = aDecoder.decodeObject(forKey: "allow_multiple_qty") as? Int ?? 0
+        max_qty = aDecoder.decodeObject(forKey: "max_qty") as? Int ?? 0
 
-        roomType = aDecoder.decodeObject(forKey: "room_type") as? String
-        stepCompleted = aDecoder.decodeObject(forKey: "step_completed") as? Bool
+        roomType = aDecoder.decodeObject(forKey: "room_type") as? String ?? ""
+        stepCompleted = aDecoder.decodeObject(forKey: "step_completed") as? Bool ?? false
         saved_listing = aDecoder.decodeObject(forKey: "saved_listing") as? [[String: Any]]
     }
 

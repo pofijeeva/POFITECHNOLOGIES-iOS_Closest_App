@@ -65,7 +65,7 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
         if arrayOfResult.count > 0 {
             
             self.imageArray.removeAllObjects()
-            self.imageArray.addObjects(from:(((arrayOfResult[0] as! NSDictionary).object(forKey: "Photos")as! NSDictionary).object(forKey: "exp_images")as! NSArray) as! [Any])
+            self.imageArray.addObjects(from:(((arrayOfResult[0] as? NSDictionary)?.object(forKey: "Photos")as? NSDictionary)?.object(forKey: "exp_images")as! NSArray) as! [Any])
         }
         
         if imageArray.count == 0  {
@@ -164,7 +164,7 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
         }
         else
         {
-            let url = URL(string:(imageArray[indexPath.row] as! NSDictionary).object(forKey: "product_image") as! String)
+            let url = URL(string:(imageArray[indexPath.row] as? NSDictionary)?.object(forKey: "product_image") as? String ?? "")
             imageViewSource.kf.setImage(with: url)
         
         }
@@ -212,7 +212,7 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
         }
         else
         {
-            let imageID:String = "\(((((arrayOfResult[0] as! NSDictionary).object(forKey: "Photos")as! NSDictionary).object(forKey: "exp_images")as! NSArray).object(at: indexPath!.row) as! NSDictionary).object(forKey: "image_id") as AnyObject)"
+            let imageID:String = "\(((((arrayOfResult[0] as? NSDictionary)?.object(forKey: "Photos")as? NSDictionary)?.object(forKey: "exp_images")as! NSArray).object(at: indexPath!.row) as? NSDictionary)?.object(forKey: "image_id") as AnyObject)"
             //Singleton.sharedInstance.rentYourSpace.result[0].step5.productImage[indexPath!.row].productImageId!
             print("imageID is:",imageID)
             selectedImageID = imageID
@@ -245,13 +245,13 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
                 print(responseDict)
                 
                 
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     DispatchQueue.main.async {
                                                 self.getBaseDetails()
                                             }
                 }
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -276,15 +276,15 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
 //                if let responseObject = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
 //                    print(responseObject)
 //
-//                    if responseObject.value(forKey: "status") as! Int == 1 {
+//                    if responseObject.value(forKey: "status") as? Int ?? 0 == 1 {
 //                        DispatchQueue.main.async {
 //                            self.getBaseDetails()
 //                        }
 //
-//                       // self.showInformation(title: "Closest", message:responseObject.value(forKey: "message") as! String)
+//                       // self.showInformation(title: "Closest", message:responseObject.value(forKey: "message") as? String ?? "")
 //                    }
 //                    else {
-//                        self.showInformation(title: "Closest", message:responseObject.value(forKey: "message") as! String)
+//                        self.showInformation(title: "Closest", message:responseObject.value(forKey: "message") as? String ?? "")
 //                    }
 //                } else {
 //                    print("response was: \(String(describing: response))")
@@ -305,7 +305,7 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
                 Helper.sharedInstance.showActivityIndicator(view: self.view, targetVC: self)
             }
             var params = NSMutableDictionary()
-            params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","exp_id": currentExpId]
+            params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","exp_id": currentExpId]
             let manager = AFHTTPSessionManager()
             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
             print("params",params)
@@ -314,7 +314,7 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
                 Helper.sharedInstance.hideActivityIndicator(view: self.view)
                 let responseDict:NSDictionary = resultData as! NSDictionary
                 print("Response:",responseDict)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     dictOfExperience = responseDict
                     DispatchQueue.main.async {
                         Helper.sharedInstance.hideActivityIndicator(view: self.view)
@@ -322,17 +322,17 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
                     arrayOfResult = dictOfExperience["result"] as! NSArray
                     arrayOfBoolValues.removeAllObjects()
                     for i in 0..<arrayOfHeadings.count {
-                        let str = ((arrayOfResult[0] as! NSDictionary).value(forKey:  arrayOfHeadings[i] as! String) as! NSDictionary).object(forKey: "step_completed") as AnyObject
+                        let str = ((arrayOfResult[0] as? NSDictionary)?.value(forKey:  arrayOfHeadings[i] as? String ?? "") as? NSDictionary)?.object(forKey: "step_completed") as AnyObject
                         arrayOfBoolValues.add("\(str)")
                     }
-                 TimingsArray = (((dictOfExperience["result"] as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "Timing") as! NSDictionary).object(forKey: "schedules") as! NSArray
+                 TimingsArray = (((dictOfExperience["result"] as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "Timing") as? NSDictionary)?.object(forKey: "schedules") as! NSArray
                 arrayOfResult = dictOfExperience["result"] as! NSArray
                     let result = responseDict.object(forKey: "result") as! NSArray
                     forAddPhotoDict.removeAllObjects()
                     forAddPhotoDict.addEntries(from: result[0] as! [AnyHashable : Any])
                     print("CREATED_PROPERTY_STATUS forAddPhotoDict:::::",forAddPhotoDict)
                     self.imageArray.removeAllObjects()
-                    self.imageArray.addObjects(from:((forAddPhotoDict.object(forKey: "Photos")as! NSDictionary).object(forKey: "exp_images")as! NSArray) as! [Any])
+                    self.imageArray.addObjects(from:((forAddPhotoDict.object(forKey: "Photos")as? NSDictionary)?.object(forKey: "exp_images")as! NSArray) as! [Any])
                     self.nCount = self.imageArray.count
                     if self.imageArray.count == 0 {
                         self.heightCollectionList.constant = 0
@@ -346,7 +346,7 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
                     DispatchQueue.main.async {
                         Helper.sharedInstance.hideActivityIndicator(view: self.view)
                     }
-                  //  self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                  //  self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) in
                 print(error)
@@ -358,7 +358,7 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
 
         }
         else {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         Helper.sharedInstance.hideActivityIndicator(view: self.view)
     }
@@ -385,7 +385,7 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
                 print(responseDict)
                 
                 
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     let mod = RentYourSpaceModel(fromDictionary: responseDict as! [String : Any])
                     Singleton.sharedInstance.rentYourSpace = mod
                     let result = responseDict.object(forKey: "result") as! NSArray
@@ -393,7 +393,7 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
                     forAddPhotoDict.addEntries(from: result[0] as! [AnyHashable : Any])
                     print("CREATED_PROPERTY_STATUS forAddPhotoDict:::::",forAddPhotoDict)
                     self.imageArray.removeAllObjects()
-                    self.imageArray.addObjects(from:((forAddPhotoDict.object(forKey: "step5")as! NSDictionary).object(forKey: "product_image")as! NSArray) as! [Any])
+                    self.imageArray.addObjects(from:((forAddPhotoDict.object(forKey: "step5")as? NSDictionary)?.object(forKey: "product_image")as! NSArray) as! [Any])
                     self.nCount = self.imageArray.count
                     if self.imageArray.count == 0 {
                         self.heightCollectionList.constant = 0
@@ -404,7 +404,7 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
                     self.collectionList.reloadData()
                 }
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -414,7 +414,7 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
                 self.showInformation(title: "Closest", message: error.localizedDescription)
             })
         } else {
-            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as! String)
+            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
         }
     }
     
@@ -476,16 +476,16 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
             forAddPhotoDict.addEntries(from: result[0] as! [AnyHashable : Any])
             print("forAddPhotoDict:::::",forAddPhotoDict)
             self.imageArray.removeAllObjects()
-            self.imageArray.addObjects(from:((forAddPhotoDict.object(forKey: "Photos")as! NSDictionary).object(forKey: "exp_images")as! NSArray) as! [Any])
+            self.imageArray.addObjects(from:((forAddPhotoDict.object(forKey: "Photos")as? NSDictionary)?.object(forKey: "exp_images")as! NSArray) as! [Any])
             sharedInstanceExperience.gotoStepEight()
 
-            if responseDictionary.object(forKey: "status") as! Int != 0
+            if responseDictionary.object(forKey: "status") as? Int ?? 0 != 0
             {
                 self.nCount = self.nCount + 1
             }
             else
             {
-                self.showInformation(title: "Closest", message: responseDictionary.object(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDictionary.object(forKey: "message") as? String ?? "")
                 
             }
             

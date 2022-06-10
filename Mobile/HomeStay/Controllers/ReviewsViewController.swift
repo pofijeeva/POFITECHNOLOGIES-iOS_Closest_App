@@ -106,7 +106,7 @@ class ReviewsViewController: BaseViewController
             
             
 //            self.showActivityIndicator(uiView: self.view)
-//            let parameterStr = "language=\(login_session.value(forKey: "APP_LANGUAGE") as! String)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&userid=\(login_session.value(forKey: "UserId")!)"
+//            let parameterStr = "language=\(login_session.value(forKey: "APP_LANGUAGE") as? String ?? "")&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&userid=\(login_session.value(forKey: "UserId")!)"
 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: USER_INFO_API, APIKEY: "USER_INFO_API")
 //            print(parameterStr)
        
@@ -120,7 +120,7 @@ func UserInformation(){
         
         showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
-        params = ["language":login_session.value(forKey: "APP_LANGUAGE") as! String,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"userid":login_session.value(forKey: "UserId")!]
+        params = ["language":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "","currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","userid":login_session.value(forKey: "UserId")!]
         let manager = AFHTTPSessionManager()
         manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
         
@@ -131,7 +131,7 @@ func UserInformation(){
             let responseDict:NSDictionary = responseObject as! NSDictionary
             print(responseDict)
             self.hideActivityIndicator(uiView: self.view)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 let mod = UserInfo(fromDictionary: responseDict as! [String : Any])
                 Singleton.sharedInstance.userInfoModel = mod
               
@@ -176,7 +176,7 @@ func UserInformation(){
             }
                 
             else {
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -187,7 +187,7 @@ func UserInformation(){
         })
     }else
     {
-        self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+        self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
     }
 }
 
@@ -1026,31 +1026,33 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
         {
             if isReviewabtYou == true
             {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ReviewsTableViewCell
-                cell!.selectionStyle = .none
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ReviewsTableViewCell else { return UITableViewCell() }
+
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ReviewsTableViewCell
+                cell.selectionStyle = .none
                 let dict = Singleton.sharedInstance.userInfoModel.disputeAboutYou[indexPath.section]
                 
-                 cell!.lbl_reviewComments.font = UIFont(name: SemiBoldFont, size: 15)
-                cell!.rentalName.font = UIFont(name: RegularFont, size: 15)
-                 cell!.lbl_userName.font = UIFont(name: RegularFont, size: 15)
-                 cell!.bookingDateLabel.font = UIFont(name: RegularFont, size: 15)
-                 cell!.bookingIdLabel.font = UIFont(name: RegularFont, size: 14)
+                 cell.lbl_reviewComments.font = UIFont(name: SemiBoldFont, size: 15)
+                cell.rentalName.font = UIFont(name: RegularFont, size: 15)
+                 cell.lbl_userName.font = UIFont(name: RegularFont, size: 15)
+                 cell.bookingDateLabel.font = UIFont(name: RegularFont, size: 15)
+                 cell.bookingIdLabel.font = UIFont(name: RegularFont, size: 14)
                 
-                cell!.acceptBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
-                cell!.rejectBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
+                cell.acceptBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
+                cell.rejectBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
                 
-                cell!.lbl_reviewComments.text = dict.message!
-                cell!.img_user.layer.masksToBounds = true
-                cell!.img_user.layer.cornerRadius = 40
+                cell.lbl_reviewComments.text = dict.message!
+                cell.img_user.layer.masksToBounds = true
+                cell.img_user.layer.cornerRadius = 40
                 let imgURL = URL(string: Singleton.sharedInstance.userInfoModel.disputeAboutYou[indexPath.section].userImage!)
-                cell!.img_user.kf.setImage(with: imgURL!, placeholder:UIImage(named:"user"))
-                cell!.rentalName.text = dict.rentalName!
+                cell.img_user.kf.setImage(with: imgURL!, placeholder:UIImage(named:"user"))
+                cell.rentalName.text = dict.rentalName!
                 if dict.hostName != nil
                 {
-                    cell!.lbl_userName.text = String(format: "by %@", dict.hostName!)
+                    cell.lbl_userName.text = String(format: "by %@", dict.hostName!)
                 }
                 
-                cell!.bookingIdLabel.text = dict.bookingNo!
+                cell.bookingIdLabel.text = dict.bookingNo!
                 let date = dict.createdDate!
                 let dateFormatter = DateFormatter()
                 
@@ -1059,106 +1061,108 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
                 let dateFromString : NSDate = dateFormatter.date(from: date)! as NSDate
                 dateFormatter.dateFormat = "dd-MM-yyyy"
                 let datenew = dateFormatter.string(from: dateFromString as Date)
-                cell!.bookingDateLabel.text = datenew
+                cell.bookingDateLabel.text = datenew
                 
-                cell!.acceptBtn.tag = indexPath.section
-                cell!.rejectBtn.tag = indexPath.section
+                cell.acceptBtn.tag = indexPath.section
+                cell.rejectBtn.tag = indexPath.section
                 if Singleton.sharedInstance.userInfoModel.disputeAboutYou[indexPath.section].status == "Pending"
                 {
-                    cell!.acceptBtn.isHidden = false
-                    cell!.rejectBtn.isHidden = false
-                    cell!.acceptBtn.isEnabled = true
-                    cell!.rejectBtn.isEnabled = true
-                    cell!.acceptBtn.setTitle("Accept", for: .normal)
-                    cell!.rejectBtn.setTitle("Reject", for: .normal)
+                    cell.acceptBtn.isHidden = false
+                    cell.rejectBtn.isHidden = false
+                    cell.acceptBtn.isEnabled = true
+                    cell.rejectBtn.isEnabled = true
+                    cell.acceptBtn.setTitle("Accept", for: .normal)
+                    cell.rejectBtn.setTitle("Reject", for: .normal)
                     
                 }
                 else if Singleton.sharedInstance.userInfoModel.disputeAboutYou[indexPath.section].status == "Pending Request Expired"
                 {
-                    cell!.acceptBtn.isHidden = false
-                    cell!.acceptBtn.setTitle("Expired", for: .normal)
+                    cell.acceptBtn.isHidden = false
+                    cell.acceptBtn.setTitle("Expired", for: .normal)
                     
-                    cell!.acceptBtn.isEnabled = false
+                    cell.acceptBtn.isEnabled = false
                     
-                    cell!.rejectBtn.isHidden = true
+                    cell.rejectBtn.isHidden = true
                 }
                 else if Singleton.sharedInstance.userInfoModel.disputeAboutYou[indexPath.section].status == "Reject"
                 {
-                    cell!.acceptBtn.isHidden = false
+                    cell.acceptBtn.isHidden = false
                     
-                    cell!.acceptBtn.setTitle("Rejected", for: .normal)
-                    cell!.acceptBtn.isEnabled = false
+                    cell.acceptBtn.setTitle("Rejected", for: .normal)
+                    cell.acceptBtn.isEnabled = false
                     
-                    cell!.rejectBtn.isHidden = true
+                    cell.rejectBtn.isHidden = true
                 }
                     
                 else if Singleton.sharedInstance.userInfoModel.disputeAboutYou[indexPath.section].status == "Processing"
                 {
-                    cell!.acceptBtn.isHidden = false
+                    cell.acceptBtn.isHidden = false
                     
-                    cell!.acceptBtn.setTitle("Processing", for: .normal)
-                    cell!.acceptBtn.isEnabled = true
+                    cell.acceptBtn.setTitle("Processing", for: .normal)
+                    cell.acceptBtn.isEnabled = true
                     
-                    cell!.rejectBtn.isHidden = true
+                    cell.rejectBtn.isHidden = true
                 }
                     
                     
                 else if Singleton.sharedInstance.userInfoModel.disputeAboutYou[indexPath.section].status == "Completed"
                 {
-                    cell!.acceptBtn.isHidden = false
+                    cell.acceptBtn.isHidden = false
                     
-                    cell!.acceptBtn.setTitle("Completed", for: .normal)
-                    cell!.acceptBtn.isEnabled = false
+                    cell.acceptBtn.setTitle("Completed", for: .normal)
+                    cell.acceptBtn.isEnabled = false
                     
-                    cell!.rejectBtn.isHidden = true
+                    cell.rejectBtn.isHidden = true
                 }
                 
-                cell!.acceptBtn.addTarget(self, action: #selector(acceptPressed(_:)), for: .touchUpInside)
-                cell!.rejectBtn.addTarget(self, action: #selector(rejectPressed(_:)), for: .touchUpInside)
+                cell.acceptBtn.addTarget(self, action: #selector(acceptPressed(_:)), for: .touchUpInside)
+                cell.rejectBtn.addTarget(self, action: #selector(rejectPressed(_:)), for: .touchUpInside)
                 
                 
-                cell?.selectionStyle = .none
-                return cell!
+                cell.selectionStyle = .none
+                return cell
             }
             else{
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ByCell") as? ReviewsByTableViewCell
-                cell!.selectionStyle = .none
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "ByCell") as? ReviewsByTableViewCell else { return UITableViewCell() }
+
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "ByCell") as? ReviewsByTableViewCell
+                cell.selectionStyle = .none
                 let dict = Singleton.sharedInstance.userInfoModel.disputeByYou[indexPath.section]
                 
                 
-                cell!.lbl_reviews.font = UIFont(name: SemiBoldFont, size: 15)
-                             cell!.rentalName.font = UIFont(name: RegularFont, size: 15)
-                              cell!.hostName.font = UIFont(name: RegularFont, size: 15)
-                              cell!.bookingDateLabel.font = UIFont(name: RegularFont, size: 15)
-                              cell!.bookingIdLabel.font = UIFont(name: RegularFont, size: 12)
-                              cell!.statusLabel.font = UIFont(name: RegularFont, size: 15)
+                cell.lbl_reviews.font = UIFont(name: SemiBoldFont, size: 15)
+                             cell.rentalName.font = UIFont(name: RegularFont, size: 15)
+                              cell.hostName.font = UIFont(name: RegularFont, size: 15)
+                              cell.bookingDateLabel.font = UIFont(name: RegularFont, size: 15)
+                              cell.bookingIdLabel.font = UIFont(name: RegularFont, size: 12)
+                              cell.statusLabel.font = UIFont(name: RegularFont, size: 15)
                          
                 
                 
                 
-                cell!.lbl_reviews.text = dict.message!
-                cell!.img_User.layer.masksToBounds = true
-                cell!.img_User.layer.cornerRadius = 40
+                cell.lbl_reviews.text = dict.message!
+                cell.img_User.layer.masksToBounds = true
+                cell.img_User.layer.cornerRadius = 40
                 let imgURL = URL(string: Singleton.sharedInstance.userInfoModel.disputeByYou[indexPath.section].userImage!)
-                cell!.img_User.kf.setImage(with: imgURL!, placeholder:UIImage(named:"user"))
-                cell!.rentalName.text = dict.rentalName!
+                cell.img_User.kf.setImage(with: imgURL!, placeholder:UIImage(named:"user"))
+                cell.rentalName.text = dict.rentalName!
                 
 
                 
                 if Singleton.sharedInstance.userInfoModel.disputeByYou[indexPath.section].status == "Reject"
                 {
-                    cell!.statusLabel.text = "Rejected"
+                    cell.statusLabel.text = "Rejected"
                 }
                     
                 else
                 {
-                    cell!.statusLabel.text = dict.status!
+                    cell.statusLabel.text = dict.status!
                 }
                 
                 
-                cell!.hostName.text =  String(format: "to %@", dict.hostName!)
+                cell.hostName.text =  String(format: "to %@", dict.hostName!)
                 
-                cell!.bookingIdLabel.text = dict.bookingNo!
+                cell.bookingIdLabel.text = dict.bookingNo!
                 
                 let datee = dict.createdDate
                 let dateFormatter = DateFormatter()
@@ -1170,10 +1174,10 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
                 dateFormatter.locale = Locale(identifier: "en_US_POSIX")
                 let datenew = dateFormatter.string(from: dateFromString as Date)
                 
-                cell!.bookingDateLabel.text = datenew
-                cell?.selectionStyle = .none
+                cell.bookingDateLabel.text = datenew
+                cell.selectionStyle = .none
                 
-                return cell!
+                return cell
             }
         }
             
@@ -1182,27 +1186,28 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
             
             if isReviewabtYou == true
             {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ReviewsTableViewCell else { return UITableViewCell() }
+
+                
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ReviewsTableViewCell
+                cell.selectionStyle = .none
+                cell.lbl_reviewComments.text =  (self.MainArray[indexPath.section] as AnyObject).value(forKey: "messae") as? String
                 
                 
-                let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ReviewsTableViewCell
-                cell!.selectionStyle = .none
-                cell!.lbl_reviewComments.text =  (self.MainArray[indexPath.section] as AnyObject).value(forKey: "messae") as? String
-                
-                
-                cell!.img_user.layer.masksToBounds = true
-                cell!.img_user.layer.cornerRadius = 40
+                cell.img_user.layer.masksToBounds = true
+                cell.img_user.layer.cornerRadius = 40
                 
                 let imaageUrl =  (self.MainArray[indexPath.section] as AnyObject).value(forKey: "userImage") as? String
                 
                 let imgURL = URL(string: imaageUrl!)
-                cell!.img_user.kf.setImage(with: imgURL!, placeholder:UIImage(named:"user"))
+                cell.img_user.kf.setImage(with: imgURL!, placeholder:UIImage(named:"user"))
                 
-                cell!.rentalName.text =  (self.MainArray[indexPath.section] as AnyObject).value(forKey: "rentalName") as? String
+                cell.rentalName.text =  (self.MainArray[indexPath.section] as AnyObject).value(forKey: "rentalName") as? String
                 
                 
-                cell!.lbl_userName.text = String(format: "by %@",  (self.MainArray[indexPath.section] as AnyObject).value(forKey: "hostname") as! CVarArg)
+                cell.lbl_userName.text = String(format: "by %@",  (self.MainArray[indexPath.section] as AnyObject).value(forKey: "hostname") as! CVarArg)
                 
-                cell!.bookingIdLabel.text = (self.MainArray[indexPath.section] as AnyObject).value(forKey: "bookingNo") as? String
+                cell.bookingIdLabel.text = (self.MainArray[indexPath.section] as AnyObject).value(forKey: "bookingNo") as? String
                 
                 let date = (self.MainArray[indexPath.section] as AnyObject).value(forKey: "createdDate") as? String
                 let dateFormatter = DateFormatter()
@@ -1212,57 +1217,57 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
                 let dateFromString : NSDate = dateFormatter.date(from: date!)! as NSDate
                 dateFormatter.dateFormat = "dd-MM-yyyy"
                 let datenew = dateFormatter.string(from: dateFromString as Date)
-                cell!.bookingDateLabel.text = datenew
+                cell.bookingDateLabel.text = datenew
                 
-                cell!.acceptBtn.tag = indexPath.section
-                cell!.rejectBtn.tag = indexPath.section
+                cell.acceptBtn.tag = indexPath.section
+                cell.rejectBtn.tag = indexPath.section
                 
                 if (self.MainArray[indexPath.section] as AnyObject).value(forKey: "statuss") as? String == "Pending"
                 {
-                    cell!.acceptBtn.isHidden = false
-                    cell!.rejectBtn.isHidden = false
-                    cell!.acceptBtn.isEnabled = true
-                    cell!.rejectBtn.isEnabled = true
+                    cell.acceptBtn.isHidden = false
+                    cell.rejectBtn.isHidden = false
+                    cell.acceptBtn.isEnabled = true
+                    cell.rejectBtn.isEnabled = true
                     
                     
                 }
                 else if (self.MainArray[indexPath.section] as AnyObject).value(forKey: "statuss") as? String == "Reject"
                 {
-                    cell!.acceptBtn.isHidden = false
+                    cell.acceptBtn.isHidden = false
                     
-                    cell!.acceptBtn.setTitle("Rejected", for: .normal)
-                    cell!.acceptBtn.isEnabled = false
+                    cell.acceptBtn.setTitle("Rejected", for: .normal)
+                    cell.acceptBtn.isEnabled = false
                     
-                    cell!.rejectBtn.isHidden = true
+                    cell.rejectBtn.isHidden = true
                 }
                     
                 else if (self.MainArray[indexPath.section] as AnyObject).value(forKey: "statuss") as? String == "Processing"
                 {
-                    cell!.acceptBtn.isHidden = false
+                    cell.acceptBtn.isHidden = false
                     
-                    cell!.acceptBtn.setTitle("Processing", for: .normal)
-                    cell!.acceptBtn.isEnabled = true
+                    cell.acceptBtn.setTitle("Processing", for: .normal)
+                    cell.acceptBtn.isEnabled = true
                     
-                    cell!.rejectBtn.isHidden = true
+                    cell.rejectBtn.isHidden = true
                 }
                     
                     
                 else if (self.MainArray[indexPath.section] as AnyObject).value(forKey: "statuss") as? String == "Completed"
                 {
-                    cell!.acceptBtn.isHidden = false
+                    cell.acceptBtn.isHidden = false
                     
-                    cell!.acceptBtn.setTitle("Completed", for: .normal)
-                    cell!.acceptBtn.isEnabled = false
+                    cell.acceptBtn.setTitle("Completed", for: .normal)
+                    cell.acceptBtn.isEnabled = false
                     
-                    cell!.rejectBtn.isHidden = true
+                    cell.rejectBtn.isHidden = true
                 }
                 
-                cell!.acceptBtn.addTarget(self, action: #selector(acceptPressed(_:)), for: .touchUpInside)
-                cell!.rejectBtn.addTarget(self, action: #selector(rejectPressed(_:)), for: .touchUpInside)
+                cell.acceptBtn.addTarget(self, action: #selector(acceptPressed(_:)), for: .touchUpInside)
+                cell.rejectBtn.addTarget(self, action: #selector(rejectPressed(_:)), for: .touchUpInside)
                 
                 
-                cell?.selectionStyle = .none
-                return cell!
+                cell.selectionStyle = .none
+                return cell
             }
                 
             else{
@@ -1270,39 +1275,40 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
                 
                 
                 
-                
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ByCell") as? ReviewsByTableViewCell
-                cell!.selectionStyle = .none
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "ByCell") as? ReviewsByTableViewCell else { return UITableViewCell() }
+
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "ByCell") as? ReviewsByTableViewCell
+                cell.selectionStyle = .none
                 //let dict = Singleton.sharedInstance.userInfoModel.disputeByYou[indexPath.row]
-                cell!.lbl_reviews.text = (self.MainArrayBy[indexPath.section] as AnyObject).value(forKey: "messaeBy") as? String
-                cell!.img_User.layer.masksToBounds = true
-                cell!.img_User.layer.cornerRadius = 40
-                //                let imgURL = URL(string: (self.MainArrayBy[indexPath.row] as AnyObject).value(forKey: "userImageBy") as! String)
-                //                cell!.img_User.kf.setImage(with: imgURL!)
+                cell.lbl_reviews.text = (self.MainArrayBy[indexPath.section] as AnyObject).value(forKey: "messaeBy") as? String
+                cell.img_User.layer.masksToBounds = true
+                cell.img_User.layer.cornerRadius = 40
+                //                let imgURL = URL(string: (self.MainArrayBy[indexPath.row] as AnyObject).value(forKey: "userImageBy") as? String ?? "")
+                //                cell.img_User.kf.setImage(with: imgURL!)
                 
                 
                 let imaageUrl =  (self.self.MainArrayBy[indexPath.section] as AnyObject).value(forKey: "userImageBy") as? String
                 
                 let imgURL = URL(string: imaageUrl!)
-                cell!.img_User.kf.setImage(with: imgURL!, placeholder:UIImage(named:"user"))
+                cell.img_User.kf.setImage(with: imgURL!, placeholder:UIImage(named:"user"))
                 
-                cell!.rentalName.text = (self.MainArrayBy[indexPath.section] as AnyObject).value(forKey: "rentalNameBy") as? String
+                cell.rentalName.text = (self.MainArrayBy[indexPath.section] as AnyObject).value(forKey: "rentalNameBy") as? String
                 
                 
                 if (self.MainArrayBy[indexPath.section] as AnyObject).value(forKey: "statussBy") as? String == "Reject"
                 {
-                    cell!.statusLabel.text = "Rejected"
+                    cell.statusLabel.text = "Rejected"
                 }
                     
                 else
                 {
-                    cell!.statusLabel.text = (self.MainArrayBy[indexPath.section] as AnyObject).value(forKey: "statussBy") as? String
+                    cell.statusLabel.text = (self.MainArrayBy[indexPath.section] as AnyObject).value(forKey: "statussBy") as? String
                 }
                 
                 
-                cell!.hostName.text =  String(format: "to %@", ((self.MainArrayBy[indexPath.section] as AnyObject).value(forKey: "hostnameBy") as? String)!)
+                cell.hostName.text =  String(format: "to %@", ((self.MainArrayBy[indexPath.section] as AnyObject).value(forKey: "hostnameBy") as? String)!)
                 
-                cell!.bookingIdLabel.text = (self.MainArrayBy[indexPath.section] as AnyObject).value(forKey: "bookingNoBy") as? String
+                cell.bookingIdLabel.text = (self.MainArrayBy[indexPath.section] as AnyObject).value(forKey: "bookingNoBy") as? String
                 
                 let date = (self.MainArrayBy[indexPath.section] as AnyObject).value(forKey: "createdByDate") as? String
                 let dateFormatter = DateFormatter()
@@ -1312,11 +1318,11 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
                 let dateFromString : NSDate = dateFormatter.date(from: date!)! as NSDate
                 dateFormatter.dateFormat = "dd-MM-yyyy"
                 let datenew = dateFormatter.string(from: dateFromString as Date)
-                cell!.bookingDateLabel.text = datenew
+                cell.bookingDateLabel.text = datenew
                 
-                cell?.selectionStyle = .none
+                cell.selectionStyle = .none
                 
-                return cell!
+                return cell
             }
         }
     }
@@ -1368,15 +1374,15 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
-                        self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as! String)
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
+                        self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as? String ?? "")
                        self.UserInformation()
                         self.tbl_reviewList.reloadData()
                         
                     }
                         
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -1397,7 +1403,7 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
             }
             else
             {
-                self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
         else
@@ -1438,15 +1444,15 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
-                        self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as! String)
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
+                        self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as? String ?? "")
                         self.UserInformation()
                         self.tbl_reviewList.reloadData()
                         
                     }
                         
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -1466,7 +1472,7 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
             }
             else
             {
-                self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
     }
@@ -1502,15 +1508,15 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
-                        self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as! String)
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
+                        self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as? String ?? "")
                         self.UserInformation()
                         self.tbl_reviewList.reloadData()
                         
                     }
                         
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -1529,7 +1535,7 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
             }
             else
             {
-                self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
         else{
@@ -1560,15 +1566,15 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
-                        self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as! String)
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
+                        self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as? String ?? "")
                         self.UserInformation()
                         self.tbl_reviewList.reloadData()
                         
                     }
                         
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -1587,7 +1593,7 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
             }
             else
             {
-                self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
         
@@ -1660,10 +1666,10 @@ extension ReviewsViewController : HTTP_POST_STRING_REQUEST_PROTOCOL
                 print(responseDict)
                 Network.shared.HTTP_POST_STRING_REQUEST_DELEGATE = self
                 let id = Singleton.sharedInstance.selectedCategory!
-                if responseDict.value(forKey: "status") as! Int == 1{
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1{
                     
-                    self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as! String)
-                    let parameterStr = "lang_code=\(login_session.value(forKey: "APP_LANGUAGE") as! String)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&userid=\(login_session.value(forKey: "UserId")!)&base_id=\(id)"
+                    self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as? String ?? "")
+                    let parameterStr = "lang_code=\(login_session.value(forKey: "APP_LANGUAGE") as? String ?? "")&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&userid=\(login_session.value(forKey: "UserId")!)&base_id=\(id)"
                     Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: USER_INFO_API, APIKEY: "USER_INFO_API")
                     self.tbl_reviewList.reloadData()
                     

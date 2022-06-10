@@ -29,8 +29,8 @@ class TitleExperienceViewController: UIViewController,UITextFieldDelegate {
         self.buttonNext.layer.cornerRadius = 5
         
         if arrayOfResult.count > 0 {
-            let dictt = (arrayOfResult[0] as! NSDictionary).object(forKey: "Experience_Title") as! NSDictionary
-            self.textFieldTitle.text = dictt.object(forKey: "experience_title") as! String
+            let dictt = (arrayOfResult[0] as? NSDictionary)?.object(forKey: "Experience_Title") as! NSDictionary
+            self.textFieldTitle.text = dictt.object(forKey: "experience_title") as? String ?? ""
         }
     }
 
@@ -43,7 +43,7 @@ class TitleExperienceViewController: UIViewController,UITextFieldDelegate {
             if Helper.sharedInstance.isConnectedToInternet() {
                 Helper.sharedInstance.showActivityIndicator(view: self.view, targetVC: self)
                 var params = NSMutableDictionary()
-                params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","exp_id":currentExpId,"experience_title":self.textFieldTitle.text!]
+                params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","exp_id":currentExpId,"experience_title":self.textFieldTitle.text!]
                 let manager = AFHTTPSessionManager()
                 manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
                 print("params",params)
@@ -52,12 +52,12 @@ class TitleExperienceViewController: UIViewController,UITextFieldDelegate {
                     Helper.sharedInstance.hideActivityIndicator(view: self.view)
                     let responseDict:NSDictionary = resultData as! NSDictionary
                     print("Response:",responseDict)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         currentExpId = "\(responseDict.object(forKey: "experience_id") as AnyObject)"
                         sharedInstanceExperience.gotoStepfive()
                     }
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) in
                     print(error)
@@ -65,7 +65,7 @@ class TitleExperienceViewController: UIViewController,UITextFieldDelegate {
                 })
             }
             else {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
     }

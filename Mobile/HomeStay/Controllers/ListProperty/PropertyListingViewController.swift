@@ -131,7 +131,7 @@ class PropertyListingViewController: BaseViewController {
         
         self.cancelMsgTxtView.layer.borderWidth = 1.0
                        self.cancelMsgTxtView.layer.borderColor = BorderColor.cgColor
-        if login_session.object(forKey: "Language")as! String == "en"{
+        if login_session.object(forKey: "Language")as? String ?? "" == "en"{
             viewTitle.textAlignment = .left
         }else{
             viewTitle.textAlignment = .right
@@ -145,10 +145,10 @@ class PropertyListingViewController: BaseViewController {
         if Reachability()!.isReachable {
             self.showActivityIndicator(uiView: self.view)
             let userID = login_session.value(forKey: "UserId")!
-            let  parameterDict = "userid=\(userID)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&lang_code=\(lanuguage_selection.value(forKey: "language") as? String ?? "en")&base_id=\(Singleton.sharedInstance.selectedCategory!)"
+            let  parameterDict = "userid=\(userID)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&lang_code=\(lanuguage_selection.value(forKey: "language") as? String ?? "en")&base_id=\(Singleton.sharedInstance.selectedCategory!)"
             Network.shared.POSTRequest(withParameterString: parameterDict, serviceURL: SHOW_PROPERTY_LISTING, APIKEY: "SHOW_PROPERTY_LISTING")
         } else {
-            showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as! String)
+            showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
         }
     }
    
@@ -227,7 +227,7 @@ class PropertyListingViewController: BaseViewController {
       self.PaymentDetailsLbl.font = UIFont(name: SemiBoldFont, size: 16)
         self.CouponValueLbl.font = UIFont(name: SemiBoldFont, size: 14)
 
-        self.viewTitle.text = GlobalLanguageDictionary.object(forKey: "key_mylisting") as! String
+        self.viewTitle.text = GlobalLanguageDictionary.object(forKey: "key_mylisting") as? String ?? ""
         
         
           let choose =  lanuguage_selection.value(forKey: "language") as? String ?? "en"
@@ -281,7 +281,7 @@ class PropertyListingViewController: BaseViewController {
                     print(responseDict)
             
                      self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "code") as! Int == 200 {
+                    if responseDict.value(forKey: "code") as? Int ?? 0 == 200 {
                         let mod = PropertyListingModel(fromDictionary: responseDict.value(forKey: "data") as! [String : Any])
                         Singleton.sharedInstance.PropertyListingModel =  mod
                         self.tblPropertyListing.isHidden = false
@@ -399,7 +399,7 @@ class PropertyListingViewController: BaseViewController {
                 showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
                 
-                 params = ["email":login_session.value(forKey: "Email") as! String,"prd_id":Singleton.sharedInstance.PropertyListingModel.myReservation[selectedInt].propertyId!,"Bookingno":Singleton.sharedInstance.PropertyListingModel.myReservation[selectedInt].bookingno!,"cancellation_percentage":"0","user_id":Singleton.sharedInstance.PropertyListingModel.myReservation[selectedInt].guestId!,"disputer_id":login_session.value(forKey: "UserId")!,"message":self.cancelMsgTxtView.text!]
+                 params = ["email":login_session.value(forKey: "Email") as? String ?? "","prd_id":Singleton.sharedInstance.PropertyListingModel.myReservation[selectedInt].propertyId!,"Bookingno":Singleton.sharedInstance.PropertyListingModel.myReservation[selectedInt].bookingno!,"cancellation_percentage":"0","user_id":Singleton.sharedInstance.PropertyListingModel.myReservation[selectedInt].guestId!,"disputer_id":login_session.value(forKey: "UserId")!,"message":self.cancelMsgTxtView.text!]
                
                 
                 let manager = AFHTTPSessionManager()
@@ -412,7 +412,7 @@ class PropertyListingViewController: BaseViewController {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         self.hideActivityIndicator(uiView: self.view)
                         print(responseDict)
                       
@@ -426,7 +426,7 @@ class PropertyListingViewController: BaseViewController {
                     }
                         
                     else {
-                        self.showInformation(title: "Rental Product", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Rental Product", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -512,18 +512,18 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                     return 1
                     
                 }else if section == 1 {
-                    if ((self.InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "add_on_details") as! NSArray).count == 0 {
+                    if ((self.InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "add_on_details") as? NSArray)?.count ?? 0 == 0 {
                         return 0
                     }else{
-                        return ((self.InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "add_on_details") as! NSArray).count + 1
+                        return ((self.InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "add_on_details") as? NSArray)?.count ?? 0 + 1
                     }
                     
                     
                 }else{
-                    if ((self.InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "bundle_details") as! NSArray).count == 0 {
+                    if ((self.InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "bundle_details") as! NSArray).count == 0 {
                         return 0
                     }else{
-                        return ((self.InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "bundle_details") as! NSArray).count + 3
+                        return ((self.InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "bundle_details") as? NSArray)?.count ?? 0 + 3
                     }
                     
                     
@@ -559,32 +559,39 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
         
         if tableView == InvoiceTable {
             if indexPath.section == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "InvoiceFirstTableViewCell") as! InvoiceFirstTableViewCell
-                cell.RemntalNameValueLbl.text = (self.InvoiceDetails.object(forKey: "invoice_details") as! NSDictionary).object(forKey: "product_title") as! String
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "InvoiceFirstTableViewCell") as? InvoiceFirstTableViewCell else {
+                    return UITableViewCell()
+                }
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "InvoiceFirstTableViewCell") as! InvoiceFirstTableViewCell
+                cell.RemntalNameValueLbl.text = (self.InvoiceDetails.object(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "product_title") as? String ?? ""
                 
-                let Address = "\((self.InvoiceDetails.object(forKey: "invoice_details") as! NSDictionary).object(forKey: "state") as! String) \((self.InvoiceDetails.object(forKey: "invoice_details") as! NSDictionary).object(forKey: "city") as! String) \((self.InvoiceDetails.object(forKey: "invoice_details") as! NSDictionary).object(forKey: "street") as! String)"
+                let Address = "\((self.InvoiceDetails.object(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "state") as? String ?? "") \((self.InvoiceDetails.object(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "city") as? String ?? "") \((self.InvoiceDetails.object(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "street") as? String ?? "")"
                 
                 cell.RemntalAddressValueLbl.text = Address
                 
-                let BookingType = (InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "booking_type") as! String
+                let BookingType = (InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "booking_type") as? String ?? ""
                 
                 if BookingType == "hourly" {
                     
-                    cell.DaysHoursValueLbl.text = "\((InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "numofhours") as! String) Hours"
+                    cell.DaysHoursValueLbl.text = "\((InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "numofhours") as? String ?? "") Hours"
                 }else{
-                    cell.DaysHoursValueLbl.text = "\((InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "numofdates") as! String) Days"
+                    cell.DaysHoursValueLbl.text = "\((InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "numofdates") as? String ?? "") Days"
                 }
-                cell.GuestValueLbl.text = "\((InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "NoofGuest") as AnyObject)"
+                cell.GuestValueLbl.text = "\((InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "NoofGuest") as AnyObject)"
                 
-                cell.DurationValueLbl.text = String(format: "%@",(InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "checkindate") as! String ) + "\n\(String(format: "%@",(InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "checkoutdate") as! String ))"
-                cell.BookingNumLbl.text = String(format: "Booking No : %@",(InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "booking_no") as! String)
-                cell.CancellationPolicyLbl.text = String(format: "Cancelled Status : %@",(InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "cancelled_status") as! String )
+                cell.DurationValueLbl.text = String(format: "%@",(InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "checkindate") as? String ?? "" ) + "\n\(String(format: "%@",(InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "checkoutdate") as? String ?? "" ))"
+                cell.BookingNumLbl.text = String(format: "Booking No : %@",(InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "booking_no") as? String ?? "")
+                cell.CancellationPolicyLbl.text = String(format: "Cancelled Status : %@",(InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "cancelled_status") as? String ?? "" )
                 
                 return cell
             }
             else if indexPath.section == 1{
                 
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as! ProductDetailTitleTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell else {
+                    return UITableViewCell()
+                }
+
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as! ProductDetailTitleTableViewCell
                 if indexPath.row == 0 {
                     cell.BaseTitle.text = "Addons Details"
                     cell.BaseTitle.textColor = .black
@@ -592,87 +599,107 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                 }else{
                     cell.BaseTitle.textColor = .darkGray
                     cell.BaseTitle.font = UIFont(name: RegularFont, size: 14)
-                    let Name = (((self.InvoiceDetails.object(forKey: "invoice_details") as! NSDictionary).object(forKey: "add_on_details") as! NSArray).object(at: indexPath.row-1) as! NSDictionary).object(forKey: "name") as! String
-                    let Cost = (((self.InvoiceDetails.object(forKey: "invoice_details") as! NSDictionary).object(forKey: "add_on_details") as! NSArray).object(at: indexPath.row-1) as! NSDictionary).object(forKey: "amount") as AnyObject
+                    let Name = (((self.InvoiceDetails.object(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "add_on_details") as! NSArray).object(at: indexPath.row-1) as? NSDictionary)?.object(forKey: "name") as? String ?? ""
+                    let Cost = (((self.InvoiceDetails.object(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "add_on_details") as! NSArray).object(at: indexPath.row-1) as? NSDictionary)?.object(forKey: "amount") as AnyObject
                     cell.BaseTitle.text = "\(indexPath.row). \(Name) $ \(Cost)"
                 }
                 return cell
             }else if indexPath.section == 2 {
                 
                 if indexPath.row == 0 {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as! ProductDetailTitleTableViewCell
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell else {
+                        return UITableViewCell()
+                    }
+
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as! ProductDetailTitleTableViewCell
                     cell.BaseTitle.text = "Bundle Details"
                     cell.BaseTitle.textColor = .black
                     cell.BaseTitle.font = UIFont(name: SemiBoldFont, size: 16)
                     return cell
                     
                 }else if indexPath.row == 1 {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as! ProductDetailTitleTableViewCell
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell else {
+                        return UITableViewCell()
+                    }
+
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as! ProductDetailTitleTableViewCell
                     cell.BaseTitle.textColor = .darkGray
                     cell.BaseTitle.font = UIFont(name: RegularFont, size: 14)
                     
-                    let Name = ((self.InvoiceDetails.object(forKey: "invoice_details") as! NSDictionary).object(forKey: "bundle_checkindate") as! String)
+                    let Name = ((self.InvoiceDetails.object(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "bundle_checkindate") as? String ?? "")
                     cell.BaseTitle.text = "Bundle CheckIn Date : \(Name)"
                     return cell
                     
                     
                 }else if indexPath.row == 2 {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as! ProductDetailTitleTableViewCell
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell else {
+                        return UITableViewCell()
+                    }
+
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as! ProductDetailTitleTableViewCell
                     cell.BaseTitle.textColor = .darkGray
                     cell.BaseTitle.font = UIFont(name: RegularFont, size: 14)
                     
-                    let Name = ((self.InvoiceDetails.object(forKey: "invoice_details") as! NSDictionary).object(forKey: "bundle_checkoutdate") as! String)
+                    let Name = ((self.InvoiceDetails.object(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "bundle_checkoutdate") as? String ?? "")
                     cell.BaseTitle.text = "Bundle CheckOut Date : \(Name)"
                     return cell
                     
                 }
                 else{
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "InvoiceMiddleTableViewCell") as! InvoiceMiddleTableViewCell
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "InvoiceMiddleTableViewCell") as? InvoiceMiddleTableViewCell else {
+                        return UITableViewCell()
+                    }
+
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "InvoiceMiddleTableViewCell") as! InvoiceMiddleTableViewCell
                     cell.BundleLbl.font = UIFont(name: RegularFont, size: 14)
                     cell.BundleValueLbl.font = UIFont(name: RegularFont, size: 14)
                     
-                    let Name = (((self.InvoiceDetails.object(forKey: "invoice_details") as! NSDictionary).object(forKey: "bundle_details") as! NSArray).object(at: indexPath.row - 3) as! NSDictionary).object(forKey: "bundle_name") as! String
+                    let Name = (((self.InvoiceDetails.object(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "bundle_details") as! NSArray).object(at: indexPath.row - 3) as? NSDictionary)?.object(forKey: "bundle_name") as? String ?? ""
                     
-                    let Guest = (((self.InvoiceDetails.object(forKey: "invoice_details") as! NSDictionary).object(forKey: "bundle_details") as! NSArray).object(at: indexPath.row - 3) as! NSDictionary).object(forKey: "No_of_Guests") as AnyObject
+                    let Guest = (((self.InvoiceDetails.object(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "bundle_details") as! NSArray).object(at: indexPath.row - 3) as? NSDictionary)?.object(forKey: "No_of_Guests") as AnyObject
                     
-                    let Cost = (((self.InvoiceDetails.object(forKey: "invoice_details") as! NSDictionary).object(forKey: "bundle_details") as! NSArray).object(at: indexPath.row - 3) as! NSDictionary).object(forKey: "total_amount") as AnyObject
-                    let Currency = (InvoiceDetails.object(forKey: "invoice_details") as! NSDictionary).object(forKey: "currency_code") as! String
+                    let Cost = (((self.InvoiceDetails.object(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "bundle_details") as! NSArray).object(at: indexPath.row - 3) as? NSDictionary)?.object(forKey: "total_amount") as AnyObject
+                    let Currency = (InvoiceDetails.object(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "currency_code") as? String ?? ""
                     cell.BundleLbl.text = "Bundle Name : \n \nNoOfGuest :  \n \nAmount :"
                     cell.BundleValueLbl.text = "\(Name)  \n \n\(Guest) \n \n\(Currency) \(Cost)"
                     return cell
                 }
             }else{
-                let cell = tableView.dequeueReusableCell(withIdentifier: "InvoiceLastTableViewCell") as! InvoiceLastTableViewCell
                 
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "InvoiceLastTableViewCell") as? InvoiceLastTableViewCell else {
+                    return UITableViewCell()
+                }
+
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "InvoiceLastTableViewCell") as! InvoiceLastTableViewCell
                 
-                let BookingType = (InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "booking_type") as! String
+                let BookingType = (InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "booking_type") as? String ?? ""
                 
                 if BookingType == "hourly" {
                     
-                    cell.BookedDaysLbl.text = String(format: "Booked for %@ Hours  ",(InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "numofhours") as! String)
+                    cell.BookedDaysLbl.text = String(format: "Booked for %@ Hours  ",(InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "numofhours") as? String ?? "")
                     
                 }else{
-                    cell.BookedDaysLbl.text = String(format: "Booked for %@ Days  ",(InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "numofdates") as! String)
+                    cell.BookedDaysLbl.text = String(format: "Booked for %@ Days  ",(InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "numofdates") as? String ?? "")
                     
                 }
                 
-                let Currency = (InvoiceDetails.object(forKey: "invoice_details") as! NSDictionary).object(forKey: "currency_code") as! String
+                let Currency = (InvoiceDetails.object(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "currency_code") as? String ?? ""
                 
-                cell.BookedDaysLblValueLbl.text = String(format: "%@ %@",Currency,(InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "TotalwithoutService") as! CVarArg)
-                if ((InvoiceDetails.object(forKey: "invoice_details") as! NSDictionary).object(forKey: "add_on_details") as! NSArray).count != 0 {
+                cell.BookedDaysLblValueLbl.text = String(format: "%@ %@",Currency,(InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "TotalwithoutService") as! CVarArg)
+                if ((InvoiceDetails.object(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "add_on_details") as! NSArray).count != 0 {
                     cell.Addonsiew.isHidden = false
                     cell.AddonsHeight.constant = 30
-                    cell.AddonsValueLbl.text = " \(Currency) \((self.InvoiceDetails.object(forKey: "invoice_details") as! NSDictionary).object(forKey: "add_on_amount") as AnyObject)"
+                    cell.AddonsValueLbl.text = " \(Currency) \((self.InvoiceDetails.object(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "add_on_amount") as AnyObject)"
                 }else{
                     cell.Addonsiew.isHidden = true
                     cell.AddonsHeight.constant = 0
                     
                 }
                 
-                if ((InvoiceDetails.object(forKey: "invoice_details") as! NSDictionary).object(forKey: "bundle_details") as! NSArray).count != 0 {
+                if ((InvoiceDetails.object(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "bundle_details") as! NSArray).count != 0 {
                     cell.BundleView.isHidden = false
                     cell.BundleHeight.constant = 30
-                    cell.BundleValueLbl.text = "\(Currency) \((self.InvoiceDetails.object(forKey: "invoice_details") as! NSDictionary).object(forKey: "bundle_amount") as AnyObject)"
+                    cell.BundleValueLbl.text = "\(Currency) \((self.InvoiceDetails.object(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "bundle_amount") as AnyObject)"
                     
                 }else{
                     cell.BundleView.isHidden = true
@@ -680,8 +707,8 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                     
                     
                 }
-                let CouponUsed = "\((InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "is_coupon_used") as AnyObject)"
-                let WalletUsed = "\((InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "is_wallet_used") as AnyObject)"
+                let CouponUsed = "\((InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "is_coupon_used") as AnyObject)"
+                let WalletUsed = "\((InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "is_wallet_used") as AnyObject)"
                 
                 if CouponUsed == "No" {
                     cell.CouponView.isHidden = true
@@ -700,7 +727,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                     cell.WalletHeight.constant = 40
                 }
                 
-                if "\(((InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "pay_later_balance_amount") as AnyObject))" == "0.00" {
+                if "\(((InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "pay_later_balance_amount") as AnyObject))" == "0.00" {
                     cell.PayLater.isHidden = true
                     cell.PayLaterHeight.constant = 0
                 }else{
@@ -708,7 +735,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                     cell.PayLaterHeight.constant = 30
                 }
                 
-                let PayLaterAmount = "\((InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "pay_later_balance_amount") as AnyObject)"
+                let PayLaterAmount = "\((InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "pay_later_balance_amount") as AnyObject)"
                 
                 if let distanceDb = Double(PayLaterAmount) {
                    cell.PayLaterValueLbl.text = "\(Currency) \(distanceDb.round(to:2))"
@@ -721,165 +748,167 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
 //                let first3 = String(PayLaterAmount.prefix(2))
 //
 //                cell.PayLaterValueLbl.text = "\(Currency) \(first3)"
-                cell.CouponValueLbl.text = "\(Currency) \((InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "couponDiscount") as AnyObject)"
+                cell.CouponValueLbl.text = "\(Currency) \((InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "couponDiscount") as AnyObject)"
                 
                 
-                cell.WalletValueLbl.text = String(format: "%@ %@",Currency,(InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "wallet_Amount") as! CVarArg  )
-                cell.PaidValueLbl.text = String(format: "%@ %@",Currency,(InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "paidTotal") as! CVarArg )
-                cell.TotalValueLbl.text = String(format: "%@ %@",Currency,(InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "TotalAmt") as! CVarArg )
-                cell.ServiceFeeValueLbl.text = String(format: "%@ %@",Currency,(InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "servicefee") as! CVarArg)
+                cell.WalletValueLbl.text = String(format: "%@ %@",Currency,(InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "wallet_Amount") as! CVarArg  )
+                cell.PaidValueLbl.text = String(format: "%@ %@",Currency,(InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "paidTotal") as! CVarArg )
+                cell.TotalValueLbl.text = String(format: "%@ %@",Currency,(InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "TotalAmt") as! CVarArg )
+                cell.ServiceFeeValueLbl.text = String(format: "%@ %@",Currency,(InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "servicefee") as! CVarArg)
                 
-                cell.SecurityDepositValueLbl.text = String(format: "%@ %@",Currency,(InvoiceDetails.value(forKey: "invoice_details") as! NSDictionary).object(forKey: "securityDeposite") as! CVarArg)
+                cell.SecurityDepositValueLbl.text = String(format: "%@ %@",Currency,(InvoiceDetails.value(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "securityDeposite") as! CVarArg)
                 
                 return cell
             }
         }else{
             if isMyListing == true {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? PropertyListingCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? PropertyListingCell else { return UITableViewCell()}
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? PropertyListingCell
                 let dict = Singleton.sharedInstance.PropertyListingModel.propertyListing[indexPath.row]
                 let url = URL(string: Singleton.sharedInstance.PropertyListingModel.propertyListing[indexPath.row].propertyImage!)
-    //            cell!.img_Profile.kf.setImage(with: url!)
-                cell!.img_Profile.kf.setImage(with: url, placeholder: UIImage.init(named: "picture-frame"), options: nil, progressBlock: nil, completionHandler: nil)
-                cell!.lbl_Name.font = UIFont(name: SemiBoldFont, size: 14.0)
-                 cell!.lbl_PayOrManage.font = UIFont(name: SemiBoldFont, size: 14.0)
-                cell?.payLabel.font = UIFont(name: SemiBoldFont, size: 14.0)
-                cell?.bookingLabel.font = UIFont(name: SemiBoldFont, size: 14.0)
-                cell?.cancelLabel.font = UIFont(name: SemiBoldFont, size: 14.0)
-                cell?.ratingLabel.font = UIFont(name: SemiBoldFont, size: 14.0)
-                cell?.reviewLabel.font = UIFont(name: SemiBoldFont, size: 14.0)
-                cell!.lbl_Status.font = UIFont(name: SemiBoldFont, size: 14.0)
-                cell!.lbl_TotalBooking.font = UIFont(name: SemiBoldFont, size: 14.0)
-                cell!.lbl_Cancellation.font = UIFont(name: SemiBoldFont, size: 14.0)
-                cell!.lbl_Rating.font = UIFont(name: SemiBoldFont, size: 14.0)
-                cell!.lbl_ReviewCount.font = UIFont(name: SemiBoldFont, size: 14.0)
-                cell!.lbl_Cancellation.font = UIFont(name: SemiBoldFont, size: 14.0)
-                cell!.lbl_Rating.font = UIFont(name: SemiBoldFont, size: 14.0)
-                cell!.lbl_ReviewCount.font = UIFont(name: SemiBoldFont, size: 14.0)
-//                cell!.EmailIdVerifyBtn.titleLabel?.font = UIFont(name: SemiBoldFont, size: 14)
-//                cell!.lbl_statusfield.font = UIFont(name: SemiBoldFont, size: 14)
+    //            cell.img_Profile.kf.setImage(with: url!)
+                cell.img_Profile.kf.setImage(with: url, placeholder: UIImage.init(named: "picture-frame"), options: nil, progressBlock: nil, completionHandler: nil)
+                cell.lbl_Name.font = UIFont(name: SemiBoldFont, size: 14.0)
+                 cell.lbl_PayOrManage.font = UIFont(name: SemiBoldFont, size: 14.0)
+                cell.payLabel.font = UIFont(name: SemiBoldFont, size: 14.0)
+                cell.bookingLabel.font = UIFont(name: SemiBoldFont, size: 14.0)
+                cell.cancelLabel.font = UIFont(name: SemiBoldFont, size: 14.0)
+                cell.ratingLabel.font = UIFont(name: SemiBoldFont, size: 14.0)
+                cell.reviewLabel.font = UIFont(name: SemiBoldFont, size: 14.0)
+                cell.lbl_Status.font = UIFont(name: SemiBoldFont, size: 14.0)
+                cell.lbl_TotalBooking.font = UIFont(name: SemiBoldFont, size: 14.0)
+                cell.lbl_Cancellation.font = UIFont(name: SemiBoldFont, size: 14.0)
+                cell.lbl_Rating.font = UIFont(name: SemiBoldFont, size: 14.0)
+                cell.lbl_ReviewCount.font = UIFont(name: SemiBoldFont, size: 14.0)
+                cell.lbl_Cancellation.font = UIFont(name: SemiBoldFont, size: 14.0)
+                cell.lbl_Rating.font = UIFont(name: SemiBoldFont, size: 14.0)
+                cell.lbl_ReviewCount.font = UIFont(name: SemiBoldFont, size: 14.0)
+//                cell.EmailIdVerifyBtn.titleLabel?.font = UIFont(name: SemiBoldFont, size: 14)
+//                cell.lbl_statusfield.font = UIFont(name: SemiBoldFont, size: 14)
                 
-                cell!.payLabel.text = "\(GlobalLanguageDictionary.object(forKey: "key_status") as! String) :"
-                cell!.bookingLabel.text = GlobalLanguageDictionary.object(forKey: "key_totalBooking") as! String
-                cell!.cancelLabel.text = GlobalLanguageDictionary.object(forKey: "key_cancellation") as! String
-                cell!.ratingLabel.text = GlobalLanguageDictionary.object(forKey: "key_rating") as! String
-                cell!.reviewLabel.text = GlobalLanguageDictionary.object(forKey: "key_reaviewCount") as! String
+                cell.payLabel.text = "\(GlobalLanguageDictionary.object(forKey: "key_status") as? String ?? "") :"
+                cell.bookingLabel.text = GlobalLanguageDictionary.object(forKey: "key_totalBooking") as? String ?? ""
+                cell.cancelLabel.text = GlobalLanguageDictionary.object(forKey: "key_cancellation") as? String ?? ""
+                cell.ratingLabel.text = GlobalLanguageDictionary.object(forKey: "key_rating") as? String ?? ""
+                cell.reviewLabel.text = GlobalLanguageDictionary.object(forKey: "key_reaviewCount") as? String ?? ""
                 
-                cell!.lbl_statusfield.font = UIFont(name: SemiBoldFont, size: 14.0)
+                cell.lbl_statusfield.font = UIFont(name: SemiBoldFont, size: 14.0)
                 if dict.propertyStatus! == true {
-                    cell?.lbl_statusfield.text = GlobalLanguageDictionary.object(forKey: "key_published") as! String
+                    cell.lbl_statusfield.text = GlobalLanguageDictionary.object(forKey: "key_published") as? String ?? ""
                 }else{
-                    cell?.lbl_statusfield.text = GlobalLanguageDictionary.object(forKey: "key_waitingforPublish") as! String
+                    cell.lbl_statusfield.text = GlobalLanguageDictionary.object(forKey: "key_waitingforPublish") as? String ?? ""
                 }
-                cell?.lbl_statusfield.backgroundColor = UIColor(red: 232/255.0, green: 62/255.0, blue: 50/255.0, alpha: 1.0)
-                cell!.lbl_Name.text = dict.propertyTitle!
-                cell!.lbl_Status.text = GlobalLanguageDictionary.object(forKey: "key_manageListingCalender") as! String
-                cell?.lbl_TotalBooking.text = String(format: "%d", dict.totalBooking)
-                cell?.lbl_Cancellation.text = String(format: "%d", dict.cancelBooking)
-                cell?.lbl_Rating.text = dict.ratingss
-                cell?.lbl_ReviewCount.text = (String(format: "%d", dict.reviewCount))
-                cell!.lbl_Status.textColor = UIColor.red
+                cell.lbl_statusfield.backgroundColor = UIColor(red: 232/255.0, green: 62/255.0, blue: 50/255.0, alpha: 1.0)
+                cell.lbl_Name.text = dict.propertyTitle!
+                cell.lbl_Status.text = GlobalLanguageDictionary.object(forKey: "key_manageListingCalender") as? String ?? ""
+                cell.lbl_TotalBooking.text = String(format: "%d", dict.totalBooking)
+                cell.lbl_Cancellation.text = String(format: "%d", dict.cancelBooking)
+                cell.lbl_Rating.text = dict.ratingss
+                cell.lbl_ReviewCount.text = (String(format: "%d", dict.reviewCount))
+                cell.lbl_Status.textColor = UIColor.red
                 let isPayable = dict.payable
                 if isPayable! == true {
-                    cell!.lbl_PayOrManage.text = " Pay "
-                    cell?.lbl_PayOrManage.textAlignment = .left
-                    cell!.lbl_PayOrManage.textColor = UIColor(red: 232/255.0, green: 62/255.0, blue: 50/255.0, alpha: 1.0)
-                    cell!.lbl_PayOrManage.backgroundColor = AppSecondColor1
+                    cell.lbl_PayOrManage.text = " Pay "
+                    cell.lbl_PayOrManage.textAlignment = .left
+                    cell.lbl_PayOrManage.textColor = UIColor(red: 232/255.0, green: 62/255.0, blue: 50/255.0, alpha: 1.0)
+                    cell.lbl_PayOrManage.backgroundColor = AppSecondColor1
                 
  
                 } else {
                     
                     
-//                    cell!.lbl_PayOrManage.text = "Paid"
-//                    cell!.lbl_PayOrManage.text = (dict.propertyStatus == true) ? "YES" : "NO"
-                    cell!.lbl_PayOrManage.text = dict.stepstoComplete
-                    cell?.lbl_PayOrManage.textAlignment = .left
+//                    cell.lbl_PayOrManage.text = "Paid"
+//                    cell.lbl_PayOrManage.text = (dict.propertyStatus == true) ? "YES" : "NO"
+                    cell.lbl_PayOrManage.text = dict.stepstoComplete
+                    cell.lbl_PayOrManage.textAlignment = .left
 
-                    cell!.lbl_PayOrManage.textColor = .black
-           //         cell!.lbl_PayOrManage.backgroundColor = AppSecondColor1
+                    cell.lbl_PayOrManage.textColor = .black
+           //         cell.lbl_PayOrManage.backgroundColor = AppSecondColor1
                 }
                 
                 let Complete = dict.stepstoComplete
                 if Complete == "" {
-                    cell!.lbl_PayOrManage.text = GlobalLanguageDictionary.object(forKey: "key_Paid") as! String
-                    cell!.lbl_PayOrManage.textColor = UIColor(red: 232/255.0, green: 62/255.0, blue: 50/255.0, alpha: 1.0)
-//                    cell!.lbl_PayOrManage.backgroundColor = AppSecondColor1
-                    cell!.lbl_PayOrManage.cornerRadius = 4
+                    cell.lbl_PayOrManage.text = GlobalLanguageDictionary.object(forKey: "key_Paid") as? String ?? ""
+                    cell.lbl_PayOrManage.textColor = UIColor(red: 232/255.0, green: 62/255.0, blue: 50/255.0, alpha: 1.0)
+//                    cell.lbl_PayOrManage.backgroundColor = AppSecondColor1
+                    cell.lbl_PayOrManage.cornerRadius = 4
                 }else{
-                    cell!.lbl_PayOrManage.text = dict.stepstoComplete
-                    cell?.lbl_PayOrManage.textAlignment = .left
+                    cell.lbl_PayOrManage.text = dict.stepstoComplete
+                    cell.lbl_PayOrManage.textAlignment = .left
 
-                    cell!.lbl_PayOrManage.textColor = UIColor(red: 232/255.0, green: 62/255.0, blue: 50/255.0, alpha: 1.0)
-                //    cell!.lbl_PayOrManage.backgroundColor = AppSecondColor1
+                    cell.lbl_PayOrManage.textColor = UIColor(red: 232/255.0, green: 62/255.0, blue: 50/255.0, alpha: 1.0)
+                //    cell.lbl_PayOrManage.backgroundColor = AppSecondColor1
                 }
                 
                 let ptitle = dict.propertyTitle
                 
                 if ptitle == "" {
-                    cell!.lbl_Name.text = GlobalLanguageDictionary.object(forKey: "key_noName") as! String
+                    cell.lbl_Name.text = GlobalLanguageDictionary.object(forKey: "key_noName") as? String ?? ""
                 }
                             
  
                 
                 if let EmaidStatus = dict.host_id_verified, EmaidStatus == "not verified" {
-//                    cell?.EmailIdVerifyBtn.isHidden = false
-//                    cell!.EmailIdVerifyBtn.setTitle("Verify your email id.", for: .normal)
+//                    cell.EmailIdVerifyBtn.isHidden = false
+//                    cell.EmailIdVerifyBtn.setTitle("Verify your email id.", for: .normal)
 
                 }else{
-//                    cell?.EmailIdVerifyBtn.isHidden = true
-    //                cell!.lbl_PayOrManage.text = dict.propertyStatus!
-    //                cell?.lbl_PayOrManage.textAlignment = .left
+//                    cell.EmailIdVerifyBtn.isHidden = true
+    //                cell.lbl_PayOrManage.text = dict.propertyStatus!
+    //                cell.lbl_PayOrManage.textAlignment = .left
 
 
                 }
  
                 
-                return cell!
+                return cell
             } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ReservationCell") as? YourReservationCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "ReservationCell") as? YourReservationCell else { return UITableViewCell()}
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "ReservationCell") as? YourReservationCell
                 let dict = Singleton.sharedInstance.PropertyListingModel.myReservation[indexPath.row]
-                cell!.imgProfile.layer.cornerRadius = cell!.imgProfile.frame.size.width / 2
+                cell.imgProfile.layer.cornerRadius = cell.imgProfile.frame.size.width / 2
                 let url = URL(string: Singleton.sharedInstance.PropertyListingModel.myReservation[indexPath.row].userImage!)
-               // cell!.imgProfile.kf.setImage(with: url!)
-                cell!.imgProfile.kf.setImage(with: url, placeholder: UIImage.init(named: "picture-frame"), options: nil, progressBlock: nil, completionHandler: nil)
+               // cell.imgProfile.kf.setImage(with: url!)
+                cell.imgProfile.kf.setImage(with: url, placeholder: UIImage.init(named: "picture-frame"), options: nil, progressBlock: nil, completionHandler: nil)
                 
-                 cell!.lblPropertyTitle.font = UIFont(name: SemiBoldFont, size: 14.0)
-                 cell!.lblPropertyLocation.font = UIFont(name: RegularFont, size: 12)
-                 cell!.lblBookingNumber.font = UIFont(name: RegularFont, size: 12)
-                   cell!.lblPaymentStatus.font = UIFont(name: RegularFont, size: 12)
-                  cell!.lblHostApproval.font = UIFont(name: RegularFont, size: 12)
-                 cell!.lblAmount.font = UIFont(name: SemiBoldFont, size: 15)
-                  cell!.lblBookingdate.font = UIFont(name: RegularFont, size: 12)
+                 cell.lblPropertyTitle.font = UIFont(name: SemiBoldFont, size: 14.0)
+                 cell.lblPropertyLocation.font = UIFont(name: RegularFont, size: 12)
+                 cell.lblBookingNumber.font = UIFont(name: RegularFont, size: 12)
+                   cell.lblPaymentStatus.font = UIFont(name: RegularFont, size: 12)
+                  cell.lblHostApproval.font = UIFont(name: RegularFont, size: 12)
+                 cell.lblAmount.font = UIFont(name: SemiBoldFont, size: 15)
+                  cell.lblBookingdate.font = UIFont(name: RegularFont, size: 12)
                 
                 
-                cell!.lblPropertyTitle.text = dict.propertyTitle!
+                cell.lblPropertyTitle.text = dict.propertyTitle!
                 
-                cell!.lblBookingdate.text = dict.bookingDates!
-                cell!.lblPropertyLocation.text = houseIn + "\(dict.propertyAddress!)"
-                cell!.lblPaymentStatus.attributedText = NSAttributedString().changeColor(text1: housePayment + " : ", text2: "\(dict.paymentStatus!)", color1: UIColor.darkGray, color2: ForestGreen)
-                cell!.lblHostApproval.attributedText = NSAttributedString().changeColor(text1: houseApproval + " : ", text2: "\(dict.approvalStatus!)", color1: UIColor.darkGray, color2: ForestGreen)
-                //cell!.lblAmount.text = "\(dict.paidCurrencySymbol!)" + " " +   String(describing: dict.total! )
-                cell!.lblAmount.text = String(format: "%@ %@", dict.paidCurrencyCode!,dict.total as! CVarArg)
-                cell!.lblBookingNumber.text = houseBooking + " : " + "\(dict.bookingno!)"
+                cell.lblBookingdate.text = dict.bookingDates!
+                cell.lblPropertyLocation.text = houseIn + "\(dict.propertyAddress!)"
+                cell.lblPaymentStatus.attributedText = NSAttributedString().changeColor(text1: housePayment + " : ", text2: "\(dict.paymentStatus!)", color1: UIColor.darkGray, color2: ForestGreen)
+                cell.lblHostApproval.attributedText = NSAttributedString().changeColor(text1: houseApproval + " : ", text2: "\(dict.approvalStatus!)", color1: UIColor.darkGray, color2: ForestGreen)
+                //cell.lblAmount.text = "\(dict.paidCurrencySymbol!)" + " " +   String(describing: dict.total! )
+                cell.lblAmount.text = String(format: "%@ %@", dict.paidCurrencyCode!,dict.total as! CVarArg)
+                cell.lblBookingNumber.text = houseBooking + " : " + "\(dict.bookingno!)"
                 
                 if dict.paymentStatus == "Paid"
                 {
-                    cell!.dotsButton.isHidden = false
-                    cell!.dotsButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
+                    cell.dotsButton.isHidden = false
+                    cell.dotsButton.addTarget(self, action: #selector(buttonPressed(_:)), for: .touchUpInside)
                     
-                    cell!.dotsButton.tag = indexPath.row
+                    cell.dotsButton.tag = indexPath.row
                     
                 }
                 else
                 {
-                    cell!.dotsButton.isHidden = true
+                    cell.dotsButton.isHidden = true
                     
                     
                 }
                 
-                 moreOptionStatusButton.frame = cell!.dotsButton.frame
+                 moreOptionStatusButton.frame = cell.dotsButton.frame
                 
                 
-                return cell!
+                return cell
             }
         }
     }
@@ -979,7 +1008,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                             let responseDict:NSDictionary = responseObject as! NSDictionary
                             print(responseDict)
                             self.hideActivityIndicator(uiView: self.view)
-                            if responseDict.value(forKey: "status") as! Int == 1 {
+                            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                                 self.invoiceView.isHidden = false
                                 self.grayView.isHidden = false
                                 self.cancelMessageView.isHidden = true
@@ -1015,7 +1044,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                                 self.BookedDaysCount.text = String(format: "Booked for %@ Days : ",hotelDict!.value(forKey: "numofdates") as! CVarArg)
                                                            self.subTotalLbl.text = String(format: "%@ %@",hotelDict!.value(forKey: "currency_code") as! CVarArg,hotelDict!.value(forKey: "TotalwithoutService") as! CVarArg )
 //                                self.subTotalLbl.text = String(format: "Booked for %@ Days : %@",hotelDict!.value(forKey: "numofdates") as! CVarArg,hotelDict!.value(forKey: "TotalwithoutService") as! CVarArg )
-                                let BookingType = hotelDict!.value(forKey: "booking_type") as! String
+                                let BookingType = hotelDict!.value(forKey: "booking_type") as? String ?? ""
                                 
                                 if BookingType == "hourly" {
                                     
@@ -1071,7 +1100,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                             }
                                 
                             else {
-                                self.showInformation(title: "Rental Product", message: responseDict.value(forKey: "message") as! String)
+                                self.showInformation(title: "Rental Product", message: responseDict.value(forKey: "message") as? String ?? "")
                             }
                         }, failure: { (operation, error) -> Void in
                             DispatchQueue.main.async {
@@ -1093,7 +1122,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                                 self.showActivityIndicator(uiView: self.view)
                                 var params = NSMutableDictionary()
                                  params = ["product_id":Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].propertyId!,"bookingno":Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].bookingno!,"user_id":login_session.value(forKey: "UserId")!,"cancel_by":"host"]
-//                                params = ["userid":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
+//                                params = ["userid":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
 //
                                 let manager = AFHTTPSessionManager()
                                 manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -1105,7 +1134,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                                     let responseDict:NSDictionary = responseObject as! NSDictionary
                                     print(responseDict)
                                     self.hideActivityIndicator(uiView: self.view)
-                                    if responseDict.value(forKey: "status") as! Int == 1 {
+                                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                                         self.grayView.isHidden = false
                                         self.cancelMessageView.isHidden = true
                                         self.viewCancelMessage.isHidden = false
@@ -1135,7 +1164,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                                     }
                                         
                                     else {
-                                        self.showInformation(title: "Rental Product", message: responseDict.value(forKey: "message") as! String)
+                                        self.showInformation(title: "Rental Product", message: responseDict.value(forKey: "message") as? String ?? "")
                                     }
                                 }, failure: { (operation, error) -> Void in
                                     DispatchQueue.main.async {
@@ -1177,7 +1206,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                                     let responseDict:NSDictionary = responseObject as! NSDictionary
                                     print(responseDict)
                                     self.hideActivityIndicator(uiView: self.view)
-                                    if responseDict.value(forKey: "status") as! Int == 1 {
+                                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                                         self.grayView.isHidden = false
                                         self.cancelMessageView.isHidden = true
                                         self.viewCancelMessage.isHidden = false
@@ -1207,7 +1236,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                                     }
                                         
                                     else {
-                                        self.showInformation(title: "Rental Product", message: responseDict.value(forKey: "message") as! String)
+                                        self.showInformation(title: "Rental Product", message: responseDict.value(forKey: "message") as? String ?? "")
                                     }
                                 }, failure: { (operation, error) -> Void in
                                     DispatchQueue.main.async {
@@ -1241,7 +1270,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                         let responseDict:NSDictionary = responseObject as! NSDictionary
                         print(responseDict)
                         self.hideActivityIndicator(uiView: self.view)
-                        if responseDict.value(forKey: "status") as! Int == 1 {
+                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                             self.invoiceView.isHidden = false
                             self.grayView.isHidden = false
                             self.cancelMessageView.isHidden = true
@@ -1278,7 +1307,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                             self.BookedDaysCount.text = String(format: "Booked for %@ Days : ",hotelDict!.value(forKey: "numofdates") as! CVarArg)
                                                        self.subTotalLbl.text = String(format: "%@ %@",hotelDict!.value(forKey: "currency_code") as! CVarArg,hotelDict!.value(forKey: "TotalwithoutService") as! CVarArg )
 //                                self.subTotalLbl.text = String(format: "Booked for %@ Days : %@",hotelDict!.value(forKey: "numofdates") as! CVarArg,hotelDict!.value(forKey: "TotalwithoutService") as! CVarArg )
-                            let BookingType = hotelDict!.value(forKey: "booking_type") as! String
+                            let BookingType = hotelDict!.value(forKey: "booking_type") as? String ?? ""
                             
                             if BookingType == "hourly" {
                                 
@@ -1331,7 +1360,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                         }
                             
                         else {
-                            self.showInformation(title: "Rental Product", message: responseDict.value(forKey: "message") as! String)
+                            self.showInformation(title: "Rental Product", message: responseDict.value(forKey: "message") as? String ?? "")
                         }
                     }, failure: { (operation, error) -> Void in
                         DispatchQueue.main.async {
@@ -1549,7 +1578,7 @@ extension PropertyListingViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
                 print(responseDict)
                 if responseDict.value(forKey: "status") as? Int == 0
                 {
-                    self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
                 else
                 {

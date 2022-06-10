@@ -28,7 +28,7 @@ class BookedCustomerVC: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.headrerLbl.text = GlobalLanguageDictionary.object(forKey: "key_bookedCust") as! String
+        self.headrerLbl.text = GlobalLanguageDictionary.object(forKey: "key_bookedCust") as? String ?? ""
         self.GrayView.isHidden = true
         self.AddonsTable.isHidden = true
         self.listTableview.isHidden = true
@@ -50,7 +50,7 @@ class BookedCustomerVC: BaseViewController {
         let parameters:[String : Any] =
             ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
              "page_no": 1,
-             "property_id": pid,
+             "property_id": pid ?? 0,
              "currency_code": "USD"
             ]
             print(parameters)
@@ -67,7 +67,7 @@ class BookedCustomerVC: BaseViewController {
                     self.listTableview.isHidden = false
 
                     self.ReservationData.removeAllObjects()
-                    self.ReservationData.addEntries(from: (responseDict.object(forKey: "data") as! NSDictionary) as! [AnyHashable : Any])
+                    self.ReservationData.addEntries(from: (responseDict.object(forKey: "data") as? NSDictionary) as? [AnyHashable : Any] ?? [:])
                     self.isLoading = false
                    // self.bookingCustomerList.append(contentsOf:model )
                     self.listTableview.reloadData()
@@ -77,7 +77,7 @@ class BookedCustomerVC: BaseViewController {
                 {
                     
                     self.hideActivityIndicator(uiView: self.view)
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
                 
             }
@@ -130,7 +130,7 @@ class BookedCustomerVC: BaseViewController {
             }
             
         } else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         }
     
@@ -142,8 +142,8 @@ class BookedCustomerVC: BaseViewController {
     }
     @objc func  AddonsAct(sender: UIButton) {
         self.AddonsDetails.removeAllObjects()
-        self.AddonsAmount = ((self.ReservationData.object(forKey: "booking_list") as! NSArray).object(at: sender.tag) as! NSDictionary).object(forKey: "add_on_amount") as! String
-        self.AddonsDetails.addObjects(from: (((self.ReservationData.object(forKey: "booking_list") as! NSArray).object(at: sender.tag) as! NSDictionary).object(forKey: "add_on_details") as! NSArray) as! [Any])
+        self.AddonsAmount = ((self.ReservationData.object(forKey: "booking_list") as! NSArray).object(at: sender.tag) as? NSDictionary)?.object(forKey: "add_on_amount") as? String ?? ""
+        self.AddonsDetails.addObjects(from: (((self.ReservationData.object(forKey: "booking_list") as! NSArray).object(at: sender.tag) as? NSDictionary)?.object(forKey: "add_on_details") as! NSArray) as! [Any])
         if self.AddonsDetails.count == 0 {
             self.GrayView.isHidden = true
             self.AddonsTable.isHidden = true
@@ -211,7 +211,7 @@ class BookedCustomerVC: BaseViewController {
             
         }
         else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         
         
@@ -248,7 +248,7 @@ extension BookedCustomerVC : UITableViewDelegate,UITableViewDataSource{
                 cell.AddonsLbl.text = "Addons Total Amount - \(self.AddonsAmount)"
             }else{
                 cell.AddonsLbl.textColor = .black
-                cell.AddonsLbl.text = "\((self.AddonsDetails.object(at: indexPath.row-1) as! NSDictionary).object(forKey: "name") as! String) - \(login_session.value(forKey: "APP_CURRENCYSYM") as? String ?? "$") \((self.AddonsDetails.object(at: indexPath.row-1) as! NSDictionary).object(forKey: "id") as AnyObject)"
+                cell.AddonsLbl.text = "\((self.AddonsDetails.object(at: indexPath.row-1) as? NSDictionary)?.object(forKey: "name") as? String ?? "") - \(login_session.value(forKey: "APP_CURRENCYSYM") as? String ?? "$") \((self.AddonsDetails.object(at: indexPath.row-1) as? NSDictionary)?.object(forKey: "id") as AnyObject)"
             }
             cell.AddonsLbl.font = UIFont(name: SemiBoldFont, size: 15)
             return cell
@@ -256,24 +256,24 @@ extension BookedCustomerVC : UITableViewDelegate,UITableViewDataSource{
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "NewTableViewCell") as! NewTableViewCell
 
-            cell.CheckIn.text = GlobalLanguageDictionary.object(forKey: "key_checkIn") as! String
-            cell.CheckOut.text = GlobalLanguageDictionary.object(forKey: "key_checkOut") as! String
-            cell.BookingStatus.text = GlobalLanguageDictionary.object(forKey: "key_bookingStatus") as! String
-            cell.Transactiontype.text = GlobalLanguageDictionary.object(forKey: "key_transactionType") as! String
-            cell.Amount.text = GlobalLanguageDictionary.object(forKey: "key_amount") as! String
-            cell.hostApprovallbl.text = GlobalLanguageDictionary.object(forKey: "key_hostApproval") as! String
-            cell.AddonsLbl.text = GlobalLanguageDictionary.object(forKey: "key_clickhereforAddons") as! String
-            cell.AddonsBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_addons") as! String, for: .normal)
-            cell.bokkingno.text = GlobalLanguageDictionary.object(forKey: "key_bookingNumber") as! String
+            cell.CheckIn.text = GlobalLanguageDictionary.object(forKey: "key_checkIn") as? String ?? ""
+            cell.CheckOut.text = GlobalLanguageDictionary.object(forKey: "key_checkOut") as? String ?? ""
+            cell.BookingStatus.text = GlobalLanguageDictionary.object(forKey: "key_bookingStatus") as? String ?? ""
+            cell.Transactiontype.text = GlobalLanguageDictionary.object(forKey: "key_transactionType") as? String ?? ""
+            cell.Amount.text = GlobalLanguageDictionary.object(forKey: "key_amount") as? String ?? ""
+            cell.hostApprovallbl.text = GlobalLanguageDictionary.object(forKey: "key_hostApproval") as? String ?? ""
+            cell.AddonsLbl.text = GlobalLanguageDictionary.object(forKey: "key_clickhereforAddons") as? String ?? ""
+            cell.AddonsBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_addons") as? String ?? "", for: .normal)
+            cell.bokkingno.text = GlobalLanguageDictionary.object(forKey: "key_bookingNumber") as? String ?? ""
             
          cell.bookingStatusLbl.layer.cornerRadius = 6
         cell.hostApprovallbl.layer.cornerRadius = 6
         let DataDict = (self.ReservationData.object(forKey: "booking_list") as! NSArray).object(at: indexPath.row) as! NSDictionary
-        cell.bookingaNOlBL.text = DataDict.object(forKey: "booking_num") as! String
-        cell.nameLbl.text = "\(DataDict.object(forKey: "prop_title") as! String) "
-        cell.locNameLbl.text = DataDict.object(forKey: "pickup_location") as! String
-        cell.checkInLbl.text = DataDict.object(forKey: "check_in") as! String
-        cell.checkOutLbl.text = DataDict.object(forKey: "check_out") as! String
+        cell.bookingaNOlBL.text = DataDict.object(forKey: "booking_num") as? String ?? ""
+        cell.nameLbl.text = "\(DataDict.object(forKey: "prop_title") as? String ?? "") "
+        cell.locNameLbl.text = DataDict.object(forKey: "pickup_location") as? String ?? ""
+        cell.checkInLbl.text = DataDict.object(forKey: "check_in") as? String ?? ""
+        cell.checkOutLbl.text = DataDict.object(forKey: "check_out") as? String ?? ""
         cell.transactiontypeLbl.text = "\(DataDict.object(forKey: "pmt_type") as AnyObject)"
         cell.amountLbl.text = "\(login_session.value(forKey: "APP_CURRENCYSYM") as? String ?? "$") \(DataDict.object(forKey: "total_amnt") as AnyObject)"
             
@@ -288,7 +288,7 @@ extension BookedCustomerVC : UITableViewDelegate,UITableViewDataSource{
                 cell.AddonsLbl.isHidden = false
             }
             
-            cell.QtyLbl.text = "\(GlobalLanguageDictionary.object(forKey: "key_Qty") as! String) * \(DataDict.object(forKey: "booking_qty") as AnyObject)"
+            cell.QtyLbl.text = "\(GlobalLanguageDictionary.object(forKey: "key_Qty") as? String ?? "") * \(DataDict.object(forKey: "booking_qty") as AnyObject)"
             
         cell.AddonsBtn.tag = indexPath.row
 //        cell.rejectBtn.tag = indexPath.row

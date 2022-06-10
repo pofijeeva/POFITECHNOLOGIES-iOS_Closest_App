@@ -24,16 +24,16 @@ class ReviewsByYou : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        id = dictionary["id"] as? String
-        reviewBookingNo = dictionary["review_booking_no"] as? String
-        reviewDate = dictionary["review_date"] as? String
-        reviewPropertyId = dictionary["review_property_id"] as? String
-        reviewPropertyName = dictionary["review_property_name"] as? String
-        reviewerComments = dictionary["reviewer_comments"] as? String
-        reviewerId = dictionary["reviewer_id"] as? String
-        reviewerName = dictionary["reviewer_name"] as? String
-        reviewerRating = dictionary["reviewer_rating"] as? String
-        reviwerImage = dictionary["reviwer_image"] as? String
+        id = dictionary["id"] as? String ?? ""
+        reviewBookingNo = dictionary["review_booking_no"] as? String ?? ""
+        reviewDate = dictionary["review_date"] as? String ?? ""
+        reviewPropertyId = dictionary["review_property_id"] as? String ?? ""
+        reviewPropertyName = dictionary["review_property_name"] as? String ?? ""
+        reviewerComments = dictionary["reviewer_comments"] as? String ?? ""
+        reviewerId = dictionary["reviewer_id"] as? String ?? ""
+        reviewerName = dictionary["reviewer_name"] as? String ?? ""
+        reviewerRating = dictionary["reviewer_rating"] as? String ?? ""
+        reviwerImage = dictionary["reviwer_image"] as? String ?? ""
     }
     
     /**
@@ -81,16 +81,16 @@ class ReviewsByYou : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        id = aDecoder.decodeObject(forKey: "id") as? String
-        reviewBookingNo = aDecoder.decodeObject(forKey: "review_booking_no") as? String
-        reviewDate = aDecoder.decodeObject(forKey: "review_date") as? String
-        reviewPropertyId = aDecoder.decodeObject(forKey: "review_property_id") as? String
-        reviewPropertyName = aDecoder.decodeObject(forKey: "review_property_name") as? String
-        reviewerComments = aDecoder.decodeObject(forKey: "reviewer_comments") as? String
-        reviewerId = aDecoder.decodeObject(forKey: "reviewer_id") as? String
-        reviewerName = aDecoder.decodeObject(forKey: "reviewer_name") as? String
-        reviewerRating = aDecoder.decodeObject(forKey: "reviewer_rating") as? String
-        reviwerImage = aDecoder.decodeObject(forKey: "reviwer_image") as? String
+        id = aDecoder.decodeObject(forKey: "id") as? String ?? ""
+        reviewBookingNo = aDecoder.decodeObject(forKey: "review_booking_no") as? String ?? ""
+        reviewDate = aDecoder.decodeObject(forKey: "review_date") as? String ?? ""
+        reviewPropertyId = aDecoder.decodeObject(forKey: "review_property_id") as? String ?? ""
+        reviewPropertyName = aDecoder.decodeObject(forKey: "review_property_name") as? String ?? ""
+        reviewerComments = aDecoder.decodeObject(forKey: "reviewer_comments") as? String ?? ""
+        reviewerId = aDecoder.decodeObject(forKey: "reviewer_id") as? String ?? ""
+        reviewerName = aDecoder.decodeObject(forKey: "reviewer_name") as? String ?? ""
+        reviewerRating = aDecoder.decodeObject(forKey: "reviewer_rating") as? String ?? ""
+        reviwerImage = aDecoder.decodeObject(forKey: "reviwer_image") as? String ?? ""
     }
     
     /**

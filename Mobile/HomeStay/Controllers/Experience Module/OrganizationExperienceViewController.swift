@@ -46,9 +46,9 @@ class OrganizationExperienceViewController: UIViewController,UITextFieldDelegate
         
         
         if arrayOfResult.count > 0 {
-            let dictt = (arrayOfResult[0] as! NSDictionary).object(forKey: "Organization") as! NSDictionary
-            self.textfieldOrganization.text = dictt.object(forKey: "organization") as! String
-            self.textViewOrganization.text = dictt.object(forKey: "organization_des") as! String
+            let dictt = (arrayOfResult[0] as? NSDictionary)?.object(forKey: "Organization") as! NSDictionary
+            self.textfieldOrganization.text = dictt.object(forKey: "organization") as? String ?? ""
+            self.textViewOrganization.text = dictt.object(forKey: "organization_des") as? String ?? ""
         }
     }
     
@@ -71,7 +71,7 @@ class OrganizationExperienceViewController: UIViewController,UITextFieldDelegate
             if Helper.sharedInstance.isConnectedToInternet() {
                 Helper.sharedInstance.showActivityIndicator(view: self.view, targetVC: self)
                 var params = NSMutableDictionary()
-                params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","exp_id":currentExpId,"organization":self.textfieldOrganization.text!,"organization_des":self.textViewOrganization.text]
+                params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","exp_id":currentExpId,"organization":self.textfieldOrganization.text!,"organization_des":self.textViewOrganization.text]
                 let manager = AFHTTPSessionManager()
                 manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
                 print("params",params)
@@ -80,12 +80,12 @@ class OrganizationExperienceViewController: UIViewController,UITextFieldDelegate
                     Helper.sharedInstance.hideActivityIndicator(view: self.view)
                     let responseDict:NSDictionary = resultData as! NSDictionary
                     print("Response:",responseDict)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         currentExpId = "\(responseDict.object(forKey: "experience_id") as AnyObject)"
                         sharedInstanceExperience.gotoStepfour()
                     }
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) in
                     print(error)
@@ -93,7 +93,7 @@ class OrganizationExperienceViewController: UIViewController,UITextFieldDelegate
                 })
             }
             else {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
     }

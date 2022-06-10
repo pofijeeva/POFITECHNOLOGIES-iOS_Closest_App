@@ -28,19 +28,19 @@ class HotelDetail : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        bathrooms = dictionary["bathrooms"] as? String
-        bedrooms = dictionary["bedrooms"] as? String
-        hostId = dictionary["host_id"] as? Int
-        notesDesc = dictionary["notes_desc"] as? String
-        notesId = dictionary["notes_id"] as? Int
-        propertyAddress = dictionary["property_address"] as? String
-        propertyCurrencyCode = dictionary["property_currency_code"] as? String
-        propertyCurrencySymbol = dictionary["property_currency_symbol"] as? String
-        propertyId = dictionary["property_id"] as? Int
+        bathrooms = dictionary["bathrooms"] as? String ?? ""
+        bedrooms = dictionary["bedrooms"] as? String ?? ""
+        hostId = dictionary["host_id"] as? Int ?? 0
+        notesDesc = dictionary["notes_desc"] as? String ?? ""
+        notesId = dictionary["notes_id"] as? Int ?? 0
+        propertyAddress = dictionary["property_address"] as? String ?? ""
+        propertyCurrencyCode = dictionary["property_currency_code"] as? String ?? ""
+        propertyCurrencySymbol = dictionary["property_currency_symbol"] as? String ?? ""
+        propertyId = dictionary["property_id"] as? Int ?? 0
         propertyPrice = dictionary["property_price"] as? AnyObject
-        propertyTitle = dictionary["property_title"] as? String
-        roomType = dictionary["room_type"] as? String
-        userImage = dictionary["user_image"] as? String
+        propertyTitle = dictionary["property_title"] as? String ?? ""
+        roomType = dictionary["room_type"] as? String ?? ""
+        userImage = dictionary["user_image"] as? String ?? ""
         propertyImages = [PropertyImage]()
         if let propertyImagesArray = dictionary["property_images"] as? [[String:Any]]{
             for dic in propertyImagesArray{
@@ -111,20 +111,20 @@ class HotelDetail : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        bathrooms = aDecoder.decodeObject(forKey: "bathrooms") as? String
-        bedrooms = aDecoder.decodeObject(forKey: "bedrooms") as? String
-        hostId = aDecoder.decodeObject(forKey: "host_id") as? Int
-        notesDesc = aDecoder.decodeObject(forKey: "notes_desc") as? String
-        notesId = aDecoder.decodeObject(forKey: "notes_id") as? Int
-        propertyAddress = aDecoder.decodeObject(forKey: "property_address") as? String
-        propertyCurrencyCode = aDecoder.decodeObject(forKey: "property_currency_code") as? String
-        propertyCurrencySymbol = aDecoder.decodeObject(forKey: "property_currency_symbol") as? String
-        propertyId = aDecoder.decodeObject(forKey: "property_id") as? Int
+        bathrooms = aDecoder.decodeObject(forKey: "bathrooms") as? String ?? ""
+        bedrooms = aDecoder.decodeObject(forKey: "bedrooms") as? String ?? ""
+        hostId = aDecoder.decodeObject(forKey: "host_id") as? Int ?? 0
+        notesDesc = aDecoder.decodeObject(forKey: "notes_desc") as? String ?? ""
+        notesId = aDecoder.decodeObject(forKey: "notes_id") as? Int ?? 0
+        propertyAddress = aDecoder.decodeObject(forKey: "property_address") as? String ?? ""
+        propertyCurrencyCode = aDecoder.decodeObject(forKey: "property_currency_code") as? String ?? ""
+        propertyCurrencySymbol = aDecoder.decodeObject(forKey: "property_currency_symbol") as? String ?? ""
+        propertyId = aDecoder.decodeObject(forKey: "property_id") as? Int ?? 0
         propertyImages = aDecoder.decodeObject(forKey: "property_images") as? [PropertyImage]
         propertyPrice = aDecoder.decodeObject(forKey: "property_price") as? AnyObject
-        propertyTitle = aDecoder.decodeObject(forKey: "property_title") as? String
-        roomType = aDecoder.decodeObject(forKey: "room_type") as? String
-        userImage = aDecoder.decodeObject(forKey: "user_image") as? String
+        propertyTitle = aDecoder.decodeObject(forKey: "property_title") as? String ?? ""
+        roomType = aDecoder.decodeObject(forKey: "room_type") as? String ?? ""
+        userImage = aDecoder.decodeObject(forKey: "user_image") as? String ?? ""
     }
 
     /**

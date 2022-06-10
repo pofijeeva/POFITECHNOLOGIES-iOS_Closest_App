@@ -21,13 +21,13 @@ class Step1 : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        accommodates = dictionary["accommodates"] as? String
-        address = dictionary["address"] as? String
-        homeType = dictionary["home_type"] as? String
-        propertyid = dictionary["propertyid"] as? Int
-        roomType = dictionary["room_type"] as? String
-        status = dictionary["status"] as? String
-        stepCompleted = dictionary["step_completed"] as? Bool
+        accommodates = dictionary["accommodates"] as? String ?? ""
+        address = dictionary["address"] as? String ?? ""
+        homeType = dictionary["home_type"] as? String ?? ""
+        propertyid = dictionary["propertyid"] as? Int ?? 0
+        roomType = dictionary["room_type"] as? String ?? ""
+        status = dictionary["status"] as? String ?? ""
+        stepCompleted = dictionary["step_completed"] as? Bool ?? false
     }
 
     /**
@@ -66,13 +66,13 @@ class Step1 : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        accommodates = aDecoder.decodeObject(forKey: "accommodates") as? String
-        address = aDecoder.decodeObject(forKey: "address") as? String
-        homeType = aDecoder.decodeObject(forKey: "home_type") as? String
-        propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int
-        roomType = aDecoder.decodeObject(forKey: "room_type") as? String
-        status = aDecoder.decodeObject(forKey: "status") as? String
-        stepCompleted = aDecoder.decodeObject(forKey: "step_completed") as? Bool
+        accommodates = aDecoder.decodeObject(forKey: "accommodates") as? String ?? ""
+        address = aDecoder.decodeObject(forKey: "address") as? String ?? ""
+        homeType = aDecoder.decodeObject(forKey: "home_type") as? String ?? ""
+        propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int ?? 0
+        roomType = aDecoder.decodeObject(forKey: "room_type") as? String ?? ""
+        status = aDecoder.decodeObject(forKey: "status") as? String ?? ""
+        stepCompleted = aDecoder.decodeObject(forKey: "step_completed") as? Bool ?? false
     }
 
     /**

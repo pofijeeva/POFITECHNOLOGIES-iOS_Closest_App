@@ -85,13 +85,13 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
          // Action triggered on selection
         listDropDown.selectionAction = { [weak self] (index, item) in
             print("@@@@@@@@",index,item)
-          //  let dict = ((dict.value(forKey: "data")as! NSDictionary).value(forKey: "location_list") as! NSArray).object(at: index) as! NSDictionary
+          //  let dict = ((dict.value(forKey: "data")as? NSDictionary)?.value(forKey: "location_list") as! NSArray).object(at: index) as! NSDictionary
             
             var NameList = NSArray()
             NameList = item.components(separatedBy: ",") as NSArray
             self?.textfieldSearch.text = item
-            LocationName = NameList[0] as! String
-            self?.Location = NameList[0] as! String//dict.value(forKey: "location_name") as! String
+            LocationName = NameList[0] as? String ?? ""
+            self?.Location = NameList[0] as? String ?? ""//dict.value(forKey: "location_name") as? String ?? ""
           //  self?.updateList()
             self?.window = UIWindow(frame: UIScreen.main.bounds)
             
@@ -101,7 +101,7 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
            
 //            let sb = UIStoryboard(name: "Main", bundle: nil)
 //            let vc = sb.instantiateViewController(withIdentifier: "NewListViewController") as! NewListViewController
-//            vc.Location = dict.value(forKey: "location_name") as! String
+//            vc.Location = dict.value(forKey: "location_name") as? String ?? ""
 //            vc.locationId = "\(dict.value(forKey: "location_id") as AnyObject)"
 //            self?.present(vc, animated: true, completion: nil)
          }
@@ -121,22 +121,22 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
             print (result)
 //            self.stopLoadingIndicator(senderVC: self)
         
-             if result.object(forKey: "code") as! Int == 200{
+             if result.object(forKey: "code") as? Int ?? 0 == 200{
 //                self.searchResultsArray.removeAllObjects()
-//                self.searchResultsArray.addObjects(from: ((result.object(forKey: "data")as! NSDictionary).object(forKey: "search_list")as! NSArray) as! [Any])
+//                self.searchResultsArray.addObjects(from: ((result.object(forKey: "data")as? NSDictionary)?.object(forKey: "search_list")as! NSArray) as! [Any])
 //                self.categorySearchTbl.reloadData()
-               var arr =  (result.value(forKey: "data")as! NSDictionary).value(forKey: "location_list") as! NSArray
+               var arr =  (result.value(forKey: "data")as? NSDictionary)?.value(forKey: "location_list") as! NSArray
                 for item in arr {
                     let dict = item as! NSDictionary
-                    self.tempArray.add(dict.value(forKey: "location_name") as! String)
+                    self.tempArray.add(dict.value(forKey: "location_name") as? String ?? "")
                 }
                 self.addingSearchData(dict: result)
-            }else if result.object(forKey: "code") as! Int == 400{
-                if result.object(forKey: "message")as! String == "Token is Expired"{
-//                    self.showToastAlert(senderVC: self, messageStr: result.object(forKey: "message") as! String)
+            }else if result.object(forKey: "code") as? Int ?? 0 == 400{
+                if result.object(forKey: "message")as? String ?? "" == "Token is Expired"{
+//                    self.showToastAlert(senderVC: self, messageStr: result.object(forKey: "message") as? String ?? "")
 //                    self.tokenExpired()
-                }else if result.object(forKey: "message")as! String == "user_blocked" {
-//                    self.showTokenExpiredPopUp(msgStr: result.object(forKey: "message")as! String)
+                }else if result.object(forKey: "message")as? String ?? "" == "user_blocked" {
+//                    self.showTokenExpiredPopUp(msgStr: result.object(forKey: "message")as? String ?? "")
                 }
                 else{
 //                    self.searchResultsArray.removeAllObjects()
@@ -144,8 +144,8 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
                 }
                 //print(response.object(forKey: "message") as Any)
             }
-            else if result.object(forKey: "message")as! String == "user_blocked" {
-//                self.showTokenExpiredPopUp(msgStr: result.object(forKey: "message")as! String)
+            else if result.object(forKey: "message")as? String ?? "" == "user_blocked" {
+//                self.showTokenExpiredPopUp(msgStr: result.object(forKey: "message")as? String ?? "")
             }
         }
     }
@@ -213,7 +213,7 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
                 self.hideActivityIndicator(uiView: self.view)
 
                 self.arrayList.removeAllObjects()
-                self.arrayList.addObjects(from:(((responseDict.object(forKey: "data") as! NSDictionary).object(forKey: "rentalList") as! NSArray) as! [Any]))
+                self.arrayList.addObjects(from:(((responseDict.object(forKey: "data") as? NSDictionary)?.object(forKey: "rentalList") as! NSArray) as! [Any]))
                 print(self.arrayList)
                 self.ProductListTable.reloadData()
                 
@@ -222,7 +222,7 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
             {
                 
                 self.hideActivityIndicator(uiView: self.view)
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
               
             }
             }else{
@@ -238,7 +238,7 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
 //
 //        params = ["lang_code": lanuguage_selection.value(forKey: "language") ?? "en","currency_code":login_session.value(forKey: "APP_CURRENCY") as Any,"check_in":"","check_out":"","types":"","amenities":"","ratings":"","sort_by":"","prices":"","price_sort_by":"","city":self.Location,"types":"","page_no":"1"]
 //       //  params = ["mcity_name":self.Location,"f_p_min":self.f_p_min,"f_p_max":self.f_p_max,"f_room_type":self.f_room_type,"f_home_type":self.f_home_type,"f_list_type":self.f_list_type,"f_date_arrive":self.arriveDate,"f_date_depart":self.departDate,"base_id":1,"f_guest":self.f_guest,"currency_code":login_session.value(forKey: "APP_CURRENCY")!,"user_id":UserID,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
-//       // params = ["userid":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
+//       // params = ["userid":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
 //        print(params)
 //
 //
@@ -253,7 +253,7 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
 //            }
 //            let responseDict:NSDictionary = responseObject as! NSDictionary
 //            self.hideActivityIndicator(uiView: self.view)
-//            if responseDict.value(forKey: "code") as! Int == 200 {
+//            if responseDict.value(forKey: "code") as? Int ?? 0 == 200 {
 //                print(responseDict)
 ////                   let mod = PlaceListModel(fromDictionary: responseDict as! [String : Any])
 ////                Singleton.sharedInstance.PlaceList = mod
@@ -271,7 +271,7 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
 //            }
 //
 //            else {
-//                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+//                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
 //            }
 //        }, failure: { (operation, error) -> Void in
 //            DispatchQueue.main.async {
@@ -297,14 +297,14 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
         cell.Listingimg.layer.cornerRadius = 5.0
             let featuredProperty = self.arrayList[indexPath.item] as! NSDictionary
         cell.backgroundColor = .white
-        let currencySymbol = featuredProperty.object(forKey: "property_currency_symbol") as! String//(featuredProperty["property_currency_symbol"] as! String)
+        let currencySymbol = featuredProperty.object(forKey: "property_currency_symbol") as? String ?? ""//(featuredProperty["property_currency_symbol"] as? String ?? "")
             
-        let price = featuredProperty.object(forKey: "rental_price") as! AnyObject//(featuredProperty["rental_price"] as! Int)
+        let price = featuredProperty.object(forKey: "rental_price") as! AnyObject//(featuredProperty["rental_price"] as? Int ?? 0)
             cell.costLabel.text = "\(currencySymbol)\(price)"
-            cell.ratingLabel.text = "\(featuredProperty.object(forKey: "ratings") as AnyObject)"//(featuredProperty["ratings"] as! String)
-            cell.locationLabel.text = "\(featuredProperty.object(forKey: "location") as AnyObject)"//(featuredProperty["location"] as! String)
-            cell.addLabel.text = "\(featuredProperty.object(forKey: "rental_title") as AnyObject)"//(featuredProperty["rental_title"] as! String)
-        let imgURL = "\(featuredProperty.object(forKey: "rental_image") as AnyObject)"//(featuredProperty["rental_image"] as! String)
+            cell.ratingLabel.text = "\(featuredProperty.object(forKey: "ratings") as AnyObject)"//(featuredProperty["ratings"] as? String ?? "")
+            cell.locationLabel.text = "\(featuredProperty.object(forKey: "location") as AnyObject)"//(featuredProperty["location"] as? String ?? "")
+            cell.addLabel.text = "\(featuredProperty.object(forKey: "rental_title") as AnyObject)"//(featuredProperty["rental_title"] as? String ?? "")
+        let imgURL = "\(featuredProperty.object(forKey: "rental_image") as AnyObject)"//(featuredProperty["rental_image"] as? String ?? "")
         cell.Listingimg.sd_setImage(with: URL(string: imgURL), placeholderImage: UIImage(named: "placeholder.png"))
             return cell
     }
@@ -323,7 +323,7 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
         BUndleSelectedArray.removeAllObjects()
         BundleArray.removeAllObjects()
         let featuredProperty = self.arrayList[indexPath.item] as! NSDictionary
-     let currencySymbol = featuredProperty.object(forKey: "property_currency_symbol") as! String
+     let currencySymbol = featuredProperty.object(forKey: "property_currency_symbol") as? String ?? ""
         let ProductId = "\(featuredProperty.object(forKey: "rental_id") as AnyObject)"
         let nav = self.storyboard?.instantiateViewController(withIdentifier: "NewProductDetailViewController") as? NewProductDetailViewController
        nav!.PropertyID = ProductId
@@ -354,14 +354,14 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
         cell.ProductImg.layer.cornerRadius = 5.0
             let featuredProperty = self.arrayList[indexPath.item] as! NSDictionary
         cell.backgroundColor = .white
-        let currencySymbol = featuredProperty.object(forKey: "property_currency_symbol") as! String//(featuredProperty["property_currency_symbol"] as! String)
+        let currencySymbol = featuredProperty.object(forKey: "property_currency_symbol") as? String ?? ""//(featuredProperty["property_currency_symbol"] as? String ?? "")
             
-        let price = featuredProperty.object(forKey: "rental_price") as! AnyObject//(featuredProperty["rental_price"] as! Int)
+        let price = featuredProperty.object(forKey: "rental_price") as! AnyObject//(featuredProperty["rental_price"] as? Int ?? 0)
             cell.ProductCost.text = " \(currencySymbol) \(price) / day"
-            cell.ProductRat.text = "\(featuredProperty.object(forKey: "ratings") as AnyObject)"//(featuredProperty["ratings"] as! String)
-            cell.ProductLoc.text = "\(featuredProperty.object(forKey: "location") as AnyObject)"//(featuredProperty["location"] as! String)
-            cell.ProductName.text = "\(featuredProperty.object(forKey: "rental_title") as AnyObject)"//(featuredProperty["rental_title"] as! String)
-        let imgURL = "\(featuredProperty.object(forKey: "rental_image") as AnyObject)"//(featuredProperty["rental_image"] as! String)
+            cell.ProductRat.text = "\(featuredProperty.object(forKey: "ratings") as AnyObject)"//(featuredProperty["ratings"] as? String ?? "")
+            cell.ProductLoc.text = "\(featuredProperty.object(forKey: "location") as AnyObject)"//(featuredProperty["location"] as? String ?? "")
+            cell.ProductName.text = "\(featuredProperty.object(forKey: "rental_title") as AnyObject)"//(featuredProperty["rental_title"] as? String ?? "")
+        let imgURL = "\(featuredProperty.object(forKey: "rental_image") as AnyObject)"//(featuredProperty["rental_image"] as? String ?? "")
         cell.ProductImg.sd_setImage(with: URL(string: imgURL), placeholderImage: UIImage(named: "placeholder.png"))
         
         let favid = "\(featuredProperty.object(forKey: "is_favourite") as AnyObject)"
@@ -409,7 +409,7 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
             }
             else
             {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
         }else{
@@ -449,7 +449,7 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
             {
                 
                 self.hideActivityIndicator(uiView: self.view)
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
               
             }
             }else{
@@ -462,7 +462,7 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
         showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
        
-        params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","property_id":self.PropertyId]
+        params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","property_id":self.PropertyId]
         
         print(params)
         APIManager.apiPostWithHeaders(serviceName: ADD_WISHLIST, parameters: params as? [String : Any]) { (json:NSDictionary?, error:NSError?) in
@@ -487,7 +487,7 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
             {
                 
                 self.hideActivityIndicator(uiView: self.view)
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
               
             }
             }else{
@@ -509,7 +509,7 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
         BUndleSelectedArray.removeAllObjects()
         BundleArray.removeAllObjects()
         let featuredProperty = self.arrayList[indexPath.row] as! NSDictionary
-     let currencySymbol = featuredProperty.object(forKey: "property_currency_symbol") as! String
+     let currencySymbol = featuredProperty.object(forKey: "property_currency_symbol") as? String ?? ""
         let ProductId = "\(featuredProperty.object(forKey: "rental_id") as AnyObject)"
         let prop_slug = "\(featuredProperty.object(forKey: "ren_slug") as AnyObject)"
         let nav = self.storyboard?.instantiateViewController(withIdentifier: "NewProductDetailViewController") as? NewProductDetailViewController

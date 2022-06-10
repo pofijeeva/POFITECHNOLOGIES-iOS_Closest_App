@@ -93,14 +93,14 @@ class ExperienceCancellationViewController: UIViewController,UITextViewDelegate,
         dropDowns.forEach { $0.dismissMode = .onTap }
         dropDowns.forEach { $0.direction = .bottom }
         if arrayOfResult.count > 0 {
-            let dictt = (arrayOfResult[0] as! NSDictionary).object(forKey: "cancellation_policy") as! NSDictionary
-            self.txtPolicy.text = dictt.object(forKey: "cancel_policy") as! String
-            self.txtPrice.text = dictt.object(forKey: "security_deposit") as! String
-            self.cancelPercentTxt.text = dictt.object(forKey: "cancel_percentage") as! String
-            self.cencelDescriptionEnTxt.text = dictt.object(forKey: "cancel_policy_description") as! String
-            self.txtMetaTitle.text = dictt.object(forKey: "meta_title") as! String
-            self.txtViewKeywords.text = dictt.object(forKey: "meta_keyword") as! String
-            self.metaDiscription.text = dictt.object(forKey: "meta_description") as! String
+            let dictt = (arrayOfResult[0] as? NSDictionary)?.object(forKey: "cancellation_policy") as! NSDictionary
+            self.txtPolicy.text = dictt.object(forKey: "cancel_policy") as? String ?? ""
+            self.txtPrice.text = dictt.object(forKey: "security_deposit") as? String ?? ""
+            self.cancelPercentTxt.text = dictt.object(forKey: "cancel_percentage") as? String ?? ""
+            self.cencelDescriptionEnTxt.text = dictt.object(forKey: "cancel_policy_description") as? String ?? ""
+            self.txtMetaTitle.text = dictt.object(forKey: "meta_title") as? String ?? ""
+            self.txtViewKeywords.text = dictt.object(forKey: "meta_keyword") as? String ?? ""
+            self.metaDiscription.text = dictt.object(forKey: "meta_description") as? String ?? ""
         }
         
     }
@@ -152,7 +152,7 @@ class ExperienceCancellationViewController: UIViewController,UITextViewDelegate,
 //            if Helper.sharedInstance.isConnectedToInternet() {
 //                Helper.sharedInstance.showActivityIndicator(view: self.view, targetVC: self)
 //                var params = NSMutableDictionary()
-//                params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","exp_id":currentExpId,"meta_description":self.metaDiscription.text!,"sec_deposit":self.txtPrice.text!,"cancel_policy":self.txtPolicy.text!,"meta_title":txtMetaTitle.text!,"meta_keyword":txtViewKeywords.text!,"cancel_percentage":self.cancelPercentTxt.text!,"cancel_policy_des":cencelDescriptionEnTxt.text!]
+//                params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","exp_id":currentExpId,"meta_description":self.metaDiscription.text!,"sec_deposit":self.txtPrice.text!,"cancel_policy":self.txtPolicy.text!,"meta_title":txtMetaTitle.text!,"meta_keyword":txtViewKeywords.text!,"cancel_percentage":self.cancelPercentTxt.text!,"cancel_policy_des":cencelDescriptionEnTxt.text!]
 //                let manager = AFHTTPSessionManager()
 //                manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
 //                print("params",params)
@@ -161,14 +161,14 @@ class ExperienceCancellationViewController: UIViewController,UITextViewDelegate,
 //                    Helper.sharedInstance.hideActivityIndicator(view: self.view)
 //                    let responseDict:NSDictionary = resultData as! NSDictionary
 //                    print("Response:",responseDict)
-//                    if responseDict.value(forKey: "status") as! Int == 1 {
+//                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
 //                        currentExpId = "\(responseDict.object(forKey: "experience_id") as AnyObject)"
 //                        let vc = storyBoardHome.instantiateViewController(withIdentifier: "xperienceCancellationViewController") as! ExperienceListingBaseViewController
 //                        vc.isFromList = false
 //                        self.navigationController?.pushViewController(vc, animated: true)
 //                    }
 //                    else {
-//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
 //                    }
 //                }, failure: { (operation, error) in
 //                    print(error)
@@ -177,7 +177,7 @@ class ExperienceCancellationViewController: UIViewController,UITextViewDelegate,
 //
 //            }
 //            else {
-//                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+//                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
 //            }
 //        }
 //    }
@@ -248,7 +248,7 @@ class ExperienceCancellationViewController: UIViewController,UITextViewDelegate,
             if Helper.sharedInstance.isConnectedToInternet() {
                 Helper.sharedInstance.showActivityIndicator(view: self.view, targetVC: self)
                 var params = NSMutableDictionary()
-                params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","exp_id":currentExpId,"meta_description":self.metaDiscription.text!,"sec_deposit":self.txtPrice.text!,"cancel_policy":self.txtPolicy.text!,"meta_title":txtMetaTitle.text!,"meta_keyword":txtViewKeywords.text!,"cancel_percentage":self.cancelPercentTxt.text!,"cancel_policy_des":cencelDescriptionEnTxt.text!]
+                params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","exp_id":currentExpId,"meta_description":self.metaDiscription.text!,"sec_deposit":self.txtPrice.text!,"cancel_policy":self.txtPolicy.text!,"meta_title":txtMetaTitle.text!,"meta_keyword":txtViewKeywords.text!,"cancel_percentage":self.cancelPercentTxt.text!,"cancel_policy_des":cencelDescriptionEnTxt.text!]
                 let manager = AFHTTPSessionManager()
                 manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
                 print("params",params)
@@ -257,14 +257,14 @@ class ExperienceCancellationViewController: UIViewController,UITextViewDelegate,
                     Helper.sharedInstance.hideActivityIndicator(view: self.view)
                     let responseDict:NSDictionary = resultData as! NSDictionary
                     print("Response:",responseDict)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         currentExpId = "\(responseDict.object(forKey: "experience_id") as AnyObject)"
                         let vc = storyBoardHome.instantiateViewController(withIdentifier: "ExperienceListingBaseViewController") as! ExperienceListingBaseViewController
                         vc.isFromList = false
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) in
                     print(error)
@@ -273,7 +273,7 @@ class ExperienceCancellationViewController: UIViewController,UITextViewDelegate,
                 
             }
             else {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
     }
@@ -321,7 +321,7 @@ class ExperienceCancellationViewController: UIViewController,UITextViewDelegate,
 //            if Helper.sharedInstance.isConnectedToInternet() {
 //                Helper.sharedInstance.showActivityIndicator(view: self.view, targetVC: self)
 //                var params = NSMutableDictionary()
-//                params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","exp_id":currentExpId,"meta_description":self.metaDiscription.text!,"sec_deposit":self.txtPrice.text!,"cancel_policy":self.txtPolicy.text!,"meta_title":txtMetaTitle.text!,"meta_keyword":txtViewKeywords.text!,"cancel_percentage":self.cancelPercentTxt.text!,"cancel_policy_des":cencelDescriptionEnTxt.text!]
+//                params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","exp_id":currentExpId,"meta_description":self.metaDiscription.text!,"sec_deposit":self.txtPrice.text!,"cancel_policy":self.txtPolicy.text!,"meta_title":txtMetaTitle.text!,"meta_keyword":txtViewKeywords.text!,"cancel_percentage":self.cancelPercentTxt.text!,"cancel_policy_des":cencelDescriptionEnTxt.text!]
 //                let manager = AFHTTPSessionManager()
 //                manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
 //                print("params",params)
@@ -330,14 +330,14 @@ class ExperienceCancellationViewController: UIViewController,UITextViewDelegate,
 //                    Helper.sharedInstance.hideActivityIndicator(view: self.view)
 //                    let responseDict:NSDictionary = resultData as! NSDictionary
 //                    print("Response:",responseDict)
-//                    if responseDict.value(forKey: "status") as! Int == 1 {
+//                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
 //                        currentExpId = "\(responseDict.object(forKey: "experience_id") as AnyObject)"
 //                        let vc = storyBoardHome.instantiateViewController(withIdentifier: "xperienceCancellationViewController") as! ExperienceListingBaseViewController
 //                        vc.isFromList = false
 //                        self.navigationController?.pushViewController(vc, animated: true)
 //                    }
 //                    else {
-//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
 //                    }
 //                }, failure: { (operation, error) in
 //                    print(error)
@@ -346,7 +346,7 @@ class ExperienceCancellationViewController: UIViewController,UITextViewDelegate,
 //
 //            }
 //            else {
-//                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+//                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
 //            }
 //        }
 //    }

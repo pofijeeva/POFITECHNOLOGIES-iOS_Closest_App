@@ -253,7 +253,7 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
         cell.offerImageView.layer.cornerRadius = 10
         cell.offerImageView.clipsToBounds = true
         //cell.offerImageView.addShadowNew()
-        let imgURL = URL(string: (BannerArray[index] as AnyObject).value(forKey: "banner_image") as! String)
+        let imgURL = URL(string: (BannerArray[index] as AnyObject).value(forKey: "banner_image") as? String ?? "")
         cell.offerImageView?.setImageWith(imgURL!)
 //        cell.offerImageView?.contentMode = .scaleAspectFill
 //        cell.offerImageView?.clipsToBounds = true
@@ -276,7 +276,7 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
         showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
        
-        params = ["userid":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","property_id":propertyID]
+        params = ["userid":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","property_id":propertyID]
         
         print(params)
         APIManager.apiPostWithHeaders(serviceName: ADD_WISHLIST, parameters: params as? [String : Any]) { (json:NSDictionary?, error:NSError?) in
@@ -301,7 +301,7 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
             {
                 
                 self.hideActivityIndicator(uiView: self.view)
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
               
             }
             }else{
@@ -385,10 +385,10 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
                     self.PropertyTypes.removeAllObjects()
                     self.PropertyTypeIds.removeAllObjects()
                     self.BannerArray.removeAllObjects()
-                    self.BannerArray.addObjects(from: ((responseDict.object(forKey: "data") as! NSDictionary).object(forKey: "banner_list") as! NSArray) as! [Any])
+                    self.BannerArray.addObjects(from: ((responseDict.object(forKey: "data") as? NSDictionary)?.object(forKey: "banner_list") as! NSArray) as! [Any])
                     for i in 0..<(resData["property_types"] as! NSArray).count {
-                        let name = ((resData["property_types"] as! NSArray).object(at: i) as! NSDictionary).object(forKey: "type_name") as! String
-                        let Id = "\(((resData["property_types"] as! NSArray).object(at: i) as! NSDictionary).object(forKey: "type_master_id") as AnyObject)"
+                        let name = ((resData["property_types"] as! NSArray).object(at: i) as? NSDictionary)?.object(forKey: "type_name") as? String ?? ""
+                        let Id = "\(((resData["property_types"] as! NSArray).object(at: i) as? NSDictionary)?.object(forKey: "type_master_id") as AnyObject)"
                         self.PropertyTypes.add(name)
                         self.PropertyTypeIds.add(Id)
                     }
@@ -404,8 +404,8 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
                 {
                     
                     self.hideActivityIndicator(uiView: self.view)
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
-                    //self.showInformation(title: AppName, message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
+                    //self.showInformation(title: AppName, message: responseDict.value(forKey: "message") as? String ?? "")
                 }
                 
             }
@@ -453,21 +453,21 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
             }
             print (result)
  
-             if result.object(forKey: "code") as! Int == 200{
-                  var arr =  (result.value(forKey: "data")as! NSDictionary).value(forKey: "location_list") as! NSArray
+             if result.object(forKey: "code") as? Int ?? 0 == 200{
+                  var arr =  (result.value(forKey: "data")as? NSDictionary)?.value(forKey: "location_list") as! NSArray
                 for item in arr {
                     let dict = item as! NSDictionary
-                    self.tempArray.add(dict.value(forKey: "location_name") as! String)
+                    self.tempArray.add(dict.value(forKey: "location_name") as? String ?? "")
                 }
               //  self.addingSearchData(dict: result)
-            }else if result.object(forKey: "code") as! Int == 400{
-                if result.object(forKey: "message")as! String == "Token is Expired"{
-                  }else if result.object(forKey: "message")as! String == "user_blocked" {
+            }else if result.object(forKey: "code") as? Int ?? 0 == 400{
+                if result.object(forKey: "message")as? String ?? "" == "Token is Expired"{
+                  }else if result.object(forKey: "message")as? String ?? "" == "user_blocked" {
                  }
                 else{
                  }
              }
-            else if result.object(forKey: "message")as! String == "user_blocked" {
+            else if result.object(forKey: "message")as? String ?? "" == "user_blocked" {
              }
         }
     }
@@ -555,9 +555,9 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
 
                     let isRemembred =  UserDefaults.standard.bool(forKey: "isRememberPassword")
                     if UserDefaults.standard.value(forKey: "APP_LOGIN_EMAIL") != nil{
-                        let UserName = UserDefaults.standard.value(forKey: "APP_LOGIN_EMAIL") as! String
-                        let Password = UserDefaults.standard.value(forKey: "APP_LOGIN_PASSWORD") as! String
-                        let Fcmkey = UserDefaults.standard.value(forKey: "fcmToken") as! String
+                        let UserName = UserDefaults.standard.value(forKey: "APP_LOGIN_EMAIL") as? String ?? ""
+                        let Password = UserDefaults.standard.value(forKey: "APP_LOGIN_PASSWORD") as? String ?? ""
+                        let Fcmkey = UserDefaults.standard.value(forKey: "fcmToken") as? String ?? ""
 
 
                                    clearUserSession()
@@ -591,8 +591,8 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
                 {
                     
                     self.hideActivityIndicator(uiView: self.view)
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
-                    //self.showInformation(title: AppName, message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
+                    //self.showInformation(title: AppName, message: responseDict.value(forKey: "message") as? String ?? "")
                 }
                 }else{
                     self.showInformation(title: "Closest", message: "something went wrong")
@@ -616,7 +616,7 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
             var params = NSMutableDictionary()
             params = ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en", "currency_code":"USD"]
             print(params)
-//            "currency_code":login_session.value(forKey: "APP_CURRENCY")as! String
+//            "currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? ""
             
             let manager = AFHTTPSessionManager()
             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -638,7 +638,7 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
                     
                 else {
                     self.hideActivityIndicator(uiView: self.view)
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -653,7 +653,7 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
             
         } else {
               hideActivityIndicator(uiView: self.view)
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
     
@@ -710,7 +710,7 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
         
         if (login_session.value(forKey: "ProfilePic") as? String) != nil
         {
-            let url = URL(string: (login_session.value(forKey: "ProfilePic") as! String))
+            let url = URL(string: (login_session.value(forKey: "ProfilePic") as? String ?? ""))
             self.profileImg.kf.setImage(with: url, placeholder:UIImage(named:"user"))
             
             //self.profileImg.imageFromURL(urlString: (login_session.value(forKey: "ProfilePic") as? String)!)
@@ -728,7 +728,7 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
                 let url = URL(string: (UserDefaults.standard.value(forKey: "ProfileImage") as? String)!)
                 self.profileImg.kf.setImage(with: url, placeholder:UIImage(named:"user"))
                 
-                // profileImg.imageFromURL(urlString:  UserDefaults.standard.value(forKey: "ProfileImage") as! String)
+                // profileImg.imageFromURL(urlString:  UserDefaults.standard.value(forKey: "ProfileImage") as? String ?? "")
             }else{
                 self.profileImg.image = UIImage(named: "user")
             }
@@ -855,14 +855,14 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
                 Helper.sharedInstance.showActivityIndicator(view: self.view, targetVC: self)
                 var params = NSMutableDictionary()
                 currentExpId = ""
-                params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","exp_id":""]
+                params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","exp_id":""]
                 let manager = AFHTTPSessionManager()
                 manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
                 manager.post(ExperienceBaseDetails, parameters: params, headers: ["Authorization":""], progress: nil, success: { (operation, resultData) in
                     Helper.sharedInstance.hideActivityIndicator(view: self.view)
                     let responseDict:NSDictionary = resultData as! NSDictionary
                     print(responseDict)
-    //                if responseDict.value(forKey: "status") as! Int == 1 {
+    //                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     dictOfExperience = responseDict
                     arrayOfCurrency.removeAllObjects()
                     arrayOfCurrency.addObjects(from: (dictOfExperience["Currency"] as! NSArray) as! [Any])
@@ -873,7 +873,7 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
                           self.navigationController?.pushViewController(VC, animated: true)
     //                }
     //                else {
-                        //self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        //self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
     //                }
                 }, failure: { (operation, error) in
                     print(error)
@@ -882,7 +882,7 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
 
             }
             else {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
     
@@ -1165,6 +1165,7 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
         
 
             if tableView == self.tableViewSideMenu {
+
                 let cell = tableView.dequeueReusableCell(withIdentifier: "cellList",for: indexPath)
                 //  cell?.lblMenu.text = MenuArray[indexPath.row]
 //                cell?.lblMenu.text = Dropmenu[indexPath.row] as? String
@@ -1173,7 +1174,7 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
                 let countLbl = cell.viewWithTag(12) as! UILabel
                  labelMenu.font = UIFont(name: SemiBoldFont, size: 16)
 
-                imgView.image = UIImage(named: menuImageArray[indexPath.row] as! String)
+                imgView.image = UIImage(named: menuImageArray[indexPath.row] as? String ?? "")
                 labelMenu.textColor = UIColor.black
                 labelMenu.text = self.menuArray[indexPath.row] as? String
                 
@@ -1506,7 +1507,7 @@ extension HomeViewController : HTTP_POST_STRING_REQUEST_PROTOCOL{
                     let dict = currency_list![num] as! NSDictionary
                     if selected_Currency == dict.value(forKey: "currency_code") as? String {
                         login_session.setValue(selected_Currency , forKey: "APP_CURRENCY")
-                        login_session.setValue(dict.value(forKey: "currency_symbol") as! String , forKey: "APP_CURRENCY_SYMBOL")
+                        login_session.setValue(dict.value(forKey: "currency_symbol") as? String ?? "" , forKey: "APP_CURRENCY_SYMBOL")
                         login_session.synchronize()
                     }
                 }

@@ -16,8 +16,8 @@ class Check : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        checkin = dictionary["checkin"] as? String
-        checkout = dictionary["checkout"] as? String
+        checkin = dictionary["checkin"] as? String ?? ""
+        checkout = dictionary["checkout"] as? String ?? ""
     }
 
     /**
@@ -41,8 +41,8 @@ class Check : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        checkin = aDecoder.decodeObject(forKey: "checkin") as? String
-        checkout = aDecoder.decodeObject(forKey: "checkout") as? String
+        checkin = aDecoder.decodeObject(forKey: "checkin") as? String ?? ""
+        checkout = aDecoder.decodeObject(forKey: "checkout") as? String ?? ""
     }
 
     /**

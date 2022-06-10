@@ -17,8 +17,8 @@ class InboxListModel : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        message = dictionary["message"] as? String
-        status = dictionary["status"] as? Int
+        message = dictionary["message"] as? String ?? ""
+        status = dictionary["status"] as? Int ?? 0
         messageValues = [MessageValue]()
         if let messageValuesArray = dictionary["message_values"] as? [[String:Any]]{
             for dic in messageValuesArray{
@@ -56,9 +56,9 @@ class InboxListModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        message = aDecoder.decodeObject(forKey: "message") as? String
+        message = aDecoder.decodeObject(forKey: "message") as? String ?? ""
         messageValues = aDecoder.decodeObject(forKey: "message_values") as? [MessageValue]
-        status = aDecoder.decodeObject(forKey: "status") as? Int
+        status = aDecoder.decodeObject(forKey: "status") as? Int ?? 0
     }
 
     /**

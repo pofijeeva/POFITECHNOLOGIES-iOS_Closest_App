@@ -36,26 +36,26 @@ class Step9 : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        baseId = dictionary["base_id"] as? String
-        cancelDescription = dictionary["cancel_description"] as? String
-        cancelDescriptionPh = dictionary["cancel_description_ph"] as? String
-        cancelPercentage = dictionary["cancel_percentage"] as? String
-        cancellationPolicy = dictionary["cancellation_policy"] as? String
-        cancellationPolicyDescription = dictionary["cancellation_policy_description"] as? String
-        cancellationPolicyTitle = dictionary["cancellation_policy_title"] as? String
-        metaDescription = dictionary["ren_meta_desc"] as? String
-        metaDescriptionPh = dictionary["meta_description_ph"] as? String
-        metaKeyword = dictionary["meta_keyword"] as? String
-        metaKeywordPh = dictionary["meta_keyword_ph"] as? String
-        metaTitle = dictionary["ren_meta_title"] as? String
-        metaTitlePh = dictionary["ren_meta_title_ph"] as? String
-        propertyCurrency = dictionary["property_currency"] as? String
-        propertyid = dictionary["propertyid"] as? Int
-        securityDeposit = dictionary["security_deposit"] as? String
-        stepCompleted = dictionary["step_completed"] as? Bool
+        baseId = dictionary["base_id"] as? String ?? ""
+        cancelDescription = dictionary["cancel_description"] as? String ?? ""
+        cancelDescriptionPh = dictionary["cancel_description_ph"] as? String ?? ""
+        cancelPercentage = dictionary["cancel_percentage"] as? String ?? ""
+        cancellationPolicy = dictionary["cancellation_policy"] as? String ?? ""
+        cancellationPolicyDescription = dictionary["cancellation_policy_description"] as? String ?? ""
+        cancellationPolicyTitle = dictionary["cancellation_policy_title"] as? String ?? ""
+        metaDescription = dictionary["ren_meta_desc"] as? String ?? ""
+        metaDescriptionPh = dictionary["meta_description_ph"] as? String ?? ""
+        metaKeyword = dictionary["meta_keyword"] as? String ?? ""
+        metaKeywordPh = dictionary["meta_keyword_ph"] as? String ?? ""
+        metaTitle = dictionary["ren_meta_title"] as? String ?? ""
+        metaTitlePh = dictionary["ren_meta_title_ph"] as? String ?? ""
+        propertyCurrency = dictionary["property_currency"] as? String ?? ""
+        propertyid = dictionary["propertyid"] as? Int ?? 0
+        securityDeposit = dictionary["security_deposit"] as? String ?? ""
+        stepCompleted = dictionary["step_completed"] as? Bool ?? false
         ren_tax_percent = dictionary["ren_tax_percent"] as? AnyObject
-        cancel_policy_type = dictionary["cancel_policy_type"] as? String
-        sec_dep = dictionary["sec_dep"] as? Int
+        cancel_policy_type = dictionary["cancel_policy_type"] as? String ?? ""
+        sec_dep = dictionary["sec_dep"] as? Int ?? 0
         if let st = dictionary["seo_tags"] as? [String:Any] {
             seo_tags = Language(fromDictionary: st)
         }
@@ -146,27 +146,27 @@ class Step9 : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        baseId = aDecoder.decodeObject(forKey: "base_id") as? String
-        cancelDescription = aDecoder.decodeObject(forKey: "cancel_description") as? String
-        cancelDescriptionPh = aDecoder.decodeObject(forKey: "cancel_description_ph") as? String
-        cancelPercentage = aDecoder.decodeObject(forKey: "cancel_percentage") as? String
-        cancellationPolicy = aDecoder.decodeObject(forKey: "cancellation_policy") as? String
-        cancellationPolicyDescription = aDecoder.decodeObject(forKey: "cancellation_policy_description") as? String
-        cancellationPolicyTitle = aDecoder.decodeObject(forKey: "cancellation_policy_title") as? String
-        metaDescription = aDecoder.decodeObject(forKey: "meta_description") as? String
-        metaDescriptionPh = aDecoder.decodeObject(forKey: "meta_description_ph") as? String
-        metaKeyword = aDecoder.decodeObject(forKey: "meta_keyword") as? String
-        metaKeywordPh = aDecoder.decodeObject(forKey: "meta_keyword_ph") as? String
-        metaTitle = aDecoder.decodeObject(forKey: "ren_meta_title") as? String
+        baseId = aDecoder.decodeObject(forKey: "base_id") as? String ?? ""
+        cancelDescription = aDecoder.decodeObject(forKey: "cancel_description") as? String ?? ""
+        cancelDescriptionPh = aDecoder.decodeObject(forKey: "cancel_description_ph") as? String ?? ""
+        cancelPercentage = aDecoder.decodeObject(forKey: "cancel_percentage") as? String ?? ""
+        cancellationPolicy = aDecoder.decodeObject(forKey: "cancellation_policy") as? String ?? ""
+        cancellationPolicyDescription = aDecoder.decodeObject(forKey: "cancellation_policy_description") as? String ?? ""
+        cancellationPolicyTitle = aDecoder.decodeObject(forKey: "cancellation_policy_title") as? String ?? ""
+        metaDescription = aDecoder.decodeObject(forKey: "meta_description") as? String ?? ""
+        metaDescriptionPh = aDecoder.decodeObject(forKey: "meta_description_ph") as? String ?? ""
+        metaKeyword = aDecoder.decodeObject(forKey: "meta_keyword") as? String ?? ""
+        metaKeywordPh = aDecoder.decodeObject(forKey: "meta_keyword_ph") as? String ?? ""
+        metaTitle = aDecoder.decodeObject(forKey: "ren_meta_title") as? String ?? ""
         
-        metaTitlePh = aDecoder.decodeObject(forKey: "ren_meta_title_ph") as? String
-        propertyCurrency = aDecoder.decodeObject(forKey: "property_currency") as? String
-        propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int
-        securityDeposit = aDecoder.decodeObject(forKey: "security_deposit") as? String
-        stepCompleted = aDecoder.decodeObject(forKey: "step_completed") as? Bool
+        metaTitlePh = aDecoder.decodeObject(forKey: "ren_meta_title_ph") as? String ?? ""
+        propertyCurrency = aDecoder.decodeObject(forKey: "property_currency") as? String ?? ""
+        propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int ?? 0
+        securityDeposit = aDecoder.decodeObject(forKey: "security_deposit") as? String ?? ""
+        stepCompleted = aDecoder.decodeObject(forKey: "step_completed") as? Bool ?? false
         ren_tax_percent = aDecoder.decodeObject(forKey: "ren_tax_percent") as? AnyObject
-        cancel_policy_type = aDecoder.decodeObject(forKey: "cancel_policy_type") as? String
-        sec_dep = aDecoder.decodeObject(forKey: "sec_dep") as? Int
+        cancel_policy_type = aDecoder.decodeObject(forKey: "cancel_policy_type") as? String ?? ""
+        sec_dep = aDecoder.decodeObject(forKey: "sec_dep") as? Int ?? 0
         seo_tags = aDecoder.decodeObject(forKey: "seo_tags") as? Language
         ren_details = aDecoder.decodeObject(forKey: "ren_details") as? Lang
     }

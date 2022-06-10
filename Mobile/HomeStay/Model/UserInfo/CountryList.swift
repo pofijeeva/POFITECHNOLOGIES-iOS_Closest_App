@@ -16,7 +16,7 @@ class CountryList : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        countryName = dictionary["country_name"] as? String
+        countryName = dictionary["country_name"] as? String ?? ""
         id = dictionary["id"] as? Int
     }
 
@@ -41,7 +41,7 @@ class CountryList : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        countryName = aDecoder.decodeObject(forKey: "country_name") as? String
+        countryName = aDecoder.decodeObject(forKey: "country_name") as? String ?? ""
         id = aDecoder.decodeObject(forKey: "id") as? Int
     }
 

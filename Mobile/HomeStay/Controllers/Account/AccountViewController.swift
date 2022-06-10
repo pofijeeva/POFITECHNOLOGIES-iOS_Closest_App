@@ -132,13 +132,13 @@ class AccountViewController: BaseViewController {
             UserAccountApi()
 //            let id = Singleton.sharedInstance.selectedCategory!
 //            showActivityIndicator(uiView: self.view)
-//            let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
+//            let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: GET_USER_ACCOUNT_DETAILS, APIKEY: "GET_USER_ACCOUNT_DETAILS")
 //            print(parameterStr)
         }
         else
         {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -214,7 +214,7 @@ class AccountViewController: BaseViewController {
     func UserAccountApi() {
         showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
-         params = ["userid":login_session.value(forKey: "UserId"),"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
+         params = ["userid":login_session.value(forKey: "UserId"),"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
        
         print(params)
         let manager = AFHTTPSessionManager()
@@ -227,7 +227,7 @@ class AccountViewController: BaseViewController {
             let responseDict:NSDictionary = responseObject as! NSDictionary
             print(responseDict)
             self.hideActivityIndicator(uiView: self.view)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 print("GET_ACCOUNT_API Response:::",responseDict)
                 let mod = AccountInfoModel(fromDictionary: responseDict as! [String : Any])
                 Singleton.sharedInstance.accInfoModel = mod
@@ -285,7 +285,7 @@ class AccountViewController: BaseViewController {
             }
                 
             else {
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -310,12 +310,12 @@ class AccountViewController: BaseViewController {
             UserAccountApi()
 //            let id = Singleton.sharedInstance.selectedCategory!
 //            showActivityIndicator(uiView: self.view)
-//            let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
+//            let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: GET_USER_ACCOUNT_DETAILS, APIKEY: "GET_USER_ACCOUNT_DETAILS")
         }
         else
         {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
     
@@ -334,7 +334,7 @@ class AccountViewController: BaseViewController {
             
             showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
-            params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","device_type":"IOS","base_id":1,"country":self.countryid,"userid":login_session.value(forKey: "UserId")!]
+            params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","device_type":"IOS","base_id":1,"country":self.countryid,"userid":login_session.value(forKey: "UserId")!]
           
             
             let manager = AFHTTPSessionManager()
@@ -347,14 +347,14 @@ class AccountViewController: BaseViewController {
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     print("GET_WISHLIST_API Response:::",responseDict)
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     
                 }
                     
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -366,12 +366,12 @@ class AccountViewController: BaseViewController {
 //            let id = Singleton.sharedInstance.selectedCategory!
 //            print(id)
 //            showActivityIndicator(uiView: self.view)
-//            let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&device_type=IOS&base_id=\(id)&country=\(self.countryid!)&userid=\(login_session.value(forKey: "UserId")!)"
+//            let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&device_type=IOS&base_id=\(id)&country=\(self.countryid!)&userid=\(login_session.value(forKey: "UserId")!)"
 //            print(parameterStr)
 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL:USER_ACC_UPDATE_API , APIKEY: "USER_ACC_UPDATE_API")
 //            print(parameterStr)
         } else {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
     
@@ -412,10 +412,10 @@ class AccountViewController: BaseViewController {
             let id = Singleton.sharedInstance.selectedCategory!
             print(id)
             showActivityIndicator(uiView: self.view)
-            //let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&accno=\(self.AccountNum!)&base_id=\(id)&bankname=\(self.BankName!)&accname=\(self.AccountName!)&user_id=\(login_session.value(forKey: "UserId")!)"
+            //let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&accno=\(self.AccountNum!)&base_id=\(id)&bankname=\(self.BankName!)&accname=\(self.AccountName!)&user_id=\(login_session.value(forKey: "UserId")!)"
             showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
-            params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","device_type":"IOS","base_id":1,"accno":self.AccountNum!,"bankname":self.BankName!,"paypal_email":self.paypalEmail!,"accname":self.AccountName!,"userid":login_session.value(forKey: "UserId")!]
+            params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","device_type":"IOS","base_id":1,"accno":self.AccountNum!,"bankname":self.BankName!,"paypal_email":self.paypalEmail!,"accname":self.AccountName!,"userid":login_session.value(forKey: "UserId")!]
 
 
             let manager = AFHTTPSessionManager()
@@ -428,14 +428,14 @@ class AccountViewController: BaseViewController {
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     print("GET_WISHLIST_API Response:::",responseDict)
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
 
                 }
 
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -444,13 +444,13 @@ class AccountViewController: BaseViewController {
                 print(error)
                 self.showInformation(title: "Closest", message: error.localizedDescription)
             })
-//            let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&device_type=IOS&base_id=\(id)&accno=\(self.AccountNum!)&bankname=\(self.BankName!)&paypal_email=\(self.paypalEmail!)&accname=\(self.AccountName!)&userid=\(login_session.value(forKey: "UserId")!)"
+//            let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&device_type=IOS&base_id=\(id)&accno=\(self.AccountNum!)&bankname=\(self.BankName!)&paypal_email=\(self.paypalEmail!)&accname=\(self.AccountName!)&userid=\(login_session.value(forKey: "UserId")!)"
 //            print(parameterStr)
 //
 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL:USER_ACC_UPDATE_API , APIKEY: "USER_ACC_UPDATE_API")
 //            print(parameterStr)
         } else {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
     
@@ -527,14 +527,14 @@ class AccountViewController: BaseViewController {
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     print("GET_WISHLIST_API Response:::",responseDict)
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     
                 }
                     
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -549,7 +549,7 @@ class AccountViewController: BaseViewController {
 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL:USER_PASSWD_UPDATE_API , APIKEY: "USER_PASSWD_UPDATE_API")
         } else
         {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
     
@@ -703,55 +703,60 @@ extension AccountViewController : UITableViewDelegate , UITableViewDataSource {
     {
         if tableView == tblTransactionCompleteHistory
         {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TransactionCompleteTableViewCell
-            cell!.lbl_TransactionMethodname.font = UIFont(name: SemiBoldFont, size: 15)
-            cell!.TransactionMethodname.font = UIFont(name: RegularFont, size: 13)
-            cell!.TransactionId.font = UIFont(name: RegularFont, size: 13)
-            cell!.Amount.font = UIFont(name: RegularFont, size: 13)
-              cell!.lbl_TransactionId.font = UIFont(name: SemiBoldFont, size: 15)
-              cell!.lbl_TransactionAmount.font = UIFont(name: SemiBoldFont, size: 15)
-            cell!.BookingDateLbl.font = UIFont(name: SemiBoldFont, size: 13.0)
-               cell!.BookingId.font = UIFont(name: SemiBoldFont, size: 13.0)
-            cell!.BookingId.text = "(Booking No: \(Singleton.sharedInstance.accInfoModel.completedTransaction[indexPath.row].bookingno!))"
-             cell!.BookingDateLbl.text = "\(Singleton.sharedInstance.accInfoModel.completedTransaction[indexPath.row].dateadded!)"
-            cell!.lbl_TransactionMethodname.text = Singleton.sharedInstance.accInfoModel.completedTransaction[indexPath.row].transactionMethod
-            cell!.lbl_TransactionId.text = Singleton.sharedInstance.accInfoModel.completedTransaction[indexPath.row].transactionId!
-            cell!.lbl_TransactionAmount.text = "\(Singleton.sharedInstance.accInfoModel.completedTransaction[indexPath.row].currencySymbol!)" + " " +  "\(String(describing: Singleton.sharedInstance.accInfoModel.completedTransaction[indexPath.row].amount!))" 
-            return cell!
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TransactionCompleteTableViewCell else { return UITableViewCell() }
+
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TransactionCompleteTableViewCell
+            cell.lbl_TransactionMethodname.font = UIFont(name: SemiBoldFont, size: 15)
+            cell.TransactionMethodname.font = UIFont(name: RegularFont, size: 13)
+            cell.TransactionId.font = UIFont(name: RegularFont, size: 13)
+            cell.Amount.font = UIFont(name: RegularFont, size: 13)
+              cell.lbl_TransactionId.font = UIFont(name: SemiBoldFont, size: 15)
+              cell.lbl_TransactionAmount.font = UIFont(name: SemiBoldFont, size: 15)
+            cell.BookingDateLbl.font = UIFont(name: SemiBoldFont, size: 13.0)
+               cell.BookingId.font = UIFont(name: SemiBoldFont, size: 13.0)
+            cell.BookingId.text = "(Booking No: \(Singleton.sharedInstance.accInfoModel.completedTransaction[indexPath.row].bookingno!))"
+             cell.BookingDateLbl.text = "\(Singleton.sharedInstance.accInfoModel.completedTransaction[indexPath.row].dateadded!)"
+            cell.lbl_TransactionMethodname.text = Singleton.sharedInstance.accInfoModel.completedTransaction[indexPath.row].transactionMethod
+            cell.lbl_TransactionId.text = Singleton.sharedInstance.accInfoModel.completedTransaction[indexPath.row].transactionId!
+            cell.lbl_TransactionAmount.text = "\(Singleton.sharedInstance.accInfoModel.completedTransaction[indexPath.row].currencySymbol!)" + " " +  "\(String(describing: Singleton.sharedInstance.accInfoModel.completedTransaction[indexPath.row].amount!))"
+            return cell
         }
         else if tableView == tblTransactionHistory
         {
-            let  fcell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TransactionHistoryCell
-            fcell!.btnTotal.tag = indexPath.row
             
-            fcell!.lblDateID.font = UIFont(name: SemiBoldFont, size: 16)
-            fcell!.lblPropertyName.font = UIFont(name: SemiBoldFont, size: 16)
-            fcell!.lblName.font = UIFont(name: RegularFont, size: 14)
-            
-            fcell!.lblTotal.font = UIFont(name: RegularFont, size: 14)
-            fcell!.lblTotalValue.font = UIFont(name: RegularFont, size: 14)
-            
-            fcell!.lblServiceFee.font = UIFont(name: RegularFont, size: 14)
-            fcell!.lbl_ServicefeeAmount.font = UIFont(name: RegularFont, size: 14)
-            
-            fcell!.lblNetAmount.font = UIFont(name: RegularFont, size: 14)
-            fcell!.lblNetAmountAmount.font = UIFont(name: RegularFont, size: 14)
-            
-            fcell!.lblHostFee.font = UIFont(name: RegularFont, size: 14)
-            fcell!.lblHostFeeAmount.font = UIFont(name: RegularFont, size: 14)
-            
-            fcell!.lblNetAmount.text = "Net Amount"
-            fcell!.lblTotal.text = "Total"
+            guard let fcell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TransactionHistoryCell else { return UITableViewCell() }
 
-            fcell!.btnTotal.addTarget(self, action: #selector(showAmountDetails), for: .touchUpInside)
-            fcell!.lblDateID.text = Singleton.sharedInstance.accInfoModel.futureTransaction[indexPath.row].dateadded! + " " + "(Booking No: " + "\((Singleton.sharedInstance.accInfoModel.futureTransaction[indexPath.row].bookingno!))" + ")"
-            fcell!.lblPropertyName.text = Singleton.sharedInstance.accInfoModel.futureTransaction[indexPath.row].propertyTitle
+//            let  fcell = tableView.dequeueReusableCell(withIdentifier: "cell") as? TransactionHistoryCell
+            fcell.btnTotal.tag = indexPath.row
+            
+            fcell.lblDateID.font = UIFont(name: SemiBoldFont, size: 16)
+            fcell.lblPropertyName.font = UIFont(name: SemiBoldFont, size: 16)
+            fcell.lblName.font = UIFont(name: RegularFont, size: 14)
+            
+            fcell.lblTotal.font = UIFont(name: RegularFont, size: 14)
+            fcell.lblTotalValue.font = UIFont(name: RegularFont, size: 14)
+            
+            fcell.lblServiceFee.font = UIFont(name: RegularFont, size: 14)
+            fcell.lbl_ServicefeeAmount.font = UIFont(name: RegularFont, size: 14)
+            
+            fcell.lblNetAmount.font = UIFont(name: RegularFont, size: 14)
+            fcell.lblNetAmountAmount.font = UIFont(name: RegularFont, size: 14)
+            
+            fcell.lblHostFee.font = UIFont(name: RegularFont, size: 14)
+            fcell.lblHostFeeAmount.font = UIFont(name: RegularFont, size: 14)
+            
+            fcell.lblNetAmount.text = "Net Amount"
+            fcell.lblTotal.text = "Total"
+
+            fcell.btnTotal.addTarget(self, action: #selector(showAmountDetails), for: .touchUpInside)
+            fcell.lblDateID.text = Singleton.sharedInstance.accInfoModel.futureTransaction[indexPath.row].dateadded! + " " + "(Booking No: " + "\((Singleton.sharedInstance.accInfoModel.futureTransaction[indexPath.row].bookingno!))" + ")"
+            fcell.lblPropertyName.text = Singleton.sharedInstance.accInfoModel.futureTransaction[indexPath.row].propertyTitle
             if let firstNameStr :String = Singleton.sharedInstance.accInfoModel.futureTransaction[indexPath.row].firstname{
-                fcell!.lblName.text = firstNameStr
+                fcell.lblName.text = firstNameStr
             }
             
-            fcell!.lblTotalValue.text = currencySymbol + "\(String(describing: Singleton.sharedInstance.accInfoModel.futureTransaction[indexPath.row].subTotal!))"
-            //fcell!.lbl_ServicefeeAmount.text = currencySymbol + "\(String(Singleton.sharedInstance.accInfoModel.futureTransaction[indexPath.row].serviceFee!))"
+            fcell.lblTotalValue.text = currencySymbol + "\(String(describing: Singleton.sharedInstance.accInfoModel.futureTransaction[indexPath.row].subTotal!))"
+            //fcell.lbl_ServicefeeAmount.text = currencySymbol + "\(String(Singleton.sharedInstance.accInfoModel.futureTransaction[indexPath.row].serviceFee!))"
            
             
 
@@ -759,20 +764,20 @@ extension AccountViewController : UITableViewDelegate , UITableViewDataSource {
 
             if str as? Float != nil
             {
-                fcell!.lbl_ServicefeeAmount.text = currencySymbol + "\(str)"
+                fcell.lbl_ServicefeeAmount.text = currencySymbol + "\(str)"
 
             }
             else
             {
-                fcell!.lbl_ServicefeeAmount.text = currencySymbol + "\((Singleton.sharedInstance.accInfoModel.futureTransaction[indexPath.row].serviceFee!))"
+                fcell.lbl_ServicefeeAmount.text = currencySymbol + "\((Singleton.sharedInstance.accInfoModel.futureTransaction[indexPath.row].serviceFee!))"
             }
 
             
 
-            fcell!.lblNetAmountAmount.text = currencySymbol + "\(String(describing:Singleton.sharedInstance.accInfoModel.futureTransaction[indexPath.row].payableAmount!))"
-            fcell?.lblHostFeeAmount.text = currencySymbol + "\(String(describing:Singleton.sharedInstance.accInfoModel.futureTransaction[indexPath.row].securityDeposit!))"
+            fcell.lblNetAmountAmount.text = currencySymbol + "\(String(describing:Singleton.sharedInstance.accInfoModel.futureTransaction[indexPath.row].payableAmount!))"
+            fcell.lblHostFeeAmount.text = currencySymbol + "\(String(describing:Singleton.sharedInstance.accInfoModel.futureTransaction[indexPath.row].securityDeposit!))"
             
-            //return fcell!
+            //return fcell
             
             if showDeatilForRow == indexPath.row {
                 
@@ -780,24 +785,26 @@ extension AccountViewController : UITableViewDelegate , UITableViewDataSource {
                     
                     UIView.animate(withDuration: 0.5)
                     {
-                        fcell!.viewDropdown.isHidden = false
-                        fcell!.imgDropDown.transform = CGAffineTransform(rotationAngle: .pi)
+                        fcell.viewDropdown.isHidden = false
+                        fcell.imgDropDown.transform = CGAffineTransform(rotationAngle: .pi)
                     }
                 } else {
                     UIView.animate(withDuration: 0.5) {
-                        fcell!.viewDropdown.isHidden = true
-                        fcell!.imgDropDown.transform = CGAffineTransform.identity
+                        fcell.viewDropdown.isHidden = true
+                        fcell.imgDropDown.transform = CGAffineTransform.identity
                     }
                 }
             }
-            return fcell!
+            return fcell
         }
         else
         {
-            let ccell = tableView.dequeueReusableCell(withIdentifier: "cell") as? CountrylistTableViewCell
-             ccell!.lbl_CountryName.font = UIFont(name: RegularFont, size: 16)
-            ccell!.lbl_CountryName.text = Singleton.sharedInstance.accInfoModel.countryList[indexPath.row].countryName!
-            return ccell!
+            guard let ccell = tableView.dequeueReusableCell(withIdentifier: "cell") as? CountrylistTableViewCell else { return UITableViewCell() }
+
+//            let ccell = tableView.dequeueReusableCell(withIdentifier: "cell") as? CountrylistTableViewCell
+             ccell.lbl_CountryName.font = UIFont(name: RegularFont, size: 16)
+            ccell.lbl_CountryName.text = Singleton.sharedInstance.accInfoModel.countryList[indexPath.row].countryName!
+            return ccell
         }
     }
     
@@ -934,11 +941,11 @@ extension AccountViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
             print(responseDict)
             hideActivityIndicator(uiView: self.view)
             if responseDict.count != 0 {
-                if responseDict.value(forKey: "status") as! Int == 1 {
-                    showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
+                    showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
                 else {
-                    showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                    showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
                 }
             }
         }
@@ -947,10 +954,10 @@ extension AccountViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
             hideActivityIndicator(uiView: self.view)
             if responseDict.count != 0 {
                 
-                showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
             else {
-                showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
             
@@ -974,23 +981,26 @@ extension AccountViewController: UICollectionViewDelegate, UICollectionViewDataS
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TypeCollectionViewCell", for: indexPath) as? TypeCollectionViewCell
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TypeCollectionViewCell", for: indexPath) as? TypeCollectionViewCell else { return UICollectionViewCell() }
+
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TypeCollectionViewCell", for: indexPath) as? TypeCollectionViewCell
        
-        cell?.TypeLbl.font = UIFont(name: SemiBoldFont, size: 14)
+        cell.TypeLbl.font = UIFont(name: SemiBoldFont, size: 14)
        
-        cell?.TypeLbl.text = TypeArray.object(at: indexPath.row)  as? String
+        cell.TypeLbl.text = TypeArray.object(at: indexPath.row)  as? String
         
         if SelectedRow == indexPath.row {
-            cell?.TypeLbl.backgroundColor = AppSecondColor
-            cell?.TypeLbl.textColor = .white
+            cell.TypeLbl.backgroundColor = AppSecondColor
+            cell.TypeLbl.textColor = .white
         }else{
-             cell?.TypeLbl.textColor = .black
-            cell?.TypeLbl.backgroundColor = hexStringToUIColor(hex: "#F1F1F1")
+             cell.TypeLbl.textColor = .black
+            cell.TypeLbl.backgroundColor = hexStringToUIColor(hex: "#F1F1F1")
         }
-       // cell?.lblWishlistCount.text = String(Singleton.sharedInstance.wishListModel.wishlist.count)
+       // cell.lblWishlistCount.text = String(Singleton.sharedInstance.wishListModel.wishlist.count)
         
         
-        return cell!
+        return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {

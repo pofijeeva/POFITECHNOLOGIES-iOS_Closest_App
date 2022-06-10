@@ -142,7 +142,7 @@ class PriceViewController: UIViewController {
 //                    let responseDict:NSDictionary = responseObject as! NSDictionary
 //                    print(responseDict)
 //
-//                    if responseDict.value(forKey: "status") as! Int == 1 {
+//                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
 //
 //                        let mod = RentYourSpaceModel(fromDictionary: responseDict as! [String : Any])
 //                        Singleton.sharedInstance.rentYourSpace = mod
@@ -152,7 +152,7 @@ class PriceViewController: UIViewController {
 //                    }
 //
 //                    else {
-//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
 //                    }
 //                }, failure: { (operation, error) -> Void in
 //                    DispatchQueue.main.async {
@@ -172,7 +172,7 @@ class PriceViewController: UIViewController {
                     print(responseDict)
                     if responseDict.value(forKey: "code") as! NSNumber == 200 {
 //                        let result = responseDict.object(forKey: "result") as! NSArray
-                        let result = ((responseDict.object(forKey: "data") as! NSDictionary).value(forKey: "step2") as? NSDictionary)
+                        let result = ((responseDict.object(forKey: "data") as? NSDictionary)?.value(forKey: "step2") as? NSDictionary)
 
                         
                         
@@ -208,7 +208,7 @@ class PriceViewController: UIViewController {
         }
         else
         {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
             
         }
             

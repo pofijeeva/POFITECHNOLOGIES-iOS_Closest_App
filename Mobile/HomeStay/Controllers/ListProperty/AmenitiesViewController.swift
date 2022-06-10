@@ -59,10 +59,10 @@ class AmenitiesViewController: UIViewController,UITextFieldDelegate {
         self.AddonsBtn.titleLabel?.font = UIFont(name: SemiBoldFont, size: 15)
         self.AmenitiesBtn.titleLabel?.font = UIFont(name: SemiBoldFont, size: 15)
         
-        self.lblPleaseselect.text = GlobalLanguageDictionary.object(forKey: "key_AminitiesDesc") as! String
-        self.AmenitiesBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_amenities") as! String, for: .normal)
-        self.AddonsBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_addons") as! String, for: .normal)
-        self.btnSave.setTitle(GlobalLanguageDictionary.object(forKey: "key_next") as! String, for: .normal)
+        self.lblPleaseselect.text = GlobalLanguageDictionary.object(forKey: "key_AminitiesDesc") as? String ?? ""
+        self.AmenitiesBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_amenities") as? String ?? "", for: .normal)
+        self.AddonsBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_addons") as? String ?? "", for: .normal)
+        self.btnSave.setTitle(GlobalLanguageDictionary.object(forKey: "key_next") as? String ?? "", for: .normal)
         AmenitiesBtn.backgroundColor = AppSecondColor1
 
         AmenitiesArr = Singleton.sharedInstance.rentYourSpace.attribute
@@ -88,7 +88,7 @@ class AmenitiesViewController: UIViewController,UITextFieldDelegate {
         print(amenityMutArray)
         print(OptionsArray)
         let SelectedAddons = NSMutableDictionary()
-        SelectedAddons.addEntries(from: ((commonMaintainListDataDict.object(forKey: "data") as! NSDictionary).object(forKey: "step6") as! NSDictionary) as! [AnyHashable: Any])
+        SelectedAddons.addEntries(from: ((commonMaintainListDataDict.object(forKey: "data") as? NSDictionary)?.object(forKey: "step6") as? NSDictionary) as? [AnyHashable: Any] ?? [:])
         let SavedAddons = SelectedAddons.object(forKey: "saved_addons") as! NSArray
         let Add = NSMutableArray()
 
@@ -98,10 +98,10 @@ class AmenitiesViewController: UIViewController,UITextFieldDelegate {
             print(Add)
         }
         for i in 0..<Add.count {
-            let IDS = (Add.object(at: i) as! NSArray).object(at: i) as! NSDictionary
+            let IDS = (Add.object(at: i) as? NSArray)?.object(at: i) as? NSDictionary ?? [:]
             for j in 0..<(Add.object(at: i) as! NSArray).count{
-             SavedAddonsIDS.add("\(((Add.object(at: i) as! NSArray).object(at: j) as! NSDictionary).object(forKey: "id") as AnyObject)")
-            SavedAddonsIDSPrice.add("\(((Add.object(at: i) as! NSArray).object(at: j) as! NSDictionary).object(forKey: "price") as AnyObject)")
+             SavedAddonsIDS.add("\(((Add.object(at: i) as! NSArray).object(at: j) as? NSDictionary)?.object(forKey: "id") as AnyObject)")
+            SavedAddonsIDSPrice.add("\(((Add.object(at: i) as! NSArray).object(at: j) as? NSDictionary)?.object(forKey: "price") as AnyObject)")
             }
           }
         
@@ -113,7 +113,7 @@ class AmenitiesViewController: UIViewController,UITextFieldDelegate {
 //        let data1 = NSMutableDictionary()
 //
 //       data.setValue(textField.text!, forKey: "price")
-//    data.setValue(((((ListingAddonsArray.object(at: self.SelectedSection) as! NSDictionary).object(forKey: "child_values") as AnyObject).object(at: self.SelectedRow) as! NSDictionary).object(forKey: "amen_val_id") as AnyObject), forKey: "id")
+//    data.setValue(((((ListingAddonsArray.object(at: self.SelectedSection) as? NSDictionary)?.object(forKey: "child_values") as AnyObject).object(at: self.SelectedRow) as? NSDictionary)?.object(forKey: "amen_val_id") as AnyObject), forKey: "id")
 //
 //    data1.setValue(data, forKey: "\((ListingAddonsArray[self.SelectedSection] as AnyObject).value(forKey: "amen_id") as AnyObject)")
 //    Addon.add(data)
@@ -312,7 +312,7 @@ class AmenitiesViewController: UIViewController,UITextFieldDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.ListingActivityDelegate.hideActivity()
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                       
                         let mod = RentYourSpaceModel(fromDictionary: responseDict as! [String : Any])
                         Singleton.sharedInstance.rentYourSpace = mod
@@ -322,7 +322,7 @@ class AmenitiesViewController: UIViewController,UITextFieldDelegate {
                     }
                         
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -343,7 +343,7 @@ class AmenitiesViewController: UIViewController,UITextFieldDelegate {
             }
             else
             {
-                showInformation(title: "Network Error", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as! String)
+                showInformation(title: "Network Error", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
             }
 
         }
@@ -368,26 +368,28 @@ extension AmenitiesViewController: UITableViewDataSource,UITableViewDelegate {
         //return AmenitiesArr[section].options.count
         
         if self.SelectedType == "Amenities" {
-            return ((amenityArray.object(at: section) as! NSDictionary).value(forKey: "child_values") as! NSArray).count
+            return ((amenityArray.object(at: section) as? NSDictionary)?.value(forKey: "child_values") as! NSArray).count
         }else{
-            return ((ListingAddonsArray.object(at: section) as! NSDictionary).object(forKey: "child_values") as! NSArray).count
+            return ((ListingAddonsArray.object(at: section) as? NSDictionary)?.object(forKey: "child_values") as! NSArray).count
         }
        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? AmenitiesCell
-        //cell?.lblAmenities.text = AmenitiesArr[indexPath.section].options[indexPath.row].childName
-        //cell?.lblAmenities.text = (OptionsArray[indexPath.row] as AnyObject).value(forKey: "child_name") as? String
-        cell?.lblAmenities.font = UIFont(name: SemiBoldFont, size: 13)
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? AmenitiesCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? AmenitiesCell else { return UITableViewCell() }
+
+        //cell.lblAmenities.text = AmenitiesArr[indexPath.section].options[indexPath.row].childName
+        //cell.lblAmenities.text = (OptionsArray[indexPath.row] as AnyObject).value(forKey: "child_name") as? String
+        cell.lblAmenities.font = UIFont(name: SemiBoldFont, size: 13)
 
         if self.SelectedType == "Amenities" {
-            cell?.PriceTxtHeight.constant = 0
-//            cell?.lblAmenities.font = UIFont(name: RegularFont, size: 12)
+            cell.PriceTxtHeight.constant = 0
+//            cell.lblAmenities.font = UIFont(name: RegularFont, size: 12)
             let amenSection = amenityArray.object(at: indexPath.section) as? [String: Any]
             let amenChild = amenSection?["child_values"] as? [[String: Any]]
-            cell?.lblAmenities.text = (amenChild?[indexPath.row])?["amen_val_name"] as? String
-            cell?.btnSelect.tag = indexPath.row
+            cell.lblAmenities.text = (amenChild?[indexPath.row])?["amen_val_name"] as? String
+            cell.btnSelect.tag = indexPath.row
 
             if let sa = Singleton.sharedInstance.rentYourSpace.result.first?.step6.saved_amenities.first,
                let amen_ID = amenSection?["amen_id"] as? Int,
@@ -395,62 +397,62 @@ extension AmenitiesViewController: UITableViewDataSource,UITableViewDelegate {
                 let key = String(format: "%d", amen_ID)
                 if let savedAmen = sa[key] as? NSArray, let saObj = savedAmen.firstObject as? NSArray {
                     if saObj.contains(String(format: "%d", amenChildID)) {
-                        cell?.btnSelect.setImage(UIImage(named: "tick-on")?.maskWithColor(color: AppColor), for: .normal)
+                        cell.btnSelect.setImage(UIImage(named: "tick-on")?.maskWithColor(color: AppColor), for: .normal)
                     } else {
-                        cell?.btnSelect.setImage(UIImage(named: "tick-off")?.maskWithColor(color: AppColor), for: .normal)
+                        cell.btnSelect.setImage(UIImage(named: "tick-off")?.maskWithColor(color: AppColor), for: .normal)
                     }
                 }
             } else {
-                cell?.btnSelect.setImage(UIImage(named: "tick-off")?.maskWithColor(color: AppColor), for: .normal)
+                cell.btnSelect.setImage(UIImage(named: "tick-off")?.maskWithColor(color: AppColor), for: .normal)
             }
-            cell?.editBtn.isHidden = true
+            cell.editBtn.isHidden = true
             
             //let tempChildID = AmenitiesArr[indexPath.section].options[indexPath.row].childId
-//            let tempChildID:String = (((amenityMutArray.object(at: indexPath.section) as! NSDictionary).object(forKey: "options") as AnyObject).object(at: indexPath.row) as! NSDictionary).object(forKey: "child_id") as! String
+//            let tempChildID:String = (((amenityMutArray.object(at: indexPath.section) as? NSDictionary)?.object(forKey: "options") as AnyObject).object(at: indexPath.row) as? NSDictionary)?.object(forKey: "child_id") as? String ?? ""
 //            if (checkedIDArray .contains(tempChildID as Any))
 //            {
-//                cell?.btnSelect.setImage(UIImage(named: "checkbox-2"), for: .normal)
+//                cell.btnSelect.setImage(UIImage(named: "checkbox-2"), for: .normal)
 //            }
 //            else {
-//                cell?.btnSelect.setImage(UIImage(named: "tick-off"), for: .normal)
+//                cell.btnSelect.setImage(UIImage(named: "tick-off"), for: .normal)
 //            }
         }else{
-            cell?.editBtn.isHidden = false
-            cell?.lblAmenities.text = (((ListingAddonsArray.object(at: indexPath.section) as AnyObject).object(forKey: "child_values") as AnyObject).object(at: indexPath.row) as! NSDictionary).object(forKey: "amen_val_name") as! String + " - " + "\((((ListingAddonsArray.object(at: indexPath.section) as AnyObject).object(forKey: "child_values") as AnyObject).object(at: indexPath.row) as! NSDictionary).object(forKey: "amount") as AnyObject)"
-            cell?.btnSelect.tag = indexPath.row
+            cell.editBtn.isHidden = false
+            cell.lblAmenities.text = (((ListingAddonsArray.object(at: indexPath.section) as AnyObject).object(forKey: "child_values") as AnyObject).object(at: indexPath.row) as? NSDictionary)?.object(forKey: "amen_val_name") as? String ?? "" + " - " + "\((((ListingAddonsArray.object(at: indexPath.section) as AnyObject).object(forKey: "child_values") as AnyObject).object(at: indexPath.row) as? NSDictionary)?.object(forKey: "amount") as AnyObject)"
+            cell.btnSelect.tag = indexPath.row
             //let tempChildID = AmenitiesArr[indexPath.section].options[indexPath.row].childId
-            let tempChildID:String = "\((((ListingAddonsArray.object(at: indexPath.section) as! NSDictionary).object(forKey: "child_values") as AnyObject).object(at: indexPath.row) as! NSDictionary).object(forKey: "amen_val_id") as AnyObject)"
+            let tempChildID:String = "\((((ListingAddonsArray.object(at: indexPath.section) as? NSDictionary)?.object(forKey: "child_values") as AnyObject).object(at: indexPath.row) as? NSDictionary)?.object(forKey: "amen_val_id") as AnyObject)"
             if self.SavedAddonsIDS.contains(tempChildID) {
-                cell?.btnSelect.setImage(UIImage(named: "tick-on")?.maskWithColor(color: AppColor), for: .normal)
+                cell.btnSelect.setImage(UIImage(named: "tick-on")?.maskWithColor(color: AppColor), for: .normal)
 
                 let tag = self.SavedAddonsIDS.index(of: tempChildID)
-                cell?.lblAmenities.text = (((ListingAddonsArray.object(at: indexPath.section) as AnyObject).object(forKey: "child_values") as AnyObject).object(at: indexPath.row) as! NSDictionary).object(forKey: "amen_val_name") as! String + " - " + "\(self.SavedAddonsIDSPrice.object(at: tag) as AnyObject)"
+                cell.lblAmenities.text = (((ListingAddonsArray.object(at: indexPath.section) as AnyObject).object(forKey: "child_values") as AnyObject).object(at: indexPath.row) as? NSDictionary)?.object(forKey: "amen_val_name") as? String ?? "" + " - " + "\(self.SavedAddonsIDSPrice.object(at: tag) as AnyObject)"
             }
             else if (AddonscheckedIDArray .contains(tempChildID as Any))
             {
                 
-                    cell?.lblAmenities.text = (((ListingAddonsArray.object(at: indexPath.section) as AnyObject).object(forKey: "child_values") as AnyObject).object(at: indexPath.row) as! NSDictionary).object(forKey: "amen_val_name") as! String + " - " + "\((((ListingAddonsArray.object(at: indexPath.section) as AnyObject).object(forKey: "child_values") as AnyObject).object(at: indexPath.row) as! NSDictionary).object(forKey: "amount") as AnyObject)"
-                cell?.btnSelect.setImage(UIImage(named: "tick-on")?.maskWithColor(color: AppColor), for: .normal)
+                    cell.lblAmenities.text = (((ListingAddonsArray.object(at: indexPath.section) as AnyObject).object(forKey: "child_values") as AnyObject).object(at: indexPath.row) as? NSDictionary)?.object(forKey: "amen_val_name") as? String ?? "" + " - " + "\((((ListingAddonsArray.object(at: indexPath.section) as AnyObject).object(forKey: "child_values") as AnyObject).object(at: indexPath.row) as? NSDictionary)?.object(forKey: "amount") as AnyObject)"
+                cell.btnSelect.setImage(UIImage(named: "tick-on")?.maskWithColor(color: AppColor), for: .normal)
             }
             else {
-                cell?.btnSelect.setImage(UIImage(named: "tick-off"), for: .normal)
+                cell.btnSelect.setImage(UIImage(named: "tick-off"), for: .normal)
             }
             if self.SelectedSection == indexPath.section {
                 if self.SelectedRow == indexPath.row {
-                    cell?.PriceTxtHeight.constant = 45
+                    cell.PriceTxtHeight.constant = 45
 
                 }else{
-                    cell?.PriceTxtHeight.constant = 0
+                    cell.PriceTxtHeight.constant = 0
                 }
             }else{
-                cell?.PriceTxtHeight.constant = 0
+                cell.PriceTxtHeight.constant = 0
 
             }
-            cell?.PriceTxt.placeholder = GlobalLanguageDictionary.object(forKey: "key_addonsPrice") as! String
-            cell?.PriceTxt.delegate = self
-            cell?.editBtn.tag = indexPath.section
-            cell?.editBtn.accessibilityLabel = "\(indexPath.row)"
-            cell?.editBtn.addTarget(self, action: #selector(wishListApi(sender:)), for: .touchUpInside)
+            cell.PriceTxt.placeholder = GlobalLanguageDictionary.object(forKey: "key_addonsPrice") as? String ?? ""
+            cell.PriceTxt.delegate = self
+            cell.editBtn.tag = indexPath.section
+            cell.editBtn.accessibilityLabel = "\(indexPath.row)"
+            cell.editBtn.addTarget(self, action: #selector(wishListApi(sender:)), for: .touchUpInside)
         }
         
         
@@ -462,21 +464,21 @@ extension AmenitiesViewController: UITableViewDataSource,UITableViewDelegate {
         //            if listArr![n] == AmenitiesArr[indexPath.section].options[indexPath.row].childId
         //            {
         //                selectedOptions.append(self.AmenitiesArr[indexPath.section].options[indexPath.row])
-        //                cell?.btnSelect.setImage(UIImage(named: "tick-on"), for: .normal)
+        //                cell.btnSelect.setImage(UIImage(named: "tick-on"), for: .normal)
         //            }
         //        }
-        return cell!
+        return cell
     }
         func textFieldDidEndEditing(_ textField: UITextField) {
 
-        let tempChildId = "\((ListingAddonsArray.object(at: self.SelectedSection) as! NSDictionary).object(forKey: "amen_id") as AnyObject)"
+        let tempChildId = "\((ListingAddonsArray.object(at: self.SelectedSection) as? NSDictionary)?.object(forKey: "amen_id") as AnyObject)"
 //       if(AddonscheckedIDArray.contains(tempChildId as Any)){
 //           AddonscheckedIDArray.remove(tempChildId as Any)
             let data = NSMutableDictionary()
             let data1 = NSMutableDictionary()
  
            data.setValue(textField.text!, forKey: "price")
-        data.setValue(((((ListingAddonsArray.object(at: self.SelectedSection) as! NSDictionary).object(forKey: "child_values") as AnyObject).object(at: self.SelectedRow) as! NSDictionary).object(forKey: "amen_val_id") as AnyObject), forKey: "id")
+        data.setValue(((((ListingAddonsArray.object(at: self.SelectedSection) as? NSDictionary)?.object(forKey: "child_values") as AnyObject).object(at: self.SelectedRow) as? NSDictionary)?.object(forKey: "amen_val_id") as AnyObject), forKey: "id")
            
         data1.setValue(data, forKey: "\((ListingAddonsArray[self.SelectedSection] as AnyObject).value(forKey: "amen_id") as AnyObject)")
             let AddonCopy = NSMutableArray()
@@ -500,7 +502,7 @@ extension AmenitiesViewController: UITableViewDataSource,UITableViewDelegate {
         self.SelectedRow = Int("\(sender.accessibilityLabel!)")!
         self.SelectedSection = sender.tag
 
-        let tempChildId = "\((((ListingAddonsArray.object(at: sender.tag) as! NSDictionary).object(forKey: "child_values") as AnyObject).object(at: self.SelectedRow) as! NSDictionary).object(forKey: "amen_val_id") as AnyObject)"
+        let tempChildId = "\((((ListingAddonsArray.object(at: sender.tag) as? NSDictionary)?.object(forKey: "child_values") as AnyObject).object(at: self.SelectedRow) as? NSDictionary)?.object(forKey: "amen_val_id") as AnyObject)"
        if(SavedAddonsIDS.contains(tempChildId as Any)){
         self.SelectedSection = sender.tag
         self.SelectedRow = Int("\(sender.accessibilityLabel!)")!
@@ -572,7 +574,7 @@ extension AmenitiesViewController: UITableViewDataSource,UITableViewDelegate {
             
                 
             
-//            let tempChildId = (((amenityMutArray.object(at: indexPath.section) as! NSDictionary).object(forKey: "options") as AnyObject).object(at: indexPath.row) as! NSDictionary).object(forKey: "child_id") as! String
+//            let tempChildId = (((amenityMutArray.object(at: indexPath.section) as? NSDictionary)?.object(forKey: "options") as AnyObject).object(at: indexPath.row) as? NSDictionary)?.object(forKey: "child_id") as? String ?? ""
 //            if(checkedIDArray.contains(tempChildId as Any)){
 //                checkedIDArray.remove(tempChildId as Any)
 //            }else{
@@ -581,7 +583,7 @@ extension AmenitiesViewController: UITableViewDataSource,UITableViewDelegate {
         }else{
             self.SelectedSection = indexPath.section
             self.SelectedRow = indexPath.row
-             let tempChildId = "\((((ListingAddonsArray.object(at: indexPath.section) as! NSDictionary).object(forKey: "child_values") as AnyObject).object(at: indexPath.row) as! NSDictionary).object(forKey: "amen_val_id") as AnyObject)"
+             let tempChildId = "\((((ListingAddonsArray.object(at: indexPath.section) as? NSDictionary)?.object(forKey: "child_values") as AnyObject).object(at: indexPath.row) as? NSDictionary)?.object(forKey: "amen_val_id") as AnyObject)"
             if(AddonscheckedIDArray.contains(tempChildId as Any)){
                 AddonscheckedIDArray.remove(tempChildId as Any)
             }else{
@@ -589,12 +591,12 @@ extension AmenitiesViewController: UITableViewDataSource,UITableViewDelegate {
 //                let data = NSMutableDictionary()
 //                let data1 = NSMutableDictionary()
 //
-//                data.setValue(((ListingAddonsArray.object(at: indexPath.section) as! NSDictionary).object(forKey: "amen_id") as AnyObject), forKey: "addon_id")
+//                data.setValue(((ListingAddonsArray.object(at: indexPath.section) as? NSDictionary)?.object(forKey: "amen_id") as AnyObject), forKey: "addon_id")
 //                let tempCard = self.tblAmenities.viewWithTag(indexPath.row) as? UITextField
 //                let Te = (tableView.cellForRow(at: indexPath) as! AmenitiesCell).PriceTxt.text!
 //
 //                data.setValue(Te, forKey: "price")
-//                data.setValue(((((ListingAddonsArray.object(at: indexPath.section) as! NSDictionary).object(forKey: "child_values") as AnyObject).object(at: indexPath.row) as! NSDictionary).object(forKey: "amen_val_id") as AnyObject), forKey: "id")
+//                data.setValue(((((ListingAddonsArray.object(at: indexPath.section) as? NSDictionary)?.object(forKey: "child_values") as AnyObject).object(at: indexPath.row) as? NSDictionary)?.object(forKey: "amen_val_id") as AnyObject), forKey: "id")
 //
 //                data1.setValue(data, forKey: "\((ListingAddonsArray[indexPath.section] as AnyObject).value(forKey: "amen_id") as AnyObject)")
 //

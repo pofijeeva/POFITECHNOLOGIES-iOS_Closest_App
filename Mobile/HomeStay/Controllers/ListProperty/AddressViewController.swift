@@ -112,16 +112,16 @@ class AddressViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        self.lblAddressHeader.text = GlobalLanguageDictionary.object(forKey: "key_selectAddress") as! String
-        self.txtStreet.placeholder = GlobalLanguageDictionary.object(forKey: "key_street") as! String
-        self.lblDisc.text = GlobalLanguageDictionary.object(forKey: "key_addressDesc") as! String
-        self.txtStreett.placeholder = GlobalLanguageDictionary.object(forKey: "key_street") as! String
-        self.txtCity.placeholder = GlobalLanguageDictionary.object(forKey: "key_city") as! String
-        self.txtState.placeholder = GlobalLanguageDictionary.object(forKey: "key_state") as! String
-        self.txtCountry.placeholder = GlobalLanguageDictionary.object(forKey: "key_country") as! String
-        self.txtZipcode.placeholder = GlobalLanguageDictionary.object(forKey: "key_zipcode") as! String
-        self.btnSave.setTitle(GlobalLanguageDictionary.object(forKey: "key_next") as! String, for: .normal)
-        self.txtFlat.placeholder = GlobalLanguageDictionary.object(forKey: "key_flatPlaceholder") as! String
+        self.lblAddressHeader.text = GlobalLanguageDictionary.object(forKey: "key_selectAddress") as? String ?? ""
+        self.txtStreet.placeholder = GlobalLanguageDictionary.object(forKey: "key_street") as? String ?? ""
+        self.lblDisc.text = GlobalLanguageDictionary.object(forKey: "key_addressDesc") as? String ?? ""
+        self.txtStreett.placeholder = GlobalLanguageDictionary.object(forKey: "key_street") as? String ?? ""
+        self.txtCity.placeholder = GlobalLanguageDictionary.object(forKey: "key_city") as? String ?? ""
+        self.txtState.placeholder = GlobalLanguageDictionary.object(forKey: "key_state") as? String ?? ""
+        self.txtCountry.placeholder = GlobalLanguageDictionary.object(forKey: "key_country") as? String ?? ""
+        self.txtZipcode.placeholder = GlobalLanguageDictionary.object(forKey: "key_zipcode") as? String ?? ""
+        self.btnSave.setTitle(GlobalLanguageDictionary.object(forKey: "key_next") as? String ?? "", for: .normal)
+        self.txtFlat.placeholder = GlobalLanguageDictionary.object(forKey: "key_flatPlaceholder") as? String ?? ""
 
         
         self.lblAddressHeader.font = UIFont(name: SemiBoldFont, size: 17)
@@ -225,7 +225,7 @@ class AddressViewController: UIViewController {
                 
 
             } else {
-                showInformation(title: "Network Error", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as! String)
+                showInformation(title: "Network Error", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
             }
         }
     }

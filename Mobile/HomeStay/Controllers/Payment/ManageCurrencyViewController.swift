@@ -50,27 +50,28 @@ extension ManageCurrencyViewController: UITableViewDelegate,UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ManageCurrencyTableViewCell") as? ManageCurrencyTableViewCell
-        cell?.textLabel?.textAlignment =  .center
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ManageCurrencyTableViewCell") as? ManageCurrencyTableViewCell else { return UITableViewCell() }
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "ManageCurrencyTableViewCell") as? ManageCurrencyTableViewCell
+        cell.textLabel?.textAlignment =  .center
         
         
         
             if login_session.value(forKey: "APP_CURRENCY") as? String == Singleton.sharedInstance.homeModel.currencyList[indexPath.row].currencyCode!{
                
-                 cell?.CurrencyBtn.setImage(UIImage(named: "radiobtnselected"), for: .normal)
+                 cell.CurrencyBtn.setImage(UIImage(named: "radiobtnselected"), for: .normal)
         }else{
               
-                 cell?.CurrencyBtn.setImage(UIImage(named: "radiobtndeselected"), for: .normal)
+                 cell.CurrencyBtn.setImage(UIImage(named: "radiobtndeselected"), for: .normal)
         }
             
       
         
-        cell?.CurrencySymbol.text =  Singleton.sharedInstance.homeModel.currencyList[indexPath.row].currencySymbol!
-         cell?.CurrencyCode.text =  Singleton.sharedInstance.homeModel.currencyList[indexPath.row].currencyCode!
+        cell.CurrencySymbol.text =  Singleton.sharedInstance.homeModel.currencyList[indexPath.row].currencySymbol!
+         cell.CurrencyCode.text =  Singleton.sharedInstance.homeModel.currencyList[indexPath.row].currencyCode!
         
-        cell?.CurrencySymbol.font = UIFont(name: RegularFont, size: 14.0)
-         cell?.CurrencyCode.font = UIFont(name: RegularFont, size: 16)
-        return cell!
+        cell.CurrencySymbol.font = UIFont(name: RegularFont, size: 14.0)
+         cell.CurrencyCode.font = UIFont(name: RegularFont, size: 16)
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

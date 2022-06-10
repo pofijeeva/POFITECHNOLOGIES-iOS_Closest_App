@@ -125,11 +125,11 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
         self.fetchClientToken()
  
         self.headerLbl.font = UIFont(name: SemiBoldFont, size: 20)
-        self.headerLbl.text = GlobalLanguageDictionary.object(forKey: "Key_paymentMethods") as! String
-        self.PayBtn.setTitle(GlobalLanguageDictionary.object(forKey: "Key_payNow") as! String, for: .normal)
-        self.PaymentDoneLbl.text = GlobalLanguageDictionary.object(forKey: "key_paymentDone") as! String
-        self.TransSuccessLbl.text = GlobalLanguageDictionary.object(forKey: "key_PaymentSuccess") as! String
-        self.TransSuccessBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_done") as! String, for: .normal)
+        self.headerLbl.text = GlobalLanguageDictionary.object(forKey: "Key_paymentMethods") as? String ?? ""
+        self.PayBtn.setTitle(GlobalLanguageDictionary.object(forKey: "Key_payNow") as? String ?? "", for: .normal)
+        self.PaymentDoneLbl.text = GlobalLanguageDictionary.object(forKey: "key_paymentDone") as? String ?? ""
+        self.TransSuccessLbl.text = GlobalLanguageDictionary.object(forKey: "key_PaymentSuccess") as? String ?? ""
+        self.TransSuccessBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_done") as? String ?? "", for: .normal)
         
         self.CurrentTotal = self.TotalAmount
         self.PayBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 18)
@@ -146,7 +146,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
         showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
         
-         params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as! String,"user_id":login_session.value(forKey: "UserId")!]
+         params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","user_id":login_session.value(forKey: "UserId")!]
         
         
         let manager = AFHTTPSessionManager()
@@ -159,7 +159,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
             let responseDict:NSDictionary = responseObject as! NSDictionary
             print(responseDict)
             self.hideActivityIndicator(uiView: self.view)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                                 let userDetailsArr = responseDict.value(forKey: "user_wallet") as! NSArray
                                 let userDetails = userDetailsArr[0] as? NSDictionary
                 //
@@ -184,7 +184,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
             }
                 
             else {
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -325,7 +325,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
         
         
         if self.choosePaymentType == "" {
-            self.showInformation(title: "Error", message: GlobalLanguageDictionary.object(forKey: "key_pleaseSelectPaymentType") as! String)
+            self.showInformation(title: "Error", message: GlobalLanguageDictionary.object(forKey: "key_pleaseSelectPaymentType") as? String ?? "")
             
         }else{
             if self.choosePaymentType == "Stripe" {
@@ -387,22 +387,22 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
         let currentmonth = components.month
         let card_type =  CCValidator.typeCheckingPrefixOnly(creditCardNumber: tempCard!.text!)
         if tempCardType?.text! == "Choose your card"{
-            self.showInformation(title: "Error", message: GlobalLanguageDictionary.object(forKey: "key_selectCardType") as! String)
+            self.showInformation(title: "Error", message: GlobalLanguageDictionary.object(forKey: "key_selectCardType") as? String ?? "")
         }else if tempCard!.text!.count == 0 {
-            self.showInformation(title: "Error", message: GlobalLanguageDictionary.object(forKey: "key_catdNumCantbeEmpty") as! String)
+            self.showInformation(title: "Error", message: GlobalLanguageDictionary.object(forKey: "key_catdNumCantbeEmpty") as? String ?? "")
         }
         else if isvalid == false  {
-            self.showInformation(title: "Error", message: GlobalLanguageDictionary.object(forKey: "key_validCardNum") as! String)
+            self.showInformation(title: "Error", message: GlobalLanguageDictionary.object(forKey: "key_validCardNum") as? String ?? "")
         } else if txtCvv!.text?.count == 0 {
-            self.showInformation(title: "Error", message: GlobalLanguageDictionary.object(forKey: "key_enterCvv") as! String)
+            self.showInformation(title: "Error", message: GlobalLanguageDictionary.object(forKey: "key_enterCvv") as? String ?? "")
         } else if year < String(currentyear!) {
-            self.showInformation(title: "Error", message: GlobalLanguageDictionary.object(forKey: "key_selectExpiryYear") as! String)
+            self.showInformation(title: "Error", message: GlobalLanguageDictionary.object(forKey: "key_selectExpiryYear") as? String ?? "")
         }else if txtMonth?.text?.count == 0 {
-            self.showInformation(title: "Error", message: GlobalLanguageDictionary.object(forKey: "key_selectExpiryMonth") as! String)
+            self.showInformation(title: "Error", message: GlobalLanguageDictionary.object(forKey: "key_selectExpiryMonth") as? String ?? "")
         }
         else if year == String(currentyear!){
             if month > String(currentmonth!) && month < "13"{
-                self.showInformation(title: "Error", message: GlobalLanguageDictionary.object(forKey: "key_selectenterVaildMonth") as! String)
+                self.showInformation(title: "Error", message: GlobalLanguageDictionary.object(forKey: "key_selectenterVaildMonth") as? String ?? "")
             } else {
                 
                  self.cardtype = self.getCardType(forId: card_type.rawValue)
@@ -411,7 +411,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                 self.cc_exp_year = txtYear!.text!
                 self.credit_card_identifier = txtCvv!.text!
                 //              self.currencycode = "USD"
-                //              self.currency_code = (login_session.value(forKey: "APP_CURRENCY") as! String)
+                //              self.currency_code = (login_session.value(forKey: "APP_CURRENCY") as? String ?? "")
                 //              self.user_id = String(describing: login_session.value(forKey: "UserId")!)
                 self.showActivityIndicator(uiView: self.view)
                 payByStripe()
@@ -423,7 +423,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
             self.cc_exp_year = txtYear!.text!
             self.credit_card_identifier = txtCvv!.text!
             //          self.currencycode = "USD"
-            //          self.currency_code = (login_session.value(forKey: "APP_CURRENCY") as! String)
+            //          self.currency_code = (login_session.value(forKey: "APP_CURRENCY") as? String ?? "")
             //          self.user_id = String(describing: login_session.value(forKey: "UserId")!)
             self.showActivityIndicator(uiView: self.view)
             payByStripe()
@@ -472,7 +472,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
             
             
             
-            params = ["exp_currencycode":login_session.value(forKey: "APP_CURRENCY")as! String,"creditvalue":"authorize","cardtype":"Visa","cardNumber":self.cardnumber,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","CCExpMonth":self.cc_exp_day,"CCExpYear":self.cc_exp_year,"exp_id":self.PropertId,"total_price":self.TotalAmount,"base_id":"1","subtotal":self.subTotal,"enquiry_id":self.enquiryid,"user_id":login_session.value(forKey: "UserId")!,"wallet_amount":"","coupon_code":"","currency_cron_id":self.currency_cron_id,"coupon_discount_amt":"","serviceFee":self.ServiceFee,"creditCardIdentifier":self.credit_card_identifier,"exp_price":self.TotalAmount,"email":login_session.value(forKey: "Email") as! String,"device_type": "IOS","user_currencycode":login_session.value(forKey: "UserId")!]
+            params = ["exp_currencycode":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","creditvalue":"authorize","cardtype":"Visa","cardNumber":self.cardnumber,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","CCExpMonth":self.cc_exp_day,"CCExpYear":self.cc_exp_year,"exp_id":self.PropertId,"total_price":self.TotalAmount,"base_id":"1","subtotal":self.subTotal,"enquiry_id":self.enquiryid,"user_id":login_session.value(forKey: "UserId")!,"wallet_amount":"","coupon_code":"","currency_cron_id":self.currency_cron_id,"coupon_discount_amt":"","serviceFee":self.ServiceFee,"creditCardIdentifier":self.credit_card_identifier,"exp_price":self.TotalAmount,"email":login_session.value(forKey: "Email") as? String ?? "","device_type": "IOS","user_currencycode":login_session.value(forKey: "UserId")!]
             
 ////           var choosed_option = String()
 //            var pay_balance = Int()
@@ -491,17 +491,17 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     self.hideActivityIndicator(uiView: self.view)
                     isFromBookingDetails = true
                     print(responseDict)
-//                    let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as! String +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
+//                    let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as? String ?? "" +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
                     self.GrayView.isHidden = false
                     
                 }
                     
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -521,7 +521,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
             
             
             
-            params = ["exp_currencycode":login_session.value(forKey: "APP_CURRENCY")as! String,"creditvalue":"authorize","cardtype":"Visa","cardNumber":self.cardnumber,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","CCExpMonth":self.cc_exp_day,"CCExpYear":self.cc_exp_year,"exp_id":self.PropertId,"total_price":self.TotalAmount,"base_id":"1","subtotal":self.subTotal,"enquiry_id":self.enquiryid,"user_id":login_session.value(forKey: "UserId")!,"wallet_amount":"","coupon_code":"","currency_cron_id":self.currency_cron_id,"coupon_discount_amt":"","serviceFee":self.ServiceFee,"creditCardIdentifier":self.credit_card_identifier,"exp_price":self.TotalAmount,"email":login_session.value(forKey: "Email") as! String,"device_type": "IOS","user_currencycode":login_session.value(forKey: "UserId")!,"host_id":self.HostId,"commission":self.Commission,"commission_type":self.CommissionType,"payment_method":"Stripe","hosting_price":self.HostingPrice,"amount":self.TotalPrice]
+            params = ["exp_currencycode":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","creditvalue":"authorize","cardtype":"Visa","cardNumber":self.cardnumber,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","CCExpMonth":self.cc_exp_day,"CCExpYear":self.cc_exp_year,"exp_id":self.PropertId,"total_price":self.TotalAmount,"base_id":"1","subtotal":self.subTotal,"enquiry_id":self.enquiryid,"user_id":login_session.value(forKey: "UserId")!,"wallet_amount":"","coupon_code":"","currency_cron_id":self.currency_cron_id,"coupon_discount_amt":"","serviceFee":self.ServiceFee,"creditCardIdentifier":self.credit_card_identifier,"exp_price":self.TotalAmount,"email":login_session.value(forKey: "Email") as? String ?? "","device_type": "IOS","user_currencycode":login_session.value(forKey: "UserId")!,"host_id":self.HostId,"commission":self.Commission,"commission_type":self.CommissionType,"payment_method":"Stripe","hosting_price":self.HostingPrice,"amount":self.TotalPrice]
             print(params)
 
 
@@ -535,17 +535,17 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     self.hideActivityIndicator(uiView: self.view)
                     isFromBookingDetails = true
                     print(responseDict)
-//                    let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as! String +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
+//                    let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as? String ?? "" +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
                     self.GrayView.isHidden = false
                     
                 }
                     
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -580,7 +580,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                     showActivityIndicator(uiView: self.view)
                     var params = NSMutableDictionary()
                     
-                    params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as! String,"creditvalue":"authorize","cardtype":"Visa","card_no":self.cardnumber,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","ccExpiryMonth":self.cc_exp_day,"ccExpiryYear":self.cc_exp_year,"property_id":self.PropertId,"total_price":self.TotalAmount,"base_id":"1","subtotal":self.TotalAmount,"book_id":self.enquiryid,"wallet_amount":"","coupon_code":self.CouponCode,"offer_type":"coupon","coupon_discount_amt":self.CouponDiscountAmount,"serviceFee":self.ServiceFee,"depositFee":"","agent_id":self.agent_id,"agent_commission":self.Agent_Commission,"agent_status":self.agent_status,"agent_percentage":self.agent_percentage,"agent_code":self.agent_Code,"choosed_option":self.choosed_option,"pay_balance":self.pay_balance,"num_of_guests":self.GuestCount,"is_coupon_used":"1","coupon_id":self.CouponCode,                        "cvvNumber":self.credit_card_identifier,"used_coupon_amount":CouponDiscountAmount]
+                    params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","creditvalue":"authorize","cardtype":"Visa","card_no":self.cardnumber,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","ccExpiryMonth":self.cc_exp_day,"ccExpiryYear":self.cc_exp_year,"property_id":self.PropertId,"total_price":self.TotalAmount,"base_id":"1","subtotal":self.TotalAmount,"book_id":self.enquiryid,"wallet_amount":"","coupon_code":self.CouponCode,"offer_type":"coupon","coupon_discount_amt":self.CouponDiscountAmount,"serviceFee":self.ServiceFee,"depositFee":"","agent_id":self.agent_id,"agent_commission":self.Agent_Commission,"agent_status":self.agent_status,"agent_percentage":self.agent_percentage,"agent_code":self.agent_Code,"choosed_option":self.choosed_option,"pay_balance":self.pay_balance,"num_of_guests":self.GuestCount,"is_coupon_used":"1","coupon_id":self.CouponCode,                        "cvvNumber":self.credit_card_identifier,"used_coupon_amount":CouponDiscountAmount]
                     print(params)
                     
                   
@@ -605,7 +605,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                        {
                            
                            self.hideActivityIndicator(uiView: self.view)
-                           self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                           self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                             
                        }
                        
@@ -627,11 +627,11 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
 //                        let responseDict:NSDictionary = responseObject as! NSDictionary
 //                        print(responseDict)
 //
-//                        if responseDict.value(forKey: "status") as! Int == 1 {
+//                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
 //                            self.hideActivityIndicator(uiView: self.view)
 //                            isFromBookingDetails = true
 //                            print(responseDict)
-////                            let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as! String +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
+////                            let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as? String ?? "" +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
 ////                            let alertController = UIAlertController(title: "Closest", message: amount + " " + "self.paySuccess", preferredStyle: .alert)
 ////                            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { alert -> Void in
 ////                                let nav = self.storyboard?.instantiateViewController(withIdentifier: "YourTripsViewController") as? YourTripsViewController
@@ -648,7 +648,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
 //                        }
 //
 //                        else {
-//                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+//                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
 //                        }
 //                    }, failure: { (operation, error) -> Void in
 //                        DispatchQueue.main.async {
@@ -667,7 +667,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                     showActivityIndicator(uiView: self.view)
                     var params = NSMutableDictionary()
                     
-                    params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as! String,"creditvalue":"authorize","cardtype":"Visa","cardnumber":self.cardnumber,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","cc_exp_day":self.cc_exp_day,"cc_exp_year":self.cc_exp_year,"property_id":self.PropertId,"total_price":"self.couponTotalAmount","base_id":"1","subtotal":self.TotalAmount,"enquiryid":self.enquiryid,"user_id":login_session.value(forKey: "UserId")!,"wallet_amount":"","coupon_code":"self.textfild.text!","offer_type":"coupon","coupon_discount_amt":"self.discountAmount","serviceFee":self.ServiceFee,"depositFee":"","agent_id":self.agent_id,"agent_commission":self.Agent_Commission,"agent_status":self.agent_status,"agent_percentage":self.agent_percentage,"agent_code":self.agent_Code,"choosed_option":self.choosed_option,"pay_balance":self.pay_balance]
+                    params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","creditvalue":"authorize","cardtype":"Visa","cardnumber":self.cardnumber,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","cc_exp_day":self.cc_exp_day,"cc_exp_year":self.cc_exp_year,"property_id":self.PropertId,"total_price":"self.couponTotalAmount","base_id":"1","subtotal":self.TotalAmount,"enquiryid":self.enquiryid,"user_id":login_session.value(forKey: "UserId")!,"wallet_amount":"","coupon_code":"self.textfild.text!","offer_type":"coupon","coupon_discount_amt":"self.discountAmount","serviceFee":self.ServiceFee,"depositFee":"","agent_id":self.agent_id,"agent_commission":self.Agent_Commission,"agent_status":self.agent_status,"agent_percentage":self.agent_percentage,"agent_code":self.agent_Code,"choosed_option":self.choosed_option,"pay_balance":self.pay_balance]
                     
                     let manager = AFHTTPSessionManager()
                     manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -679,15 +679,15 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                         let responseDict:NSDictionary = responseObject as! NSDictionary
                         print(responseDict)
                         
-                        if responseDict.value(forKey: "status") as! Int == 1 {
+                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                             self.hideActivityIndicator(uiView: self.view)
                             isFromBookingDetails = true
                             print(responseDict)
                             isFromBookingDetails = true
                             print(responseDict)
-                          //  let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as! String +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
+                          //  let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as? String ?? "" +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
                             self.GrayView.isHidden = false
-//                            let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as! String +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
+//                            let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as? String ?? "" +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
 //                            let alertController = UIAlertController(title: "Closest", message: amount + "self.paySuccess", preferredStyle: .alert)
 //                            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { alert -> Void in
 //                                let nav = self.storyboard?.instantiateViewController(withIdentifier: "YourTripsViewController") as? YourTripsViewController
@@ -702,7 +702,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                         }
                             
                         else {
-                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                         }
                     }, failure: { (operation, error) -> Void in
                         DispatchQueue.main.async {
@@ -733,7 +733,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                         "booking_type":self.booking_type,
                     "property_id":self.PropertId,
                         "cvvNumber":self.credit_card_identifier,
-                    "currency_code":login_session.value(forKey: "APP_CURRENCY")as! String,
+                    "currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "",
                     "coupon_id": "",
                     "is_coupon_used":"0",
                     "lang_code":"en"
@@ -753,14 +753,14 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                                 self.hideActivityIndicator(uiView: self.view)
                                 isFromBookingDetails = true
                                 print(responseDict)
-                                let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as! String +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
+                                let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as? String ?? "" +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
                                 self.GrayView.isHidden = false
                                }
                                else
                                {
                                    
                                    self.hideActivityIndicator(uiView: self.view)
-                                   self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                                   self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                                     
                                }
                                
@@ -776,7 +776,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
 ////                    "currency_code":"USD",
 ////                    "property_id":"9",
 //
-//                    params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as! String,"card_no":self.cardnumber,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","ccExpiryMonth":self.cc_exp_day,"ccExpiryYear":self.cc_exp_year,"property_id":self.PropertId,"currencycode":login_session.value(forKey: "APP_CURRENCY")as! String,"cvvNumber":self.credit_card_identifier]
+//                    params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","card_no":self.cardnumber,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","ccExpiryMonth":self.cc_exp_day,"ccExpiryYear":self.cc_exp_year,"property_id":self.PropertId,"currencycode":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","cvvNumber":self.credit_card_identifier]
 //                    print(params)
 //
 //
@@ -792,17 +792,17 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
 //                        let responseDict:NSDictionary = responseObject as! NSDictionary
 //                        print(responseDict)
 //                        self.hideActivityIndicator(uiView: self.view)
-//                        if responseDict.value(forKey: "status") as! Int == 1 {
+//                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
 //                            self.hideActivityIndicator(uiView: self.view)
 //                            isFromBookingDetails = true
 //                            print(responseDict)
-//                            let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as! String +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
+//                            let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as? String ?? "" +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
 //                            self.GrayView.isHidden = false
 //
 //                        }
 //
 //                        else {
-//                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+//                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
 //                        }
 //                    }, failure: { (operation, error) -> Void in
 //                        DispatchQueue.main.async {
@@ -818,7 +818,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
             }
                 
             else{
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         } else {
             if (Reachability()?.isReachable)!
@@ -827,10 +827,10 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                 showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
                 
-                //                params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as! String,"currencycode":self.currencycode,"credit_card_identifier":self.credit_card_identifier,"device_type":"IOS","cc_exp_day":self.cc_exp_day,"property_id":self.property_id,"creditvalue":"Stripe","cardnumber":self.cardnumber,"cc_exp_year":self.cc_exp_year,"enquiryid":self.enquiryid,"user_id":self.user_id,"total_price":self.total_price!,"cardtype":self.cardtype,"email":login_session.value(forKey: "Email") as! String]
+                //                params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","currencycode":self.currencycode,"credit_card_identifier":self.credit_card_identifier,"device_type":"IOS","cc_exp_day":self.cc_exp_day,"property_id":self.property_id,"creditvalue":"Stripe","cardnumber":self.cardnumber,"cc_exp_year":self.cc_exp_year,"enquiryid":self.enquiryid,"user_id":self.user_id,"total_price":self.total_price!,"cardtype":self.cardtype,"email":login_session.value(forKey: "Email") as? String ?? ""]
                 //
                 //
-                params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as! String,"card_no":self.cardnumber,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","ccExpiryMonth":self.cc_exp_day,"ccExpiryYear":self.cc_exp_year,"property_id":self.PropertId,"currencycode":login_session.value(forKey: "APP_CURRENCY")as! String,"cvvNumber":self.credit_card_identifier]
+                params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","card_no":self.cardnumber,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","ccExpiryMonth":self.cc_exp_day,"ccExpiryYear":self.cc_exp_year,"property_id":self.PropertId,"currencycode":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","cvvNumber":self.credit_card_identifier]
                 print(params)
                 
                 APIManager.apiPostWithHeaders(serviceName: LISTING_PAY_BY_STRIPE, parameters: params as! [String : Any]) { response, error in
@@ -848,10 +848,10 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                         let responseDict:NSDictionary = response!
                         print(responseDict)
 
-                        if responseDict.value(forKey: "code") as! Int == 200 {
+                        if responseDict.value(forKey: "code") as? Int ?? 0 == 200 {
                             self.hideActivityIndicator(uiView: self.view)
                             isFromPaymentSuccess = true
-                            let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as! String +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
+                            let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as? String ?? "" +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
     
                             self.hideActivityIndicator(uiView: self.view)
                             print(responseDict)
@@ -861,7 +861,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                         }
 
                         else {
-                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                         }
                     }
                 }
@@ -875,10 +875,10 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
 //                    let responseDict:NSDictionary = responseObject as! NSDictionary
 //                    print(responseDict)
 //
-//                    if responseDict.value(forKey: "status") as! Int == 1 {
+//                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
 //                        self.hideActivityIndicator(uiView: self.view)
 //                        isFromPaymentSuccess = true
-//                        let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as! String +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
+//                        let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as? String ?? "" +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
 ////                        let alertController = UIAlertController(title: "Closest", message: amount + "self.paySucces", preferredStyle: .alert)
 ////                        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { alert -> Void in
 ////                            let when = DispatchTime.now()
@@ -897,7 +897,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
 //                    }
 //
 //                    else {
-//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
 //                    }
 //                }, failure: { (operation, error) -> Void in
 //                    DispatchQueue.main.async {
@@ -910,7 +910,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                 
             }
             else{
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
            
             
@@ -970,7 +970,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
             showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
             let PropertyId = Singleton.sharedInstance.PropertyDetail.rentalId!
-            params = [ "coupon_code":tempCard!.text!,"product_id": PropertyId,"sub_total" : subTotal,"service_fee":self.ServiceFee,"deposit_fee":self.SecurityDeposit,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","agent_code":tempCard?.text!]
+            params = [ "coupon_code":tempCard!.text!,"product_id": PropertyId,"sub_total" : subTotal,"service_fee":self.ServiceFee,"deposit_fee":self.SecurityDeposit,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","agent_code":tempCard?.text!]
             
             print(params)
             
@@ -984,21 +984,21 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     
                    
-                    self.agent_id = "\(((responseDict.object(forKey: "agent_amount") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "agent_id") as AnyObject)"
-                    self.Agent_Commission = "\(((responseDict.object(forKey: "agent_amount") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "agent_commission") as AnyObject)"
+                    self.agent_id = "\(((responseDict.object(forKey: "agent_amount") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "agent_id") as AnyObject)"
+                    self.Agent_Commission = "\(((responseDict.object(forKey: "agent_amount") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "agent_commission") as AnyObject)"
                     self.agent_Code = (tempCard?.text!)!
-                    self.agent_status = "\(((responseDict.object(forKey: "agent_amount") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "agent_status") as AnyObject)"
-                    self.agent_percentage = "\(((responseDict.object(forKey: "agent_amount") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "commission_percentage") as AnyObject)"
+                    self.agent_status = "\(((responseDict.object(forKey: "agent_amount") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "agent_status") as AnyObject)"
+                    self.agent_percentage = "\(((responseDict.object(forKey: "agent_amount") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "commission_percentage") as AnyObject)"
                     
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
                 
                     
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -1032,7 +1032,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
             showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
           //  let PropertyId = Singleton.sharedInstance.PropertyDetail.rentalId!
-            params = [ "coupon_code":tempCard!.text!,"product_id": self.PropertId,"sub_total" : subTotal,"service_fee":self.ServiceFee,"deposit_fee":self.SecurityDeposit,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"lang_code":"en","book_id":self.enquiryid]
+            params = [ "coupon_code":tempCard!.text!,"product_id": self.PropertId,"sub_total" : subTotal,"service_fee":self.ServiceFee,"deposit_fee":self.SecurityDeposit,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","lang_code":"en","book_id":self.enquiryid]
             
             
                    print(params)
@@ -1051,10 +1051,10 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                         self.iscoupon = true
                         self.iswalletPayment = false
                         
-                        self.TotalAmount = "\((responseDict.object(forKey: "data") as! NSDictionary).object(forKey: "total_amt") as AnyObject)"
-                        self.CouponTotAmount = "\((responseDict.object(forKey: "data") as! NSDictionary).object(forKey: "total_amt") as AnyObject)"
-                        self.AmounttobePaid = "\((responseDict.object(forKey: "data") as! NSDictionary).object(forKey: "payable") as AnyObject)"
-                        self.CouponDiscountAmount = "\((responseDict.object(forKey: "data") as! NSDictionary).object(forKey: "coupon_amt") as AnyObject)"
+                        self.TotalAmount = "\((responseDict.object(forKey: "data") as? NSDictionary)?.object(forKey: "total_amt") as AnyObject)"
+                        self.CouponTotAmount = "\((responseDict.object(forKey: "data") as? NSDictionary)?.object(forKey: "total_amt") as AnyObject)"
+                        self.AmounttobePaid = "\((responseDict.object(forKey: "data") as? NSDictionary)?.object(forKey: "payable") as AnyObject)"
+                        self.CouponDiscountAmount = "\((responseDict.object(forKey: "data") as? NSDictionary)?.object(forKey: "coupon_amt") as AnyObject)"
 //
 //                        let userDetailsArr = responseDict.value(forKey: "coupon_amount") as! NSArray
 //                                            let userDetails = userDetailsArr[0] as? NSDictionary
@@ -1070,7 +1070,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                        {
                            
                            self.hideActivityIndicator(uiView: self.view)
-                           self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                           self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                             
                        }
                        
@@ -1086,7 +1086,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
 //                let responseDict:NSDictionary = responseObject as! NSDictionary
 //                print(responseDict)
 //                self.hideActivityIndicator(uiView: self.view)
-//                if responseDict.value(forKey: "status") as! Int == 1 {
+//                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
 //                    self.CouponCode = tempCard!.text!
 //                    self.iscoupon = true
 //                    self.iswalletPayment = false
@@ -1140,14 +1140,14 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
 //                    //                    self.totLAmountLbl.text = String(format: "Total Amount :%@ %@","" ,subStr as CVarArg )
 //                    //                    self.discountAmountLbl.text = String(format: "Amount Discount :%@ (%@)", self.discountAmount as CVarArg,couponprice as! CVarArg)
 //                    //                    self.amountTopaidLbl.text = String(format: "Amount to be paid :%@ %@", "",  self.couponTotalAmount as CVarArg )
-//                    //                    self.total_price = userDetails?.value(forKey: "total_amount") as! Double as AnyObject
+//                    //                    self.total_price = userDetails?.value(forKey: "total_amount") as? Double ?? 0 as AnyObject
 //                    //                    self.showInformation(title: "Closest", message: "Coupon applied successfully!")
 //                    //                     self.textfild.text = ""
 //                }
 //
 //                else {
 //                    //
-//                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+//                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
 //                }
 //            }, failure: { (operation, error) -> Void in
 //                DispatchQueue.main.async {
@@ -1187,7 +1187,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                 showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
                 let PropertyId = Singleton.sharedInstance.PropertyDetail.rentalId!
-                params = ["sub_total":subTotal,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"user_id":login_session.value(forKey: "UserId")!,"deposit_fee":self.SecurityDeposit,"product_id":PropertyId,"wallet_amount":self.balenceWalletPrice,"service_fee":self.ServiceFee]
+                params = ["sub_total":subTotal,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","user_id":login_session.value(forKey: "UserId")!,"deposit_fee":self.SecurityDeposit,"product_id":PropertyId,"wallet_amount":self.balenceWalletPrice,"service_fee":self.ServiceFee]
                 
                 
                 let manager = AFHTTPSessionManager()
@@ -1200,7 +1200,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         self.iswalletPayment = true
                         self.iscoupon = false
                         
@@ -1237,7 +1237,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                         //                                self.walletAmountLbl.text = String(format: "Wallet Amount :%@ %@", currencySymbol as! CVarArg,walletAmountStr)
                         //                                self.walletPaidAmountLbl.text = String(format: "Amount To be Paid :%@ %@",currencySymbol as! CVarArg,paidWalletAmoutStr)
                         //                                self.walletTotalAmount = paidWalletAmoutStr
-                        //                                 self.total_price = userDetails?.value(forKey: "total_amount") as! Double as AnyObject
+                        //                                 self.total_price = userDetails?.value(forKey: "total_amount") as? Double ?? 0 as AnyObject
                         //                                self.showInformation(title: "Closest", message: "Wallet applied successfully!")
                         //                            }
                         //
@@ -1246,9 +1246,9 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                         //                                // self.noteCouponLabel.isHidden = true
                         //                                self.noWalletLbl.isHidden = false
                         //                                self.noWalletLbl.text = responseDict.value(forKey: "message") as? String
-                                                     self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                                                     self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }else {
-                         self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                         self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -1264,7 +1264,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                 
                 //                showActivityIndicator(uiView: self.view)
                 //
-                //                let parameterStr = "sub_total=\(totalsubtotal)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&user_id=\(login_session.value(forKey: "UserId")!)&deposit_fee=\(self.totalDeposit)&product_id=\(self.property_id)&wallet_amount=\(self.balenceWalletPrice)&service_fee=\(self.totalserviceFee)"
+                //                let parameterStr = "sub_total=\(totalsubtotal)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&user_id=\(login_session.value(forKey: "UserId")!)&deposit_fee=\(self.totalDeposit)&product_id=\(self.property_id)&wallet_amount=\(self.balenceWalletPrice)&service_fee=\(self.totalserviceFee)"
                 //                Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: WALLET_APPLY_API, APIKEY: "WALLET_APPLY_API")
                 //
                 //                print(parameterStr)
@@ -1273,7 +1273,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
             }
             else
             {
-                self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
             
         }
@@ -1346,7 +1346,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                 
                 self.showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
-                params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as! String,"currencycode":login_session.value(forKey: "APP_CURRENCY")as! String,"txn_id":paymentMethodNonce,"device_type":"IOS","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","payer_email":login_session.value(forKey: "Email") as! String,"payment_gross":self.TotalAmount,"exp_id":self.PropertId,"enquiry_id":self.enquiryid,"user_id":login_session.value(forKey: "UserId")!,"total_price":self.TotalAmount,"exp_price":self.TotalAmount,"user_currencycode":login_session.value(forKey: "APP_CURRENCY")as! String,"host_id":self.HostId]
+                params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","currencycode":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","txn_id":paymentMethodNonce,"device_type":"IOS","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","payer_email":login_session.value(forKey: "Email") as? String ?? "","payment_gross":self.TotalAmount,"exp_id":self.PropertId,"enquiry_id":self.enquiryid,"user_id":login_session.value(forKey: "UserId")!,"total_price":self.TotalAmount,"exp_price":self.TotalAmount,"user_currencycode":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","host_id":self.HostId]
                 
                
                 
@@ -1362,7 +1362,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         isFromBookingDetails = true
                         print(responseDict)
 //                        let paymentSuccessArr:NSArray = responseDict.value(forKey: "payment_success") as! NSArray
@@ -1374,7 +1374,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                         
                     else {
                         self.hideActivityIndicator(uiView: self.view)
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -1390,7 +1390,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                 
                 self.showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
-                params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as! String,"currencycode":login_session.value(forKey: "APP_CURRENCY")as! String,"txn_id":paymentMethodNonce,"device_type":"IOS","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","payer_email":login_session.value(forKey: "Email") as! String,"payment_gross":self.TotalAmount,"exp_id":self.PropertId,"enquiry_id":self.enquiryid,"user_id":login_session.value(forKey: "UserId")!,"total_price":self.TotalAmount,"hosting_price":self.HostingPrice,"commission":self.Commission,"commission_type":self.CommissionType,"host_id":self.HostId]
+                params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","currencycode":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","txn_id":paymentMethodNonce,"device_type":"IOS","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","payer_email":login_session.value(forKey: "Email") as? String ?? "","payment_gross":self.TotalAmount,"exp_id":self.PropertId,"enquiry_id":self.enquiryid,"user_id":login_session.value(forKey: "UserId")!,"total_price":self.TotalAmount,"hosting_price":self.HostingPrice,"commission":self.Commission,"commission_type":self.CommissionType,"host_id":self.HostId]
                 print(params)
 
 //                txn_id=PAY-18X32451H0459092JKO7KFUI, hosting_price=20.12, payer_email=mani@yopmail.com, exp_id=455, commission=20.123, device_type=android, commission_type=flat, host_id=126, currency_code=USD
@@ -1405,7 +1405,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         isFromBookingDetails = true
                         print(responseDict)
 //                        let paymentSuccessArr:NSArray = responseDict.value(forKey: "payment_success") as! NSArray
@@ -1416,7 +1416,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                     }
                         
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -1450,7 +1450,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
 //                            "property_id":"1"
                         
                             
-                            params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as! String,"creditvalue":"authorize","cardtype":"Visa","cardnumber":self.cardnumber,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","cc_exp_day":self.cc_exp_day,"cc_exp_year":self.cc_exp_year,"property_id":self.PropertId,"total_price":"self.couponTotalAmount","base_id":"1","subtotal":self.TotalAmount,"enquiryid":self.enquiryid,"user_id":login_session.value(forKey: "UserId")!,"wallet_amount":"","coupon_code":"self.textfild.text!","offer_type":"coupon","coupon_discount_amt":"self.discountAmount","serviceFee":self.ServiceFee,"depositFee":"","agent_id":self.agent_id,"agent_commission":self.Agent_Commission,"agent_status":self.agent_status,"agent_percentage":self.agent_percentage,"agent_code":self.agent_Code,"txn_id":paymentMethodNonce,"payer_email":login_session.value(forKey: "Email") as! String,"payment_gross":self.TotalAmount,"choosed_option":self.choosed_option,"pay_balance":self.pay_balance]
+                            params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","creditvalue":"authorize","cardtype":"Visa","cardnumber":self.cardnumber,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","cc_exp_day":self.cc_exp_day,"cc_exp_year":self.cc_exp_year,"property_id":self.PropertId,"total_price":"self.couponTotalAmount","base_id":"1","subtotal":self.TotalAmount,"enquiryid":self.enquiryid,"user_id":login_session.value(forKey: "UserId")!,"wallet_amount":"","coupon_code":"self.textfild.text!","offer_type":"coupon","coupon_discount_amt":"self.discountAmount","serviceFee":self.ServiceFee,"depositFee":"","agent_id":self.agent_id,"agent_commission":self.Agent_Commission,"agent_status":self.agent_status,"agent_percentage":self.agent_percentage,"agent_code":self.agent_Code,"txn_id":paymentMethodNonce,"payer_email":login_session.value(forKey: "Email") as? String ?? "","payment_gross":self.TotalAmount,"choosed_option":self.choosed_option,"pay_balance":self.pay_balance]
                             
                             let manager = AFHTTPSessionManager()
                             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -1470,11 +1470,11 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                                 let responseDict:NSDictionary = responseObject as! NSDictionary
                                 print(responseDict)
                                
-                                if responseDict.value(forKey: "status") as! Int == 1 {
+                                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                                     self.hideActivityIndicator(uiView: self.view)
                                     isFromBookingDetails = true
                                     print(responseDict)
-//                                    let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as! String +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
+//                                    let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as? String ?? "" +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
 //                                    let alertController = UIAlertController(title: "Closest", message: amount + " " + "self.paySuccess", preferredStyle: .alert)
 //                                    alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { alert -> Void in
 //                                        let nav = self.storyboard?.instantiateViewController(withIdentifier: "YourTripsViewController") as? YourTripsViewController
@@ -1490,7 +1490,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                                 }
                                     
                                 else {
-                                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                                 }
                             }, failure: { (operation, error) -> Void in
                                 DispatchQueue.main.async {
@@ -1509,7 +1509,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                             showActivityIndicator(uiView: self.view)
                             var params = NSMutableDictionary()
                             
-                            params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as! String,"creditvalue":"authorize","cardtype":"Visa","cardnumber":self.cardnumber,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","cc_exp_day":self.cc_exp_day,"cc_exp_year":self.cc_exp_year,"property_id":self.PropertId,"total_price":"self.couponTotalAmount","base_id":"1","subtotal":self.TotalAmount,"enquiryid":self.enquiryid,"user_id":login_session.value(forKey: "UserId")!,"wallet_amount":"","coupon_code":"self.textfild.text!","offer_type":"coupon","coupon_discount_amt":"self.discountAmount","serviceFee":self.ServiceFee,"depositFee":"","agent_id":self.agent_id,"agent_commission":self.Agent_Commission,"agent_status":self.agent_status,"agent_percentage":self.agent_percentage,"agent_code":self.agent_Code,"txn_id":paymentMethodNonce,"payer_email":login_session.value(forKey: "Email") as! String,"payment_gross":self.TotalAmount,"choosed_option":self.choosed_option,"pay_balance":self.pay_balance]
+                            params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","creditvalue":"authorize","cardtype":"Visa","cardnumber":self.cardnumber,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","cc_exp_day":self.cc_exp_day,"cc_exp_year":self.cc_exp_year,"property_id":self.PropertId,"total_price":"self.couponTotalAmount","base_id":"1","subtotal":self.TotalAmount,"enquiryid":self.enquiryid,"user_id":login_session.value(forKey: "UserId")!,"wallet_amount":"","coupon_code":"self.textfild.text!","offer_type":"coupon","coupon_discount_amt":"self.discountAmount","serviceFee":self.ServiceFee,"depositFee":"","agent_id":self.agent_id,"agent_commission":self.Agent_Commission,"agent_status":self.agent_status,"agent_percentage":self.agent_percentage,"agent_code":self.agent_Code,"txn_id":paymentMethodNonce,"payer_email":login_session.value(forKey: "Email") as? String ?? "","payment_gross":self.TotalAmount,"choosed_option":self.choosed_option,"pay_balance":self.pay_balance]
                             
                             let manager = AFHTTPSessionManager()
                             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -1521,11 +1521,11 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                                 let responseDict:NSDictionary = responseObject as! NSDictionary
                                 print(responseDict)
                                 
-                                if responseDict.value(forKey: "status") as! Int == 1 {
+                                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                                     self.hideActivityIndicator(uiView: self.view)
                                     isFromBookingDetails = true
                                     print(responseDict)
-//                                    let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as! String +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
+//                                    let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as? String ?? "" +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
 //                                    let alertController = UIAlertController(title: "Closest", message: amount + "self.paySuccess", preferredStyle: .alert)
 //                                    alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { alert -> Void in
 //                                        let nav = self.storyboard?.instantiateViewController(withIdentifier: "YourTripsViewController") as? YourTripsViewController
@@ -1541,7 +1541,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                                 }
                                     
                                 else {
-                                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                                 }
                             }, failure: { (operation, error) -> Void in
                                 DispatchQueue.main.async {
@@ -1587,7 +1587,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                                        let responseDict:NSDictionary = json!
                                        print(responseDict)
                                        if responseDict.value(forKey: "code") as! NSNumber == 200 {
-                                        if responseDict.value(forKey: "status") as! Int == 1 {
+                                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                                             self.hideActivityIndicator(uiView: self.view)
                                             isFromBookingDetails = true
                                             print(responseDict)
@@ -1596,20 +1596,20 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                                        {
                                            
                                            self.hideActivityIndicator(uiView: self.view)
-                                           self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                                           self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                                             
                                        }
                                        
                                        }else{
                                         self.hideActivityIndicator(uiView: self.view)
-                                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                                        }
                             }
                         
                     }
                     }
                         else{
-                            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
                         }
                     
               //  }
@@ -1620,7 +1620,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                 
 //                self.showActivityIndicator(uiView: self.view)
 //                var params = NSMutableDictionary()
-//                params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as! String,"currencycode":login_session.value(forKey: "APP_CURRENCY")as! String,"txn_id":paymentMethodNonce,"device_type":"IOS","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","payer_email":login_session.value(forKey: "Email") as! String,"payment_gross":self.TotalAmount,"property_id":self.PropertId,"enquiryid":self.enquiryid,"user_id":login_session.value(forKey: "UserId")!]
+//                params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","currencycode":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","txn_id":paymentMethodNonce,"device_type":"IOS","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","payer_email":login_session.value(forKey: "Email") as? String ?? "","payment_gross":self.TotalAmount,"property_id":self.PropertId,"enquiryid":self.enquiryid,"user_id":login_session.value(forKey: "UserId")!]
 //                print(params)
 //
 //
@@ -1635,7 +1635,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
 //                    let responseDict:NSDictionary = responseObject as! NSDictionary
 //                    print(responseDict)
 //                    self.hideActivityIndicator(uiView: self.view)
-//                    if responseDict.value(forKey: "status") as! Int == 1 {
+//                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
 //                        isFromBookingDetails = true
 //                        print(responseDict)
 //                        let paymentSuccessArr:NSArray = responseDict.value(forKey: "payment_success") as! NSArray
@@ -1647,7 +1647,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
 //
 //                    else {
 //                        self.hideActivityIndicator(uiView: self.view)
-//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
 //                    }
 //                }, failure: { (operation, error) -> Void in
 //                    DispatchQueue.main.async {
@@ -1675,7 +1675,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                           "paymentNonce": paymentMethodNonce,
                           "deviceData": devicedata]
                 
-//                params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as! String,"currencycode":login_session.value(forKey: "APP_CURRENCY")as! String,"txn_id":paymentMethodNonce,"device_type":"IOS","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","payment_gross":self.TotalAmount,"payer_email":login_session.value(forKey: "Email") as! String,"property_id":self.PropertId,"total_price":self.TotalAmount,"user_id":login_session.value(forKey: "UserId")!]
+//                params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","currencycode":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","txn_id":paymentMethodNonce,"device_type":"IOS","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","payment_gross":self.TotalAmount,"payer_email":login_session.value(forKey: "Email") as? String ?? "","property_id":self.PropertId,"total_price":self.TotalAmount,"user_id":login_session.value(forKey: "UserId")!]
                 
 //                let manager = AFHTTPSessionManager()
 //                manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -1700,16 +1700,16 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                         let responseDict:NSDictionary = response!
                         print(responseDict)
 
-                        if responseDict.value(forKey: "code") as! Int == 200 {
+                        if responseDict.value(forKey: "code") as? Int ?? 0 == 200 {
                             isFromPaymentSuccess = true
                             print(responseDict)
-                        // let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as! String +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
+                        // let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as? String ?? "" +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
                             self.GrayView.isHidden = false
 
                         }
 
                         else {
-                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                         }
                     }
                 }
@@ -1719,16 +1719,16 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
 //                    let responseDict:NSDictionary = responseObject as! NSDictionary
 //                    print(responseDict)
 //                    self.hideActivityIndicator(uiView: self.view)
-//                    if responseDict.value(forKey: "status") as! Int == 1 {
+//                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
 //                        isFromPaymentSuccess = true
 //                        print(responseDict)
-//                       // let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as! String +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
+//                       // let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as? String ?? "" +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
 //                        self.GrayView.isHidden = false
 //                    }
 //
 //                    else {
 //                        self.hideActivityIndicator(uiView: self.view)
-//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
 //                    }
 //                }, failure: { (operation, error) -> Void in
 //                    DispatchQueue.main.async {
@@ -1741,7 +1741,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
             }
         }
         else {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
         }
 
         
@@ -1802,7 +1802,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
 //                self.cc_exp_year = self.txfYear.text!
 //                self.credit_card_identifier = self.txfCvv.text!
 //                self.currencycode = "USD"
-//                self.currency_code = (login_session.value(forKey: "APP_CURRENCY") as! String)
+//                self.currency_code = (login_session.value(forKey: "APP_CURRENCY") as? String ?? "")
 //                self.user_id = String(describing: login_session.value(forKey: "UserId")!)
                 payByCredircard()
             } }
@@ -1817,7 +1817,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
 //            self.cc_exp_year = self.txfYear.text!
 //            self.credit_card_identifier = self.txfCvv.text!
 //            self.currencycode = "USD"
-//            self.currency_code = (login_session.value(forKey: "APP_CURRENCY") as! String)
+//            self.currency_code = (login_session.value(forKey: "APP_CURRENCY") as? String ?? "")
 //            self.user_id = String(describing: login_session.value(forKey: "UserId")!)
             payByCredircard()
         }
@@ -1833,7 +1833,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
 
                 showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
-                params = ["cardtype":self.cardtype,"cardNumber":self.cardnumber,"CCExpMonth":self.cc_exp_day,"CCExpYear":self.cc_exp_year,"creditvalue":"authorize","exp_id":self.PropertId,"creditCardIdentifier":self.credit_card_identifier,"total_price":self.TotalAmount,"currency_code":login_session.value(forKey: "APP_CURRENCY")as! String,"exp_currencycode":login_session.value(forKey: "APP_CURRENCY")as! String,"user_id":login_session.value(forKey: "UserId")!,"base_id":id,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","exp_price":self.TotalAmount,"currency_cron_id":self.currency_cron_id,"device_type":"IOS","enquiry_id":self.enquiryid,"currencycode":login_session.value(forKey: "APP_CURRENCY")as! String,"user_currencycode":login_session.value(forKey: "APP_CURRENCY")as! String]
+                params = ["cardtype":self.cardtype,"cardNumber":self.cardnumber,"CCExpMonth":self.cc_exp_day,"CCExpYear":self.cc_exp_year,"creditvalue":"authorize","exp_id":self.PropertId,"creditCardIdentifier":self.credit_card_identifier,"total_price":self.TotalAmount,"currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","exp_currencycode":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","user_id":login_session.value(forKey: "UserId")!,"base_id":id,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","exp_price":self.TotalAmount,"currency_cron_id":self.currency_cron_id,"device_type":"IOS","enquiry_id":self.enquiryid,"currencycode":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","user_currencycode":login_session.value(forKey: "APP_CURRENCY")as? String ?? ""]
                 
                 print(params)
               
@@ -1848,7 +1848,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                     }
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         isFromBookingDetails = true
                         self.GrayView.isHidden = false
                     }
@@ -1881,7 +1881,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                         showActivityIndicator(uiView: self.view)
                         var params = NSMutableDictionary()
                         
-                        params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as! String,"creditvalue":"authorize","cardtype":"Visa","cardnumber":self.cardnumber,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","cc_exp_day":self.cc_exp_day,"cc_exp_year":self.cc_exp_year,"property_id":self.PropertId,"total_price":"self.couponTotalAmount","base_id":"1","subtotal":self.TotalAmount,"enquiryid":self.enquiryid,"user_id":login_session.value(forKey: "UserId")!,"wallet_amount":"","coupon_code":"self.textfild.text!","offer_type":"coupon","coupon_discount_amt":"self.discountAmount","serviceFee":self.ServiceFee,"depositFee":"","agent_id":self.agent_id,"agent_commission":self.Agent_Commission,"agent_status":self.agent_status,"agent_percentage":self.agent_percentage,"agent_code":self.agent_Code,"choosed_option":self.choosed_option,"pay_balance":self.pay_balance]
+                        params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","creditvalue":"authorize","cardtype":"Visa","cardnumber":self.cardnumber,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","cc_exp_day":self.cc_exp_day,"cc_exp_year":self.cc_exp_year,"property_id":self.PropertId,"total_price":"self.couponTotalAmount","base_id":"1","subtotal":self.TotalAmount,"enquiryid":self.enquiryid,"user_id":login_session.value(forKey: "UserId")!,"wallet_amount":"","coupon_code":"self.textfild.text!","offer_type":"coupon","coupon_discount_amt":"self.discountAmount","serviceFee":self.ServiceFee,"depositFee":"","agent_id":self.agent_id,"agent_commission":self.Agent_Commission,"agent_status":self.agent_status,"agent_percentage":self.agent_percentage,"agent_code":self.agent_Code,"choosed_option":self.choosed_option,"pay_balance":self.pay_balance]
                         
                         let manager = AFHTTPSessionManager()
                         manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -1893,11 +1893,11 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                             let responseDict:NSDictionary = responseObject as! NSDictionary
                             print(responseDict)
                            
-                            if responseDict.value(forKey: "status") as! Int == 1 {
+                            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                                 self.hideActivityIndicator(uiView: self.view)
                                 isFromBookingDetails = true
                                 print(responseDict)
-//                                let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as! String +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
+//                                let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as? String ?? "" +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
 //                                let alertController = UIAlertController(title: "Closest", message: amount + " " + "self.paySuccess", preferredStyle: .alert)
 //                                alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { alert -> Void in
 //                                    let nav = self.storyboard?.instantiateViewController(withIdentifier: "YourTripsViewController") as? YourTripsViewController
@@ -1914,7 +1914,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                             }
                                 
                             else {
-                                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                             }
                         }, failure: { (operation, error) -> Void in
                             DispatchQueue.main.async {
@@ -1933,7 +1933,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                         showActivityIndicator(uiView: self.view)
                         var params = NSMutableDictionary()
                         
-                        params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as! String,"creditvalue":"authorize","cardtype":"Visa","cardnumber":self.cardnumber,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","cc_exp_day":self.cc_exp_day,"cc_exp_year":self.cc_exp_year,"property_id":self.PropertId,"total_price":"self.couponTotalAmount","base_id":"1","subtotal":self.TotalAmount,"enquiryid":self.enquiryid,"user_id":login_session.value(forKey: "UserId")!,"wallet_amount":"","coupon_code":"self.textfild.text!","offer_type":"coupon","coupon_discount_amt":"self.discountAmount","serviceFee":self.ServiceFee,"depositFee":"","agent_id":self.agent_id,"agent_commission":self.Agent_Commission,"agent_status":self.agent_status,"agent_percentage":self.agent_percentage,"agent_code":self.agent_Code,"choosed_option":self.choosed_option,"pay_balance":self.pay_balance]
+                        params = ["currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","creditvalue":"authorize","cardtype":"Visa","cardnumber":self.cardnumber,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","cc_exp_day":self.cc_exp_day,"cc_exp_year":self.cc_exp_year,"property_id":self.PropertId,"total_price":"self.couponTotalAmount","base_id":"1","subtotal":self.TotalAmount,"enquiryid":self.enquiryid,"user_id":login_session.value(forKey: "UserId")!,"wallet_amount":"","coupon_code":"self.textfild.text!","offer_type":"coupon","coupon_discount_amt":"self.discountAmount","serviceFee":self.ServiceFee,"depositFee":"","agent_id":self.agent_id,"agent_commission":self.Agent_Commission,"agent_status":self.agent_status,"agent_percentage":self.agent_percentage,"agent_code":self.agent_Code,"choosed_option":self.choosed_option,"pay_balance":self.pay_balance]
                         
                         let manager = AFHTTPSessionManager()
                         manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -1945,11 +1945,11 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                             let responseDict:NSDictionary = responseObject as! NSDictionary
                             print(responseDict)
                             
-                            if responseDict.value(forKey: "status") as! Int == 1 {
+                            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                                 self.hideActivityIndicator(uiView: self.view)
                                 isFromBookingDetails = true
                                 print(responseDict)
-//                                let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as! String +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
+//                                let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as? String ?? "" +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
 //                                let alertController = UIAlertController(title: "Closest", message: amount + "self.paySuccess", preferredStyle: .alert)
 //                                alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { alert -> Void in
 //                                    let nav = self.storyboard?.instantiateViewController(withIdentifier: "YourTripsViewController") as? YourTripsViewController
@@ -1965,7 +1965,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                             }
                                 
                             else {
-                                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                             }
                         }, failure: { (operation, error) -> Void in
                             DispatchQueue.main.async {
@@ -1986,7 +1986,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                         
                         
                         
-                        params = ["cardtype":self.cardtype,"cardnumber":self.cardnumber,"cc_exp_day":self.cc_exp_day,"cc_exp_year":self.cc_exp_year,"creditvalue":"authorize","property_id":self.PropertId,"credit_card_identifier":self.credit_card_identifier,"total_price":self.TotalAmount,"currency_code":login_session.value(forKey: "APP_CURRENCY")as! String,"currencycode":login_session.value(forKey: "APP_CURRENCY")as! String,"user_id":login_session.value(forKey: "UserId")!,"base_id":id,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","enquiryid":self.enquiryid,"user_currencycode":login_session.value(forKey: "APP_CURRENCY")as! String,"agent_id":self.agent_id,"agent_commission":self.Agent_Commission,"agent_status":self.agent_status,"agent_percentage":self.agent_percentage,"agent_code":self.agent_Code,"choosed_option":self.choosed_option,"pay_balance":self.pay_balance]
+                        params = ["cardtype":self.cardtype,"cardnumber":self.cardnumber,"cc_exp_day":self.cc_exp_day,"cc_exp_year":self.cc_exp_year,"creditvalue":"authorize","property_id":self.PropertId,"credit_card_identifier":self.credit_card_identifier,"total_price":self.TotalAmount,"currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","currencycode":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","user_id":login_session.value(forKey: "UserId")!,"base_id":id,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","enquiryid":self.enquiryid,"user_currencycode":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","agent_id":self.agent_id,"agent_commission":self.Agent_Commission,"agent_status":self.agent_status,"agent_percentage":self.agent_percentage,"agent_code":self.agent_Code,"choosed_option":self.choosed_option,"pay_balance":self.pay_balance]
                         print(params)
                         
                      
@@ -2002,17 +2002,17 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                             let responseDict:NSDictionary = responseObject as! NSDictionary
                             print(responseDict)
                             self.hideActivityIndicator(uiView: self.view)
-                            if responseDict.value(forKey: "status") as! Int == 1 {
+                            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                                 self.hideActivityIndicator(uiView: self.view)
                                 isFromBookingDetails = true
                                 print(responseDict)
-                              //  let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as! String +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
+                              //  let amount = login_session.value(forKey: "APP_CURRENCY_SYMBOL") as? String ?? "" +  " " + String(describing: responseDict.value(forKey: "total_price") as AnyObject)
                                 self.GrayView.isHidden = false
                                 
                             }
                                 
                             else {
-                                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                             }
                         }, failure: { (operation, error) -> Void in
                             DispatchQueue.main.async {
@@ -2031,7 +2031,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                 
                 showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
-                params = ["cardtype":self.cardtype,"cardnumber":self.cardnumber,"cc_exp_day":self.cc_exp_day,"cc_exp_year":self.cc_exp_year,"creditvalue":"authorize","property_id":self.PropertId,"credit_card_identifier":self.credit_card_identifier,"total_price":self.TotalAmount,"currency_code":login_session.value(forKey: "APP_CURRENCY")as! String,"currencycode":login_session.value(forKey: "APP_CURRENCY")as! String,"user_id":login_session.value(forKey: "UserId")!,"base_id":id,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","enquiryid":self.enquiryid,"user_currencycode":login_session.value(forKey: "APP_CURRENCY")as! String,"agent_id":self.agent_id,"agent_commission":self.Agent_Commission,"agent_status":self.agent_status,"agent_percentage":self.agent_percentage,"agent_code":self.agent_Code,"choosed_option":self.choosed_option,"pay_balance":self.pay_balance]
+                params = ["cardtype":self.cardtype,"cardnumber":self.cardnumber,"cc_exp_day":self.cc_exp_day,"cc_exp_year":self.cc_exp_year,"creditvalue":"authorize","property_id":self.PropertId,"credit_card_identifier":self.credit_card_identifier,"total_price":self.TotalAmount,"currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","currencycode":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","user_id":login_session.value(forKey: "UserId")!,"base_id":id,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","enquiryid":self.enquiryid,"user_currencycode":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","agent_id":self.agent_id,"agent_commission":self.Agent_Commission,"agent_status":self.agent_status,"agent_percentage":self.agent_percentage,"agent_code":self.agent_Code,"choosed_option":self.choosed_option,"pay_balance":self.pay_balance]
               
 //                print(params)
 //                let manager = AFHTTPSessionManager()
@@ -2043,7 +2043,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
 //                    }
 //                    let responseDict:NSDictionary = responseObject as! NSDictionary
 //                    print(responseDict)
-//                    if responseDict.value(forKey: "status") as! Int == 1 {
+//                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
 //                        isFromBookingDetails = true
 //                        self.GrayView.isHidden = false
 //
@@ -2062,7 +2062,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
         }
         else
         {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
     
@@ -2135,7 +2135,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                    
                    }else{
                     self.hideActivityIndicator(uiView: self.view)
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                    }
         }
 
@@ -2182,7 +2182,7 @@ extension NewPaymentViewController: UITableViewDelegate,UITableViewDataSource {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentCouponTitleTableViewCell") as? PaymentCouponTitleTableViewCell
                 cell!.selectionStyle = .none
-                cell!.TypeName.text = GlobalLanguageDictionary.object(forKey: "key_haveCoupon") as! String
+                cell!.TypeName.text = GlobalLanguageDictionary.object(forKey: "key_haveCoupon") as? String ?? ""
                 cell!.TypeName.font = UIFont(name: SemiBoldFont, size: 16)
                 
                 
@@ -2209,9 +2209,9 @@ extension NewPaymentViewController: UITableViewDelegate,UITableViewDataSource {
                 }
                 
                 if self.agent_Code != ""{
-                    cell!.ApplyBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_applied") as! String, for: .normal)
+                    cell!.ApplyBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_applied") as? String ?? "", for: .normal)
                 }else{
-                    cell!.ApplyBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_apply") as! String, for: .normal)
+                    cell!.ApplyBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_apply") as? String ?? "", for: .normal)
 
                 }
                 
@@ -2238,14 +2238,14 @@ extension NewPaymentViewController: UITableViewDelegate,UITableViewDataSource {
             cell!.AmounttobePaidLbl.font = UIFont(name: SemiBoldFont, size: 14)
             cell!.AmounttobePaidValueLbl.font = UIFont(name: RegularFont, size: 14)
             
-            cell!.ApplyBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_apply") as! String, for: .normal)
-            cell!.CancelBtn.setTitle(GlobalLanguageDictionary.object(forKey: "Key_cancel") as! String, for: .normal)
+            cell!.ApplyBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_apply") as? String ?? "", for: .normal)
+            cell!.CancelBtn.setTitle(GlobalLanguageDictionary.object(forKey: "Key_cancel") as? String ?? "", for: .normal)
             
-            cell!.NoteLbl.text = GlobalLanguageDictionary.object(forKey: "key_couponusedcantcancel") as! String
+            cell!.NoteLbl.text = GlobalLanguageDictionary.object(forKey: "key_couponusedcantcancel") as? String ?? ""
             
-            cell!.TotalAmountLbl.text = GlobalLanguageDictionary.object(forKey: "key_totalamount") as! String
-            cell!.AmountDiscountLbl.text = GlobalLanguageDictionary.object(forKey: "key_amountDiscount") as! String
-            cell!.AmountDiscountLbl.text = GlobalLanguageDictionary.object(forKey: "key_amounttobepaid") as! String
+            cell!.TotalAmountLbl.text = GlobalLanguageDictionary.object(forKey: "key_totalamount") as? String ?? ""
+            cell!.AmountDiscountLbl.text = GlobalLanguageDictionary.object(forKey: "key_amountDiscount") as? String ?? ""
+            cell!.AmountDiscountLbl.text = GlobalLanguageDictionary.object(forKey: "key_amounttobepaid") as? String ?? ""
             
             if self.iscoupon == true {
                 cell!.AppliedView.isHidden = false
@@ -2270,7 +2270,7 @@ extension NewPaymentViewController: UITableViewDelegate,UITableViewDataSource {
             if indexPath.row == 0 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "PaymentTypesTableViewCell") as? PaymentTypesTableViewCell
                 cell!.selectionStyle = .none
-                cell!.TypeName.text = GlobalLanguageDictionary.object(forKey: "key_cashinWallet") as! String
+                cell!.TypeName.text = GlobalLanguageDictionary.object(forKey: "key_cashinWallet") as? String ?? ""
                 if balenceWalletPrice == "0"{
                     cell?.notesLbl.isHidden = false
                 }
@@ -2278,15 +2278,15 @@ extension NewPaymentViewController: UITableViewDelegate,UITableViewDataSource {
                 cell!.TypeName.font = UIFont(name: SemiBoldFont, size: 16)
                 cell!.notesLbl.font = UIFont(name: SemiBoldFont, size: 11)
 
-                cell!.notesLbl.text = GlobalLanguageDictionary.object(forKey: "key_invitefrnd2getcash") as! String
+                cell!.notesLbl.text = GlobalLanguageDictionary.object(forKey: "key_invitefrnd2getcash") as? String ?? ""
                 return cell!
             }
             let cell = tableView.dequeueReusableCell(withIdentifier: "WalletUsedTableViewCell") as? WalletUsedTableViewCell
             cell!.selectionStyle = .none
-            cell!.NoteLbl.text = GlobalLanguageDictionary.object(forKey: "key_walletusedcantcancel") as! String
-            cell!.ApplyBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_apply") as! String, for: .normal)
-            cell!.CancelBtn.setTitle(GlobalLanguageDictionary.object(forKey: "Key_cancel") as! String, for: .normal)
-            cell?.WalletLbl.text = GlobalLanguageDictionary.object(forKey: "key_usewallet") as! String
+            cell!.NoteLbl.text = GlobalLanguageDictionary.object(forKey: "key_walletusedcantcancel") as? String ?? ""
+            cell!.ApplyBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_apply") as? String ?? "", for: .normal)
+            cell!.CancelBtn.setTitle(GlobalLanguageDictionary.object(forKey: "Key_cancel") as? String ?? "", for: .normal)
+            cell?.WalletLbl.text = GlobalLanguageDictionary.object(forKey: "key_usewallet") as? String ?? ""
             cell!.WalletLbl.font = UIFont(name: SemiBoldFont, size: 14)
             cell!.NoteLbl.font = UIFont(name: RegularFont, size: 14)
             cell!.ApplyBtn.titleLabel?.font = UIFont(name: SemiBoldFont, size: 16)
@@ -2314,21 +2314,21 @@ extension NewPaymentViewController: UITableViewDelegate,UITableViewDataSource {
                 cell!.radioImg.image = UIImage(named: "radio-on-button")
 
                 if self.choosePaymentType == "Stripe" {
-                    cell!.SelectPaymentTypeLbl.text = GlobalLanguageDictionary.object(forKey: "key_creditDebit") as! String
+                    cell!.SelectPaymentTypeLbl.text = GlobalLanguageDictionary.object(forKey: "key_creditDebit") as? String ?? ""
                     
 
                 }else{
                     cell!.SelectPaymentTypeLbl.text = self.choosePaymentType
                 }
-                cell!.SelectTypeLbl.text = GlobalLanguageDictionary.object(forKey: "key_selectCardType") as! String
-                cell!.SelectedCardType.text = GlobalLanguageDictionary.object(forKey: "key_chooseyourCard") as! String
-                cell!.CardNumberLbl.text = GlobalLanguageDictionary.object(forKey: "key_cardNumberstar") as! String
-                cell!.CardNumberTxt.placeholder = GlobalLanguageDictionary.object(forKey: "key_cardNumber") as! String
-                cell!.ExpDateLbl.text = GlobalLanguageDictionary.object(forKey: "key_expiryDateStar") as! String
-                cell!.yearTxt.placeholder = GlobalLanguageDictionary.object(forKey: "key_year") as! String
-                cell!.DateTxt.placeholder = GlobalLanguageDictionary.object(forKey: "key_month") as! String
-                cell!.CvvLbl.text = GlobalLanguageDictionary.object(forKey: "key_cvvstar") as! String
-                cell!.CVVTxt.placeholder = GlobalLanguageDictionary.object(forKey: "key_cvv") as! String
+                cell!.SelectTypeLbl.text = GlobalLanguageDictionary.object(forKey: "key_selectCardType") as? String ?? ""
+                cell!.SelectedCardType.text = GlobalLanguageDictionary.object(forKey: "key_chooseyourCard") as? String ?? ""
+                cell!.CardNumberLbl.text = GlobalLanguageDictionary.object(forKey: "key_cardNumberstar") as? String ?? ""
+                cell!.CardNumberTxt.placeholder = GlobalLanguageDictionary.object(forKey: "key_cardNumber") as? String ?? ""
+                cell!.ExpDateLbl.text = GlobalLanguageDictionary.object(forKey: "key_expiryDateStar") as? String ?? ""
+                cell!.yearTxt.placeholder = GlobalLanguageDictionary.object(forKey: "key_year") as? String ?? ""
+                cell!.DateTxt.placeholder = GlobalLanguageDictionary.object(forKey: "key_month") as? String ?? ""
+                cell!.CvvLbl.text = GlobalLanguageDictionary.object(forKey: "key_cvvstar") as? String ?? ""
+                cell!.CVVTxt.placeholder = GlobalLanguageDictionary.object(forKey: "key_cvv") as? String ?? ""
                 
                 
                 
@@ -2475,7 +2475,7 @@ extension NewPaymentViewController: UITableViewDelegate,UITableViewDataSource {
                 cell?.notesLbl.isHidden = true
                 cell!.TypeImg.image = UIImage(named: "radio-button")
                 if self.PaymentsArray.object(at: indexPath.row) as? String == "Stripe" {
-                    cell!.TypeName.text = GlobalLanguageDictionary.object(forKey: "key_creditDebit") as! String
+                    cell!.TypeName.text = GlobalLanguageDictionary.object(forKey: "key_creditDebit") as? String ?? ""
                 }else{
                     cell!.TypeName.text = self.PaymentsArray.object(at: indexPath.row) as? String
                 }
@@ -2515,7 +2515,7 @@ extension NewPaymentViewController: UITableViewDelegate,UITableViewDataSource {
                 self.CouponShow = 2
                 if balenceWalletPrice == "0"{
                  self.WalletShow = 1
-                    self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_dontHaveCashinWallet") as! String)
+                    self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_dontHaveCashinWallet") as? String ?? "")
                 }else{
                     self.WalletShow = 2
                 }

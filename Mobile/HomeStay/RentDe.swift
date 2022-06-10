@@ -25,10 +25,10 @@ class RentDe : NSObject, NSCoding {
     init(fromDictionary dictionary: [String:Any]){
        
        
-        cancel_policy_desc = dictionary["cancel_policy_desc"] as? String
-        sec_dep_desc = dictionary["sec_dep_desc"] as? String
-        ren_meta_title = dictionary["ren_meta_title"] as? String
-        ren_tax = dictionary["ren_tax"] as? String
+        cancel_policy_desc = dictionary["cancel_policy_desc"] as? String ?? ""
+        sec_dep_desc = dictionary["sec_dep_desc"] as? String ?? ""
+        ren_meta_title = dictionary["ren_meta_title"] as? String ?? ""
+        ren_tax = dictionary["ren_tax"] as? String ?? ""
         
         
        
@@ -67,10 +67,10 @@ class RentDe : NSObject, NSCoding {
     {
         
         
-        cancel_policy_desc = aDecoder.decodeObject(forKey: "cancel_policy_desc") as? String
-        sec_dep_desc = aDecoder.decodeObject(forKey: "sec_dep_desc") as? String
-        ren_meta_title = aDecoder.decodeObject(forKey: "ren_meta_title") as? String
-        ren_tax = aDecoder.decodeObject(forKey: "ren_tax") as? String
+        cancel_policy_desc = aDecoder.decodeObject(forKey: "cancel_policy_desc") as? String ?? ""
+        sec_dep_desc = aDecoder.decodeObject(forKey: "sec_dep_desc") as? String ?? ""
+        ren_meta_title = aDecoder.decodeObject(forKey: "ren_meta_title") as? String ?? ""
+        ren_tax = aDecoder.decodeObject(forKey: "ren_tax") as? String ?? ""
     }
 
     /**

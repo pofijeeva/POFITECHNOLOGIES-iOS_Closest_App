@@ -207,7 +207,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
         self.LabelNoScheduleAvailable.isHidden = false
 
 //        if arrayOfResult.count > 0 {
-//            self.arrayOfDit.addObjects(from: (((arrayOfResult[0] as! NSDictionary).object(forKey: "Timing") as! NSDictionary).object(forKey: "schedules") as! NSArray) as! [Any])
+//            self.arrayOfDit.addObjects(from: (((arrayOfResult[0] as? NSDictionary)?.object(forKey: "Timing") as? NSDictionary)?.object(forKey: "schedules") as! NSArray) as! [Any])
 //            self.tableListSchedules.reloadData()
 //            if arrayOfDit.count > 0 {
 //                self.imageNoScheduleAvailable.isHidden = true
@@ -224,7 +224,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
         if Helper.sharedInstance.isConnectedToInternet() {
             self.showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
-            params = ["time_id":self.TimeId,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","exp_id":currentExpId,"date_id":dateId]
+            params = ["time_id":self.TimeId,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","exp_id":currentExpId,"date_id":dateId]
             
             
             let manager = AFHTTPSessionManager()
@@ -235,7 +235,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
                 self.hideActivityIndicator(uiView: self.view)
                 let responseDict:NSDictionary = resultData as! NSDictionary
                 print("Response:",responseDict)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     self.hideActivityIndicator(uiView: self.view)
 
                     self.arrayOfDit.removeAllObjects()
@@ -248,7 +248,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
                     //                    currentExpId = "\(responseDict.object(forKey: "experience_id") as AnyObject)"
                 }
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) in
                 print(error)
@@ -260,7 +260,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
         else {
             self.hideActivityIndicator(uiView: self.view)
 
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
 
     }
@@ -273,7 +273,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
         if Helper.sharedInstance.isConnectedToInternet() {
             self.showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
-            params = ["time_id":self.TimeId,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","exp_id":currentExpId,"date_id":dateId,"status":self.status]
+            params = ["time_id":self.TimeId,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","exp_id":currentExpId,"date_id":dateId,"status":self.status]
            
             
             let manager = AFHTTPSessionManager()
@@ -284,7 +284,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
                 self.hideActivityIndicator(uiView: self.view)
                 let responseDict:NSDictionary = resultData as! NSDictionary
                 print("Response:",responseDict)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     self.hideActivityIndicator(uiView: self.view)
                     self.arrayOfDit.removeAllObjects()
                     self.arrayOfDit.addObjects(from: (responseDict.object(forKey: "Time_details") as! NSArray) as! [Any])
@@ -298,7 +298,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
 //                    currentExpId = "\(responseDict.object(forKey: "experience_id") as AnyObject)"
                 }
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) in
                 print(error)
@@ -310,7 +310,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
         else {
             self.hideActivityIndicator(uiView: self.view)
 
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
 
     }
@@ -333,7 +333,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
         if Helper.sharedInstance.isConnectedToInternet() {
             self.showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
-            params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","exp_id":currentExpId,"date_id":dateId]
+            params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","exp_id":currentExpId,"date_id":dateId]
             let manager = AFHTTPSessionManager()
             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
             print("params",params)
@@ -342,7 +342,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
                 self.hideActivityIndicator(uiView: self.view)
                 let responseDict:NSDictionary = resultData as! NSDictionary
                 print("Response:",responseDict)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                    // currentExpId = "\(responseDict.object(forKey: "experience_id") as AnyObject)"
                     self.arrayOfDit.removeAllObjects()
                     self.arrayOfDit.addObjects(from: (responseDict.object(forKey: "Time_details") as! NSArray) as! [Any])
@@ -353,7 +353,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
                     self.tableListSchedules.reloadData()
                 }
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) in
                 print(error)
@@ -363,7 +363,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
             })
         }
         else {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         
     }
@@ -405,11 +405,11 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
         let ActiveButton = cell.viewWithTag(16) as! UIButton
         let ActiveImage = cell.viewWithTag(17) as! UIImageView
         
-        labelTitleValue.text = (self.arrayOfDit.object(at: indexPath.row) as! NSDictionary).object(forKey: "title") as! String
+        labelTitleValue.text = (self.arrayOfDit.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "title") as? String ?? ""
         
-        labelDateValue.text = (self.arrayOfDit.object(at: indexPath.row) as! NSDictionary).object(forKey: "schedule_date") as! String
+        labelDateValue.text = (self.arrayOfDit.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "schedule_date") as? String ?? ""
         
-        let status = "\((self.arrayOfDit.object(at: indexPath.row) as! NSDictionary).object(forKey: "time_status") as AnyObject)"
+        let status = "\((self.arrayOfDit.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "time_status") as AnyObject)"
         
         if status == "1" {
             labelActive.text = "Active"
@@ -420,7 +420,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
 
         }
         
-        let time = "\((self.arrayOfDit.object(at: indexPath.row) as! NSDictionary).object(forKey: "start_time") as! String)" + " - \((self.arrayOfDit.object(at: indexPath.row) as! NSDictionary).object(forKey: "end_time") as! String)"
+        let time = "\((self.arrayOfDit.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "start_time") as? String ?? "")" + " - \((self.arrayOfDit.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "end_time") as? String ?? "")"
         
         
         
@@ -475,15 +475,15 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
        
         
         
-        self.TimeId = "\((self.arrayOfDit.object(at: indexPath!.row) as! NSDictionary).object(forKey: "time_id") as AnyObject)"
-        self.textfieldTitle.text = (self.arrayOfDit.object(at: indexPath!.row) as! NSDictionary).object(forKey: "title") as! String
+        self.TimeId = "\((self.arrayOfDit.object(at: indexPath!.row) as? NSDictionary)?.object(forKey: "time_id") as AnyObject)"
+        self.textfieldTitle.text = (self.arrayOfDit.object(at: indexPath!.row) as? NSDictionary)?.object(forKey: "title") as? String ?? ""
         
-        self.labelStartTime.text = ((self.arrayOfDit.object(at: indexPath!.row) as! NSDictionary).object(forKey: "start_time") as! String)
+        self.labelStartTime.text = ((self.arrayOfDit.object(at: indexPath!.row) as? NSDictionary)?.object(forKey: "start_time") as? String ?? "")
         
-        self.labelEndTime.text = ((self.arrayOfDit.object(at: indexPath!.row) as! NSDictionary).object(forKey: "end_time") as! String)
+        self.labelEndTime.text = ((self.arrayOfDit.object(at: indexPath!.row) as? NSDictionary)?.object(forKey: "end_time") as? String ?? "")
         
         
-       // self.textviewDescription.text = ((self.arrayOfDit.object(at: indexPath!.row) as! NSDictionary).object(forKey: "description") as! String)
+       // self.textviewDescription.text = ((self.arrayOfDit.object(at: indexPath!.row) as? NSDictionary)?.object(forKey: "description") as? String ?? "")
         
         self.viewContentAddTimeSheet.isHidden = false
         self.greyView.isHidden = true
@@ -501,7 +501,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
        
         
         
-        self.TimeId = "\((self.arrayOfDit.object(at: indexPath!.row) as! NSDictionary).object(forKey: "time_id") as AnyObject)"
+        self.TimeId = "\((self.arrayOfDit.object(at: indexPath!.row) as? NSDictionary)?.object(forKey: "time_id") as AnyObject)"
         
         self.DeleteTimeDetails()
 
@@ -514,7 +514,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
         let indexPath = self.tableListSchedules.indexPathForRow(at: buttonPosition)
         print("indexPath?.row",indexPath?.row)
        
-        let status = "\((self.arrayOfDit.object(at: indexPath!.row) as! NSDictionary).object(forKey: "time_status") as AnyObject)"
+        let status = "\((self.arrayOfDit.object(at: indexPath!.row) as? NSDictionary)?.object(forKey: "time_status") as AnyObject)"
         
         if status == "1" {
             self.status = "0"
@@ -524,7 +524,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
 
         }
         
-        self.TimeId = "\((self.arrayOfDit.object(at: indexPath!.row) as! NSDictionary).object(forKey: "time_id") as AnyObject)"
+        self.TimeId = "\((self.arrayOfDit.object(at: indexPath!.row) as? NSDictionary)?.object(forKey: "time_id") as AnyObject)"
         
         self.ActiveTimeDetails()
 
@@ -678,11 +678,11 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
                 if self.submitType == "Add" {
                     APINAME = AddExperienceTimeSheet
                  
-                params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","exp_id":currentExpId,"start_time":self.labelStartTime.text,"end_time":self.labelEndTime.text,"description":self.textviewDescription.text,"date_id":dateId,"title":self.textfieldTitle.text,"schedule_date":self.labelDate.text]
+                params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","exp_id":currentExpId,"start_time":self.labelStartTime.text,"end_time":self.labelEndTime.text,"description":self.textviewDescription.text,"date_id":dateId,"title":self.textfieldTitle.text,"schedule_date":self.labelDate.text]
                 }else{
                     APINAME = EXPERIENCEEDITTIMESHEET
 
-                    params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","exp_id":currentExpId,"start_time":self.labelStartTime.text,"end_time":self.labelEndTime.text,"description":self.textviewDescription.text,"date_id":dateId,"title":self.textfieldTitle.text,"schedule_date":self.labelDate.text,"time_id":self.TimeId]
+                    params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","exp_id":currentExpId,"start_time":self.labelStartTime.text,"end_time":self.labelEndTime.text,"description":self.textviewDescription.text,"date_id":dateId,"title":self.textfieldTitle.text,"schedule_date":self.labelDate.text,"time_id":self.TimeId]
                     
                     
                 }
@@ -694,7 +694,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
                     self.hideActivityIndicator(uiView: self.view)
                     let responseDict:NSDictionary = resultData as! NSDictionary
                     print("Response:",responseDict)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         self.hideActivityIndicator(uiView: self.view)
 
                         self.viewContentAddTimeSheet.isHidden = true
@@ -708,7 +708,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
                         }
                     }
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) in
                     print(error)
@@ -720,7 +720,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
             else {
                 self.hideActivityIndicator(uiView: self.view)
 
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
             
         }

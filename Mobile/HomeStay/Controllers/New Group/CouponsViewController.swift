@@ -22,9 +22,9 @@ class CouponsViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.lblTitle.text = GlobalLanguageDictionary.object(forKey: "key_coupons") as! String
-        self.btnAvailable.setTitle(GlobalLanguageDictionary.object(forKey: "key_available") as! String, for: .normal)
-        self.btnUpcomming.setTitle(GlobalLanguageDictionary.object(forKey: "key_commingSoon") as! String, for: .normal)
+        self.lblTitle.text = GlobalLanguageDictionary.object(forKey: "key_coupons") as? String ?? ""
+        self.btnAvailable.setTitle(GlobalLanguageDictionary.object(forKey: "key_available") as? String ?? "", for: .normal)
+        self.btnUpcomming.setTitle(GlobalLanguageDictionary.object(forKey: "key_commingSoon") as? String ?? "", for: .normal)
         self.lblTitle.font = UIFont(name: SemiBoldFont, size: 17)
         self.lblUnderline2.backgroundColor = AppColor
         self.lblUnderLine1.backgroundColor = AppColor
@@ -104,7 +104,7 @@ class CouponsViewController: BaseViewController {
             }
         }
         else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         
     }
@@ -115,7 +115,7 @@ class CouponsViewController: BaseViewController {
 extension CouponsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if coupons.count == 0 {
-            self.tblView.EmptyMessage(message: GlobalLanguageDictionary.object(forKey: "key_nodatafound") as! String, tableView: tblView)
+            self.tblView.EmptyMessage(message: GlobalLanguageDictionary.object(forKey: "key_nodatafound") as? String ?? "", tableView: tblView)
         }
         else {
             self.tblView.EmptyMessage(message: "", tableView: tblView)
@@ -132,9 +132,9 @@ extension CouponsViewController: UITableViewDelegate, UITableViewDataSource {
         cell?.lblValidDate.font = UIFont(name: SemiBoldFont, size: 15)
         
         cell?.lblCodeTitle.text = couponObj["coupon_code"] as? String
-        cell?.lblCarName.text = "\(GlobalLanguageDictionary.object(forKey: "key_forProperty") as! String):" + " " + (couponObj["ren_title"] as! String)
-        cell?.lblCode.text = "\(GlobalLanguageDictionary.object(forKey: "key_code") as! String):" + " " + (couponObj["coupon_code"] as! String)
-        cell?.lblValidDate.text = "\(GlobalLanguageDictionary.object(forKey: "key_validto") as! String): " + (couponObj["dateto"] as! String).stringToDateFormatter(toFormate: "yyyy-MM-dd", fromFormate: "dd MMM,yyyy")
+        cell?.lblCarName.text = "\(GlobalLanguageDictionary.object(forKey: "key_forProperty") as? String ?? ""):" + " " + (couponObj["ren_title"] as? String ?? "")
+        cell?.lblCode.text = "\(GlobalLanguageDictionary.object(forKey: "key_code") as? String ?? ""):" + " " + (couponObj["coupon_code"] as? String ?? "")
+        cell?.lblValidDate.text = "\(GlobalLanguageDictionary.object(forKey: "key_validto") as? String ?? ""): " + (couponObj["dateto"] as? String ?? "").stringToDateFormatter(toFormate: "yyyy-MM-dd", fromFormate: "dd MMM,yyyy")
         return cell!
     }
     

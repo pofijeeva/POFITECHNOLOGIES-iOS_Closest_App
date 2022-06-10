@@ -291,29 +291,29 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
             
     //        if UserDefaults.standard.value(forKey: "isRequestToBook") != nil && UserDefaults.standard.value(forKey: "isInstantPay") != nil
     //        {
-    //            if UserDefaults.standard.value(forKey: "isRequestToBook") as! String == "Yes" &&  UserDefaults.standard.value(forKey: "isInstantPay") as! String == "Yes" {
-    //                print(UserDefaults.standard.value(forKey: "isRequestToBook") as! String )
-    //                print(UserDefaults.standard.value(forKey: "isInstantPay") as! String )
+    //            if UserDefaults.standard.value(forKey: "isRequestToBook") as? String ?? "" == "Yes" &&  UserDefaults.standard.value(forKey: "isInstantPay") as? String ?? "" == "Yes" {
+    //                print(UserDefaults.standard.value(forKey: "isRequestToBook") as? String ?? "" )
+    //                print(UserDefaults.standard.value(forKey: "isInstantPay") as? String ?? "" )
     //                btnSendToHost.isHidden = true
     //                bottomRequestView.isHidden = false
     //            }
     //            else {
-    //                print(UserDefaults.standard.value(forKey: "isRequestToBook") as! String )
-    //                print(UserDefaults.standard.value(forKey: "isInstantPay") as! String )
+    //                print(UserDefaults.standard.value(forKey: "isRequestToBook") as? String ?? "" )
+    //                print(UserDefaults.standard.value(forKey: "isInstantPay") as? String ?? "" )
     //                btnSendToHost.isHidden = false
     //                bottomRequestView.isHidden = true
     //            }
     //        }
     //        else if UserDefaults.standard.value(forKey: "isRequestToBook") != nil || UserDefaults.standard.value(forKey: "isInstantPay") != nil {
     //            if UserDefaults.standard.value(forKey: "isRequestToBook") != nil {
-    //                if UserDefaults.standard.value(forKey: "isRequestToBook") as! String == "Yes" {
+    //                if UserDefaults.standard.value(forKey: "isRequestToBook") as? String ?? "" == "Yes" {
     //                    btnSendToHost.isHidden = false
     //                    bottomRequestView.isHidden = true
     //                    btnSendToHost.setTitle("REQUEST TO BOOK", for: .normal)
     //                }
     //            }
     //            else if UserDefaults.standard.value(forKey: "isInstantPay") != nil {
-    //                if UserDefaults.standard.value(forKey: "isInstantPay") as! String == "Yes" {
+    //                if UserDefaults.standard.value(forKey: "isInstantPay") as? String ?? "" == "Yes" {
     //                    btnSendToHost.isHidden = false
     //                    bottomRequestView.isHidden = true
     //                    btnSendToHost.setTitle("INSTANT PAY", for: .normal)
@@ -481,7 +481,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
         }
         for i in 0..<self.UnavaliableDates.count
         {
-            let dayStr:String = self.UnavaliableDates[i] as! String
+            let dayStr:String = self.UnavaliableDates[i] as? String ?? ""
             print(dayStr)
             if self.formatter.string(from: date) == dayStr
             {
@@ -490,7 +490,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
         }
         for i in 0..<self.avaliableDates.count
         {
-            let dayStr:String = self.avaliableDates[i] as! String
+            let dayStr:String = self.avaliableDates[i] as? String ?? ""
             print(dayStr)
             if self.formatter.string(from: date) == dayStr
             {
@@ -612,7 +612,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
 //        }
 //
 //        for i in 0..<HideDates.count {
-//            let dayStr:String = HideDates[i] as! String
+//            let dayStr:String = HideDates[i] as? String ?? ""
 //            print(dayStr)
 //            if self.formatterNew1.string(from: date) == dayStr  {
 //                return UIColor.red
@@ -625,7 +625,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
         let curDate = Date().addingTimeInterval(-24*60*60)
         
         for i in 0..<BookindDates.count {
-            let dayStr:String = BookindDates[i] as! String
+            let dayStr:String = BookindDates[i] as? String ?? ""
             print(dayStr)
             if self.formatter.string(from: date) == dayStr {
                 return false
@@ -633,7 +633,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
             
         }
         for i in 0..<UnavaliableDates.count {
-            let dayStr:String = UnavaliableDates[i] as! String
+            let dayStr:String = UnavaliableDates[i] as? String ?? ""
             print(dayStr)
             if self.formatter.string(from: date) == dayStr {
                 return false
@@ -649,7 +649,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
             
         }
 //        for i in 0..<avaliableDates.count {
-//            let dayStr:String = avaliableDates[i] as! String
+//            let dayStr:String = avaliableDates[i] as? String ?? ""
 //            print(dayStr)
 //            if self.formatter.string(from: date) == dayStr {
 //                return false
@@ -675,7 +675,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
         
         self.greyView.isHidden = false
         for i in 0..<HideDates.count {
-            let dayStr:String = HideDates[i] as! String
+            let dayStr:String = HideDates[i] as? String ?? ""
             print(dayStr)
             if self.formatterNew1.string(from: date) == dayStr {
                 return false
@@ -831,7 +831,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
             self.showActivityIndicator(uiView: self.view)
             let id = Singleton.sharedInstance.selectedCategory!
             print(guestCount)
-            let user = String(login_session.value(forKey: "UserId") as! Int)
+            let user = String(login_session.value(forKey: "UserId") as? Int ?? 0)
             print(user)
             let host = String(Singleton.sharedInstance.PropertyDetail.hostId!)
             print(host)
@@ -845,7 +845,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
                 
                 showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
-                 params = ["email":login_session.value(forKey: "Email") as! String,"P_Id":Singleton.sharedInstance.PropertyDetail.rentalId!,"guests":guestCount,"s_date":self.btn_SelectArrDate.currentTitle!,"e_date":self.btn_SelectDepartDate.currentTitle!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"message":message,"base_id":id,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
+                 params = ["email":login_session.value(forKey: "Email") as? String ?? "","P_Id":Singleton.sharedInstance.PropertyDetail.rentalId!,"guests":guestCount,"s_date":self.btn_SelectArrDate.currentTitle!,"e_date":self.btn_SelectDepartDate.currentTitle!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","message":message,"base_id":id,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
                
                 
                 let manager = AFHTTPSessionManager()
@@ -858,7 +858,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         print("GET_WISHLIST_API Response:::",responseDict)
                         isFromBookingDetails = true
                         let nav = self.storyboard?.instantiateViewController(withIdentifier: "YourTripsViewController") as? YourTripsViewController
@@ -868,7 +868,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
                     }
                         
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -879,7 +879,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
                 })
                 
                 
-//                let parameterStr = "email=\(login_session.value(forKey: "Email") as! String)&P_Id=\(Singleton.sharedInstance.PropertyDetail.rentalId!)&guests=\(guestCount)&s_date=\(self.btn_SelectArrDate.currentTitle!)&e_date=\(self.btn_SelectDepartDate.currentTitle!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&message=\(message)&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
+//                let parameterStr = "email=\(login_session.value(forKey: "Email") as? String ?? "")&P_Id=\(Singleton.sharedInstance.PropertyDetail.rentalId!)&guests=\(guestCount)&s_date=\(self.btn_SelectArrDate.currentTitle!)&e_date=\(self.btn_SelectDepartDate.currentTitle!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&message=\(message)&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
 //                Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: REQ_HOST_REQUEST, APIKEY: "REQ_HOST_REQUEST")
 //                print(parameterStr)
             }
@@ -894,7 +894,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
         if Reachability()!.isReachable {
             self.showActivityIndicator(uiView: self.view)
             print(guestCount)
-            let user = String(login_session.value(forKey: "UserId") as! Int)
+            let user = String(login_session.value(forKey: "UserId") as? Int ?? 0)
             print(user)
             let host = String(Singleton.sharedInstance.PropertyDetail.hostId!)
             print(host)
@@ -913,7 +913,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
                 var params = NSMutableDictionary()
                 
                 
-                 params = ["base_id":id,"P_Id":Singleton.sharedInstance.PropertyDetail.rentalId!,"s_date":self.btn_SelectArrDate.currentTitle!,"e_date":self.btn_SelectDepartDate.currentTitle!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"numofdates":self.noOfNights,"user_id":login_session.value(forKey: "UserId")!,"renter_id":Singleton.sharedInstance.PropertyDetail.hostId!,"totalAmt":self.hotelTotalPrice,"guests":guestCount,"cancel_percentage":self.hotelcancelPercentage,"secDeposit":self.hotelsecDeposit,"serviceFee":self.hotelServfee,"subTotal":self.hotlTotalAmt,"email":login_session.value(forKey: "Email") as! String,"message":message,"property_currency_code":login_session.value(forKey: "APP_CURRENCY") as! String]
+                 params = ["base_id":id,"P_Id":Singleton.sharedInstance.PropertyDetail.rentalId!,"s_date":self.btn_SelectArrDate.currentTitle!,"e_date":self.btn_SelectDepartDate.currentTitle!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","numofdates":self.noOfNights,"user_id":login_session.value(forKey: "UserId")!,"renter_id":Singleton.sharedInstance.PropertyDetail.hostId!,"totalAmt":self.hotelTotalPrice,"guests":guestCount,"cancel_percentage":self.hotelcancelPercentage,"secDeposit":self.hotelsecDeposit,"serviceFee":self.hotelServfee,"subTotal":self.hotlTotalAmt,"email":login_session.value(forKey: "Email") as? String ?? "","message":message,"property_currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? ""]
                 
                 
                 
@@ -927,13 +927,13 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         print(responseDict)
-                        self.Stripe_status = responseDict.value(forKey: "Stripe_status") as! String
+                        self.Stripe_status = responseDict.value(forKey: "Stripe_status") as? String ?? ""
                         print(self.Stripe_status)
-                        self.creditcard_Stat = responseDict.value(forKey: "Credit_Card_status") as! String
+                        self.creditcard_Stat = responseDict.value(forKey: "Credit_Card_status") as? String ?? ""
                         print(self.creditcard_Stat)
-                        self.paypal_Stat = responseDict.value(forKey: "paypal_status") as! String
+                        self.paypal_Stat = responseDict.value(forKey: "paypal_status") as? String ?? ""
                         print(self.paypal_Stat)
                         let nav = self.storyboard?.instantiateViewController(withIdentifier: "PaymentViewController") as? PaymentViewController
                         nav!.property_id = String(Singleton.sharedInstance.PropertyDetail.rentalId)
@@ -954,7 +954,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
                     }
                         
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -974,7 +974,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
                 
                 
 //                let id = Singleton.sharedInstance.selectedCategory!
-//                let parameterStr = "base_id=\(id)&P_Id=\(Singleton.sharedInstance.PropertyDetail.rentalId!)&s_date=\(self.btn_SelectArrDate.currentTitle!)&e_date=\(self.btn_SelectDepartDate.currentTitle!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&numofdates=\(self.noOfNights)&user_id=\(login_session.value(forKey: "UserId")!)&renter_id=\(Singleton.sharedInstance.PropertyDetail.hostId!)&totalAmt=\(self.hotelTotalPrice)&guests=\(guestCount)&cancel_percentage=\(self.hotelcancelPercentage)&secDeposit=\(self.hotelsecDeposit)&serviceFee=\(self.hotelServfee)&subTotal=\(self.hotlTotalAmt)&email=\(login_session.value(forKey: "Email") as! String)&message=\(message)&property_currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)"
+//                let parameterStr = "base_id=\(id)&P_Id=\(Singleton.sharedInstance.PropertyDetail.rentalId!)&s_date=\(self.btn_SelectArrDate.currentTitle!)&e_date=\(self.btn_SelectDepartDate.currentTitle!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&numofdates=\(self.noOfNights)&user_id=\(login_session.value(forKey: "UserId")!)&renter_id=\(Singleton.sharedInstance.PropertyDetail.hostId!)&totalAmt=\(self.hotelTotalPrice)&guests=\(guestCount)&cancel_percentage=\(self.hotelcancelPercentage)&secDeposit=\(self.hotelsecDeposit)&serviceFee=\(self.hotelServfee)&subTotal=\(self.hotlTotalAmt)&email=\(login_session.value(forKey: "Email") as? String ?? "")&message=\(message)&property_currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")"
 //                Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: HOST_REQ_INSTANT_PAY_API , APIKEY: "HOST_REQ_INSTANT_PAY_API")
 //                print(parameterStr)
                 
@@ -1001,7 +1001,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
     
     func mess(){
         let id = Singleton.sharedInstance.selectedCategory!
-        let parameters = "base_id=\(id)&message=\(self.message)&Bookingno=\(self.Bookingno)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)"
+        let parameters = "base_id=\(id)&message=\(self.message)&Bookingno=\(self.Bookingno)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")"
         
         Network.shared.POSTRequest(withParameterString: parameters, serviceURL: REASTURANT_BOOKING_CONFIRM, APIKEY: "REASTURANT_BOOKING_CONFIRM")
     }
@@ -1048,7 +1048,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
             
             var params = NSMutableDictionary()
             
-            params =  ["base_id": id,"P_Id":Singleton.sharedInstance.PropertyDetail.rentalId!,"s_date":self.btn_SelectArrDate.currentTitle!,"e_date":self.btn_SelectDepartDate.currentTitle!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"numofdates":self.noOfNights,"user_id":login_session.value(forKey: "UserId")!,"renter_id":Singleton.sharedInstance.PropertyDetail.hostId!,"totalAmt":self.hotelTotalPrice,"guests":guestCount,"cancel_percentage":self.hotelcancelPercentage,"secDeposit":self.hotelsecDeposit,"serviceFee":self.hotelServfee,"subTotal":self.hotlTotalAmt,"email":login_session.value(forKey: "Email") as! String,"message":message,"property_currency_code":login_session.value(forKey: "APP_CURRENCY") as! String]
+            params =  ["base_id": id,"P_Id":Singleton.sharedInstance.PropertyDetail.rentalId!,"s_date":self.btn_SelectArrDate.currentTitle!,"e_date":self.btn_SelectDepartDate.currentTitle!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","numofdates":self.noOfNights,"user_id":login_session.value(forKey: "UserId")!,"renter_id":Singleton.sharedInstance.PropertyDetail.hostId!,"totalAmt":self.hotelTotalPrice,"guests":guestCount,"cancel_percentage":self.hotelcancelPercentage,"secDeposit":self.hotelsecDeposit,"serviceFee":self.hotelServfee,"subTotal":self.hotlTotalAmt,"email":login_session.value(forKey: "Email") as? String ?? "","message":message,"property_currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? ""]
             
             
             let manager = AFHTTPSessionManager()
@@ -1061,13 +1061,13 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     print(responseDict)
-                    self.Stripe_status = responseDict.value(forKey: "Stripe_status") as! String
+                    self.Stripe_status = responseDict.value(forKey: "Stripe_status") as? String ?? ""
                     print(self.Stripe_status)
-                    self.creditcard_Stat = responseDict.value(forKey: "Credit_Card_status") as! String
+                    self.creditcard_Stat = responseDict.value(forKey: "Credit_Card_status") as? String ?? ""
                     print(self.creditcard_Stat)
-                    self.paypal_Stat = responseDict.value(forKey: "paypal_status") as! String
+                    self.paypal_Stat = responseDict.value(forKey: "paypal_status") as? String ?? ""
                     print(self.paypal_Stat)
                 
                     let nav = self.storyboard?.instantiateViewController(withIdentifier: "PaymentViewController") as? PaymentViewController
@@ -1089,7 +1089,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
                 }
                     
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -1105,7 +1105,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
 //        self.showActivityIndicator(uiView: self.view)
 //       let id = Singleton.sharedInstance.selectedCategory!
 //
-//        let params =  ["base_id": id,"P_Id":Singleton.sharedInstance.PropertyDetail.rentalId!,"s_date":self.btn_SelectArrDate.currentTitle!,"e_date":self.btn_SelectDepartDate.currentTitle!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"numofdates":self.noOfNights,"user_id":login_session.value(forKey: "UserId")!,"renter_id":Singleton.sharedInstance.PropertyDetail.hostId!,"totalAmt":self.hotelTotalPrice,"guests":guestCount,"cancel_percentage":self.hotelcancelPercentage,"secDeposit":self.hotelsecDeposit,"serviceFee":self.hotelServfee,"subTotal":self.hotlTotalAmt,"email":login_session.value(forKey: "Email") as! String,"message":message,"property_currency_code":login_session.value(forKey: "APP_CURRENCY") as! String]
+//        let params =  ["base_id": id,"P_Id":Singleton.sharedInstance.PropertyDetail.rentalId!,"s_date":self.btn_SelectArrDate.currentTitle!,"e_date":self.btn_SelectDepartDate.currentTitle!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","numofdates":self.noOfNights,"user_id":login_session.value(forKey: "UserId")!,"renter_id":Singleton.sharedInstance.PropertyDetail.hostId!,"totalAmt":self.hotelTotalPrice,"guests":guestCount,"cancel_percentage":self.hotelcancelPercentage,"secDeposit":self.hotelsecDeposit,"serviceFee":self.hotelServfee,"subTotal":self.hotlTotalAmt,"email":login_session.value(forKey: "Email") as? String ?? "","message":message,"property_currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? ""]
 //
 //        print(params)
 //        APIManager.apiPost(serviceName: HOST_REQ_INSTANT_PAY_API, parameters: params) { (json:NSDictionary?, error:NSError?) in
@@ -1148,7 +1148,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
             if btnSendToHost.currentTitle == "REQUEST HOST TO BOOK"
             {
                 print(guestCount)
-                //let user = String(login_session.value(forKey: "UserId") as! Int)
+                //let user = String(login_session.value(forKey: "UserId") as? Int ?? 0)
                 
                 let user = String(describing: login_session.value(forKey: "UserId")!)
 
@@ -1166,7 +1166,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
                     showActivityIndicator(uiView: self.view)
                     var params = NSMutableDictionary()
                     
-                     params = ["email":login_session.value(forKey: "Email") as! String,"P_Id":Singleton.sharedInstance.PropertyDetail.rentalId!,"guests":guestCount,"s_date":self.btn_SelectArrDate.currentTitle!,"e_date":self.btn_SelectDepartDate.currentTitle!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"message":message,"base_id":id,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
+                     params = ["email":login_session.value(forKey: "Email") as? String ?? "","P_Id":Singleton.sharedInstance.PropertyDetail.rentalId!,"guests":guestCount,"s_date":self.btn_SelectArrDate.currentTitle!,"e_date":self.btn_SelectDepartDate.currentTitle!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","message":message,"base_id":id,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
                     
                     
                     let manager = AFHTTPSessionManager()
@@ -1179,7 +1179,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
                         let responseDict:NSDictionary = responseObject as! NSDictionary
                         print(responseDict)
                         self.hideActivityIndicator(uiView: self.view)
-                        if responseDict.value(forKey: "status") as! Int == 1 {
+                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                             print("GET_WISHLIST_API Response:::",responseDict)
                             isFromBookingDetails = true
                             let nav = self.storyboard?.instantiateViewController(withIdentifier: "YourTripsViewController") as? YourTripsViewController
@@ -1189,7 +1189,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
                         }
                             
                         else {
-                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                         }
                     }, failure: { (operation, error) -> Void in
                         DispatchQueue.main.async {
@@ -1201,14 +1201,14 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
                     
                     
                     
-//                    let parameterStr = "email=\(login_session.value(forKey: "Email") as! String)&P_Id=\(Singleton.sharedInstance.PropertyDetail.rentalId!)&guests=\(guestCount)&s_date=\(self.btn_SelectArrDate.currentTitle!)&e_date=\(self.btn_SelectDepartDate.currentTitle!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&message=\(message)&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
+//                    let parameterStr = "email=\(login_session.value(forKey: "Email") as? String ?? "")&P_Id=\(Singleton.sharedInstance.PropertyDetail.rentalId!)&guests=\(guestCount)&s_date=\(self.btn_SelectArrDate.currentTitle!)&e_date=\(self.btn_SelectDepartDate.currentTitle!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&message=\(message)&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
 //                    Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: REQ_HOST_REQUEST, APIKEY: "REQ_HOST_REQUEST")
 //                    print(parameterStr)
                 }
             }
             else
             {
-               // let user = String(login_session.value(forKey: "UserId") as! Int)
+               // let user = String(login_session.value(forKey: "UserId") as? Int ?? 0)
                 let user = String(describing: login_session.value(forKey: "UserId")!)
                 print(user)
                 let host = String(Singleton.sharedInstance.PropertyDetail.hostId!)
@@ -1223,7 +1223,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
                      self.showActivityIndicator(uiView: self.view)
                     BookingApi()
 //                    let id = Singleton.sharedInstance.selectedCategory!
-//                    let parameterStr = "base_id=\(id)&P_Id=\(Singleton.sharedInstance.PropertyDetail.rentalId!)&s_date=\(self.btn_SelectArrDate.currentTitle!)&e_date=\(self.btn_SelectDepartDate.currentTitle!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&numofdates=\(self.noOfNights)&user_id=\(login_session.value(forKey: "UserId")!)&renter_id=\(Singleton.sharedInstance.PropertyDetail.hostId!)&totalAmt=\(self.hotelTotalPrice)&guests=\(guestCount)&cancel_percentage=\(self.hotelcancelPercentage)&secDeposit=\(self.hotelsecDeposit)&serviceFee=\(self.hotelServfee)&subTotal=\(self.hotlTotalAmt)&email=\(login_session.value(forKey: "Email") as! String)&message=\(message)&property_currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)"
+//                    let parameterStr = "base_id=\(id)&P_Id=\(Singleton.sharedInstance.PropertyDetail.rentalId!)&s_date=\(self.btn_SelectArrDate.currentTitle!)&e_date=\(self.btn_SelectDepartDate.currentTitle!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&numofdates=\(self.noOfNights)&user_id=\(login_session.value(forKey: "UserId")!)&renter_id=\(Singleton.sharedInstance.PropertyDetail.hostId!)&totalAmt=\(self.hotelTotalPrice)&guests=\(guestCount)&cancel_percentage=\(self.hotelcancelPercentage)&secDeposit=\(self.hotelsecDeposit)&serviceFee=\(self.hotelServfee)&subTotal=\(self.hotlTotalAmt)&email=\(login_session.value(forKey: "Email") as? String ?? "")&message=\(message)&property_currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")"
 //                    Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: HOST_REQ_INSTANT_PAY_API , APIKEY: "HOST_REQ_INSTANT_PAY_API")
 //                    print(parameterStr)
                     
@@ -1256,15 +1256,15 @@ extension BookingDetailViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
         {
             if errorDict.count == 0
             {
-                let status = responseDict.value(forKey: "status") as! Int
+                let status = responseDict.value(forKey: "status") as? Int ?? 0
                 if status == 1
                 {
                     print(responseDict)
-                    self.Stripe_status = responseDict.value(forKey: "Stripe_status") as! String
+                    self.Stripe_status = responseDict.value(forKey: "Stripe_status") as? String ?? ""
                     print(Stripe_status)
-                    self.creditcard_Stat = responseDict.value(forKey: "Credit_Card_status") as! String
+                    self.creditcard_Stat = responseDict.value(forKey: "Credit_Card_status") as? String ?? ""
                     print(creditcard_Stat)
-                    self.paypal_Stat = responseDict.value(forKey: "paypal_status") as! String
+                    self.paypal_Stat = responseDict.value(forKey: "paypal_status") as? String ?? ""
                     print(paypal_Stat)
                     let nav = self.storyboard?.instantiateViewController(withIdentifier: "PaymentViewController") as? PaymentViewController
                     nav!.property_id = String(Singleton.sharedInstance.PropertyDetail.rentalId)

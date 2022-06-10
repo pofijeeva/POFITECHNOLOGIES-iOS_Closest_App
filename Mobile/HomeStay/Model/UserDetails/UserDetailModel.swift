@@ -18,8 +18,8 @@ class UserDetailModel : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        image = dictionary["image"] as? String
-        pageId = dictionary["pageId"] as? String
+        image = dictionary["image"] as? String ?? ""
+        pageId = dictionary["pageId"] as? String ?? ""
         if let userDetailsData = dictionary["userDetails"] as? [String:Any]{
             userDetails = UserDetail(fromDictionary: userDetailsData)
         }
@@ -64,8 +64,8 @@ class UserDetailModel : NSObject, NSCoding{
     @objc required init(coder aDecoder: NSCoder)
     {
         activeRentals = aDecoder.decodeObject(forKey: "Active_rentals") as? [ActiveRental]
-        image = aDecoder.decodeObject(forKey: "image") as? String
-        pageId = aDecoder.decodeObject(forKey: "pageId") as? String
+        image = aDecoder.decodeObject(forKey: "image") as? String ?? ""
+        pageId = aDecoder.decodeObject(forKey: "pageId") as? String ?? ""
         userDetails = aDecoder.decodeObject(forKey: "userDetails") as? UserDetail
     }
 

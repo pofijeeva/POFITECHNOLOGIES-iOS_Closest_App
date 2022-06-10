@@ -93,7 +93,7 @@ class UserProfileViewController: BaseViewController {
             
             showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
-             params = ["language":login_session.value(forKey: "APP_LANGUAGE") as! String,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"userid":login_session.value(forKey: "UserId")]
+             params = ["language":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "","currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","userid":login_session.value(forKey: "UserId")]
             
            print(params)
             let manager = AFHTTPSessionManager()
@@ -106,7 +106,7 @@ class UserProfileViewController: BaseViewController {
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     self.tblProfile.isHidden = false
                     let mod = UserInfo(fromDictionary: responseDict as! [String : Any])
                     Singleton.sharedInstance.userInfoModel = mod
@@ -178,7 +178,7 @@ class UserProfileViewController: BaseViewController {
                 }
                     
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -192,24 +192,24 @@ class UserProfileViewController: BaseViewController {
             
             
 //            self.showActivityIndicator(uiView: self.view)
-//            let parameterStr = "language=\(login_session.value(forKey: "APP_LANGUAGE") as! String)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&userid=\(login_session.value(forKey: "UserId")!)"
+//            let parameterStr = "language=\(login_session.value(forKey: "APP_LANGUAGE") as? String ?? "")&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&userid=\(login_session.value(forKey: "UserId")!)"
 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: USER_INFO_API, APIKEY: "USER_INFO_API")
 //            print(parameterStr)
         } else
         {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
 
         if UserDefaults.standard.value(forKey: "ProfileImage") != nil {
-            if UserDefaults.standard.value(forKey: "ProfileImage") as! String != "" {
-               // imgUser.imageFromURL(urlString:  UserDefaults.standard.value(forKey: "ProfileImage") as! String)
+            if UserDefaults.standard.value(forKey: "ProfileImage") as? String ?? "" != "" {
+               // imgUser.imageFromURL(urlString:  UserDefaults.standard.value(forKey: "ProfileImage") as? String ?? "")
                 
-                let profileImage = URL(string: UserDefaults.standard.value(forKey: "ProfileImage") as! String)
+                let profileImage = URL(string: UserDefaults.standard.value(forKey: "ProfileImage") as? String ?? "")
                imgUser.kf.setImage(with: profileImage, placeholder:UIImage(named:"user"))
                 
-               // imgUser.kf.setImage(with: ((urlString:  UserDefaults.standard.value(forKey: "ProfileImage") as! String) as! Resource), placeholder: UIImage.init(named: "user"), options: nil, progressBlock: nil, completionHandler: nil)
+               // imgUser.kf.setImage(with: ((urlString:  UserDefaults.standard.value(forKey: "ProfileImage") as? String ?? "") as! Resource), placeholder: UIImage.init(named: "user"), options: nil, progressBlock: nil, completionHandler: nil)
 
-                //let wishlistImgUrl = URL(string: UserDefaults.standard.value(forKey: "ProfileImage") as! String)
+                //let wishlistImgUrl = URL(string: UserDefaults.standard.value(forKey: "ProfileImage") as? String ?? "")
                 //imgUser.kf.setImage(with:wishlistImgUrl!)
             }
         }
@@ -268,9 +268,9 @@ class UserProfileViewController: BaseViewController {
                 var params = NSMutableDictionary()
                 
                 
-                params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","u_email":login_session.value(forKey: "Email") as! String,
+                params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","u_email":login_session.value(forKey: "Email") as? String ?? "",
                           "email_otp":self.EnterVerificationCodeTxf.text!]
-               // params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","u_email":login_session.value(forKey: "Email") as! String,"userid":self.hostID] "userid":login_session.value(forKey: "UserId")!
+               // params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","u_email":login_session.value(forKey: "Email") as? String ?? "","userid":self.hostID] "userid":login_session.value(forKey: "UserId")!
                 
                
                 
@@ -284,7 +284,7 @@ class UserProfileViewController: BaseViewController {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         self.lbl_emailVerificatn.text = "Email id verified"
 
                         self.EmailVerificationGrayView.isHidden = true
@@ -295,7 +295,7 @@ class UserProfileViewController: BaseViewController {
                     else {
                         
                         self.lbl_emailVerificatn.text = "Email id not verified"
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -307,7 +307,7 @@ class UserProfileViewController: BaseViewController {
                 
             } else
             {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
         
@@ -340,8 +340,8 @@ class UserProfileViewController: BaseViewController {
                 var params = NSMutableDictionary()
                 
                 
-                params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","u_email":login_session.value(forKey: "Email") as! String]
-               // params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","u_email":login_session.value(forKey: "Email") as! String,"userid":self.hostID] "userid":login_session.value(forKey: "UserId")!
+                params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","u_email":login_session.value(forKey: "Email") as? String ?? ""]
+               // params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","u_email":login_session.value(forKey: "Email") as? String ?? "","userid":self.hostID] "userid":login_session.value(forKey: "UserId")!
                 
                 let manager = AFHTTPSessionManager()
                 manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -353,7 +353,7 @@ class UserProfileViewController: BaseViewController {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         
                         self.EmailVerificationGrayView.isHidden = false
                         
@@ -364,7 +364,7 @@ class UserProfileViewController: BaseViewController {
                     else {
                         
                         self.lbl_emailVerificatn.text = "Email id not verified"
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -376,7 +376,7 @@ class UserProfileViewController: BaseViewController {
                 
             } else
             {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
        
@@ -419,33 +419,36 @@ extension UserProfileViewController : UITableViewDataSource , UITableViewDelegat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? UserProfileCell
-//        cell!.bgView.setBorder(withColor: UIColor.lightGray, width: 1.0, cornerRadius: 5.0)
-//        cell!.lblName.text = listArr[indexPath.row]
-//        cell!.btnViewAll.tag = indexPath.row
-//        cell!.btnViewAll.setTitle(listBtnArr[indexPath.row], for: .normal)
-//        cell!.btnViewAll.addTarget(self, action: #selector(ViewAll), for: .touchUpInside)
-//        return cell!
+//        cell.bgView.setBorder(withColor: UIColor.lightGray, width: 1.0, cornerRadius: 5.0)
+//        cell.lblName.text = listArr[indexPath.row]
+//        cell.btnViewAll.tag = indexPath.row
+//        cell.btnViewAll.setTitle(listBtnArr[indexPath.row], for: .normal)
+//        cell.btnViewAll.addTarget(self, action: #selector(ViewAll), for: .touchUpInside)
+//        return cell
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? UserProfileCell else { return UITableViewCell() }
+
       
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? UserProfileCell
-          //  cell!.bgView.setBorder(withColor: UIColor.lightGray, width: 1.0, cornerRadius: 5.0)
-            cell!.lblName.text = listArr[indexPath.row]
-            cell!.btnViewAll.tag = indexPath.row
-            cell?.countLbl.isHidden = true
-            cell!.selectionStyle = .none
-             cell!.lblName.font = UIFont(name: RegularFont, size: 14)
-         cell!.countLbl.font = UIFont(name: RegularFont, size: 13)
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? UserProfileCell
+          //  cell.bgView.setBorder(withColor: UIColor.lightGray, width: 1.0, cornerRadius: 5.0)
+            cell.lblName.text = listArr[indexPath.row]
+            cell.btnViewAll.tag = indexPath.row
+            cell.countLbl.isHidden = true
+            cell.selectionStyle = .none
+             cell.lblName.font = UIFont(name: RegularFont, size: 14)
+         cell.countLbl.font = UIFont(name: RegularFont, size: 13)
         
         if self.selectedRow == indexPath.row {
-            cell!.lblName.textColor = AppSecondColor
-            cell!.btnViewAll.setImage(UIImage(named: "arrow-left4"), for: .normal)
+            cell.lblName.textColor = AppSecondColor
+            cell.btnViewAll.setImage(UIImage(named: "arrow-left4"), for: .normal)
         }else{
-            cell!.lblName.textColor = .darkGray
-            cell!.btnViewAll.setImage(UIImage(named: "arrow-left"), for: .normal)
+            cell.lblName.textColor = .darkGray
+            cell.btnViewAll.setImage(UIImage(named: "arrow-left"), for: .normal)
         }
         
-        cell!.countLbl.backgroundColor = AppSecondColor
+        cell.countLbl.backgroundColor = AppSecondColor
         
-        cell!.btnViewAll.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 13)
+        cell.btnViewAll.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 13)
             if indexPath.row == 2
             {
                 let newnumber:Int = Singleton.sharedInstance.userInfoModel.profileinfo[0].cancellationAboutYouCount + Singleton.sharedInstance.userInfoModel.profileinfo[0].cancellationByYouCount
@@ -453,16 +456,16 @@ extension UserProfileViewController : UITableViewDataSource , UITableViewDelegat
                 
                 if  String(format: "%d", newnumber) == "0"
                 {
-                    cell?.countLbl.isHidden = true
+                    cell.countLbl.isHidden = true
                     
                 }
                 else
                 {
                    
-                    cell?.countLbl.text =  String(format: "%d", newnumber)
-                    cell?.countLbl.isHidden = false
-                    cell?.countLbl.layer.cornerRadius = 10
-                    cell?.countLbl.layer.masksToBounds = true
+                    cell.countLbl.text =  String(format: "%d", newnumber)
+                    cell.countLbl.isHidden = false
+                    cell.countLbl.layer.cornerRadius = 10
+                    cell.countLbl.layer.masksToBounds = true
                 }
                 
                 
@@ -475,30 +478,30 @@ extension UserProfileViewController : UITableViewDataSource , UITableViewDelegat
                 
                 if  String(format: "%d", newnumber) == "0"
                 {
-                    cell?.countLbl.isHidden = true
+                    cell.countLbl.isHidden = true
                     
                 }
                 else
                 {
                     
-                    cell?.countLbl.text =  String(format: "%d", newnumber)
-                    cell?.countLbl.isHidden = false
-                    cell?.countLbl.layer.cornerRadius = 10
-                    cell?.countLbl.layer.masksToBounds = true
+                    cell.countLbl.text =  String(format: "%d", newnumber)
+                    cell.countLbl.isHidden = false
+                    cell.countLbl.layer.cornerRadius = 10
+                    cell.countLbl.layer.masksToBounds = true
                 }
                 
             }
             else
             {
                 
-                cell?.countLbl.isHidden = true
+                cell.countLbl.isHidden = true
             }
             
-            cell!.btnViewAll.setTitle(listBtnArr[indexPath.row], for: .normal)
-            cell!.btnViewAll.addTarget(self, action: #selector(ViewAll), for: .touchUpInside)
+            cell.btnViewAll.setTitle(listBtnArr[indexPath.row], for: .normal)
+            cell.btnViewAll.addTarget(self, action: #selector(ViewAll), for: .touchUpInside)
             
             
-            return cell!
+            return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -710,7 +713,7 @@ extension UserProfileViewController : HTTP_POST_STRING_REQUEST_PROTOCOL
             }
             else
             {
-                showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 self.lbl_emailVerificatn.text = "Email id not verified"
             }
 

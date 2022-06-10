@@ -23,7 +23,7 @@ class HeaderManager {
         
         var fcmToken = String()
         if UserDefaults.standard.object(forKey: "fcmToken") != nil{
-            fcmToken = UserDefaults.standard.object(forKey: "fcmToken") as! String
+            fcmToken = UserDefaults.standard.object(forKey: "fcmToken") as? String ?? ""
         }else{
             fcmToken = ""
         }
@@ -31,14 +31,14 @@ class HeaderManager {
         
         var iPhoneOSVersionString = String()
         if UserDefaults.standard.object(forKey: "iPhoneOSVersionString") != nil{
-            iPhoneOSVersionString = UserDefaults.standard.object(forKey: "iPhoneOSVersionString") as! String
+            iPhoneOSVersionString = UserDefaults.standard.object(forKey: "iPhoneOSVersionString") as? String ?? ""
         }else{
             iPhoneOSVersionString = ""
         }
         
         var iPhoneModelString = String()
         if UserDefaults.standard.object(forKey: "iPhoneModelString") != nil{
-            iPhoneModelString = UserDefaults.standard.object(forKey: "iPhoneModelString") as! String
+            iPhoneModelString = UserDefaults.standard.object(forKey: "iPhoneModelString") as? String ?? ""
         }else{
             iPhoneModelString = ""
         }
@@ -66,7 +66,7 @@ class HeaderManager {
          print("systemVersion is:: ", iPhoneOSVersionString)
 
         var appBuildVersion = String()
-        appBuildVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
+        appBuildVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
         print("appVersion is:: ", appBuildVersion)
 
 //        UIDevice.currentDevice().identifierForVendor
@@ -74,14 +74,14 @@ class HeaderManager {
 //
 //        UIDevice.currentDevice().identifierForVendor!.UUIDString
 //        if UserDefaults.standard.object(forKey: "iPhoneIDString") != nil{
-//            iPhoneIDString = UserDefaults.standard.object(forKey: "iPhoneIDString") as! String
+//            iPhoneIDString = UserDefaults.standard.object(forKey: "iPhoneIDString") as? String ?? ""
 //        }else{
 //            iPhoneIDString = ""
 //        }
         
        
 //        if UserDefaults.standard.object(forKey: "appBuildVersion") != nil{
-//            appBuildVersion = UserDefaults.standard.object(forKey: "appBuildVersion") as! String
+//            appBuildVersion = UserDefaults.standard.object(forKey: "appBuildVersion") as? String ?? ""
 //        }else{
 //            appBuildVersion = ""
 //        }
@@ -96,7 +96,7 @@ class HeaderManager {
 //                headers["Content-Type"] = "application/json"
 //
 //                if login_session.value(forKey: "user_token") != nil {
-//                    let tokenStr:String = login_session.object(forKey: "user_token") as! String
+//                    let tokenStr:String = login_session.object(forKey: "user_token") as? String ?? ""
 //                    headers["Authorization"] = "Bearer " + tokenStr
 //                }
 
@@ -116,7 +116,7 @@ class HeaderManager {
         
         if login_session.value(forKey: "user_token") != nil {
          
-            let tokenStr:String = login_session.object(forKey: "user_token") as! String
+            let tokenStr:String = login_session.object(forKey: "user_token") as? String ?? ""
             headers["Authorization"] = " Bearer " + tokenStr
             print("Bearer "+tokenStr)
            
@@ -147,7 +147,7 @@ class APIManager: NSObject {
     class func encry_apiPostWithToken(serviceName:String,parameters: [String:Any]?, completionHandler: @escaping (NSDictionary?, NSError?) -> ()) {
         print("BASE URL : \(serviceName as String)")
 
-//        let tokenStr = usersession.object(forKey: "UserToken")as! String
+//        let tokenStr = usersession.object(forKey: "UserToken")as? String ?? ""
 //        let postheaders : HTTPHeaders = ["Authorization" : tokenStr]
         let url = URL(string:"\(serviceName)")!
         let data = try! JSONSerialization.data(withJSONObject: parameters as Any, options: [])
@@ -172,7 +172,7 @@ print(jsonData)
         
         if login_session.value(forKey: "user_token") != nil {
          
-            let tokenStr:String = login_session.object(forKey: "user_token") as! String
+            let tokenStr:String = login_session.object(forKey: "user_token") as? String ?? ""
              request.setValue(" Bearer " + tokenStr, forHTTPHeaderField: "Authorization")
 
             print("Bearer "+tokenStr)
@@ -180,7 +180,7 @@ print(jsonData)
         }
         
 //        if login_session.value(forKey: "IS_USER_LOGGEDIN") as? Bool == true{
-//            let tokenStr = usersession.object(forKey: "user_token")as! String
+//            let tokenStr = usersession.object(forKey: "user_token")as? String ?? ""
 //            request.setValue(tokenStr, forHTTPHeaderField: "Authorization")
 //            print("tokenStr:::", tokenStr)
 //        }
@@ -211,7 +211,7 @@ print(jsonData)
     class func apiPostWithHeaders(serviceName:String,parameters: [String:Any]?, completionHandler: @escaping (NSDictionary?, NSError?) -> ()) {
         var tokenStr = String()
         if login_session.value(forKey: "loginToken") != nil {
-            tokenStr = login_session.object(forKey: "loginToken")as! String
+            tokenStr = login_session.object(forKey: "loginToken")as? String ?? ""
         }
         let postheaders : HTTPHeaders = HeaderManager.headers()
             //["Authorization" : "Bearer \(tokenStr)"]
@@ -241,7 +241,7 @@ print(jsonData)
     class func apiPostWithHeadersCodable(serviceName:String,parameters: [String:Any]?, completionHandler: @escaping (_ responseData: Data?,_ error: Error?) -> ()) {
         var tokenStr = String()
         if login_session.value(forKey: "loginToken") != nil {
-            tokenStr = login_session.object(forKey: "loginToken")as! String
+            tokenStr = login_session.object(forKey: "loginToken")as? String ?? ""
         }
         let postheaders : HTTPHeaders = HeaderManager.headers()
             //["Authorization" : "Bearer \(tokenStr)"]

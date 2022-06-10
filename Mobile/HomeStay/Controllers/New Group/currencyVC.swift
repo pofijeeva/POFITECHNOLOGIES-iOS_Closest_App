@@ -82,7 +82,7 @@ class currencyVC: BaseViewController {
             
         }
         else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
     func languageList() {
@@ -127,7 +127,7 @@ class currencyVC: BaseViewController {
             
         }
         else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
     
@@ -147,7 +147,7 @@ extension currencyVC: UITableViewDelegate, UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PopUpListTableViewCell", for: indexPath) as? PopUpListTableViewCell else { return UITableViewCell() }
         if type == .language {
             let model = self.languageArrayList[indexPath.row]
-            cell.titleLbl.text = model as! String
+            cell.titleLbl.text = model as? String ?? ""
             cell.titleLbl.textAlignment = .left
         } else {
             let model = self.currenceArray[indexPath.row]

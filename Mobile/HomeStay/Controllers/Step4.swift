@@ -37,29 +37,29 @@ class Step4 : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        baseId = dictionary["base_id"] as? String
-        pay_later = dictionary["pay_later"] as? String
+        baseId = dictionary["base_id"] as? String ?? ""
+        pay_later = dictionary["pay_later"] as? String ?? ""
 
-        guestAccess = dictionary["guest_access"] as? String
-        guestAccessPh = dictionary["guest_access_ph"] as? String
-        houseRules = dictionary["house_rules"] as? String
-        houseRulesPh = dictionary["house_rules_ph"] as? String
-        instantPay = dictionary["instant_pay"] as? String
-        interactGuest = dictionary["interact_guest"] as? String
-        interactGuestPh = dictionary["interact_guest_ph"] as? String
-        neighborAround = dictionary["neighbor_around"] as? String
-        neighborAroundPh = dictionary["neighbor_around_ph"] as? String
-        otherThingsToNote = dictionary["other_things_to_note"] as? String
-        otherThingsToNotePh = dictionary["other_things_to_note_ph"] as? String
-        propertyDescription = dictionary["property_description"] as? String
-        propertyDescriptionPh = dictionary["property_description_ph"] as? String
-        propertyTitle = dictionary["property_title"] as? String
-        propertyTitlePh = dictionary["property_title_ph"] as? String
+        guestAccess = dictionary["guest_access"] as? String ?? ""
+        guestAccessPh = dictionary["guest_access_ph"] as? String ?? ""
+        houseRules = dictionary["house_rules"] as? String ?? ""
+        houseRulesPh = dictionary["house_rules_ph"] as? String ?? ""
+        instantPay = dictionary["instant_pay"] as? String ?? ""
+        interactGuest = dictionary["interact_guest"] as? String ?? ""
+        interactGuestPh = dictionary["interact_guest_ph"] as? String ?? ""
+        neighborAround = dictionary["neighbor_around"] as? String ?? ""
+        neighborAroundPh = dictionary["neighbor_around_ph"] as? String ?? ""
+        otherThingsToNote = dictionary["other_things_to_note"] as? String ?? ""
+        otherThingsToNotePh = dictionary["other_things_to_note_ph"] as? String ?? ""
+        propertyDescription = dictionary["property_description"] as? String ?? ""
+        propertyDescriptionPh = dictionary["property_description_ph"] as? String ?? ""
+        propertyTitle = dictionary["property_title"] as? String ?? ""
+        propertyTitlePh = dictionary["property_title_ph"] as? String ?? ""
         propertyid = dictionary["propertyid"] as? Int
-        requestToBook = dictionary["request_to_book"] as? String
-        space = dictionary["space"] as? String
-        spacePh = dictionary["space_ph"] as? String
-        stepCompleted = dictionary["step_completed"] as? Bool
+        requestToBook = dictionary["request_to_book"] as? String ?? ""
+        space = dictionary["space"] as? String ?? ""
+        spacePh = dictionary["space_ph"] as? String ?? ""
+        stepCompleted = dictionary["step_completed"] as? Bool ?? false
         if let rd = dictionary["ren_details"] as? [String:Any]{
                     rentDetail = Language(fromDictionary: rd)
                 }
@@ -151,29 +151,29 @@ class Step4 : NSObject, NSCoding{
     @objc required init(coder aDecoder: NSCoder)
     {
         
-        pay_later = aDecoder.decodeObject(forKey: "pay_later") as? String
+        pay_later = aDecoder.decodeObject(forKey: "pay_later") as? String ?? ""
 
-        baseId = aDecoder.decodeObject(forKey: "base_id") as? String
-        guestAccess = aDecoder.decodeObject(forKey: "guest_access") as? String
-        guestAccessPh = aDecoder.decodeObject(forKey: "guest_access_ph") as? String
-        houseRules = aDecoder.decodeObject(forKey: "house_rules") as? String
-        houseRulesPh = aDecoder.decodeObject(forKey: "house_rules_ph") as? String
-        instantPay = aDecoder.decodeObject(forKey: "instant_pay") as? String
-        interactGuest = aDecoder.decodeObject(forKey: "interact_guest") as? String
-        interactGuestPh = aDecoder.decodeObject(forKey: "interact_guest_ph") as? String
-        neighborAround = aDecoder.decodeObject(forKey: "neighbor_around") as? String
-        neighborAroundPh = aDecoder.decodeObject(forKey: "neighbor_around_ph") as? String
-        otherThingsToNote = aDecoder.decodeObject(forKey: "other_things_to_note") as? String
-        otherThingsToNotePh = aDecoder.decodeObject(forKey: "other_things_to_note_ph") as? String
-        propertyDescription = aDecoder.decodeObject(forKey: "property_description") as? String
-        propertyDescriptionPh = aDecoder.decodeObject(forKey: "property_description_ph") as? String
-        propertyTitle = aDecoder.decodeObject(forKey: "property_title") as? String
-        propertyTitlePh = aDecoder.decodeObject(forKey: "property_title_ph") as? String
+        baseId = aDecoder.decodeObject(forKey: "base_id") as? String ?? ""
+        guestAccess = aDecoder.decodeObject(forKey: "guest_access") as? String ?? ""
+        guestAccessPh = aDecoder.decodeObject(forKey: "guest_access_ph") as? String ?? ""
+        houseRules = aDecoder.decodeObject(forKey: "house_rules") as? String ?? ""
+        houseRulesPh = aDecoder.decodeObject(forKey: "house_rules_ph") as? String ?? ""
+        instantPay = aDecoder.decodeObject(forKey: "instant_pay") as? String ?? ""
+        interactGuest = aDecoder.decodeObject(forKey: "interact_guest") as? String ?? ""
+        interactGuestPh = aDecoder.decodeObject(forKey: "interact_guest_ph") as? String ?? ""
+        neighborAround = aDecoder.decodeObject(forKey: "neighbor_around") as? String ?? ""
+        neighborAroundPh = aDecoder.decodeObject(forKey: "neighbor_around_ph") as? String ?? ""
+        otherThingsToNote = aDecoder.decodeObject(forKey: "other_things_to_note") as? String ?? ""
+        otherThingsToNotePh = aDecoder.decodeObject(forKey: "other_things_to_note_ph") as? String ?? ""
+        propertyDescription = aDecoder.decodeObject(forKey: "property_description") as? String ?? ""
+        propertyDescriptionPh = aDecoder.decodeObject(forKey: "property_description_ph") as? String ?? ""
+        propertyTitle = aDecoder.decodeObject(forKey: "property_title") as? String ?? ""
+        propertyTitlePh = aDecoder.decodeObject(forKey: "property_title_ph") as? String ?? ""
         propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int
-        requestToBook = aDecoder.decodeObject(forKey: "request_to_book") as? String
-        space = aDecoder.decodeObject(forKey: "space") as? String
-        spacePh = aDecoder.decodeObject(forKey: "space_ph") as? String
-        stepCompleted = aDecoder.decodeObject(forKey: "step_completed") as? Bool
+        requestToBook = aDecoder.decodeObject(forKey: "request_to_book") as? String ?? ""
+        space = aDecoder.decodeObject(forKey: "space") as? String ?? ""
+        spacePh = aDecoder.decodeObject(forKey: "space_ph") as? String ?? ""
+        stepCompleted = aDecoder.decodeObject(forKey: "step_completed") as? Bool ?? false
         rentDetail = aDecoder.decodeObject(forKey: "ren_details") as? Language
     }
     

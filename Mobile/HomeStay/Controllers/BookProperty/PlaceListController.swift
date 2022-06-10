@@ -298,7 +298,7 @@
         }
         for i in 0..<HideDates.count
         {
-            let dayStr:String = HideDates[i] as! String
+            let dayStr:String = HideDates[i] as? String ?? ""
             print(dayStr)
             if self.formatterNew1.string(from: date) == dayStr
             {
@@ -395,14 +395,14 @@
 //        }
 //        else
 //        {
-//            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+//            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
 //        }
 //    }
     func calenderFilter() {
         showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
          params = ["mcity_name":self.Location,"f_p_min":self.f_p_min,"f_p_max":self.f_p_max,"f_room_type":self.f_room_type,"f_home_type":self.f_home_type,"f_list_type":self.f_list_type,"f_date_arrive":self.arriveDate,"f_date_depart":self.departDate,"base_id":1,"f_guest":self.f_guest,"currency_code":login_session.value(forKey: "APP_CURRENCY")!,"user_id":UserID,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
-       // params = ["userid":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
+       // params = ["userid":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
         print(params)
         
         let manager = AFHTTPSessionManager()
@@ -414,7 +414,7 @@
             }
             let responseDict:NSDictionary = responseObject as! NSDictionary
             self.hideActivityIndicator(uiView: self.view)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 print(responseDict)
                self.viewWishlisttitlePopup.isHidden = true
                 self.hideActivityIndicator(uiView: self.view)
@@ -443,7 +443,7 @@
             }
                 
             else {
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -517,7 +517,7 @@
         showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
         
-        params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","wishlist_id":self.wishListId,"property_id":self.wishPropertyid]
+        params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","wishlist_id":self.wishListId,"property_id":self.wishPropertyid]
         print(params)
         
         let manager = AFHTTPSessionManager()
@@ -529,7 +529,7 @@
             }
             let responseDict:NSDictionary = responseObject as! NSDictionary
             self.hideActivityIndicator(uiView: self.view)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 print(responseDict)
                 let mod = WishlistModel(fromDictionary: responseDict as! [String : Any])
                 Singleton.sharedInstance.wishListModel = mod
@@ -552,7 +552,7 @@
             }
                 
             else {
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -578,7 +578,7 @@
             let responseDict:NSDictionary = responseObject as! NSDictionary
             print(responseDict)
             self.hideActivityIndicator(uiView: self.view)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                
                 let mod = WishlistModel(fromDictionary: responseDict as! [String : Any])
                 Singleton.sharedInstance.wishListModel = mod
@@ -598,7 +598,7 @@
             }
                 
             else {
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -712,7 +712,7 @@
                 showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
                 
-                 params = ["base_id":1,"userid":login_session.value(forKey: "UserId")!,"wishlist_title":self.wishlistName!,"property_id":Singleton.sharedInstance.PlaceList.rentalList[sender.tag].rentalId!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String]
+                 params = ["base_id":1,"userid":login_session.value(forKey: "UserId")!,"wishlist_title":self.wishlistName!,"property_id":Singleton.sharedInstance.PlaceList.rentalList[sender.tag].rentalId!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? ""]
              
                 let manager = AFHTTPSessionManager()
                 manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -724,7 +724,7 @@
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         print("GET_WISHLIST_API Response:::",responseDict)
                        
                             print(responseDict)
@@ -740,7 +740,7 @@
                     }
                         
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -750,13 +750,13 @@
                     self.showInformation(title: "Closest", message: error.localizedDescription)
                 })
 //                let id = Singleton.sharedInstance.selectedCategory!
-//                let parameterStr = "base_id=\(id)&userid=\(login_session.value(forKey: "UserId")!)&wishlist_title=\(self.wishlistName!)&property_id=\(Singleton.sharedInstance.PlaceList.rentalList[sender.tag].rentalId!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)"
+//                let parameterStr = "base_id=\(id)&userid=\(login_session.value(forKey: "UserId")!)&wishlist_title=\(self.wishlistName!)&property_id=\(Singleton.sharedInstance.PlaceList.rentalList[sender.tag].rentalId!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")"
 //                print(parameterStr)
 //
 //                Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL:CREATE_WISHLIST_API , APIKEY: "CREATE_WISHLIST_API")
             }
             else {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
     }
@@ -822,11 +822,13 @@
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? PlaceListCell
-        cell!.lblPlace.text = Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].rentalTitle!
-         cell!.lblPlace.font = UIFont(name: SemiBoldFont, size: 14)
-        cell!.lblPrice.font = UIFont(name: SemiBoldFont, size: 14)
-     //   cell!.lblPrice.textColor = AppSecondColor
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? PlaceListCell else { return UITableViewCell() }
+
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? PlaceListCell
+        cell.lblPlace.text = Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].rentalTitle!
+         cell.lblPlace.font = UIFont(name: SemiBoldFont, size: 14)
+        cell.lblPrice.font = UIFont(name: SemiBoldFont, size: 14)
+     //   cell.lblPrice.textColor = AppSecondColor
         let price = Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].rentalPrice!
         let Hourlyprice = Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].rental_hourly_price!
         
@@ -837,18 +839,18 @@
         let amount2 = NSDecimalNumber(string: "\(Hourlyprice)")
         let rounding2 = Double(truncating: amount2)
         let NetAmount2 = String(format: "%.2f",rounding2)
-        //cell?.lblPrice.text = Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].userCurrency + " " + String(describing: price)
+        //cell.lblPrice.text = Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].userCurrency + " " + String(describing: price)
         if let currStr:String = Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].userCurrency {
             CurrencySymbol = login_session.value(forKey: "APP_CURRENCYSYM") as? String ?? "$"
 //currStr
             
-            cell?.lblPrice.text = currStr + " " + "\(String(describing: NetAmount))day / \(String(describing : NetAmount2))Hr"
+            cell.lblPrice.text = currStr + " " + "\(String(describing: NetAmount))day / \(String(describing : NetAmount2))Hr"
             
             if NetAmount == "0.00" {
-                cell?.lblPrice.text = currStr + " " + " \(String(describing : NetAmount2))Hr"
+                cell.lblPrice.text = currStr + " " + " \(String(describing : NetAmount2))Hr"
             }
             if NetAmount2 == "0.00" {
-                cell?.lblPrice.text = currStr + " " + "\(String(describing: NetAmount))day "
+                cell.lblPrice.text = currStr + " " + "\(String(describing: NetAmount))day "
             }
             
             
@@ -856,52 +858,52 @@
         }
         else {
             CurrencySymbol = "$"
-            cell?.lblPrice.text = "$" + " " + "\(String(describing: NetAmount))day / \(String(describing : NetAmount2))Hr"
+            cell.lblPrice.text = "$" + " " + "\(String(describing: NetAmount))day / \(String(describing : NetAmount2))Hr"
         }
         
-        cell!.img_Host.layer.cornerRadius = cell!.img_Host.frame.size.width / 2
-        cell!.img_Host.clipsToBounds = true
+        cell.img_Host.layer.cornerRadius = cell.img_Host.frame.size.width / 2
+        cell.img_Host.clipsToBounds = true
         let plcURL = URL(string: Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].rentalImage!)
         let hostURL = URL(string: Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].userphoto!)
         
         
-        cell?.imgPlace.setImageWith(plcURL!, placeholderImage: UIImage(named: "picture-frame"))
+        cell.imgPlace.setImageWith(plcURL!, placeholderImage: UIImage(named: "picture-frame"))
         //setImage(with: hostURL, placeholder: UIImage(named: "test"), options: nil, progressBlock: nil, completionHandler: nil)
         
-//        cell!.imgPlace.kf.setImage(with: plcURL)
-       // cell!.img_Host.kf.setImage(with: hostURL)
+//        cell.imgPlace.kf.setImage(with: plcURL)
+       // cell.img_Host.kf.setImage(with: hostURL)
         
-       // cell!.img_Host.kf.setImage(with: hostURL, placeholder: UIImage.init(named: "user"), options: nil, progressBlock: nil, completionHandler: nil)
-        cell?.btnFav.isHidden = true
+       // cell.img_Host.kf.setImage(with: hostURL, placeholder: UIImage.init(named: "user"), options: nil, progressBlock: nil, completionHandler: nil)
+        cell.btnFav.isHidden = true
 
          if login_session.value(forKey: "IS_USER_LOGGEDIN") as? Bool == true
                 {
-            cell?.btnFav.isHidden = false
-            cell!.btnLikeUnlike.isHidden = false
+            cell.btnFav.isHidden = false
+            cell.btnLikeUnlike.isHidden = false
          }else{
-            cell?.btnFav.isHidden = true
-            cell!.btnLikeUnlike.isHidden = true
+            cell.btnFav.isHidden = true
+            cell.btnLikeUnlike.isHidden = true
         }
         
         
         
-        cell!.btnFav.tag = Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].rentalId!
-        cell?.btnFav.tag = indexPath.row
-        cell!.btnFav.addTarget(self, action:#selector(favTapped), for: .touchUpInside)
+        cell.btnFav.tag = Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].rentalId!
+        cell.btnFav.tag = indexPath.row
+        cell.btnFav.addTarget(self, action:#selector(favTapped), for: .touchUpInside)
         let isfav = String(Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].isFavourite!)
         
         if (isfav == "1")
         {
-            cell!.btnLikeUnlike.image = UIImage(named: "like")
+            cell.btnLikeUnlike.image = UIImage(named: "like")
             
         }
         else
         {
-            cell!.btnLikeUnlike.image = UIImage(named: "unlike")
+            cell.btnLikeUnlike.image = UIImage(named: "unlike")
             
         }
-        cell!.btnFav.stopAnimating()
-        return cell!
+        cell.btnFav.stopAnimating()
+        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
@@ -968,7 +970,7 @@
             }
             else
             {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
     }
@@ -977,7 +979,7 @@
         showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
        
-        params = ["userid":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
+        params = ["userid":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
         
         let manager = AFHTTPSessionManager()
         manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -989,7 +991,7 @@
             let responseDict:NSDictionary = responseObject as! NSDictionary
             print(responseDict)
             self.hideActivityIndicator(uiView: self.view)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 print("GET_WISHLIST_API Response:::",responseDict)
                 let mod = WishlistModel(fromDictionary: responseDict as! [String : Any])
                 
@@ -1009,7 +1011,7 @@
             }
                 
             else {
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -1128,7 +1130,7 @@
             }
             else
             {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
         else if APIKEY == "GET_WISHLIST_API"
@@ -1137,7 +1139,7 @@
             hideActivityIndicator(uiView: self.view)
             if responseDict.count != 0
             {
-                if responseDict.value(forKey: "status") as! Int == 1
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1
                 {
                     let mod = WishlistModel(fromDictionary: responseDict as! [String : Any])
                     Singleton.sharedInstance.wishListModel = mod
@@ -1146,7 +1148,7 @@
                 }
                 else
                 {
-                    showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                    showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
                 }
                 
             }

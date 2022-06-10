@@ -31,8 +31,8 @@ protocol filterDelegate {
             
             if selectedId == 1
             {
-                //   let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&base_id=\(id)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
-                let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&base_id=\(id)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&device_type=\("ios")"
+                //   let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&base_id=\(id)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
+                let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&base_id=\(id)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&device_type=\("ios")"
                 Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: INBOX_API, APIKEY: "INBOX_API")
                 print(parameterStr)
             }
@@ -65,7 +65,7 @@ protocol filterDelegate {
             }
             else  if selectedId == 6
             {
-                // let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&base_id=\(id)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&device_type=\("ios")"
+                // let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&base_id=\(id)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&device_type=\("ios")"
                 
                 let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)"
                 Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: MOBILE_INBOX_ARCHIVED_MESSGAE, APIKEY: "MOBILE_INBOX_ARCHIVED_MESSGAE")
@@ -76,7 +76,7 @@ protocol filterDelegate {
             
         else
         {
-            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as! String)
+            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
             
         }
         

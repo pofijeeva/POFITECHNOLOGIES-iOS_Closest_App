@@ -106,38 +106,38 @@
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ReviewsTableViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ReviewsTableViewCell else { return UITableViewCell() }
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ReviewsTableViewCell
         
         let ImageStr = Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].userImage
         let UpdateStr = ImageStr!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         let Image = URL(string: UpdateStr!)
-        cell?.img_user.setImageWith(Image!)
+        cell.img_user.setImageWith(Image!)
         
         
-         cell?.rentNameLbl.font = UIFont(name: SemiBoldFont, size: 17.0)
-        cell?.bookingDateLbl.font = UIFont(name: RegularFont, size: 12)
-        cell?.bookingDateTimeLbl.font = UIFont(name: RegularFont, size: 15)
-        cell?.cancelAmountLbl.font = UIFont(name: RegularFont, size: 15)
-        cell?.paidLbl.font = UIFont(name: RegularFont, size: 15)
-        cell?.balenceLbl.font = UIFont(name: RegularFont, size: 15)
+         cell.rentNameLbl.font = UIFont(name: SemiBoldFont, size: 17.0)
+        cell.bookingDateLbl.font = UIFont(name: RegularFont, size: 12)
+        cell.bookingDateTimeLbl.font = UIFont(name: RegularFont, size: 15)
+        cell.cancelAmountLbl.font = UIFont(name: RegularFont, size: 15)
+        cell.paidLbl.font = UIFont(name: RegularFont, size: 15)
+        cell.balenceLbl.font = UIFont(name: RegularFont, size: 15)
 
-        cell?.statusLbl.font = UIFont(name: RegularFont, size: 15)
+        cell.statusLbl.font = UIFont(name: RegularFont, size: 15)
 
-        cell?.bookingNumLbl.font = UIFont(name: RegularFont, size: 12)
+        cell.bookingNumLbl.font = UIFont(name: RegularFont, size: 12)
 
         
         
         
-        cell?.rentNameLbl.text = Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].productTitle
-        cell?.bookingDateTimeLbl.text = "\(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].checkin!) - \(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].checkout!)"
-        cell?.bookingNumLbl.text = Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].bookingNo
-        cell?.bookingDateLbl.text = Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].bookedDate
-        cell?.cancelAmountLbl.text = "Cancel Amount : \(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].cancellationAmount!)"
-        cell?.paidLbl.text = "Paid : \(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].paidAmount!)"
-        cell?.balenceLbl.text = "Balance : \(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].balanceAmount!)"
-        cell?.statusLbl.text = "Status : \(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].paidStatus!)"
-        return cell!
+        cell.rentNameLbl.text = Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].productTitle
+        cell.bookingDateTimeLbl.text = "\(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].checkin!) - \(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].checkout!)"
+        cell.bookingNumLbl.text = Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].bookingNo
+        cell.bookingDateLbl.text = Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].bookedDate
+        cell.cancelAmountLbl.text = "Cancel Amount : \(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].cancellationAmount!)"
+        cell.paidLbl.text = "Paid : \(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].paidAmount!)"
+        cell.balenceLbl.text = "Balance : \(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].balanceAmount!)"
+        cell.statusLbl.text = "Status : \(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].paidStatus!)"
+        return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

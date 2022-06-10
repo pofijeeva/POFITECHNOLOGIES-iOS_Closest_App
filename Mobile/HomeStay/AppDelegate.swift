@@ -91,7 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         
         if login_session.value(forKey: "UserId") != nil {
             UserID = "\(login_session.value(forKey: "UserId")!)"
-            UserEmail = login_session.value(forKey: "Email") as! String
+            UserEmail = login_session.value(forKey: "Email") as? String ?? ""
         }else{
             UserID = ""
             UserEmail = ""
@@ -204,7 +204,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             var params = NSMutableDictionary()
             params = ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en", "type":["android","ios"],"size":["L","M","S"]]
             print(params)
-//            "currency_code":login_session.value(forKey: "APP_CURRENCY")as! String
+//            "currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? ""
             
             let manager = AFHTTPSessionManager()
             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -222,7 +222,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                     let mod = HomeModel(fromDictionary: responseDict as! [String : Any])
                     let dataDict = responseDict["data"] as! [String:Any]
                     let colorDict = dataDict["image_details"] as! [String:Any]
-                    let color = colorDict["color_code"] as! String
+                    let color = colorDict["color_code"] as? String ?? ""
                     AppColor = self.hexStringToUIColor(hex: color)
                     Singleton.sharedInstance.homeModel = mod
                     self.LanguageUpdate()
@@ -232,7 +232,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
                     
                 else {
                    // self.hideActivityIndicator(uiView: self.view)
-               //     self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+               //     self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -246,7 +246,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
            
             //            showActivityIndicator(uiView: self.view)
             //            print(login_session.value(forKey: "UserId")!)
-            //            let parameterStr = "lang_code=\(lanuguage_selection.value(forKey: "language") as? String ?? "en")&currency_code=\(login_session.value(forKey: "APP_CURRENCY")as! String)&base_id=\(id)&userid=\(login_session.value(forKey: "UserId")!)"
+            //            let parameterStr = "lang_code=\(lanuguage_selection.value(forKey: "language") as? String ?? "en")&currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&base_id=\(id)&userid=\(login_session.value(forKey: "UserId")!)"
             //            Network.shared.GetRequest(withParameterString: parameterStr, serviceURL: REQ_HOMEPAGE, APIKEY: "HOME_API")
             //            print(parameterStr)
             
@@ -254,7 +254,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
             
             print("Failed")
              // hideActivityIndicator(uiView: self.view)
-           // self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+           // self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
     
@@ -332,7 +332,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     func LogOut(){
         if login_session.value(forKey: "UserId") != nil {
             UserID = "\(login_session.value(forKey: "UserId")!)"
-            UserEmail = login_session.value(forKey: "Email") as! String
+            UserEmail = login_session.value(forKey: "Email") as? String ?? ""
         }else{
             UserID = ""
             UserEmail = ""
@@ -381,12 +381,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool
     {
         if UserDefaults.standard.value(forKey: "TranslationDocumentName") != nil {
-            let checkLang:String = UserDefaults.standard.value(forKey: "TranslationDocumentName") as! String
+            let checkLang:String = UserDefaults.standard.value(forKey: "TranslationDocumentName") as? String ?? ""
             if checkLang != "" {
                 print(checkLang)
             }else{
                 UserDefaults.standard.set("en", forKey: "TranslationDocumentName")
-                let checkLang:String = UserDefaults.standard.value(forKey: "TranslationDocumentName") as! String
+                let checkLang:String = UserDefaults.standard.value(forKey: "TranslationDocumentName") as? String ?? ""
                 print(checkLang)
             }
         }
@@ -520,10 +520,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         
         let pushDict:NSDictionary = remoteMessage.appData as NSDictionary
         print(pushDict)
-        //let titleStr : String = pushDict.value(forKey: "title") as! String
-        //let bodyStr : String = pushDict.value(forKey: "body") as! String
-        let titleStr : String = (pushDict.value(forKey: "notification") as AnyObject).value(forKey: "title") as! String
-        let bodyStr : String = (pushDict.value(forKey: "notification") as AnyObject).value(forKey: "body") as! String
+        //let titleStr : String = pushDict.value(forKey: "title") as? String ?? ""
+        //let bodyStr : String = pushDict.value(forKey: "body") as? String ?? ""
+        let titleStr : String = (pushDict.value(forKey: "notification") as AnyObject).value(forKey: "title") as? String ?? ""
+        let bodyStr : String = (pushDict.value(forKey: "notification") as AnyObject).value(forKey: "body") as? String ?? ""
         print(titleStr)
         print(bodyStr)
     }

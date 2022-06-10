@@ -21,13 +21,13 @@ class CalendarList : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        book_id = dictionary["book_id"] as? Int
-        check_in = dictionary["check_in"] as? String
-        check_out = dictionary["check_out"] as? String
-        created_at = dictionary["created_at"] as? String
-        price = dictionary["price"] as? Int
-        prop_id = dictionary["prop_id"] as? Int
-        prop_status = dictionary["prop_status"] as? Int
+        book_id = dictionary["book_id"] as? Int ?? 0
+        check_in = dictionary["check_in"] as? String ?? ""
+        check_out = dictionary["check_out"] as? String ?? ""
+        created_at = dictionary["created_at"] as? String ?? ""
+        price = dictionary["price"] as? Int ?? 0
+        prop_id = dictionary["prop_id"] as? Int ?? 0
+        prop_status = dictionary["prop_status"] as? Int ?? 0
     }
 
     /**
@@ -67,13 +67,13 @@ class CalendarList : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        book_id = aDecoder.decodeObject(forKey: "book_id") as? Int
-        check_in = aDecoder.decodeObject(forKey: "check_in") as? String
-        check_out = aDecoder.decodeObject(forKey: "check_out") as? String
-        created_at = aDecoder.decodeObject(forKey: "created_at") as? String
-        price = aDecoder.decodeObject(forKey: "price") as? Int
-        prop_id = aDecoder.decodeObject(forKey: "prop_id") as? Int
-        prop_status = aDecoder.decodeObject(forKey: "prop_status") as? Int
+        book_id = aDecoder.decodeObject(forKey: "book_id") as? Int ?? 0
+        check_in = aDecoder.decodeObject(forKey: "check_in") as? String ?? ""
+        check_out = aDecoder.decodeObject(forKey: "check_out") as? String ?? ""
+        created_at = aDecoder.decodeObject(forKey: "created_at") as? String ?? ""
+        price = aDecoder.decodeObject(forKey: "price") as? Int ?? 0
+        prop_id = aDecoder.decodeObject(forKey: "prop_id") as? Int ?? 0
+        prop_status = aDecoder.decodeObject(forKey: "prop_status") as? Int ?? 0
     }
 
     /**

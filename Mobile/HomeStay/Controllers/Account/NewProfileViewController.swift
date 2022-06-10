@@ -169,7 +169,7 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
         self.btnTVEmail.isHidden = true
         }
         
-        if login_session.object(forKey: "Language")as! String == "en"{
+        if login_session.object(forKey: "Language")as? String ?? "" == "en"{
             PhoneNumberVerificationtext.textAlignment = .left
             txtOldpassword.textAlignment = .left
             txtChangePassword.textAlignment = .left
@@ -245,8 +245,8 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
         txtChangePassword.font = UIFont(name: SemiBoldFont, size: 15)
         self.BtnPasswordSave.titleLabel?.font = UIFont(name: SemiBoldFont, size: 18)
         self.BtnPasswordSave.titleLabel?.font = UIFont(name: SemiBoldFont, size: 18)
-        self.btnProfileSubmit.setTitle(GlobalLanguageDictionary.object(forKey: "key_update") as! String, for: .normal)
-        self.VerifyNowBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_verifyNow") as! String, for: .normal)
+        self.btnProfileSubmit.setTitle(GlobalLanguageDictionary.object(forKey: "key_update") as? String ?? "", for: .normal)
+        self.VerifyNowBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_verifyNow") as? String ?? "", for: .normal)
         self.VerifyNowBtn.titleLabel?.textColor = AppColor
         if login_session.value(forKey: "IS_USER_LOGGEDIN") as? Bool == true
         {
@@ -312,7 +312,7 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
                         
 //                        let userData = responseDict["data"] as! [String : Any]
 //                        let userDetails = userData["user_details"] as! [String: Any]
-//                        self.TVPhoneNumber.text = "+91\(userDetails["phone_no"] as! String)"
+//                        self.TVPhoneNumber.text = "+91\(userDetails["phone_no"] as? String ?? "")"
 //                        let mod = HomeModel(fromDictionary: responseDict as! [String : Any])
 //                        Singleton.sharedInstance.homeModel = mod
                         
@@ -320,8 +320,8 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
                         let userDetails = userData["user_details"] as! [String: Any]
                         
                         let UserDetails = NSMutableDictionary()
-                        UserDetails.addEntries(from: ((responseDict.value(forKey: "data") as! NSDictionary).object(forKey: "user_details") as! NSDictionary) as! [AnyHashable : Any])
-                        self.TVPhoneNumber.text = "\(userDetails["phone_no"] as! String)"
+                        UserDetails.addEntries(from: ((responseDict.value(forKey: "data") as? NSDictionary)?.object(forKey: "user_details") as? NSDictionary) as? [AnyHashable : Any] ?? [:])
+                        self.TVPhoneNumber.text = "\(userDetails["phone_no"] as? String ?? "")"
                         let mod = HomeModel(fromDictionary: responseDict as! [String : Any])
                         Singleton.sharedInstance.homeModel = mod
                         let VerifyNowStatus = "\(UserDetails.object(forKey: "email_id_verified") as AnyObject)"
@@ -331,11 +331,11 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
                             self.VerifyNowBtn.isHidden = true
                         }
                         
-                        self.PFirstName.text = UserDetails.object(forKey: "firstname") as! String  //login_session.value(forKey: "Firstname") as? String
-                        self.PLastName.text = UserDetails.object(forKey: "lastname") as! String
-                        self.PEmailAddress.text = UserDetails.object(forKey: "email") as! String
-                        self.PPhoneNumber.text = UserDetails.object(forKey: "phone_no") as! String
-                        let UrlStr = UserDetails.object(forKey: "user_image") as! String
+                        self.PFirstName.text = UserDetails.object(forKey: "firstname") as? String ?? ""  //login_session.value(forKey: "Firstname") as? String
+                        self.PLastName.text = UserDetails.object(forKey: "lastname") as? String ?? ""
+                        self.PEmailAddress.text = UserDetails.object(forKey: "email") as? String ?? ""
+                        self.PPhoneNumber.text = UserDetails.object(forKey: "phone_no") as? String ?? ""
+                        let UrlStr = UserDetails.object(forKey: "user_image") as? String ?? ""
                         self.PImageview.imageFromURL(urlString: UrlStr)
                     
                     }
@@ -343,8 +343,8 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
                     {
                         
                      //   self.hideActivityIndicator(uiView: self.view)
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
-                        //self.showInformation(title: AppName, message: responseDict.value(forKey:"message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
+                        //self.showInformation(title: AppName, message: responseDict.value(forKey:"message") as? String ?? "")
                     }
                     
                 
@@ -357,7 +357,7 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
         let parameters:[String : Any] =
                     ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
                      "u_first_name":PFirstName.text ?? "" , "u_last_name":PLastName.text ?? "" ,
-                     "u_phone":PPhoneNumber.text ?? "","email": login_session.value(forKey: "Email") as! String
+                     "u_phone":PPhoneNumber.text ?? "","email": login_session.value(forKey: "Email") as? String ?? ""
                 ]
                 print(parameters)
         //Header HERE
@@ -414,7 +414,7 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
 
                                     self.present(refreshAlert, animated: true, completion: nil)
                                 }else{
-                                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
 
                                 }
                                 
@@ -437,7 +437,7 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
 //        let parameters:[String : Any] =
 //                    ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
 //                     "u_first_name":PFirstName.text ?? "" , "u_last_name":PLastName.text ?? "" ,
-//                     "u_phone":PPhoneNumber.text ?? "","email": login_session.value(forKey: "Email") as! String
+//                     "u_phone":PPhoneNumber.text ?? "","email": login_session.value(forKey: "Email") as? String ?? ""
 //                ]
 //                print(parameters)
 //                        APIManager.apiPostWithHeaders(serviceName: UPDATE_USER_PROF_API, parameters: parameters) { (json:NSDictionary?, error:NSError?) in
@@ -472,8 +472,8 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
 //                    {
 //
 //                     //   self.hideActivityIndicator(uiView: self.view)
-//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
-//                        //self.showInformation(title: AppName, message: responseDict.value(forKey: "message") as! String)
+//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
+//                        //self.showInformation(title: AppName, message: responseDict.value(forKey: "message") as? String ?? "")
 //                    }
 //
 //                }
@@ -536,7 +536,7 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
 //        let parameters:[String : Any] =
 //                    ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
 //                     "verification_type":"idproof","proof_type":verifiedType,
-//                     "phone_no":TVPhoneNumber.text ?? "","verify_email": login_session.value(forKey: "Email") as! String ,"proof_file":""
+//                     "phone_no":TVPhoneNumber.text ?? "","verify_email": login_session.value(forKey: "Email") as? String ?? "" ,"proof_file":""
 //                ]
 //                print(parameters)
 //                APIManager.apiPostWithHeaders(serviceName: TRUST_VERIFY_API, parameters: parameters) { (json:NSDictionary?, error:NSError?) in
@@ -563,8 +563,8 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
 //                    {
 //                        
 //                     //   self.hideActivityIndicator(uiView: self.view)
-//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
-//                        //self.showInformation(title: AppName, message: responseDict.value(forKey: "message") as! String)
+//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
+//                        //self.showInformation(title: AppName, message: responseDict.value(forKey: "message") as? String ?? "")
 //                    }
 //                    
 //                
@@ -580,7 +580,7 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
         let parameters:[String : Any] =
                     ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
                      "verification_type":"email","proof_type":"",
-                     "phone_no": "","verify_email": login_session.value(forKey: "Email") as! String ,"proof_file":""
+                     "phone_no": "","verify_email": login_session.value(forKey: "Email") as? String ?? "" ,"proof_file":""
                 ]
                 print(parameters)
                 APIManager.apiPostWithHeaders(serviceName: TRUST_VERIFY_API, parameters: parameters) { (json:NSDictionary?, error:NSError?) in
@@ -597,7 +597,7 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
                         
                         let resData = responseDict["data"] as! [String:Any]
                         let verifyDict = resData["verification_arr"] as! [String:Any]
-                        let emailStatus: Int = verifyDict["email_status"] as! Int
+                        let emailStatus: Int = verifyDict["email_status"] as? Int ?? 0
                         if emailStatus == 1 {
                             self.TVEmailAddressVerifyLbl.text = "Verified"
                             self.TVImageview.image = #imageLiteral(resourceName: "check-circle")
@@ -611,7 +611,7 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
                     {
                         
                      //   self.hideActivityIndicator(uiView: self.view)
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                        
                     }
                   
@@ -644,7 +644,7 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
                 
                 let resData = responseDict["data"] as! [String:Any]
                 let verifyDict = resData["verification_arr"] as! [String:Any]
-                let phoneNumberStatus: Int = verifyDict["u_mobile_status"] as! Int
+                let phoneNumberStatus: Int = verifyDict["u_mobile_status"] as? Int ?? 0
                 if phoneNumberStatus == 1 {
                     self.TVPhoneNumberVerifyLbl.text = "Verified"
                     self.phoneNumberVerifyStatsImageV.image = #imageLiteral(resourceName: "Mask Group 3")
@@ -664,8 +664,8 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
             } else {
                 
                 //   self.hideActivityIndicator(uiView: self.view)
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
-                //self.showInformation(title: AppName, message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
+                //self.showInformation(title: AppName, message: responseDict.value(forKey: "message") as? String ?? "")
             }
             
             
@@ -737,8 +737,8 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
                 //    self.Homepagedata.addEntries(from: responseDict as! [AnyHashable : Any])
                 let resData = responseDict["data"] as! [String:Any]
                 let verifyDict = resData["verification_arr"] as! [String:Any]
-                self.idVerifyStatus = verifyDict["u_idproof_verified_status"] as! Int
-                self.idProofImgUrl = verifyDict["u_idproof"] as! String
+                self.idVerifyStatus = verifyDict["u_idproof_verified_status"] as? Int ?? 0
+                self.idProofImgUrl = verifyDict["u_idproof"] as? String ?? ""
                 self.verifiedType = "\(verifyDict["u_idproof_type"] as AnyObject)"
                 if ("\(verifyDict["email_status"] as AnyObject)"  == "1"){
                 self.TVEmailAddressVerifyLbl.text = "Verified"
@@ -768,7 +768,7 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
                 self.verificationListTV.dataSource = self
                 self.verificationListTV.reloadData()
             } else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }
     }
@@ -786,7 +786,7 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
                             "verification_type" : "idproof",
                             "proof_type": verifiedType,
                             "phone_no":TVPhoneNumber.text ?? "",
-                            "verify_email": login_session.value(forKey: "Email") as! String,
+                            "verify_email": login_session.value(forKey: "Email") as? String ?? "",
                         ]
                         //Header HERE
                         let headers = [
@@ -835,8 +835,8 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
                                                     
                                                     let resData = responseDict["data"] as! [String:Any]
                                                     let verifyDict = resData["verification_arr"] as! [String:Any]
-                                                    self.idVerifyStatus = verifyDict["u_idproof_verified_status"] as! Int
-                                                    self.idProofImgUrl = verifyDict["u_idproof"] as! String
+                                                    self.idVerifyStatus = verifyDict["u_idproof_verified_status"] as? Int ?? 0
+                                                    self.idProofImgUrl = verifyDict["u_idproof"] as? String ?? ""
                                                     
                                                     self.viewPassportverify.isHidden = true
                                                     self.verificationListTV.isHidden = false
@@ -907,7 +907,7 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
                                 self.btnTVEmail.isHidden = true
                                 self.phoneNumberDescTestHeight.constant = 0
                                 self.phoneNumberLblDescTestHeight.constant = 0
-                                let phoneNumberStatus: Int = (resData["verification_arr"] as! NSDictionary).object(forKey: "u_mobile_status") as! Int
+                                let phoneNumberStatus: Int = (resData["verification_arr"] as? NSDictionary)?.object(forKey: "u_mobile_status") as? Int ?? 0
 
                                 if phoneNumberStatus == 1 {
                                     self.TVPhoneNumberVerifyLbl.text = "Verified"
@@ -920,14 +920,14 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
                                     self.TVPhoneNumber.placeholder = "Enter OTP"
                                     self.TVPhoneNumber.leftView = nil
                                     self.btnTVSubmit.isHidden = false
-                                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                                   
                                 }
                                 
                                 
                             } else {
                                 
-                                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                                
                             }
                         
@@ -1003,8 +1003,8 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
                                 {
                                     
                                  //   self.hideActivityIndicator(uiView: self.view)
-                                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
-                                    //self.showInformation(title: AppName, message: responseDict.value(forKey: "message") as! String)
+                                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
+                                    //self.showInformation(title: AppName, message: responseDict.value(forKey: "message") as? String ?? "")
                                 }
                 }
                 
@@ -1044,11 +1044,11 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
     @IBAction func Act_Changepassword(_ sender: Any) {
         
         if self.txtOldpassword.text?.count == 0 {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_enteroldPassword") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_enteroldPassword") as? String ?? "")
         }else if txtpassword.text?.count == 0 {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_enternewPassword") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_enternewPassword") as? String ?? "")
         }else if self.txtChangePassword.text?.count == 0 {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_enterconfirmPassword") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_enterconfirmPassword") as? String ?? "")
         }else{
             var params = NSMutableDictionary()
             
@@ -1064,9 +1064,9 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
                 
                 if error != nil {
                     
-                    let passAlert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_changeThePassword") as! String, preferredStyle: UIAlertControllerStyle.alert)
+                    let passAlert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_changeThePassword") as? String ?? "", preferredStyle: UIAlertControllerStyle.alert)
 
-                    passAlert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "ok") as! String, style: .default, handler: { [self] (action: UIAlertAction!) in
+                    passAlert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "ok") as? String ?? "", style: .default, handler: { [self] (action: UIAlertAction!) in
                                         
                                         
                                     }))
@@ -1076,14 +1076,14 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
                     
                    
                     
-                    if responseDict.value(forKey: "code") as! Int == 200 {
+                    if responseDict.value(forKey: "code") as? Int ?? 0 == 200 {
                                     
                                     if (self.txtpassword.text != self.txtChangePassword.text){
-                                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                                 }
-                        let passwordAlert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_passwordChangesSuccessfully") as! String, preferredStyle: UIAlertControllerStyle.alert)
+                        let passwordAlert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_passwordChangesSuccessfully") as? String ?? "", preferredStyle: UIAlertControllerStyle.alert)
 
-                                        passwordAlert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "ok") as! String, style: .default, handler: { [self] (action: UIAlertAction!) in
+                                        passwordAlert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "ok") as? String ?? "", style: .default, handler: { [self] (action: UIAlertAction!) in
                                             
                                             
                                         }))
@@ -1091,7 +1091,7 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
                                         self.present(passwordAlert, animated: true, completion: nil)
                         
                     }else{
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }
             }
@@ -1168,13 +1168,13 @@ class NewProfileViewController: UIViewController,UINavigationControllerDelegate,
         }
     }
     func showSimpleAlert() {
-        let alert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_areyousureLogin") as! String,         preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_areyousureLogin") as? String ?? "",         preferredStyle: UIAlertControllerStyle.alert)
         
-//        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_cancel") as! String, style: UIAlertActionStyle.default, handler: { _ in
+//        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_cancel") as? String ?? "", style: UIAlertActionStyle.default, handler: { _ in
 //            //Cancel Action
 //            self.dismiss(animated: true, completion: nil)
 //        }))
-        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_login") as! String,
+        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_login") as? String ?? "",
                                       style: UIAlertActionStyle.default,
                                       handler: {(_: UIAlertAction!) in
                                         let navgt = self.storyboard?.instantiateViewController(withIdentifier: "StartViewController") as? StartViewController
@@ -1207,23 +1207,26 @@ extension NewProfileViewController: UICollectionViewDelegate, UICollectionViewDa
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MoveCollectionViewCell", for: indexPath) as? MoveCollectionViewCell
+        
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MoveCollectionViewCell", for: indexPath) as? MoveCollectionViewCell else { return UICollectionViewCell() }
+
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MoveCollectionViewCell", for: indexPath) as? MoveCollectionViewCell
        
-        cell?.MoveLbl.font = UIFont(name: SemiBoldFont, size: 14)
+        cell.MoveLbl.font = UIFont(name: SemiBoldFont, size: 14)
        
-        cell?.MoveLbl.text = Array.object(at: indexPath.row) as? String
+        cell.MoveLbl.text = Array.object(at: indexPath.row) as? String
         
         if SelectedRow == indexPath.row {
-            cell?.MoveLbl.backgroundColor = AppSecondColor
-            cell?.MoveLbl.textColor = .white
+            cell.MoveLbl.backgroundColor = AppSecondColor
+            cell.MoveLbl.textColor = .white
         }else{
-             cell?.MoveLbl.textColor = .black
-            cell?.MoveLbl.backgroundColor = hexStringToUIColor(hex: "#F1F1F1")
+             cell.MoveLbl.textColor = .black
+            cell.MoveLbl.backgroundColor = hexStringToUIColor(hex: "#F1F1F1")
         }
-       // cell?.lblWishlistCount.text = String(Singleton.sharedInstance.wishListModel.wishlist.count)
+       // cell.lblWishlistCount.text = String(Singleton.sharedInstance.wishListModel.wishlist.count)
         
         
-        return cell!
+        return cell
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {

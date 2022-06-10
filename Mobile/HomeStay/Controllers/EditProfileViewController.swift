@@ -110,7 +110,7 @@ class EditProfileViewController: BaseViewController {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         print("GET_WISHLIST_API Response:::",responseDict)
                         let mod = UserInfo(fromDictionary: responseDict as! [String : Any])
                         Singleton.sharedInstance.userInfoModel = mod
@@ -144,7 +144,7 @@ class EditProfileViewController: BaseViewController {
                     }
                         
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -161,7 +161,7 @@ class EditProfileViewController: BaseViewController {
             }
             else
             {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
   
@@ -199,9 +199,9 @@ class EditProfileViewController: BaseViewController {
                 var params = NSMutableDictionary()
                 
                 
-                params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","u_email":login_session.value(forKey: "Email") as! String,
+                params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","u_email":login_session.value(forKey: "Email") as? String ?? "",
                           "email_otp":self.EnterVerificationCodeTxf.text!]
-               // params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","u_email":login_session.value(forKey: "Email") as! String,"userid":self.hostID] "userid":login_session.value(forKey: "UserId")!
+               // params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","u_email":login_session.value(forKey: "Email") as? String ?? "","userid":self.hostID] "userid":login_session.value(forKey: "UserId")!
                 
                
                 
@@ -215,7 +215,7 @@ class EditProfileViewController: BaseViewController {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         self.lbl_emailVerificatn.text = "Email id verified"
 
                         self.EmailVerificationGrayView.isHidden = true
@@ -226,7 +226,7 @@ class EditProfileViewController: BaseViewController {
                     else {
                         
                         self.lbl_emailVerificatn.text = "Email id not verified"
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -238,7 +238,7 @@ class EditProfileViewController: BaseViewController {
                 
             } else
             {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
         
@@ -258,7 +258,7 @@ class EditProfileViewController: BaseViewController {
                 var params = NSMutableDictionary()
                 
                 
-                params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","u_email":login_session.value(forKey: "Email") as! String]
+                params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","u_email":login_session.value(forKey: "Email") as? String ?? ""]
                 
                 let manager = AFHTTPSessionManager()
                 manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -270,7 +270,7 @@ class EditProfileViewController: BaseViewController {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         self.EmailVerificationGrayView.isHidden = false
 //                        self.showInformation(title: "Closest", message: "Email successfully verified")
 //                        self.lbl_emailVerificatn.text = "Email id verified"
@@ -279,7 +279,7 @@ class EditProfileViewController: BaseViewController {
                     else {
                         
                         self.lbl_emailVerificatn.text = "Email id not verified"
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -291,7 +291,7 @@ class EditProfileViewController: BaseViewController {
                 
             } else
             {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
        
@@ -324,19 +324,19 @@ extension EditProfileViewController : UITableViewDelegate,UITableViewDataSource 
         }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? HostpropCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? HostpropCell else { return UITableViewCell() }
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? HostpropCell
         
-        cell?.lbl_PropName.font = UIFont(name: SemiBoldFont, size: 14)
-        cell?.lbl_LocationProp.font = UIFont(name: SemiBoldFont, size: 14)
+        cell.lbl_PropName.font = UIFont(name: SemiBoldFont, size: 14)
+        cell.lbl_LocationProp.font = UIFont(name: SemiBoldFont, size: 14)
         
-        cell?.lbl_PropName.textColor = AppColor
+        cell.lbl_PropName.textColor = AppColor
         
-             cell?.lbl_PropName.text = Singleton.sharedInstance.userInfoModel.propertyListing[indexPath.row].propertyTitle
-             cell?.lbl_LocationProp.text = Singleton.sharedInstance.userInfoModel.propertyListing[indexPath.row].propertyAddress
+             cell.lbl_PropName.text = Singleton.sharedInstance.userInfoModel.propertyListing[indexPath.row].propertyTitle
+             cell.lbl_LocationProp.text = Singleton.sharedInstance.userInfoModel.propertyListing[indexPath.row].propertyAddress
             let imgurl = URL(string: Singleton.sharedInstance.userInfoModel.propertyListing[indexPath.row].propertyImage!)
-             cell?.img_Property.kf.setImage(with: imgurl)
-            return cell!
+             cell.img_Property.kf.setImage(with: imgurl)
+            return cell
         }
     
    

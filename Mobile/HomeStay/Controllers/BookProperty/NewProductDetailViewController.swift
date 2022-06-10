@@ -89,11 +89,11 @@ class NewProductDetailViewController: BaseViewController {
         self.RequestBookBtn.backgroundColor = AppColor
         self.InstantPayBtn.backgroundColor = AppColor
         
-        self.RequestBookBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_request2Book") as! String, for: .normal)
-        self.InstantPayBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_instantPay") as! String, for: .normal)
-        self.LoginMessageLbl.text = GlobalLanguageDictionary.object(forKey: "message") as! String
-        self.LoginMessagetxtLbl.text = GlobalLanguageDictionary.object(forKey: "Key_pleaselogin") as! String
-        self.LoginOkBtn.setTitle(GlobalLanguageDictionary.object(forKey: "ok") as! String, for: .normal)
+        self.RequestBookBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_request2Book") as? String ?? "", for: .normal)
+        self.InstantPayBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_instantPay") as? String ?? "", for: .normal)
+        self.LoginMessageLbl.text = GlobalLanguageDictionary.object(forKey: "message") as? String ?? ""
+        self.LoginMessagetxtLbl.text = GlobalLanguageDictionary.object(forKey: "Key_pleaselogin") as? String ?? ""
+        self.LoginOkBtn.setTitle(GlobalLanguageDictionary.object(forKey: "ok") as? String ?? "", for: .normal)
         self.LoginOkBtn.backgroundColor = AppColor
         self.LoginOkBtn.titleLabel?.font = UIFont(name: SemiBoldFont, size: 16)
         self.LoginMessageLbl.font = UIFont(name: SemiBoldFont, size: 15)
@@ -106,7 +106,7 @@ class NewProductDetailViewController: BaseViewController {
         self.ReviewsView.isHidden = true
         self.NoOfLines = "Two"
         PropertyDetail()
-        detailsleftSideNamesArr = [GlobalLanguageDictionary.object(forKey: "key_othersNote") as! String,GlobalLanguageDictionary.object(forKey: "key_rentalRules") as! String,GlobalLanguageDictionary.object(forKey: "key_guestAccess") as! String,GlobalLanguageDictionary.object(forKey: "key_rental") as! String,GlobalLanguageDictionary.object(forKey: "Key_interactionGuest") as! String]
+        detailsleftSideNamesArr = [GlobalLanguageDictionary.object(forKey: "key_othersNote") as? String ?? "",GlobalLanguageDictionary.object(forKey: "key_rentalRules") as? String ?? "",GlobalLanguageDictionary.object(forKey: "key_guestAccess") as? String ?? "",GlobalLanguageDictionary.object(forKey: "key_rental") as? String ?? "",GlobalLanguageDictionary.object(forKey: "Key_interactionGuest") as? String ?? ""]
         
         detailsDescArr = ["","","","","","",""]
         self.RequestBookBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
@@ -168,13 +168,13 @@ class NewProductDetailViewController: BaseViewController {
                         Singleton.sharedInstance.PropertyDetail = mod
                         self.AddonsArray.removeAllObjects()
                         BundleArray.removeAllObjects()
-                        self.AddonsArray.addObjects(from: (((responseDict.object(forKey: "data") as! NSDictionary).object(forKey: "property_details") as! NSDictionary).object(forKey: "addon_details") as! NSArray as! [Any]))
+                        self.AddonsArray.addObjects(from: (((responseDict.object(forKey: "data") as? NSDictionary)?.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "addon_details") as! NSArray as! [Any]))
                     
                         self.ProperdyDetails.removeAllObjects()
-                        self.ProperdyDetails.addEntries(from: (responseDict.value(forKey: "data") as! NSDictionary) as! [AnyHashable : Any])
-                        self.detailsDescArr = ["\((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "other_things_to_note") as AnyObject)","\((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "house_rules") as AnyObject)","\((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "guest_access") as AnyObject)","\((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "product_space") as AnyObject)","",""]
+                        self.ProperdyDetails.addEntries(from: (responseDict.value(forKey: "data") as? NSDictionary) as? [AnyHashable : Any] ?? [:])
+                        self.detailsDescArr = ["\((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "other_things_to_note") as AnyObject)","\((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "house_rules") as AnyObject)","\((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "guest_access") as AnyObject)","\((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "product_space") as AnyObject)","",""]
                        
-                        self.instantPayStatusValue = "\((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "instant_pay_status") as AnyObject)"
+                        self.instantPayStatusValue = "\((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "instant_pay_status") as AnyObject)"
                         self.reqToBookStatusValue = "true"
                           self.AminitiesArray.removeAllObjects()
                          self.DatesMutable.removeAllObjects()
@@ -205,7 +205,7 @@ class NewProductDetailViewController: BaseViewController {
                         
                     }
                     else {
-                        if responseDict.value(forKey: "message") as! String == "No Property available" {
+                        if responseDict.value(forKey: "message") as? String ?? "" == "No Property available" {
                             
                             
                             let refreshAlert = UIAlertController(title: "Closest", message: "No Property available", preferredStyle: UIAlertControllerStyle.alert)
@@ -220,7 +220,7 @@ class NewProductDetailViewController: BaseViewController {
                             
                         }
                         
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                   
     }
@@ -241,12 +241,12 @@ class NewProductDetailViewController: BaseViewController {
 //            let responseDict:NSDictionary = responseObject as! NSDictionary
 //            print(responseDict)
 //            self.hideActivityIndicator(uiView: self.view)
-//            if responseDict.value(forKey: "code") as! Int == 200 {
+//            if responseDict.value(forKey: "code") as? Int ?? 0 == 200 {
 //
 //            }
 //
 //            else {
-//                if responseDict.value(forKey: "message") as! String == "No Property available" {
+//                if responseDict.value(forKey: "message") as? String ?? "" == "No Property available" {
 //
 //
 //                    let refreshAlert = UIAlertController(title: "Closest", message: "No Property available", preferredStyle: UIAlertControllerStyle.alert)
@@ -261,7 +261,7 @@ class NewProductDetailViewController: BaseViewController {
 //
 //                }
 //
-//                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+//                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
 //            }
 //        }, failure: { (operation, error) -> Void in
 //            DispatchQueue.main.async {
@@ -295,20 +295,20 @@ class NewProductDetailViewController: BaseViewController {
         
         if login_session.value(forKey: "IS_USER_LOGGEDIN") as? Bool == true {
             
-            let hostStatus = (self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "host_status") as! String//Singleton.sharedInstance.PropertyDetail.host_status!
-            let GuestStatus = (self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "host_status") as! String
+            let hostStatus = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "host_status") as? String ?? ""//Singleton.sharedInstance.PropertyDetail.host_status!
+            let GuestStatus = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "host_status") as? String ?? ""
             
             let userId = login_session.value(forKey: "UserId") as? AnyObject
-            let hostId = (self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "host_id") as AnyObject//Singleton.sharedInstance.PropertyDetail.hostId!
+            let hostId = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "host_id") as AnyObject//Singleton.sharedInstance.PropertyDetail.hostId!
             
             if hostStatus == "Inactive"  {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_hostnotAva") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_hostnotAva") as? String ?? "")
             }
 //            else if GuestStatus == "Inactive" {
 //                self.showInformation(title: "Closest", message: "User is inactive.Please contact Admin")
 //            }
             else if String(describing: userId!) == String(describing: hostId) {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_unableBookOwnRental") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_unableBookOwnRental") as? String ?? "")
             }
 //            else if HostIdVerified == "No" {
 //                self.showInformation(title: "Closest", message: " Host is not verified yest ..!")
@@ -332,19 +332,19 @@ class NewProductDetailViewController: BaseViewController {
     {
         if login_session.value(forKey: "IS_USER_LOGGEDIN") as? Bool == true {
             
-            let hostStatus = (self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "host_status") as! String
-            let GuestStatus = (self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "host_status") as! String
+            let hostStatus = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "host_status") as? String ?? ""
+            let GuestStatus = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "host_status") as? String ?? ""
  
             let userId = login_session.value(forKey: "UserId") as? AnyObject
-            let hostId = (self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "host_id") as AnyObject
+            let hostId = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "host_id") as AnyObject
             
             if hostStatus == "Inactive" {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_hostnotAva") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_hostnotAva") as? String ?? "")
             }else if GuestStatus == "Inactive" {
                 self.showInformation(title: "Closest", message: "User is inactive.Please contact Admin")
             }
             else if String(describing: userId!) == String(describing: hostId) {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_unableBookOwnRental") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_unableBookOwnRental") as? String ?? "")
             }
 //            else if HostIdVerified == "No" {
 //                self.showInformation(title: "Closest", message: " Host is not verified yest ..!")
@@ -375,7 +375,7 @@ class NewProductDetailViewController: BaseViewController {
                 showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
                 
-                params = ["base_id":1,"userid":login_session.value(forKey: "UserId")!,"wishlist_title":self.txf_Wishlistitle.text!,"property_id":Singleton.sharedInstance.PropertyDetail.rentalId!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String]
+                params = ["base_id":1,"userid":login_session.value(forKey: "UserId")!,"wishlist_title":self.txf_Wishlistitle.text!,"property_id":Singleton.sharedInstance.PropertyDetail.rentalId!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? ""]
                 
                 let manager = AFHTTPSessionManager()
                 manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -386,7 +386,7 @@ class NewProductDetailViewController: BaseViewController {
                     }
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         self.viewWishlisttitlePopup.isHidden = true
                         self.grayView.isHidden = true
                         self.viewBottom.isHidden = true
@@ -401,7 +401,7 @@ class NewProductDetailViewController: BaseViewController {
                     }
                     
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -413,7 +413,7 @@ class NewProductDetailViewController: BaseViewController {
                 
             }
             else {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
     }
@@ -422,7 +422,7 @@ class NewProductDetailViewController: BaseViewController {
         showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
         
-        params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","wishlist_id":self.wishListId,"property_id":self.wishPropertyid]
+        params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","wishlist_id":self.wishListId,"property_id":self.wishPropertyid]
         print(params)
         let manager = AFHTTPSessionManager()
         manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -433,7 +433,7 @@ class NewProductDetailViewController: BaseViewController {
             }
             let responseDict:NSDictionary = responseObject as! NSDictionary
             self.hideActivityIndicator(uiView: self.view)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 print("GET_WISHLIST_API Response:::",responseDict)
                 let mod = WishlistModel(fromDictionary: responseDict as! [String : Any])
                 Singleton.sharedInstance.wishListModel = mod
@@ -453,7 +453,7 @@ class NewProductDetailViewController: BaseViewController {
             }
             
             else {
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -491,7 +491,7 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
                 print("btnRow is :", btnRow)
             }
  
-            let favid = "\((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "is_favourite") as AnyObject)"
+            let favid = "\((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "is_favourite") as AnyObject)"
             if favid == "1"  {
                // RemoveWishList()
                 WishListApiCall()
@@ -507,7 +507,7 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
                 }
                 else
                 {
-                    self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                    self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
                 }
             }
         }else{
@@ -519,7 +519,7 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
         showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
        
-        params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","property_id":self.PropertyID]
+        params = ["currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","property_id":self.PropertyID]
         
         print(params)
         APIManager.apiPostWithHeaders(serviceName: ADD_WISHLIST, parameters: params as? [String : Any]) { (json:NSDictionary?, error:NSError?) in
@@ -544,7 +544,7 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
             {
                 
                 self.hideActivityIndicator(uiView: self.view)
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
               
             }
             }else{
@@ -572,7 +572,7 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
             let responseDict:NSDictionary = responseObject as! NSDictionary
             print(responseDict)
             self.hideActivityIndicator(uiView: self.view)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 print("GET_WISHLIST_API Response:::",responseDict)
                 print(responseDict)
                 let mod = WishlistModel(fromDictionary: responseDict as! [String : Any])
@@ -593,7 +593,7 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
             }
             
             else {
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -636,7 +636,7 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
             let nav = self.storyboard?.instantiateViewController(withIdentifier: "AddonsViewController") as? AddonsViewController
             nav!.AddonsArray = self.AddonsArray
 //            for i in 0..<AddonsSelectedDictValues.count{
-//                let BundleId = "\((AddonsSelectedDictValues.object(at: i) as! NSDictionary).object(forKey: "id") as AnyObject)"
+//                let BundleId = "\((AddonsSelectedDictValues.object(at: i) as? NSDictionary)?.object(forKey: "id") as AnyObject)"
 //                nav!.AddonsSelectedArray.add(BundleId)
 //            }
             self.navigationController?.pushViewController(nav!, animated: true)
@@ -701,12 +701,12 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
         
         if login_session.value(forKey: "IS_USER_LOGGEDIN") as? Bool == true {
             
-            let hostStatus = (self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "host_status") as! String//Singleton.sharedInstance.PropertyDetail.host_status!
-            let GuestStatus = (self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "host_status") as! String //Singleton.sharedInstance.PropertyDetail.guest_status!
+            let hostStatus = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "host_status") as? String ?? ""//Singleton.sharedInstance.PropertyDetail.host_status!
+            let GuestStatus = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "host_status") as? String ?? "" //Singleton.sharedInstance.PropertyDetail.guest_status!
            // let HostIdVerified = Singleton.sharedInstance.PropertyDetail.idVerified!
             
             let userId = login_session.value(forKey: "UserId") as? AnyObject
-            let hostId = (self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "host_id") as AnyObject//Singleton.sharedInstance.PropertyDetail.hostId!
+            let hostId = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "host_id") as AnyObject//Singleton.sharedInstance.PropertyDetail.hostId!
             
             if hostStatus == "Inactive"  {
                 self.showInformation(title: "Closest", message: "Host is not available")
@@ -739,12 +739,12 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
         
         if login_session.value(forKey: "IS_USER_LOGGEDIN") as? Bool == true {
             
-            let hostStatus = (self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "host_status") as! String
-            let GuestStatus = (self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "host_status") as! String
+            let hostStatus = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "host_status") as? String ?? ""
+            let GuestStatus = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "host_status") as? String ?? ""
          //   let HostIdVerified = Singleton.sharedInstance.PropertyDetail.idVerified!
             
             let userId = login_session.value(forKey: "UserId") as? AnyObject
-            let hostId = (self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "host_id") as AnyObject
+            let hostId = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "host_id") as AnyObject
             
             if hostStatus == "Inactive" {
                 self.showInformation(title: "Closest", message: "Host is not available")
@@ -779,10 +779,10 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
         self.AminitiyTab.isHidden = false
         //self.AminitiesTableView.isHidden = false
         
-        if ((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "list_details") as! NSArray).count > 10 {
+        if ((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "list_details") as! NSArray).count > 10 {
             self.AminitiyViewHeight.constant = 450
         }else{
-            self.AminitiyViewHeight.constant = CGFloat(((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "list_details") as! NSArray).count * 50) + 46
+            self.AminitiyViewHeight.constant = CGFloat(((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "list_details") as! NSArray).count * 50) + 46
         }
         self.AminitiesDetailTable.reloadData()
     }
@@ -860,121 +860,131 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if tableView == self.AminitiesDetailTable {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AminitiesDetailsTableViewCell") as? AminitiesDetailsTableViewCell
-            cell!.selectionStyle = .none
-            cell!.AminitiesNameLbl.font =  UIFont(name: RegularFont, size: 14)
-            cell!.AminitiesNameLbl.text = (((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "list_details") as! NSArray).object(at: indexPath.row) as! NSDictionary).object(forKey: "list_name") as! String
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "AminitiesDetailsTableViewCell") as? AminitiesDetailsTableViewCell else { return UITableViewCell() }
+
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "AminitiesDetailsTableViewCell") as? AminitiesDetailsTableViewCell
+            cell.selectionStyle = .none
+            cell.AminitiesNameLbl.font =  UIFont(name: RegularFont, size: 14)
+            cell.AminitiesNameLbl.text = (((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "list_details") as! NSArray).object(at: indexPath.row) as? NSDictionary)?.object(forKey: "list_name") as? String ?? ""
             
-            if "\((((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "list_details") as! NSArray).object(at: indexPath.row) as! NSDictionary).object(forKey: "list_available") as AnyObject)" == "1"{
-                cell!.AminitiesNameLbl.textColor = AppColor
+            if "\((((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "list_details") as! NSArray).object(at: indexPath.row) as? NSDictionary)?.object(forKey: "list_available") as AnyObject)" == "1"{
+                cell.AminitiesNameLbl.textColor = AppColor
             }else{
-                cell!.AminitiesNameLbl.textColor = .gray
+                cell.AminitiesNameLbl.textColor = .gray
             }
  
-             return cell!
+             return cell
         }else{
             if indexPath.section == 0
             {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ProdectDetailImageTableViewCell") as? ProdectDetailImageTableViewCell
-                cell!.selectionStyle = .none
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProdectDetailImageTableViewCell") as? ProdectDetailImageTableViewCell else { return UITableViewCell() }
+
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "ProdectDetailImageTableViewCell") as? ProdectDetailImageTableViewCell
+                cell.selectionStyle = .none
                  
-                cell!.PriceLbl.font = UIFont(name: SemiBoldFont, size: 16)
-                cell!.ProductRating.font = UIFont(name: SemiBoldFont, size: 15)
-                cell!.ProductName.font = UIFont(name: SemiBoldFont, size: 18)
-                cell!.StartsLbl.font = UIFont(name: RegularFont, size: 16)
-                cell!.ProductLocation.font = UIFont(name: RegularFont, size: 15)
-                cell!.StartsLbl.font = UIFont(name: RegularFont, size: 15)
-                cell!.GuestCountLbl.font = UIFont(name: RegularFont, size: 15)
-                 cell!.ProductName.textColor = AppColor
+                cell.PriceLbl.font = UIFont(name: SemiBoldFont, size: 16)
+                cell.ProductRating.font = UIFont(name: SemiBoldFont, size: 15)
+                cell.ProductName.font = UIFont(name: SemiBoldFont, size: 18)
+                cell.StartsLbl.font = UIFont(name: RegularFont, size: 16)
+                cell.ProductLocation.font = UIFont(name: RegularFont, size: 15)
+                cell.StartsLbl.font = UIFont(name: RegularFont, size: 15)
+                cell.GuestCountLbl.font = UIFont(name: RegularFont, size: 15)
+                 cell.ProductName.textColor = AppColor
                 
-                cell!.LocImage.setImageColor(color: AppColor)
-                cell!.PriceLbl.textColor = AppColor
+                cell.LocImage.setImageColor(color: AppColor)
+                cell.PriceLbl.textColor = AppColor
                 
-                cell!.ProductRating.text =  "\((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "total_review_count") as AnyObject)"
-                 if "\((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "total_review_count") as AnyObject)" == "0" {
-                    cell!.ProductRating.isHidden = true
-                    cell?.RatingImage.isHidden = true
+                cell.ProductRating.text =  "\((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "total_review_count") as AnyObject)"
+                 if "\((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "total_review_count") as AnyObject)" == "0" {
+                    cell.ProductRating.isHidden = true
+                    cell.RatingImage.isHidden = true
                 }else{
-                    cell!.ProductRating.isHidden = true
-                    cell?.RatingImage.isHidden = true
+                    cell.ProductRating.isHidden = true
+                    cell.RatingImage.isHidden = true
                 }
-                cell!.GuestCountLbl.text = "\((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "total_review_count") as AnyObject) Review"
-                cell!.ProductName.text =  "\((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "ren_title") as AnyObject)"//Singleton.sharedInstance.PropertyDetail.defaultproducttitle
-                cell!.ProductLocation.text = "\((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "address") as AnyObject)"//Singleton.sharedInstance.PropertyDetail.address
+                cell.GuestCountLbl.text = "\((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "total_review_count") as AnyObject) Review"
+                cell.ProductName.text =  "\((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "ren_title") as AnyObject)"//Singleton.sharedInstance.PropertyDetail.defaultproducttitle
+                cell.ProductLocation.text = "\((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "address") as AnyObject)"//Singleton.sharedInstance.PropertyDetail.address
                 
-                let price = "\((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "productprice") as AnyObject)"
-                cell!.PriceLbl.text = "\(currencySymbol) \(price)/ day "
+                let price = "\((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "productprice") as AnyObject)"
+                cell.PriceLbl.text = "\(currencySymbol) \(price)/ day "
                 
  
                 
-                let imgUpdated =  URL(string:"\((((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "product_image") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "product_image") as! String)")
+                let imgUpdated =  URL(string:"\((((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "product_image") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "product_image") as? String ?? "")")
                 
-                cell!.ProductImage.kf.setImage(with: imgUpdated, placeholder: UIImage.init(named: "user"), options: nil, progressBlock: nil, completionHandler: nil)
+                cell.ProductImage.kf.setImage(with: imgUpdated, placeholder: UIImage.init(named: "user"), options: nil, progressBlock: nil, completionHandler: nil)
                 
-                let isfav = (self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "is_favourite") as! Bool
+                let isfav = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "is_favourite") as! Bool
                 
                 if (isfav == true)
                 {
-                    cell!.FavImg.image = UIImage(named: "FavNew")
+                    cell.FavImg.image = UIImage(named: "FavNew")
                 }
                 else
                 {
-                    cell!.FavImg.image = UIImage(named: "like-1")
+                    cell.FavImg.image = UIImage(named: "like-1")
                 }
-                 cell?.FavBtn.tag = indexPath.row
-                cell!.FavBtn.addTarget(self, action:#selector(favTapped), for: .touchUpInside)
+                 cell.FavBtn.tag = indexPath.row
+                cell.FavBtn.addTarget(self, action:#selector(favTapped), for: .touchUpInside)
                 
                 
                
-                return cell!
+                return cell
             }else if indexPath.section == 2 {
                 if indexPath.row == 0 {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
-                    cell!.selectionStyle = .none
-                    cell!.BaseTitle.text = GlobalLanguageDictionary.object(forKey: "key_aboutSpace") as! String
-                    cell!.BaseTitle.font = UIFont(name: SemiBoldFont, size: 16)
-                    return cell!
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell else { return UITableViewCell() }
+
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
+                    cell.selectionStyle = .none
+                    cell.BaseTitle.text = GlobalLanguageDictionary.object(forKey: "key_aboutSpace") as? String ?? ""
+                    cell.BaseTitle.font = UIFont(name: SemiBoldFont, size: 16)
+                    return cell
                 }else if indexPath.row == 1{
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailDescriptionTableViewCell") as? ProductDetailDescriptionTableViewCell
-                    cell!.LaodMoreBtn.titleLabel?.font =  UIFont(name: RegularFont, size: 12)
-                    cell!.DescLbl.text = "\((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "productdesc") as AnyObject)"
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailDescriptionTableViewCell") as? ProductDetailDescriptionTableViewCell else { return UITableViewCell() }
+
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailDescriptionTableViewCell") as? ProductDetailDescriptionTableViewCell
+                    cell.LaodMoreBtn.titleLabel?.font =  UIFont(name: RegularFont, size: 12)
+                    cell.DescLbl.text = "\((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "productdesc") as AnyObject)"
                     //Singleton.sharedInstance.PropertyDetail.productdesc
-                    let count = cell!.DescLbl.numberOfVisibleLines
+                    let count = cell.DescLbl.numberOfVisibleLines
                     print("NoOfLines",count)
                     
                     if self.NoOfLines == "2" {
-                        cell!.DescLbl.numberOfLines = 2
-                        cell!.LaodMoreBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_viewMore") as! String, for: .normal)
+                        cell.DescLbl.numberOfLines = 2
+                        cell.LaodMoreBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_viewMore") as? String ?? "", for: .normal)
                     }else{
-                        cell!.DescLbl.numberOfLines = 0
-                        cell!.LaodMoreBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_viewless") as! String, for: .normal)
+                        cell.DescLbl.numberOfLines = 0
+                        cell.LaodMoreBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_viewless") as? String ?? "", for: .normal)
                     }
-                    cell!.LaodMoreBtn.isHidden = true
+                    cell.LaodMoreBtn.isHidden = true
                     
                     if count <= 2 {
-                        cell!.LaodMoreBtn.isHidden = true
+                        cell.LaodMoreBtn.isHidden = true
                     }else{
-                        cell!.LaodMoreBtn.isHidden = false
+                        cell.LaodMoreBtn.isHidden = false
                     }
-                    cell!.selectionStyle = .none
-                    cell!.DescLbl.font = UIFont(name: RegularFont, size: 13)
-                    cell!.LaodMoreBtn.addTarget(self, action: #selector(starredbtnClick), for: .touchUpInside)
-                    return cell!
+                    cell.selectionStyle = .none
+                    cell.DescLbl.font = UIFont(name: RegularFont, size: 13)
+                    cell.LaodMoreBtn.addTarget(self, action: #selector(starredbtnClick), for: .touchUpInside)
+                    return cell
                 }else{
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "CouponTableViewCell") as? CouponTableViewCell
-                    cell!.selectionStyle = .none
-                    cell!.CouponAvaLbl.font = UIFont(name: SemiBoldFont, size: 16)
-                    cell!.couponCodeLbl.font = UIFont(name: SemiBoldFont, size: 14)
-                    cell!.couponName.font = UIFont(name: SemiBoldFont, size: 15)
-                    cell!.couponTimeLimit.font = UIFont(name: SemiBoldFont, size: 15)
-                    cell!.daysLbl.font = UIFont(name: SemiBoldFont, size: 15)
-                    cell!.hoursLbl.font = UIFont(name: SemiBoldFont, size: 15)
-                    cell!.minLbl.font = UIFont(name: SemiBoldFont, size: 15)
-                    cell!.secLbl.font = UIFont(name: SemiBoldFont, size: 15)
-                    cell!.days.font = UIFont(name: SemiBoldFont, size: 15)
-                    cell!.hours.font = UIFont(name: SemiBoldFont, size: 15)
-                    cell!.min.font = UIFont(name: SemiBoldFont, size: 15)
-                    cell!.sec.font = UIFont(name: SemiBoldFont, size: 15)
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "CouponTableViewCell") as? CouponTableViewCell else { return UITableViewCell() }
+
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "CouponTableViewCell") as? CouponTableViewCell
+                    cell.selectionStyle = .none
+                    cell.CouponAvaLbl.font = UIFont(name: SemiBoldFont, size: 16)
+                    cell.couponCodeLbl.font = UIFont(name: SemiBoldFont, size: 14)
+                    cell.couponName.font = UIFont(name: SemiBoldFont, size: 15)
+                    cell.couponTimeLimit.font = UIFont(name: SemiBoldFont, size: 15)
+                    cell.daysLbl.font = UIFont(name: SemiBoldFont, size: 15)
+                    cell.hoursLbl.font = UIFont(name: SemiBoldFont, size: 15)
+                    cell.minLbl.font = UIFont(name: SemiBoldFont, size: 15)
+                    cell.secLbl.font = UIFont(name: SemiBoldFont, size: 15)
+                    cell.days.font = UIFont(name: SemiBoldFont, size: 15)
+                    cell.hours.font = UIFont(name: SemiBoldFont, size: 15)
+                    cell.min.font = UIFont(name: SemiBoldFont, size: 15)
+                    cell.sec.font = UIFont(name: SemiBoldFont, size: 15)
                     
                     
                     
@@ -982,10 +992,10 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
                     let dateFormatter1 = DateFormatter()
                     dateFormatter1.dateFormat = "yyyy-MM-dd"
                     dateFormatter1.locale = Locale(identifier: "en_US_POSIX")
-                    cell!.couponName.text =  String(format: " Coupon offer : %@ %@",Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponPriceValue!,"%")
-                    cell!.couponCodeLbl.text =  String(format: " Coupon code : %@",Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponCode!)
-                    UIPasteboard.general.string = cell!.couponCodeLbl.text
-                    cell!.couponTimeLimit.text =  String(format: "Time Limit : %@ to %@",Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDatefrom!,Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDateto!)
+                    cell.couponName.text =  String(format: " Coupon offer : %@ %@",Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponPriceValue!,"%")
+                    cell.couponCodeLbl.text =  String(format: " Coupon code : %@",Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponCode!)
+                    UIPasteboard.general.string = cell.couponCodeLbl.text
+                    cell.couponTimeLimit.text =  String(format: "Time Limit : %@ to %@",Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDatefrom!,Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDateto!)
                     
                     let fromdate = Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDatefrom!
                     let todate = Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDateto!
@@ -1043,44 +1053,49 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
                         
                         
                         
-                        cell!.daysLbl.text = formatter.string(from: NSNumber(value:days + 1))
-                        cell!.hoursLbl.text =  formatter.string(from: NSNumber(value:hours))
-                        cell!.minLbl.text =  formatter.string(from: NSNumber(value:minites))
-                        cell!.secLbl.text =  formatter.string(from: NSNumber(value:scondes!))
+                        cell.daysLbl.text = formatter.string(from: NSNumber(value:days + 1))
+                        cell.hoursLbl.text =  formatter.string(from: NSNumber(value:hours))
+                        cell.minLbl.text =  formatter.string(from: NSNumber(value:minites))
+                        cell.secLbl.text =  formatter.string(from: NSNumber(value:scondes!))
                     }
                     else
                     {
-                        cell!.daysLbl.text = "00"
-                        cell!.hoursLbl.text =  "00"
-                        cell!.minLbl.text =  "00"
-                        cell!.secLbl.text =  "00"
+                        cell.daysLbl.text = "00"
+                        cell.hoursLbl.text =  "00"
+                        cell.minLbl.text =  "00"
+                        cell.secLbl.text =  "00"
                     }
                     
-                    return cell!
+                    return cell
                 }
                 
             }
             else if indexPath.section == 1
             {
+                
                 if indexPath.row == 0 {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
-                    cell!.selectionStyle = .none
-                    cell!.BaseTitle.text = GlobalLanguageDictionary.object(forKey: "key_specification") as! String
-                    cell!.BaseTitle.font = UIFont(name: SemiBoldFont, size: 16)
-                    return cell!
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell else { return UITableViewCell() }
+
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
+                    cell.selectionStyle = .none
+                    cell.BaseTitle.text = GlobalLanguageDictionary.object(forKey: "key_specification") as? String ?? ""
+                    cell.BaseTitle.font = UIFont(name: SemiBoldFont, size: 16)
+                    return cell
                 }else{
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProdctDetailSpeceficationsTableViewCell") as? ProdctDetailSpeceficationsTableViewCell
-                    cell!.selectionStyle = .none
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProdctDetailSpeceficationsTableViewCell") as? ProdctDetailSpeceficationsTableViewCell else { return UITableViewCell() }
+
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProdctDetailSpeceficationsTableViewCell") as? ProdctDetailSpeceficationsTableViewCell
+                    cell.selectionStyle = .none
                     
-                    cell!.YearLbl.font = UIFont(name: RegularFont, size: 14)
-                    cell!.BathroomLbl.font = UIFont(name: RegularFont, size: 14)
-                    cell!.lengthLbl.font = UIFont(name: RegularFont, size: 14)
-                    cell!.speedLbl.font = UIFont(name: RegularFont, size: 14)
-                    cell!.guestLbl.font = UIFont(name: RegularFont, size: 14)
-                    cell!.cabinsLbl.font = UIFont(name: RegularFont, size: 14)
+                    cell.YearLbl.font = UIFont(name: RegularFont, size: 14)
+                    cell.BathroomLbl.font = UIFont(name: RegularFont, size: 14)
+                    cell.lengthLbl.font = UIFont(name: RegularFont, size: 14)
+                    cell.speedLbl.font = UIFont(name: RegularFont, size: 14)
+                    cell.guestLbl.font = UIFont(name: RegularFont, size: 14)
+                    cell.cabinsLbl.font = UIFont(name: RegularFont, size: 14)
                     
                     
-                    let listingInfo = (self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "listing_info") as! NSArray
+                    let listingInfo = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "listing_info") as! NSArray
                     
                     let attrs1 = [NSAttributedStringKey.font : UIFont(name: SemiBoldFont, size: 18), NSAttributedStringKey.foregroundColor : UIColor.black]
 
@@ -1089,199 +1104,226 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
                     
                     if listingInfo.count != 0 {
                         
-                            let attributedString1 = NSMutableAttributedString(string:"\(((listingInfo.object(at: 0) as! NSDictionary).object(forKey: "value") as! String))", attributes:attrs1)
+                            let attributedString1 = NSMutableAttributedString(string:"\(((listingInfo.object(at: 0) as? NSDictionary)?.object(forKey: "value") as? String ?? ""))", attributes:attrs1)
 
-                            let attributedString2 = NSMutableAttributedString(string:"\n\(((listingInfo.object(at: 0) as! NSDictionary).object(forKey: "label") as! String))", attributes:attrs2)
+                            let attributedString2 = NSMutableAttributedString(string:"\n\(((listingInfo.object(at: 0) as? NSDictionary)?.object(forKey: "label") as? String ?? ""))", attributes:attrs2)
 
-                         cell!.YearLbl.numberOfLines = 0
+                         cell.YearLbl.numberOfLines = 0
                         attributedString1.append(attributedString2)
-                        cell!.YearLbl.textAlignment = .left
+                        cell.YearLbl.textAlignment = .left
 
-                            cell!.YearLbl.attributedText = attributedString1
+                            cell.YearLbl.attributedText = attributedString1
                     }
                     
                   
                     if listingInfo.count >= 2 {
-                        let attributedString3 = NSMutableAttributedString(string:"\(((listingInfo.object(at: 1) as! NSDictionary).object(forKey: "value") as! String))", attributes:attrs1)
+                        let attributedString3 = NSMutableAttributedString(string:"\(((listingInfo.object(at: 1) as? NSDictionary)?.object(forKey: "value") as? String ?? ""))", attributes:attrs1)
 
-                        let attributedString4 = NSMutableAttributedString(string:"\n\(((listingInfo.object(at: 1) as! NSDictionary).object(forKey: "label") as! String))", attributes:attrs2)
+                        let attributedString4 = NSMutableAttributedString(string:"\n\(((listingInfo.object(at: 1) as? NSDictionary)?.object(forKey: "label") as? String ?? ""))", attributes:attrs2)
 
                         attributedString3.append(attributedString4)
-                        cell!.BathroomLbl.numberOfLines = 0
-                        cell!.BathroomLbl.textAlignment = .left
+                        cell.BathroomLbl.numberOfLines = 0
+                        cell.BathroomLbl.textAlignment = .left
 
-                        cell!.BathroomLbl.attributedText = attributedString3
+                        cell.BathroomLbl.attributedText = attributedString3
                     }
                    
                     if listingInfo.count >= 3 {
-                        let attributedString5 = NSMutableAttributedString(string:"\(((listingInfo.object(at: 2) as! NSDictionary).object(forKey: "value") as! String))", attributes:attrs1)
+                        let attributedString5 = NSMutableAttributedString(string:"\(((listingInfo.object(at: 2) as? NSDictionary)?.object(forKey: "value") as? String ?? ""))", attributes:attrs1)
 
-                        let attributedString6 = NSMutableAttributedString(string:"\n\(((listingInfo.object(at: 2) as! NSDictionary).object(forKey: "label") as! String))", attributes:attrs2)
+                        let attributedString6 = NSMutableAttributedString(string:"\n\(((listingInfo.object(at: 2) as? NSDictionary)?.object(forKey: "label") as? String ?? ""))", attributes:attrs2)
                         
                         
                         attributedString5.append(attributedString6)
-                        cell!.lengthLbl.numberOfLines = 0
-                        cell!.lengthLbl.textAlignment = .left
+                        cell.lengthLbl.numberOfLines = 0
+                        cell.lengthLbl.textAlignment = .left
 
-                        cell!.lengthLbl.attributedText = attributedString5
+                        cell.lengthLbl.attributedText = attributedString5
                     }
 
                    
                     if listingInfo.count >= 4 {
-                        let attributedString7 = NSMutableAttributedString(string:"\(((listingInfo.object(at: 3) as! NSDictionary).object(forKey: "value") as! String))", attributes:attrs1)
+                        let attributedString7 = NSMutableAttributedString(string:"\(((listingInfo.object(at: 3) as? NSDictionary)?.object(forKey: "value") as? String ?? ""))", attributes:attrs1)
 
-                        let attributedString8 = NSMutableAttributedString(string:"\n\(((listingInfo.object(at: 3) as! NSDictionary).object(forKey: "label") as! String))", attributes:attrs2 as [NSAttributedStringKey : Any])
-                        cell!.speedLbl.textAlignment = .left
+                        let attributedString8 = NSMutableAttributedString(string:"\n\(((listingInfo.object(at: 3) as? NSDictionary)?.object(forKey: "label") as? String ?? ""))", attributes:attrs2 as [NSAttributedStringKey : Any])
+                        cell.speedLbl.textAlignment = .left
 
                         
                         attributedString7.append(attributedString8)
-                        cell!.speedLbl.numberOfLines = 0
+                        cell.speedLbl.numberOfLines = 0
 
-                        cell!.speedLbl.attributedText = attributedString7
+                        cell.speedLbl.attributedText = attributedString7
                     }
                     
                     
                  
-                    cell!.fifthView.isHidden = true
-                    cell!.SixthView.isHidden = true
+                    cell.fifthView.isHidden = true
+                    cell.SixthView.isHidden = true
 
 
-                    return cell!
+                    return cell
                 }
             }
             else if indexPath.section == 3
             {
                 if indexPath.row == 0 {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
-                    cell!.selectionStyle = .none
-                    cell!.BaseTitle.text = GlobalLanguageDictionary.object(forKey: "key_details") as! String
-                    cell!.BaseTitle.font = UIFont(name: SemiBoldFont, size: 16)
-                    return cell!
-                }else if indexPath.row == 6 {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "DetailPagePriceTableViewCell") as? DetailPagePriceTableViewCell
-                    cell!.selectionStyle = .none
-                    cell!.PriceHeader.text = GlobalLanguageDictionary.object(forKey: "key_priceDetails") as! String
-                    cell!.PriceHeader.font = UIFont(name: SemiBoldFont, size: 16)
-                    cell!.PriceLbl.font = UIFont(name: SemiBoldFont, size: 14)
-                    cell!.SecurityDepositLbl.font = UIFont(name: SemiBoldFont, size: 14)
-
-                    let price = "\((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "productprice") as AnyObject)"
                     
-                    cell!.PriceLbl.text = "\(GlobalLanguageDictionary.object(forKey: "Key_sprice") as! String) : \(currencySymbol) \(price) / \(GlobalLanguageDictionary.object(forKey: "Key_day") as! String)"
-                    let secDep = "\((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "security_deposit") as AnyObject)"
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell else { return UITableViewCell() }
+
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
+                    cell.selectionStyle = .none
+                    cell.BaseTitle.text = GlobalLanguageDictionary.object(forKey: "key_details") as? String ?? ""
+                    cell.BaseTitle.font = UIFont(name: SemiBoldFont, size: 16)
+                    return cell
+                }else if indexPath.row == 6 {
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "DetailPagePriceTableViewCell") as? DetailPagePriceTableViewCell else { return UITableViewCell() }
+
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "DetailPagePriceTableViewCell") as? DetailPagePriceTableViewCell
+                    cell.selectionStyle = .none
+                    cell.PriceHeader.text = GlobalLanguageDictionary.object(forKey: "key_priceDetails") as? String ?? ""
+                    cell.PriceHeader.font = UIFont(name: SemiBoldFont, size: 16)
+                    cell.PriceLbl.font = UIFont(name: SemiBoldFont, size: 14)
+                    cell.SecurityDepositLbl.font = UIFont(name: SemiBoldFont, size: 14)
+
+                    let price = "\((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "productprice") as AnyObject)"
+                    
+                    cell.PriceLbl.text = "\(GlobalLanguageDictionary.object(forKey: "Key_sprice") as? String ?? "") : \(currencySymbol) \(price) / \(GlobalLanguageDictionary.object(forKey: "Key_day") as? String ?? "")"
+                    let secDep = "\((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "security_deposit") as AnyObject)"
 
 
-                    cell!.SecurityDepositLbl.text = "\(GlobalLanguageDictionary.object(forKey: "key_securityDeposit") as! String) : \(currencySymbol) \(secDep)"
-                    return cell!
+                    cell.SecurityDepositLbl.text = "\(GlobalLanguageDictionary.object(forKey: "key_securityDeposit") as? String ?? "") : \(currencySymbol) \(secDep)"
+                    return cell
                 }else{
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "DetailFeatureTableViewCell") as? DetailFeatureTableViewCell
-                    cell!.selectionStyle = .none
-                    cell!.FeatureTitle.text = self.detailsleftSideNamesArr[indexPath.row-1] as! String
-                    cell!.FeatureDesc.text = self.detailsDescArr[indexPath.row-1] as? String
-                    return cell!
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "DetailFeatureTableViewCell") as? DetailFeatureTableViewCell else { return UITableViewCell() }
+
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "DetailFeatureTableViewCell") as? DetailFeatureTableViewCell
+                    cell.selectionStyle = .none
+                    cell.FeatureTitle.text = self.detailsleftSideNamesArr[indexPath.row-1] as? String ?? ""
+                    cell.FeatureDesc.text = self.detailsDescArr[indexPath.row-1] as? String
+                    return cell
                 }
             }
             else if indexPath.section == 4
             {
                 if indexPath.row == 0 {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
-                    cell!.selectionStyle = .none
-                    cell!.BaseTitle.text = GlobalLanguageDictionary.object(forKey: "key_PhotoGallery") as! String
-                    cell!.BaseTitle.textColor = .black
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell else { return UITableViewCell() }
 
-                    cell!.BaseTitle.font = UIFont(name: SemiBoldFont, size: 16)
-                    return cell!
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
+                    cell.selectionStyle = .none
+                    cell.BaseTitle.text = GlobalLanguageDictionary.object(forKey: "key_PhotoGallery") as? String ?? ""
+                    cell.BaseTitle.textColor = .black
+
+                    cell.BaseTitle.font = UIFont(name: SemiBoldFont, size: 16)
+                    return cell
                 }else{
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailGalleryTableViewCell") as? ProductDetailGalleryTableViewCell
-                    cell!.selectionStyle = .none
-                    let ImagesArr = (self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "product_image") as! NSArray
-                    cell!.DataReload(array: ImagesArr)
-                    cell!.GalleryCollection.reloadData()
-                    return cell!
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailGalleryTableViewCell") as? ProductDetailGalleryTableViewCell else { return UITableViewCell() }
+
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailGalleryTableViewCell") as? ProductDetailGalleryTableViewCell
+                    cell.selectionStyle = .none
+                    let ImagesArr = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "product_image") as! NSArray
+                    cell.DataReload(array: ImagesArr)
+                    cell.GalleryCollection.reloadData()
+                    return cell
                 }
             }
             else if indexPath.section == 5
             {
                 if indexPath.row == 0 {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
-                    cell!.selectionStyle = .none
-                    cell!.BaseTitle.text = GlobalLanguageDictionary.object(forKey: "key_AllAminities") as! String
-                    cell!.BaseTitle.font = UIFont(name: SemiBoldFont, size: 18)
-                    return cell!
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell else { return UITableViewCell() }
+
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
+                    cell.selectionStyle = .none
+                    cell.BaseTitle.text = GlobalLanguageDictionary.object(forKey: "key_AllAminities") as? String ?? ""
+                    cell.BaseTitle.font = UIFont(name: SemiBoldFont, size: 18)
+                    return cell
                 }
                 else if indexPath.row == 1 {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "NewAminitiesTableViewCell") as? NewAminitiesTableViewCell
-                    cell!.selectionStyle = .none
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "NewAminitiesTableViewCell") as? NewAminitiesTableViewCell else { return UITableViewCell() }
+
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "NewAminitiesTableViewCell") as? NewAminitiesTableViewCell
+                    cell.selectionStyle = .none
                     let Aminities = NSMutableArray()
-                     Aminities.addObjects(from: ((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "list_details") as! NSArray) as! [Any])
-                    cell!.Aminities(Name: Aminities)
+                     Aminities.addObjects(from: ((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "list_details") as! NSArray) as! [Any])
+                    cell.Aminities(Name: Aminities)
  
-                    return cell!
+                    return cell
                 }
                 else if indexPath.row == 2 {
-                                    let cell = tableView.dequeueReusableCell(withIdentifier: "NewAminitiesCell") as? NewAminitiesCell
-                                    cell!.selectionStyle = .none
-                                    cell?.AddonsView.addShadow()
-                    cell?.AddonsView.backgroundColor = AppColor
-                                    cell?.AddonsView.layer.borderWidth = 1
-                                    cell?.AddonsView.layer.borderColor = AppSecondColor.cgColor
-                                    cell!.AddonsTitleLbl.font = UIFont(name: SemiBoldFont, size: 16)
-                                    cell?.AddonsViewLbl.font = UIFont(name: SemiBoldFont, size: 15)
-                    cell?.AddonsTitleLbl.text = GlobalLanguageDictionary.object(forKey: "key_addons") as! String
-                    cell?.AddonsViewLbl.text = GlobalLanguageDictionary.object(forKey: "key_select") as! String
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "NewAminitiesCell") as? NewAminitiesCell else { return UITableViewCell() }
 
-                                    cell!.AddonsLbl.font = UIFont(name: SemiBoldFont, size: 12)
-                                    cell!.AddonsBtn.addTarget(self,action:#selector(AddonsBtnClicked), for: .touchUpInside)
-                                    return cell!
+//                                    let cell = tableView.dequeueReusableCell(withIdentifier: "NewAminitiesCell") as? NewAminitiesCell
+                                    cell.selectionStyle = .none
+                                    cell.AddonsView.addShadow()
+                    cell.AddonsView.backgroundColor = AppColor
+                                    cell.AddonsView.layer.borderWidth = 1
+                                    cell.AddonsView.layer.borderColor = AppSecondColor.cgColor
+                                    cell.AddonsTitleLbl.font = UIFont(name: SemiBoldFont, size: 16)
+                                    cell.AddonsViewLbl.font = UIFont(name: SemiBoldFont, size: 15)
+                    cell.AddonsTitleLbl.text = GlobalLanguageDictionary.object(forKey: "key_addons") as? String ?? ""
+                    cell.AddonsViewLbl.text = GlobalLanguageDictionary.object(forKey: "key_select") as? String ?? ""
+
+                                    cell.AddonsLbl.font = UIFont(name: SemiBoldFont, size: 12)
+                                    cell.AddonsBtn.addTarget(self,action:#selector(AddonsBtnClicked), for: .touchUpInside)
+                                    return cell
                 
                                 }
                 else if indexPath.row == 3 {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
-                    cell!.selectionStyle = .none
-                    cell!.BaseTitle.text = GlobalLanguageDictionary.object(forKey: "Key_location") as! String
-                    cell!.BaseTitle.textColor = .black
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell else { return UITableViewCell() }
 
-                    cell!.BaseTitle.font = UIFont(name: SemiBoldFont, size: 16)
-                    return cell!
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
+                    cell.selectionStyle = .none
+                    cell.BaseTitle.text = GlobalLanguageDictionary.object(forKey: "Key_location") as? String ?? ""
+                    cell.BaseTitle.textColor = .black
+
+                    cell.BaseTitle.font = UIFont(name: SemiBoldFont, size: 16)
+                    return cell
                 }else if indexPath.row == 4{
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailMapTableViewCell") as? ProductDetailMapTableViewCell
-                    cell!.selectionStyle = .none
-                    let lat = "\((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "latitude") as AnyObject)"//Singleton.sharedInstance.PropertyDetail.latitude
-                    let long = "\((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "longitude") as AnyObject)"//Singleton.sharedInstance.PropertyDetail.longitude
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailMapTableViewCell") as? ProductDetailMapTableViewCell else { return UITableViewCell() }
+
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailMapTableViewCell") as? ProductDetailMapTableViewCell
+                    cell.selectionStyle = .none
+                    let lat = "\((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "latitude") as AnyObject)"//Singleton.sharedInstance.PropertyDetail.latitude
+                    let long = "\((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "longitude") as AnyObject)"//Singleton.sharedInstance.PropertyDetail.longitude
                     let center = CLLocationCoordinate2D(latitude: Double(lat)! , longitude: Double(long)!)
                     let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-                    cell!.mapLocation.setRegion(region, animated: true)
+                    cell.mapLocation.setRegion(region, animated: true)
                     newPin.coordinate =  center
-                    cell!.mapLocation.addAnnotation(newPin)
+                    cell.mapLocation.addAnnotation(newPin)
                     
-                    return cell!
+                    return cell
                 }else if indexPath.row == 5 {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
-                    cell!.selectionStyle = .none
-                    cell!.BaseTitle.text = GlobalLanguageDictionary.object(forKey: "Key_reviews") as! String
-                    cell!.BaseTitle.textColor = .black
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell else { return UITableViewCell() }
 
-                    cell!.BaseTitle.font = UIFont(name: SemiBoldFont, size: 16)
-                    return cell!
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
+                    cell.selectionStyle = .none
+                    cell.BaseTitle.text = GlobalLanguageDictionary.object(forKey: "Key_reviews") as? String ?? ""
+                    cell.BaseTitle.textColor = .black
+
+                    cell.BaseTitle.font = UIFont(name: SemiBoldFont, size: 16)
+                    return cell
                 }
                 else{
                     if (self.ProperdyDetails.object(forKey: "property_reviews") as! NSArray).count == 0{
-                        let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
-                        cell!.selectionStyle = .none
-                        cell!.BaseTitle.textAlignment = .center
-                        cell!.BaseTitle.textColor = .gray
+                        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell else { return UITableViewCell() }
 
-                        cell!.BaseTitle.text = GlobalLanguageDictionary.object(forKey: "Key_NoResultsFound") as! String
-                        cell!.BaseTitle.font = UIFont(name: SemiBoldFont, size: 15)
-                        return cell!
+//                        let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
+                        cell.selectionStyle = .none
+                        cell.BaseTitle.textAlignment = .center
+                        cell.BaseTitle.textColor = .gray
+
+                        cell.BaseTitle.text = GlobalLanguageDictionary.object(forKey: "Key_NoResultsFound") as? String ?? ""
+                        cell.BaseTitle.font = UIFont(name: SemiBoldFont, size: 15)
+                        return cell
                     }else{
-                        let cell = tableView.dequeueReusableCell(withIdentifier: "NewDetailPageReviewTableViewCell") as! NewDetailPageReviewTableViewCell
+                        guard let cell = tableView.dequeueReusableCell(withIdentifier: "NewDetailPageReviewTableViewCell") as? NewDetailPageReviewTableViewCell else { return UITableViewCell() }
+
+//                        let cell = tableView.dequeueReusableCell(withIdentifier: "NewDetailPageReviewTableViewCell") as! NewDetailPageReviewTableViewCell
                         cell.selectionStyle = .none
                         cell.ReviewTitle.font = UIFont(name: SemiBoldFont, size: 15)
                         cell.OverAllRatLbl.font = UIFont(name: SemiBoldFont, size: 15)
                         cell.OverAllReviewBtn.titleLabel?.font = UIFont(name: SemiBoldFont, size: 15)
                         
-                        let hitCount = "\(((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "over_all_rating") as AnyObject))"
+                        let hitCount = "\(((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "over_all_rating") as AnyObject))"
                         let data :AnyObject = hitCount as AnyObject //sometime Xcode will ask value type
                         let score = Int(data as? String ?? "") ?? 0
                         cell.RatingView.rating = Float(score)
@@ -1295,11 +1337,11 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
                         
                         
                         
-                        cell.ReviewMsg.text = "\((((self.ProperdyDetails.object(forKey: "property_reviews") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "review_comment") as AnyObject))"
-                        cell.ReviewerName.text = "\((((self.ProperdyDetails.object(forKey: "property_reviews") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "review_user_name") as AnyObject))".uppercased()
-                        cell.ReviewDate.text = "\((((self.ProperdyDetails.object(forKey: "property_reviews") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "review_added_date") as AnyObject))"
+                        cell.ReviewMsg.text = "\((((self.ProperdyDetails.object(forKey: "property_reviews") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "review_comment") as AnyObject))"
+                        cell.ReviewerName.text = "\((((self.ProperdyDetails.object(forKey: "property_reviews") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "review_user_name") as AnyObject))".uppercased()
+                        cell.ReviewDate.text = "\((((self.ProperdyDetails.object(forKey: "property_reviews") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "review_added_date") as AnyObject))"
                         
-                        let ImageUrl = URL(string: "\((((self.ProperdyDetails.object(forKey: "property_reviews") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "review_user_img") as AnyObject))")
+                        let ImageUrl = URL(string: "\((((self.ProperdyDetails.object(forKey: "property_reviews") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "review_user_img") as AnyObject))")
                         
                         cell.ReviewImg.setImageWith(ImageUrl!, placeholderImage: UIImage(named: "user"))
                         
@@ -1321,50 +1363,60 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
             else if indexPath.section == 6
             {
                 if indexPath.row == 0 {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
-                    cell!.selectionStyle = .none
-                    cell!.BaseTitle.text = GlobalLanguageDictionary.object(forKey: "Key_cancellationPolicy") as! String
-                    cell!.BaseTitle.textColor = .black
+                    
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell else { return UITableViewCell() }
 
-                    cell!.BaseTitle.font = UIFont(name: SemiBoldFont, size: 16)
-                    return cell!
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
+                    cell.selectionStyle = .none
+                    cell.BaseTitle.text = GlobalLanguageDictionary.object(forKey: "Key_cancellationPolicy") as? String ?? ""
+                    cell.BaseTitle.textColor = .black
+
+                    cell.BaseTitle.font = UIFont(name: SemiBoldFont, size: 16)
+                    return cell
                 }else if indexPath.row == 1 {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
-                    cell!.selectionStyle = .none
-                    cell!.BaseTitle.text = "\((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "cancel_policy_desc") as AnyObject)"
-                    cell!.BaseTitle.textColor = .gray
-                    cell!.BaseTitle.font = UIFont(name: SemiBoldFont, size: 14)
-                    return cell!
+                    
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell else { return UITableViewCell() }
+
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
+                    cell.selectionStyle = .none
+                    cell.BaseTitle.text = "\((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "cancel_policy_desc") as AnyObject)"
+                    cell.BaseTitle.textColor = .gray
+                    cell.BaseTitle.font = UIFont(name: SemiBoldFont, size: 14)
+                    return cell
                 }
                 if indexPath.row == 2 {
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
-                    cell!.selectionStyle = .none
-                    cell!.BaseTitle.text = GlobalLanguageDictionary.object(forKey: "key_host") as! String
-                    cell!.BaseTitle.font = UIFont(name: SemiBoldFont, size: 16)
-                    return cell!
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell else { return UITableViewCell() }
+
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell
+                    cell.selectionStyle = .none
+                    cell.BaseTitle.text = GlobalLanguageDictionary.object(forKey: "key_host") as? String ?? ""
+                    cell.BaseTitle.font = UIFont(name: SemiBoldFont, size: 16)
+                    return cell
                 }else{
-                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailHostTableViewCell") as? ProductDetailHostTableViewCell
-                    cell!.selectionStyle = .none
-                    cell?.HostImage.contentMode = .scaleToFill
-                    cell?.HostImage.layer.cornerRadius = 45.0
-                    cell!.HostedByLbl.font = UIFont(name: RegularFont, size: 13)
-                    cell!.HostNameLbl.font = UIFont(name: SemiBoldFont, size: 16)
-                    cell!.JoinDateLbl.font = UIFont(name: RegularFont, size: 13)
-                    cell!.JoinDateLbl.backgroundColor = AppColor
-                    cell!.HostNameLbl.textColor = AppColor
-                    cell!.HostedByLbl.text = GlobalLanguageDictionary.object(forKey: "key_hostedBy") as! String
-                    cell!.HostNameLbl.text = "\((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "hostname") as AnyObject)"//Singleton.sharedInstance.PropertyDetail.hostname
+                    guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailHostTableViewCell") as? ProductDetailHostTableViewCell else { return UITableViewCell() }
+
+//                    let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailHostTableViewCell") as? ProductDetailHostTableViewCell
+                    cell.selectionStyle = .none
+                    cell.HostImage.contentMode = .scaleToFill
+                    cell.HostImage.layer.cornerRadius = 45.0
+                    cell.HostedByLbl.font = UIFont(name: RegularFont, size: 13)
+                    cell.HostNameLbl.font = UIFont(name: SemiBoldFont, size: 16)
+                    cell.JoinDateLbl.font = UIFont(name: RegularFont, size: 13)
+                    cell.JoinDateLbl.backgroundColor = AppColor
+                    cell.HostNameLbl.textColor = AppColor
+                    cell.HostedByLbl.text = GlobalLanguageDictionary.object(forKey: "key_hostedBy") as? String ?? ""
+                    cell.HostNameLbl.text = "\((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "hostname") as AnyObject)"//Singleton.sharedInstance.PropertyDetail.hostname
                     
-                    cell!.selectionStyle = .none
+                    cell.selectionStyle = .none
                     
                     if Singleton.sharedInstance.PropertyDetail.hostimg != nil
                     {
                         
                         
-                        let imgUpdated = URL(string:"\((self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "hostimg") as AnyObject)")
-                        cell!.HostImage.kf.setImage(with: imgUpdated, placeholder: UIImage.init(named: "user"), options: nil, progressBlock: nil, completionHandler: nil)
+                        let imgUpdated = URL(string:"\((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "hostimg") as AnyObject)")
+                        cell.HostImage.kf.setImage(with: imgUpdated, placeholder: UIImage.init(named: "user"), options: nil, progressBlock: nil, completionHandler: nil)
                         
-                        cell!.HostImage.layer.masksToBounds = true
+                        cell.HostImage.layer.masksToBounds = true
                     }
                     
                     let dateFormatter = DateFormatter()
@@ -1372,56 +1424,58 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
                     dateFormatter.locale = Locale(identifier: "en_US_POSIX")
  
                     
-                    return cell!
+                    return cell
                 }
             }
             else {
                 
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailBookingTypeTableViewCell") as? ProductDetailBookingTypeTableViewCell
-                cell!.selectionStyle = .none
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailBookingTypeTableViewCell") as? ProductDetailBookingTypeTableViewCell else { return UITableViewCell() }
+
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailBookingTypeTableViewCell") as? ProductDetailBookingTypeTableViewCell
+                cell.selectionStyle = .none
                 
                 
  
                 
                 if self.instantPayStatusValue == "1"
                 {
-                    cell!.InstantPayBtn.isHidden = false
+                    cell.InstantPayBtn.isHidden = false
                 }else{
-                    cell!.InstantPayBtn.isHidden = true
+                    cell.InstantPayBtn.isHidden = true
 
                 }
                 
                 if self.reqToBookStatusValue == "true" {
-                    cell!.RequestBtn.isHidden = false
-                    cell?.PayLaterViewHeight.constant = 50
+                    cell.RequestBtn.isHidden = false
+                    cell.PayLaterViewHeight.constant = 50
 
 
                 }else{
-                    cell!.RequestBtn.isHidden = true
-                    cell?.PayLaterViewHeight.constant = 0
+                    cell.RequestBtn.isHidden = true
+                    cell.PayLaterViewHeight.constant = 0
 
 
                 }
                 
                 if self.payLaterStatusValue == "1" {
                  }else{
-                    cell!.PayLaterBtn.isHidden = true
+                    cell.PayLaterBtn.isHidden = true
                 }
                       
-                cell!.PayBtn.isHidden = true
+                cell.PayBtn.isHidden = true
 
                 
-                cell!.InstantPayBtn.setTitle("BOOK & PAY NOW", for: .normal)
-                cell!.PayLaterBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
+                cell.InstantPayBtn.setTitle("BOOK & PAY NOW", for: .normal)
+                cell.PayLaterBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
                 
-                cell!.RequestBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
-                cell!.InstantPayBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
-                cell!.PayBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
-                cell!.InstantPayBtn.addTarget(self, action: #selector(InstantPay), for: .touchUpInside)
-                cell!.PayLaterBtn.addTarget(self, action: #selector(PayLater), for: .touchUpInside)
+                cell.RequestBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
+                cell.InstantPayBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
+                cell.PayBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
+                cell.InstantPayBtn.addTarget(self, action: #selector(InstantPay), for: .touchUpInside)
+                cell.PayLaterBtn.addTarget(self, action: #selector(PayLater), for: .touchUpInside)
                 
-                cell!.RequestBtn.addTarget(self, action: #selector(RequestBook), for: .touchUpInside)
-                return cell!
+                cell.RequestBtn.addTarget(self, action: #selector(RequestBook), for: .touchUpInside)
+                return cell
                 
             }
         }
@@ -1435,14 +1489,14 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
             else if indexPath.row == 8 {
                 return UITableViewAutomaticDimension
             }else{
-                if self.detailsDescArr[indexPath.row-1] as! String == "" {
+                if self.detailsDescArr[indexPath.row-1] as? String ?? "" == "" {
                     return 0
                 }else{
                     return UITableViewAutomaticDimension
                 }
             }
         }else if indexPath.section == 1 {
-            let listingInfo = (self.ProperdyDetails.object(forKey: "property_details") as! NSDictionary).object(forKey: "listing_info") as! NSArray
+            let listingInfo = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "listing_info") as! NSArray
             
             if listingInfo.count == 0 {
                 return 0

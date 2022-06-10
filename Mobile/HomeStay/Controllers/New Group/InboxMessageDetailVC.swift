@@ -44,9 +44,9 @@ class InboxMessageDetailVC: BaseViewController {
         self.txtSearch.font = UIFont(name: SemiBoldFont, size: 15)
         self.textview.font = UIFont(name: SemiBoldFont, size: 15)
 
-        self.headerLbl.text = GlobalLanguageDictionary.object(forKey: "key_yourMessage") as! String
-        self.textview.set(placeHolder: GlobalLanguageDictionary.object(forKey: "key_addpersonalMsg") as! String)
-        self.txtSearch.placeholder = GlobalLanguageDictionary.object(forKey: "key_nameorBookingnum") as! String
+        self.headerLbl.text = GlobalLanguageDictionary.object(forKey: "key_yourMessage") as? String ?? ""
+        self.textview.set(placeHolder: GlobalLanguageDictionary.object(forKey: "key_addpersonalMsg") as? String ?? "")
+        self.txtSearch.placeholder = GlobalLanguageDictionary.object(forKey: "key_nameorBookingnum") as? String ?? ""
         
         tblView.delegate = self
         tblView.dataSource = self
@@ -54,7 +54,7 @@ class InboxMessageDetailVC: BaseViewController {
         
         print(msgDIct)
         self.fetchInboxRepsonse()
-        if login_session.object(forKey: "Language")as! String == "en"{
+        if login_session.object(forKey: "Language")as? String ?? "" == "en"{
             txtSearch.textAlignment = .left
             textview.textAlignment = .left
         }else{
@@ -114,7 +114,7 @@ class InboxMessageDetailVC: BaseViewController {
             }
             
         } else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
     
@@ -183,7 +183,7 @@ class InboxMessageDetailVC: BaseViewController {
             
         }
         else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
 
     }
@@ -244,7 +244,7 @@ class InboxMessageDetailVC: BaseViewController {
             }
         }
         else {
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
         
     }
@@ -295,7 +295,7 @@ extension InboxMessageDetailVC: UITableViewDelegate, UITableViewDataSource {
             cell.lblLocation.font = UIFont(name: SemiBoldFont, size: 14)
             cell.imgprofile.sd_setImage(with: URL(string: imgURL), placeholderImage: UIImage(named: "placeholder.png"))
             cell.lblName_ID.text = (msgObj["user_name"] as? String ?? "")
-            cell.lblLocation.text = (msgObj["dateadded"] as! String).stringToDateFormatter(toFormate: "dd-MM-yyyy HH:mm:ss", fromFormate: "dd MMM,yyyy")
+            cell.lblLocation.text = (msgObj["dateadded"] as? String ?? "").stringToDateFormatter(toFormate: "dd-MM-yyyy HH:mm:ss", fromFormate: "dd MMM,yyyy")
             cell.lblBookType.text = (msgObj["message"] as? String ?? "")
             return cell
       //  }
@@ -352,7 +352,7 @@ extension InboxMessageDetailVC : UISearchBarDelegate {
             self.filteredArray.removeAll()
             let searchPredicate = NSPredicate(format: "Name CONTAINS[C] %@", searchText)
                 filteredArray = self.messages.filter { searchPredicate.evaluate(with: $0) };
-//            self.filteredArray = messages.filter { $0["message"] as! String == searchText }
+//            self.filteredArray = messages.filter { $0["message"] as? String ?? "" == searchText }
                 print(filteredArray)
     
         }

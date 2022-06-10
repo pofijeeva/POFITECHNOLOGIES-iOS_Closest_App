@@ -26,11 +26,11 @@ class RentYourSpaceModel : NSObject, NSCoding {
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        message = dictionary["message"] as? String
+        message = dictionary["message"] as? String ?? ""
         let data = dictionary["data"] as? [String: Any]
         let step = data?["step1"] as? [String: Any]
-        propertyid = step?["propertyid"] as? Int
-        status = dictionary["status"] as? Int
+        propertyid = step?["propertyid"] as? Int ?? 0
+        status = dictionary["status"] as? Int ?? 0
         baseid = dictionary["base_id"] as AnyObject
         attribute = [Attribute]()
         if let attributeArray = dictionary["attribute"] as? [[String:Any]]{
@@ -146,13 +146,13 @@ class RentYourSpaceModel : NSObject, NSCoding {
     {
         attribute = aDecoder.decodeObject(forKey: "attribute") as? [Attribute]
         currency = aDecoder.decodeObject(forKey: "currency") as? [Currency]
-        message = aDecoder.decodeObject(forKey: "message") as? String
+        message = aDecoder.decodeObject(forKey: "message") as? String ?? ""
         property = aDecoder.decodeObject(forKey: "property") as? [Property]
         propertyAttributes = aDecoder.decodeObject(forKey: "property_attributes") as? [PropertyAttribute]
-        propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int
+        propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int ?? 0
         result = aDecoder.decodeObject(forKey: "result") as? [Result]
         rooms = aDecoder.decodeObject(forKey: "rooms") as? [Room]
-        status = aDecoder.decodeObject(forKey: "status") as? Int
+        status = aDecoder.decodeObject(forKey: "status") as? Int ?? 0
         baseid = aDecoder.decodeObject(forKey: "base_id") as AnyObject
     }
     

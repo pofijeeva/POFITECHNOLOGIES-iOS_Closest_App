@@ -16,8 +16,8 @@ class Notification : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        emailNotifications = dictionary["email_notifications"] as? String
-        reservationRequest = dictionary["reservation_request"] as? String
+        emailNotifications = dictionary["email_notifications"] as? String ?? ""
+        reservationRequest = dictionary["reservation_request"] as? String ?? ""
     }
 
     /**
@@ -41,8 +41,8 @@ class Notification : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        emailNotifications = aDecoder.decodeObject(forKey: "email_notifications") as? String
-        reservationRequest = aDecoder.decodeObject(forKey: "reservation_request") as? String
+        emailNotifications = aDecoder.decodeObject(forKey: "email_notifications") as? String ?? ""
+        reservationRequest = aDecoder.decodeObject(forKey: "reservation_request") as? String ?? ""
     }
 
     /**

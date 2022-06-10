@@ -42,11 +42,11 @@ class AddAddressExperienceViewController: UIViewController, UITextFieldDelegate{
         // Do any additional setup after loading the view.
         
             if arrayOfResult.count > 0 {
-                let dictt = (arrayOfResult[0] as! NSDictionary).object(forKey: "where_we_will_meet") as! NSDictionary//).object(forKey: "experience_description") as! String
-                self.textFieldAddress.text = dictt.object(forKey: "address") as! String
-                self.textFieldNumber.text = dictt.object(forKey: "zip") as! String
-                self.textFieldCity.text = dictt.object(forKey: "city") as! String
-                self.textFieldCountry.text = dictt.object(forKey: "country") as! String
+                let dictt = (arrayOfResult[0] as? NSDictionary)?.object(forKey: "where_we_will_meet") as! NSDictionary//).object(forKey: "experience_description") as? String ?? ""
+                self.textFieldAddress.text = dictt.object(forKey: "address") as? String ?? ""
+                self.textFieldNumber.text = dictt.object(forKey: "zip") as? String ?? ""
+                self.textFieldCity.text = dictt.object(forKey: "city") as? String ?? ""
+                self.textFieldCountry.text = dictt.object(forKey: "country") as? String ?? ""
             }
 
     }
@@ -56,11 +56,11 @@ class AddAddressExperienceViewController: UIViewController, UITextFieldDelegate{
         if dict.count > 0 {
             print("login_session.object(forKey: addressKey)",dict)
             self.viewAddress.isHidden = false
-            self.textFieldAddress.text = dict["subLocality"] as! String
-            self.textFieldCity.text = dict["locality"] as! String
-            self.textFieldCountry.text = dict["country"] as! String
-            self.textFieldNumber.text = dict["pin"] as! String
-           // self.textFieldAddress = dict["locality"] as! String + dict[""]
+            self.textFieldAddress.text = dict["subLocality"] as? String ?? ""
+            self.textFieldCity.text = dict["locality"] as? String ?? ""
+            self.textFieldCountry.text = dict["country"] as? String ?? ""
+            self.textFieldNumber.text = dict["pin"] as? String ?? ""
+           // self.textFieldAddress = dict["locality"] as? String ?? "" + dict[""]
         }
         print("login_session.object(forKey: addressKey)",                        Helper.sharedInstance.getObjectForKey(addressKey))
     }
@@ -94,7 +94,7 @@ class AddAddressExperienceViewController: UIViewController, UITextFieldDelegate{
             if Helper.sharedInstance.isConnectedToInternet() {
                 Helper.sharedInstance.showActivityIndicator(view: self.view, targetVC: self)
                 var params = NSMutableDictionary()
-                params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","exp_id":currentExpId,"country":self.textFieldCountry.text!,"city":textFieldCity.text,"post_code":textFieldNumber.text,"latitude":"","longitude":"","state": "","address_location":self.textFieldAddress.text]
+                params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","exp_id":currentExpId,"country":self.textFieldCountry.text!,"city":textFieldCity.text,"post_code":textFieldNumber.text,"latitude":"","longitude":"","state": "","address_location":self.textFieldAddress.text]
                 let manager = AFHTTPSessionManager()
                 manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
                 print("params",params)
@@ -103,12 +103,12 @@ class AddAddressExperienceViewController: UIViewController, UITextFieldDelegate{
                     Helper.sharedInstance.hideActivityIndicator(view: self.view)
                     let responseDict:NSDictionary = resultData as! NSDictionary
                     print("Response:",responseDict)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         currentExpId = "\(responseDict.object(forKey: "experience_id") as AnyObject)"
                         sharedInstanceExperience.gotoStepEleven()
                     }
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) in
                     print(error)
@@ -116,7 +116,7 @@ class AddAddressExperienceViewController: UIViewController, UITextFieldDelegate{
                 })
             }
             else {
-                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         }
 

@@ -54,15 +54,15 @@ class NewSideMenuDetailController: BaseViewController {
                      let responseDict:NSDictionary = json!
                      print(responseDict)
                      if responseDict.value(forKey: "code") as! NSNumber == 200 {
-                        self.phoneVerify = "\(((responseDict.value(forKey: "data") as! NSDictionary).object(forKey: "user_details") as! NSDictionary).object(forKey: "phone_verified") as AnyObject)"
-                        self.emailVerify = "\(((responseDict.value(forKey: "data") as! NSDictionary).object(forKey: "user_details") as! NSDictionary).object(forKey: "email_id_verified") as AnyObject)"
-                        self.idProofVerify = "\(((responseDict.value(forKey: "data") as! NSDictionary).object(forKey: "user_details") as! NSDictionary).object(forKey: "u_idproof_verified_status") as AnyObject)"
+                        self.phoneVerify = "\(((responseDict.value(forKey: "data") as? NSDictionary)?.object(forKey: "user_details") as? NSDictionary)?.object(forKey: "phone_verified") as AnyObject)"
+                        self.emailVerify = "\(((responseDict.value(forKey: "data") as? NSDictionary)?.object(forKey: "user_details") as? NSDictionary)?.object(forKey: "email_id_verified") as AnyObject)"
+                        self.idProofVerify = "\(((responseDict.value(forKey: "data") as? NSDictionary)?.object(forKey: "user_details") as? NSDictionary)?.object(forKey: "u_idproof_verified_status") as AnyObject)"
                      
                      }
                      else
                      {
                          
-                          self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                          self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                       }
                      
                  
@@ -70,13 +70,13 @@ class NewSideMenuDetailController: BaseViewController {
      }
     
     func showSimpleAlert() {
-        let alert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_AddlistingInfo") as! String,         preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_AddlistingInfo") as? String ?? "",         preferredStyle: UIAlertControllerStyle.alert)
         
-        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_cancel") as! String, style: UIAlertActionStyle.default, handler: { _ in
+        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_cancel") as? String ?? "", style: UIAlertActionStyle.default, handler: { _ in
             //Cancel Action
             self.dismiss(animated: true, completion: nil)
         }))
-        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "key_verifyNow") as! String,
+        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "key_verifyNow") as? String ?? "",
                                       style: UIAlertActionStyle.default,
                                       handler: {(_: UIAlertAction!) in
                                         let navgt = self.storyboard?.instantiateViewController(withIdentifier: "NewProfileViewController") as? NewProfileViewController
@@ -90,22 +90,22 @@ class NewSideMenuDetailController: BaseViewController {
     func constructArray() {
         
         
-        let home = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_home") as! String, imageName: "Group 3700", menuType: .HOME)
+        let home = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_home") as? String ?? "", imageName: "Group 3700", menuType: .HOME)
         let profile = MenuDetailModel(title: "My Profile", imageName: "Group 3700", menuType: .MYPROFILE)
-        let inbox = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_inbox") as! String, imageName: "journalText", menuType: .INBOX)
+        let inbox = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_inbox") as? String ?? "", imageName: "journalText", menuType: .INBOX)
         let listing = MenuDetailModel(title: "Add Listing", imageName: "journalText", menuType: .ADDLISTING)
-        let listings = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_mylisting") as! String, imageName: "journalText", menuType: .MYLISTING)
+        let listings = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_mylisting") as? String ?? "", imageName: "journalText", menuType: .MYLISTING)
         let booking = MenuDetailModel(title: "My Bookings", imageName: "journalText", menuType: .MYBOOKINGS)
-        let property = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_propertyReservation") as! String, imageName: "journalText", menuType: .MYPROPERTYRES)
+        let property = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_propertyReservation") as? String ?? "", imageName: "journalText", menuType: .MYPROPERTYRES)
         let wishList = MenuDetailModel(title: "Wishlist", imageName: "journalText", menuType: .WISHLIST)
-        let reportAndCancel = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_reportCancel") as! String, imageName: "journalText", menuType: .REPORTORCANCEL)
-        let myReview = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_review") as! String, imageName: "journalText", menuType: .MYREVIEW)
-        let paymentDetail = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_paymentDetails") as! String, imageName: "cardListNew", menuType: .PAYMENTDETAILS)
-        let coupons = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_coupons") as! String, imageName: "GiftNew", menuType: .COUPONS)
-        let language = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_language") as! String, imageName: "journalText", menuType: .LANGUAGE)
-        let currency = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_currency") as! String, imageName: "journalText", menuType: .CURRENCY)
-        let contactUs = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_contactUs") as! String, imageName: "cardListNew", menuType: .CONTACTUS)
-        let logout = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_logout") as! String, imageName: "logoutNew", menuType: .LOGOUT)
+        let reportAndCancel = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_reportCancel") as? String ?? "", imageName: "journalText", menuType: .REPORTORCANCEL)
+        let myReview = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_review") as? String ?? "", imageName: "journalText", menuType: .MYREVIEW)
+        let paymentDetail = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_paymentDetails") as? String ?? "", imageName: "cardListNew", menuType: .PAYMENTDETAILS)
+        let coupons = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_coupons") as? String ?? "", imageName: "GiftNew", menuType: .COUPONS)
+        let language = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_language") as? String ?? "", imageName: "journalText", menuType: .LANGUAGE)
+        let currency = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_currency") as? String ?? "", imageName: "journalText", menuType: .CURRENCY)
+        let contactUs = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_contactUs") as? String ?? "", imageName: "cardListNew", menuType: .CONTACTUS)
+        let logout = MenuDetailModel(title: GlobalLanguageDictionary.object(forKey: "key_logout") as? String ?? "", imageName: "logoutNew", menuType: .LOGOUT)
         self.detailArray = [home, inbox, listings , property,  reportAndCancel, myReview, paymentDetail, coupons, language, currency , contactUs , logout]
         
         
@@ -142,9 +142,9 @@ class NewSideMenuDetailController: BaseViewController {
 
                     let isRemembred =  UserDefaults.standard.bool(forKey: "isRememberPassword")
                     if UserDefaults.standard.value(forKey: "APP_LOGIN_EMAIL") != nil{
-                        let UserName = UserDefaults.standard.value(forKey: "APP_LOGIN_EMAIL") as! String
-                        let Password = UserDefaults.standard.value(forKey: "APP_LOGIN_PASSWORD") as! String
-                        let Fcmkey = UserDefaults.standard.value(forKey: "fcmToken") as! String
+                        let UserName = UserDefaults.standard.value(forKey: "APP_LOGIN_EMAIL") as? String ?? ""
+                        let Password = UserDefaults.standard.value(forKey: "APP_LOGIN_PASSWORD") as? String ?? ""
+                        let Fcmkey = UserDefaults.standard.value(forKey: "fcmToken") as? String ?? ""
                         
                         
                         clearUserSession()
@@ -172,7 +172,7 @@ class NewSideMenuDetailController: BaseViewController {
                 {
                     
                     self.hideActivityIndicator(uiView: self.view)
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }else{
                 self.showInformation(title: "Closest", message: "something went wrong")
@@ -230,9 +230,9 @@ extension NewSideMenuDetailController: UITableViewDelegate, UITableViewDataSourc
         
         case .LOGOUT:
             
-            let refreshAlert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_logoutSuccessfully") as! String, preferredStyle: UIAlertControllerStyle.alert)
+            let refreshAlert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_logoutSuccessfully") as? String ?? "", preferredStyle: UIAlertControllerStyle.alert)
             
-            refreshAlert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "ok") as! String, style: .default, handler: { [self] (action: UIAlertAction!) in
+            refreshAlert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "ok") as? String ?? "", style: .default, handler: { [self] (action: UIAlertAction!) in
                 LogoutApi()
                 
             }))
@@ -327,18 +327,18 @@ extension NewSideMenuDetailController: UITableViewDelegate, UITableViewDataSourc
                     itemFont            : UIFont(name: SemiBoldFont, size: 15)
                 )
                 
-                let arrTheme = [GlobalLanguageDictionary.object(forKey: "key_english") as! String,GlobalLanguageDictionary.object(forKey: "key_arabic") as! String]
+                let arrTheme = [GlobalLanguageDictionary.object(forKey: "key_english") as? String ?? "",GlobalLanguageDictionary.object(forKey: "key_arabic") as? String ?? ""]
                 let picker = YBTextPicker.init(with: arrTheme, appearance: theme, onCompletion: { (selectedIndexes, selectedValues) in
                     if let selectedValue = selectedValues.first{
                         print(selectedValue)
                         var langCode = String()
 
-                        if selectedValue == GlobalLanguageDictionary.object(forKey: "key_english") as! String{
+                        if selectedValue == GlobalLanguageDictionary.object(forKey: "key_english") as? String ?? ""{
                              langCode = "en"
 
                             login_session.setValue("en", forKey: "Language")
                             //languageString = "en"
-                        }else if selectedValue == GlobalLanguageDictionary.object(forKey: "key_arabic") as! String{
+                        }else if selectedValue == GlobalLanguageDictionary.object(forKey: "key_arabic") as? String ?? ""{
                             login_session.setValue("ar", forKey: "Language")
                             langCode = "ar"
                         }

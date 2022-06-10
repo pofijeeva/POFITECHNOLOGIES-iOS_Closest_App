@@ -21,12 +21,12 @@ class CompletedTransaction : NSObject, NSCoding{
      */
     init(fromDictionary dictionary: [String:Any]){
         amount = dictionary["amount"] as? AnyObject
-        bookingno = dictionary["bookingno"] as? String
-        currencyCode = dictionary["currency_code"] as? String
-        currencySymbol = dictionary["currency_symbol"] as? String
-        dateadded = dictionary["dateadded"] as? String
-        transactionId = dictionary["transaction_id"] as? String
-        transactionMethod = dictionary["transaction_method"] as? String
+        bookingno = dictionary["bookingno"] as? String ?? ""
+        currencyCode = dictionary["currency_code"] as? String ?? ""
+        currencySymbol = dictionary["currency_symbol"] as? String ?? ""
+        dateadded = dictionary["dateadded"] as? String ?? ""
+        transactionId = dictionary["transaction_id"] as? String ?? ""
+        transactionMethod = dictionary["transaction_method"] as? String ?? ""
     }
 
     /**
@@ -66,12 +66,12 @@ class CompletedTransaction : NSObject, NSCoding{
     @objc required init(coder aDecoder: NSCoder)
     {
         amount = aDecoder.decodeObject(forKey: "amount") as? AnyObject
-        currencyCode = aDecoder.decodeObject(forKey: "currency_code") as? String
-         bookingno = aDecoder.decodeObject(forKey: "bookingno") as? String
-        currencySymbol = aDecoder.decodeObject(forKey: "currency_symbol") as? String
-        dateadded = aDecoder.decodeObject(forKey: "dateadded") as? String
-        transactionId = aDecoder.decodeObject(forKey: "transaction_id") as? String
-        transactionMethod = aDecoder.decodeObject(forKey: "transaction_method") as? String
+        currencyCode = aDecoder.decodeObject(forKey: "currency_code") as? String ?? ""
+         bookingno = aDecoder.decodeObject(forKey: "bookingno") as? String ?? ""
+        currencySymbol = aDecoder.decodeObject(forKey: "currency_symbol") as? String ?? ""
+        dateadded = aDecoder.decodeObject(forKey: "dateadded") as? String ?? ""
+        transactionId = aDecoder.decodeObject(forKey: "transaction_id") as? String ?? ""
+        transactionMethod = aDecoder.decodeObject(forKey: "transaction_method") as? String ?? ""
     }
 
     /**

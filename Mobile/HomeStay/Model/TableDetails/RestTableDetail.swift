@@ -21,13 +21,13 @@ class RestTableDetail : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        bookedStatus = dictionary["booked_status"] as? String
-        currencyCd = dictionary["currency_cd"] as? String
-        endTime = dictionary["end_time"] as? String
-        price = dictionary["price"] as? String
-        startTime = dictionary["start_time"] as? String
-        tableName = dictionary["table_name"] as? String
-        timeId = dictionary["time_id"] as? String
+        bookedStatus = dictionary["booked_status"] as? String ?? ""
+        currencyCd = dictionary["currency_cd"] as? String ?? ""
+        endTime = dictionary["end_time"] as? String ?? ""
+        price = dictionary["price"] as? String ?? ""
+        startTime = dictionary["start_time"] as? String ?? ""
+        tableName = dictionary["table_name"] as? String ?? ""
+        timeId = dictionary["time_id"] as? String ?? ""
     }
     
     /**
@@ -66,13 +66,13 @@ class RestTableDetail : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        bookedStatus = aDecoder.decodeObject(forKey: "booked_status") as? String
-        currencyCd = aDecoder.decodeObject(forKey: "currency_cd") as? String
-        endTime = aDecoder.decodeObject(forKey: "end_time") as? String
-        price = aDecoder.decodeObject(forKey: "price") as? String
-        startTime = aDecoder.decodeObject(forKey: "start_time") as? String
-        tableName = aDecoder.decodeObject(forKey: "table_name") as? String
-        timeId = aDecoder.decodeObject(forKey: "time_id") as? String
+        bookedStatus = aDecoder.decodeObject(forKey: "booked_status") as? String ?? ""
+        currencyCd = aDecoder.decodeObject(forKey: "currency_cd") as? String ?? ""
+        endTime = aDecoder.decodeObject(forKey: "end_time") as? String ?? ""
+        price = aDecoder.decodeObject(forKey: "price") as? String ?? ""
+        startTime = aDecoder.decodeObject(forKey: "start_time") as? String ?? ""
+        tableName = aDecoder.decodeObject(forKey: "table_name") as? String ?? ""
+        timeId = aDecoder.decodeObject(forKey: "time_id") as? String ?? ""
     }
     
     /**

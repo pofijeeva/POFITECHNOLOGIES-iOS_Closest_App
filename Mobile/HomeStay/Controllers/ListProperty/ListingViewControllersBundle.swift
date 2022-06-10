@@ -69,7 +69,7 @@ class ListingViewControllersBundle: UIViewController,HTTP_POST_STRING_REQUEST_PR
                 PropertyStatus()
                 
             } else {
-                showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as! String)
+                showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
                 
             }
         } else {
@@ -111,14 +111,14 @@ class ListingViewControllersBundle: UIViewController,HTTP_POST_STRING_REQUEST_PR
                 let responseDict:NSDictionary = json!
                 print(responseDict)
                 if responseDict.value(forKey: "code") as! NSNumber == 200 {
-                    if let property = (responseDict.object(forKey: "data") as! NSDictionary).value(forKey: "property_type") as? NSArray {
+                    if let property = (responseDict.object(forKey: "data") as? NSDictionary)?.value(forKey: "property_type") as? NSArray {
                         if property.count != 0 {
                             //                            self.propertyArray = [String]()
                             //                            self.PROP_ARR = property
                             
                             for i in 0..<property.count{
                                 
-                                let propertyname = (property.object(at: i) as! NSDictionary).object(forKey: "option_name") as! String
+                                let propertyname = (property.object(at: i) as? NSDictionary)?.object(forKey: "option_name") as? String ?? ""
                                 
                             }
                             
@@ -126,12 +126,12 @@ class ListingViewControllersBundle: UIViewController,HTTP_POST_STRING_REQUEST_PR
                         }
                     }
                     
-                    if let rooms = (responseDict.object(forKey: "data") as! NSDictionary).value(forKey: "room_type") as? NSArray {
+                    if let rooms = (responseDict.object(forKey: "data") as? NSDictionary)?.value(forKey: "room_type") as? NSArray {
                         if rooms.count != 0 {
                             
                             for i in 0..<rooms.count{
                                 
-                                let propertyname = (rooms.object(at: i) as! NSDictionary).object(forKey: "typval_name") as! String
+                                let propertyname = (rooms.object(at: i) as? NSDictionary)?.object(forKey: "typval_name") as? String ?? ""
                                 
                             }
                             
@@ -159,17 +159,17 @@ class ListingViewControllersBundle: UIViewController,HTTP_POST_STRING_REQUEST_PR
                         }
                     }
                     
-                    if let amenities = (responseDict.object(forKey: "data") as! NSDictionary).value(forKey: "amen_list") as? NSArray {
+                    if let amenities = (responseDict.object(forKey: "data") as? NSDictionary)?.value(forKey: "amen_list") as? NSArray {
                         UserDefaults.standard.set(amenities, forKey: "AmenitiesArray")
                     }
                     
-                    if let amenities1 = (responseDict.object(forKey: "data") as! NSDictionary).value(forKey: "addon_list") as? NSArray {
+                    if let amenities1 = (responseDict.object(forKey: "data") as? NSDictionary)?.value(forKey: "addon_list") as? NSArray {
                         UserDefaults.standard.set(amenities1, forKey: "AddonArray")
                     }
                     ListingAddonsArray.removeAllObjects()
-                    ListingAddonsArray.addObjects(from: (responseDict.object(forKey: "data") as! NSDictionary).value(forKey: "addon_list") as? NSArray as! [Any])
+                    ListingAddonsArray.addObjects(from: (responseDict.object(forKey: "data") as? NSDictionary)?.value(forKey: "addon_list") as? NSArray as! [Any])
                     
-                    if let amenities = (responseDict.object(forKey: "data") as! NSDictionary).value(forKey: "listings") as? NSArray {
+                    if let amenities = (responseDict.object(forKey: "data") as? NSDictionary)?.value(forKey: "listings") as? NSArray {
                         UserDefaults.standard.set(amenities, forKey: "ListingsArray")
                     }
                     
@@ -180,13 +180,13 @@ class ListingViewControllersBundle: UIViewController,HTTP_POST_STRING_REQUEST_PR
                 {
                     
                     //                    self.hideActivityIndicator(uiView: self.view)
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     
                 }
                 
             }}
         else{
-            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             
         }
     }
@@ -209,7 +209,7 @@ class ListingViewControllersBundle: UIViewController,HTTP_POST_STRING_REQUEST_PR
             let responseDict:NSDictionary = response as! NSDictionary
             print(responseDict)
             
-            if responseDict.value(forKey: "code") as! Int == 200 {
+            if responseDict.value(forKey: "code") as? Int ?? 0 == 200 {
                 let mod = RentYourSpaceModel(fromDictionary: responseDict as! [String : Any])
                 Singleton.sharedInstance.rentYourSpace = mod
                 let result = responseDict.object(forKey: "data") as! NSDictionary
@@ -222,7 +222,7 @@ class ListingViewControllersBundle: UIViewController,HTTP_POST_STRING_REQUEST_PR
             }
             
             else {
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }
         
@@ -531,40 +531,42 @@ extension ListingViewControllersBundle: UITableViewDelegate,UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ListingCell
-        cell!.lblName.font = UIFont(name: RegularFont, size: 14)
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ListingCell else { return UITableViewCell() }
+
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ListingCell
+        cell.lblName.font = UIFont(name: RegularFont, size: 14)
         
         if  self.currentIndexPath == indexPath {
-            cell?.backgroundColor = UIColor(red: 248/255.0, green: 188/255.0, blue: 5/255.0, alpha: 1.0)
+            cell.backgroundColor = UIColor(red: 248/255.0, green: 188/255.0, blue: 5/255.0, alpha: 1.0)
         } else {
-            cell?.backgroundColor = UIColor.clear
+            cell.backgroundColor = UIColor.clear
         }
         switch indexPath.section {
         case 0:
             if  indexPath.row == 0 {
                 if isCalenderSelected == true {
-                    cell?.backgroundColor = UIColor(red: 248/255.0, green: 188/255.0, blue: 5/255.0, alpha: 1.0)
+                    cell.backgroundColor = UIColor(red: 248/255.0, green: 188/255.0, blue: 5/255.0, alpha: 1.0)
                 } else {
-                    cell?.backgroundColor = UIColor.clear
+                    cell.backgroundColor = UIColor.clear
                 }
             }
-            cell!.lblName.text = BasicsArray[indexPath.row] as? String
-            cell?.imgIcon.image = UIImage(named: self.BasicImgArr[indexPath.row] as! String)
+            cell.lblName.text = BasicsArray[indexPath.row] as? String
+            cell.imgIcon.image = UIImage(named: self.BasicImgArr[indexPath.row] as? String ?? "")
         case 1:
-            cell!.lblName.text = descriptionArray[indexPath.row] as? String
-            cell?.imgIcon.image = UIImage(named: self.descriptionImgArr[indexPath.row] as! String)
+            cell.lblName.text = descriptionArray[indexPath.row] as? String
+            cell.imgIcon.image = UIImage(named: self.descriptionImgArr[indexPath.row] as? String ?? "")
         case 2:
-            cell!.lblName.text = settingArray[indexPath.row] as? String
-            cell?.imgIcon.image = UIImage(named: self.settingImgArr[indexPath.row] as! String)
+            cell.lblName.text = settingArray[indexPath.row] as? String
+            cell.imgIcon.image = UIImage(named: self.settingImgArr[indexPath.row] as? String ?? "")
         default:
             break
         }
         if canHideTable == false {
-            cell!.lblName.isHidden = false
+            cell.lblName.isHidden = false
         } else {
-            cell!.lblName.isHidden = true
+            cell.lblName.isHidden = true
         }
-        return cell!
+        return cell
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
@@ -747,28 +749,31 @@ extension ListingViewControllersBundle: UICollectionViewDelegate, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ListingCollectionViewCell", for: indexPath) as? ListingCollectionViewCell
         
-        cell?.NameLbl.font = UIFont(name: SemiBoldFont, size: 15)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ListingCollectionViewCell", for: indexPath) as? ListingCollectionViewCell else { return UICollectionViewCell() }
+
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ListingCollectionViewCell", for: indexPath) as? ListingCollectionViewCell
         
-        cell?.NameLbl.text = BasicsArray.object(at: indexPath.row)  as? String
+        cell.NameLbl.font = UIFont(name: SemiBoldFont, size: 15)
+        
+        cell.NameLbl.text = BasicsArray.object(at: indexPath.row)  as? String
         
         if SelectedRow == indexPath.row {
-            cell?.NameLbl.backgroundColor = AppColor
-            cell?.NameLbl.textColor = .white
-            cell!.ShowImg.isHidden = false
+            cell.NameLbl.backgroundColor = AppColor
+            cell.NameLbl.textColor = .white
+            cell.ShowImg.isHidden = false
         }else{
-            cell!.ShowImg.isHidden = true
-            cell?.NameLbl.textColor = .black
-            cell?.NameLbl.backgroundColor = hexStringToUIColor(hex: "#F1F1F1")
+            cell.ShowImg.isHidden = true
+            cell.NameLbl.textColor = .black
+            cell.NameLbl.backgroundColor = hexStringToUIColor(hex: "#F1F1F1")
         }
-        cell?.ShowImg.setImageColor(color: AppColor)
-        // cell?.lblWishlistCount.text = String(Singleton.sharedInstance.wishListModel.wishlist.count)
-        cell!.ShowImg.addDiamondMask()
-        cell?.ShowImg.backgroundColor = AppColor
+        cell.ShowImg.setImageColor(color: AppColor)
+        // cell.lblWishlistCount.text = String(Singleton.sharedInstance.wishListModel.wishlist.count)
+        cell.ShowImg.addDiamondMask()
+        cell.ShowImg.backgroundColor = AppColor
         
         
-        return cell!
+        return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {

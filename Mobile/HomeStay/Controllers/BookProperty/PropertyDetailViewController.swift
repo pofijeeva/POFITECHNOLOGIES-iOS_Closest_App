@@ -222,14 +222,14 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
         //        {
         //
         //            showActivityIndicator(uiView: self.view)
-        //            let parameterStr = "prod_id=\(PropertyID!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&email=\(login_session.value(forKey: "Email") as! String)&userid=\(login_session.value(forKey: "UserId")!)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
+        //            let parameterStr = "prod_id=\(PropertyID!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&email=\(login_session.value(forKey: "Email") as? String ?? "")&userid=\(login_session.value(forKey: "UserId")!)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
         //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: SHOW_PROPERTY_DETAIL, APIKEY: "SHOW_PROPERTY_DETAIL")
         //           //
         //            print(parameterStr)
         //        }
         //        else
         //        {
-        //            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+        //            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         //        }
         PropertyDetail()
         
@@ -337,7 +337,7 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
             let responseDict:NSDictionary = responseObject as! NSDictionary
             print(responseDict)
             self.hideActivityIndicator(uiView: self.view)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 let mod = PropertyDetails(fromDictionary: responseDict as! [String : Any])
                 Singleton.sharedInstance.PropertyDetail = mod
                 print(responseDict)
@@ -373,7 +373,7 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
                     self.minimum_Stay = Int(mod.minimumStay)!
                 }
                 
-                let instantPayResponse = responseDict.value(forKey: "instant_pay_status") as! Int
+                let instantPayResponse = responseDict.value(forKey: "instant_pay_status") as? Int ?? 0
                 
                 if instantPayResponse == 1
                 {
@@ -385,7 +385,7 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
                 }
                 
                 
-                let requesttoBookResponse = responseDict.value(forKey: "request_to_book_status") as! Int
+                let requesttoBookResponse = responseDict.value(forKey: "request_to_book_status") as? Int ?? 0
                 
                 if requesttoBookResponse == 1
                 {
@@ -444,9 +444,9 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
                 
                 for i in 0..<checkdatesArr.count
                 {
-                    self.checkedIndate = ((checkdatesArr.object(at: i)) as AnyObject).value(forKey: "checkin") as! String
+                    self.checkedIndate = ((checkdatesArr.object(at: i)) as AnyObject).value(forKey: "checkin") as? String ?? ""
                     
-                    self.checkedOutdate = ((checkdatesArr.object(at: i)) as AnyObject).value(forKey: "checkout") as! String
+                    self.checkedOutdate = ((checkdatesArr.object(at: i)) as AnyObject).value(forKey: "checkout") as? String ?? ""
                     
                     self.datesBtnDates()
                 }
@@ -472,7 +472,7 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
                 
                 if ServiceDetail.value(forKey: "service_type") != nil
                 {
-                    self.hotelServiceType = ServiceDetail.value(forKey: "service_type") as! String
+                    self.hotelServiceType = ServiceDetail.value(forKey: "service_type") as? String ?? ""
                 }
                 else
                 {
@@ -524,7 +524,7 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
             }
                 
             else {
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -595,7 +595,7 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
     //                    self.minimum_Stay = Int(mod.minimumStay)!
     //                }
     //
-    //                let instantPayResponse = json!.value(forKey: "instant_pay_status") as! Int
+    //                let instantPayResponse = json!.value(forKey: "instant_pay_status") as? Int ?? 0
     //
     //                if instantPayResponse == 1
     //                {
@@ -607,7 +607,7 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
     //                }
     //
     //
-    //                let requesttoBookResponse = json!.value(forKey: "request_to_book_status") as! Int
+    //                let requesttoBookResponse = json!.value(forKey: "request_to_book_status") as? Int ?? 0
     //
     //                if requesttoBookResponse == 1
     //                {
@@ -666,9 +666,9 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
     //
     //                for i in 0..<checkdatesArr.count
     //                {
-    //                    self.checkedIndate = ((checkdatesArr.object(at: i)) as AnyObject).value(forKey: "checkin") as! String
+    //                    self.checkedIndate = ((checkdatesArr.object(at: i)) as AnyObject).value(forKey: "checkin") as? String ?? ""
     //
-    //                    self.checkedOutdate = ((checkdatesArr.object(at: i)) as AnyObject).value(forKey: "checkout") as! String
+    //                    self.checkedOutdate = ((checkdatesArr.object(at: i)) as AnyObject).value(forKey: "checkout") as? String ?? ""
     //
     //                    self.datesBtnDates()
     //                }
@@ -703,7 +703,7 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
     //
     //                if ServiceDetail.value(forKey: "service_type") != nil
     //                {
-    //                    self.hotelServiceType = ServiceDetail.value(forKey: "service_type") as! String
+    //                    self.hotelServiceType = ServiceDetail.value(forKey: "service_type") as? String ?? ""
     //                }
     //                else
     //                {
@@ -971,12 +971,12 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
         {
             showActivityIndicator(uiView: self.view)
             let id = Singleton.sharedInstance.selectedCategory!
-            let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
+            let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
             Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: REQ_RENT_YOUR_SPACE, APIKEY: "REQ_RENT_YOUR_SPACE")
         }
         else
         {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
     @IBAction func act_MoreabtHost(_ sender: UIButton)
@@ -1117,12 +1117,12 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
         //        {
         //            showActivityIndicator(uiView: self.view)
         //            let id = Singleton.sharedInstance.selectedCategory!
-        //            let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
+        //            let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
         //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: REQ_RENT_YOUR_SPACE, APIKEY: "REQ_RENT_YOUR_SPACE")
         //        }
         //        else
         //        {
-        //            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+        //            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         //        }
         
         
@@ -1658,7 +1658,7 @@ extension PropertyDetailViewController: UITableViewDelegate,UITableViewDataSourc
                  cell!.detailsNameTxtLabel.font = UIFont(name: RegularFont, size: 14)
                 cell!.detailsValueButton.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
                 cell!.detailsValueButton.titleLabel?.textColor = AppColor
-                cell!.detailsNameTxtLabel.text = (detailsleftSideNamesArr[indexPath.row] as! String)
+                cell!.detailsNameTxtLabel.text = (detailsleftSideNamesArr[indexPath.row] as? String ?? "")
                 if indexPath.row == 0
                 {
                     if let minimumStay = Singleton.sharedInstance.PropertyDetail.minimumStay {
@@ -2011,7 +2011,7 @@ extension PropertyDetailViewController : HTTP_POST_STRING_REQUEST_PROTOCOL {
                         self.minimum_Stay = Int(mod.minimumStay)!
                     }
                     
-                    let instantPayResponse = responseDict.value(forKey: "instant_pay_status") as! Int
+                    let instantPayResponse = responseDict.value(forKey: "instant_pay_status") as? Int ?? 0
                     
                     if instantPayResponse == 1
                     {
@@ -2023,7 +2023,7 @@ extension PropertyDetailViewController : HTTP_POST_STRING_REQUEST_PROTOCOL {
                     }
                     
                     
-                    let requesttoBookResponse = responseDict.value(forKey: "request_to_book_status") as! Int
+                    let requesttoBookResponse = responseDict.value(forKey: "request_to_book_status") as? Int ?? 0
                     
                     if requesttoBookResponse == 1
                     {
@@ -2082,9 +2082,9 @@ extension PropertyDetailViewController : HTTP_POST_STRING_REQUEST_PROTOCOL {
                     
                     for i in 0..<checkdatesArr.count
                     {
-                        checkedIndate = ((checkdatesArr.object(at: i)) as AnyObject).value(forKey: "checkin") as! String
+                        checkedIndate = ((checkdatesArr.object(at: i)) as AnyObject).value(forKey: "checkin") as? String ?? ""
                         
-                        checkedOutdate = ((checkdatesArr.object(at: i)) as AnyObject).value(forKey: "checkout") as! String
+                        checkedOutdate = ((checkdatesArr.object(at: i)) as AnyObject).value(forKey: "checkout") as? String ?? ""
                         
                         datesBtnDates()
                     }
@@ -2119,7 +2119,7 @@ extension PropertyDetailViewController : HTTP_POST_STRING_REQUEST_PROTOCOL {
                     
                     if ServiceDetail.value(forKey: "service_type") != nil
                     {
-                        hotelServiceType = ServiceDetail.value(forKey: "service_type") as! String
+                        hotelServiceType = ServiceDetail.value(forKey: "service_type") as? String ?? ""
                     }
                     else
                     {

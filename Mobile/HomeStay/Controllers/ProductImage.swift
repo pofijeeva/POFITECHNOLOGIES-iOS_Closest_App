@@ -19,11 +19,11 @@ class ProductImage : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        productImage = dictionary["product_image"] as? String
-        productImageId = dictionary["product_image_id"] as? Int
+        productImage = dictionary["product_image"] as? String ?? ""
+        productImageId = dictionary["product_image_id"] as? Int ?? 0
         
-        imagePath = dictionary["imagePath"] as? String
-        propertyImageId = dictionary["propertyImageId"] as? Int
+        imagePath = dictionary["imagePath"] as? String ?? ""
+        propertyImageId = dictionary["propertyImageId"] as? Int ?? 0
     }
 
     /**
@@ -55,11 +55,11 @@ class ProductImage : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        productImage = aDecoder.decodeObject(forKey: "product_image") as? String
-        productImageId = aDecoder.decodeObject(forKey: "product_image_id") as? Int
+        productImage = aDecoder.decodeObject(forKey: "product_image") as? String ?? ""
+        productImageId = aDecoder.decodeObject(forKey: "product_image_id") as? Int ?? 0
         
-        imagePath = aDecoder.decodeObject(forKey: "imagePath") as? String
-        propertyImageId = aDecoder.decodeObject(forKey: "propertyImageId") as? Int
+        imagePath = aDecoder.decodeObject(forKey: "imagePath") as? String ?? ""
+        propertyImageId = aDecoder.decodeObject(forKey: "propertyImageId") as? Int ?? 0
     }
 
     /**

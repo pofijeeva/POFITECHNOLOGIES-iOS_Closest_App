@@ -17,9 +17,9 @@ class CouponAssignedProduct : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        address = dictionary["address"] as? String
-        id = dictionary["id"] as? String
-        productTitle = dictionary["product_title"] as? String
+        address = dictionary["address"] as? String ?? ""
+        id = dictionary["id"] as? String ?? ""
+        productTitle = dictionary["product_title"] as? String ?? ""
     }
     
     /**
@@ -46,9 +46,9 @@ class CouponAssignedProduct : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        address = aDecoder.decodeObject(forKey: "address") as? String
-        id = aDecoder.decodeObject(forKey: "id") as? String
-        productTitle = aDecoder.decodeObject(forKey: "product_title") as? String
+        address = aDecoder.decodeObject(forKey: "address") as? String ?? ""
+        id = aDecoder.decodeObject(forKey: "id") as? String ?? ""
+        productTitle = aDecoder.decodeObject(forKey: "product_title") as? String ?? ""
     }
     
     /**

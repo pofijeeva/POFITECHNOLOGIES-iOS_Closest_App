@@ -44,7 +44,7 @@ class CalenderViewController: UIViewController {
         self.btnAlways.layer.cornerRadius = 50.0
         Network.shared.HTTP_POST_STRING_REQUEST_DELEGATE = self
         if UserDefaults.standard.value(forKey: "Listed") != nil {
-            if UserDefaults.standard.value(forKey: "Listed") as! String == "YES" {
+            if UserDefaults.standard.value(forKey: "Listed") as? String ?? "" == "YES" {
                 manageCalendarBtn.isHidden = false
             }
             else {
@@ -132,7 +132,7 @@ class CalenderViewController: UIViewController {
 //                print(responseDict)
 //                if responseDict.value(forKey: "code") as! NSNumber == 200 {
 ////                        let result = responseDict.object(forKey: "result") as! NSArray
-//                    let result = ((responseDict.object(forKey: "data") as! NSDictionary).value(forKey: "step3") as? NSDictionary)
+//                    let result = ((responseDict.object(forKey: "data") as? NSDictionary)?.value(forKey: "step3") as? NSDictionary)
 ////                        let step1 = result.value(forKey: "step1")
 //
 //
@@ -156,7 +156,7 @@ class CalenderViewController: UIViewController {
                 self.ListingActivityDelegate.hideActivity()
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
-               if responseDict.value(forKey: "status") as! Int == 1 {
+               if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 let mod = RentYourSpaceModel(fromDictionary: responseDict as! [String : Any])
                 UserDefaults.standard.set(responseDict.value(forKey: "attribute"), forKey: "AmenitiesArray")
                 Singleton.sharedInstance.rentYourSpace = mod
@@ -174,7 +174,7 @@ class CalenderViewController: UIViewController {
                 }
 
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -189,7 +189,7 @@ class CalenderViewController: UIViewController {
             
 
         }else {
-            showInformation(title: "Network Error", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as! String)
+            showInformation(title: "Network Error", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
         }
     }
     
@@ -200,7 +200,7 @@ class CalenderViewController: UIViewController {
         //calenderDelegate.showCalender()
         //manageCalendarBtn.isHidden = false
         if UserDefaults.standard.value(forKey: "Listed") != nil {
-            if UserDefaults.standard.value(forKey: "Listed") as! String == "YES" {
+            if UserDefaults.standard.value(forKey: "Listed") as? String ?? "" == "YES" {
                 manageCalendarBtn.isHidden = false
             }
             else {

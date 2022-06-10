@@ -210,7 +210,7 @@ class ExperienceListingBaseViewController: BaseViewController,UITextViewDelegate
     @IBAction func act_DisputeSubmitTapped(_ sender: UIButton)
     {
         print(ReservationArray.object(at: self.tripSelectedInt))
-        let HostStr = "\((self.ReservationArray.object(at: self.tripSelectedInt) as! NSDictionary).value(forKey: "renter_id") as AnyObject)"
+        let HostStr = "\((self.ReservationArray.object(at: self.tripSelectedInt) as? NSDictionary)?.value(forKey: "renter_id") as AnyObject)"
         print(HostStr)
 
         if (self.CancelMessage.text?.isEmpty)!
@@ -225,7 +225,7 @@ class ExperienceListingBaseViewController: BaseViewController,UITextViewDelegate
                 showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
 
-                params = ["base_id":1,"email":login_session.value(forKey: "Email") as! String,"prd_id":(self.ReservationArray.object(at: self.tripSelectedInt) as! NSDictionary).object(forKey: "experience_id") as! String,"Bookingno":(self.ReservationArray.object(at: self.tripSelectedInt) as! NSDictionary).object(forKey: "bookingno") as! String,"cancellation_percentage":"0","user_id":login_session.value(forKey: "UserId")!,"disputer_id":HostStr,"message":self.CancelMessage.text!,"currency_code":""]
+                params = ["base_id":1,"email":login_session.value(forKey: "Email") as? String ?? "","prd_id":(self.ReservationArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "experience_id") as? String ?? "","Bookingno":(self.ReservationArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? "","cancellation_percentage":"0","user_id":login_session.value(forKey: "UserId")!,"disputer_id":HostStr,"message":self.CancelMessage.text!,"currency_code":""]
 
 
                 let manager = AFHTTPSessionManager()
@@ -238,9 +238,9 @@ class ExperienceListingBaseViewController: BaseViewController,UITextViewDelegate
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
 
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                         let mod = YourTripModel(fromDictionary: responseDict as! [String : Any])
                         Singleton.sharedInstance.yourTripModel = mod
                         self.AddDisputeView.isHidden = true
@@ -249,7 +249,7 @@ class ExperienceListingBaseViewController: BaseViewController,UITextViewDelegate
                     }
 
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -263,7 +263,7 @@ class ExperienceListingBaseViewController: BaseViewController,UITextViewDelegate
 
             }
             else {
-                showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as! String)
+                showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
             }
 
         }
@@ -297,7 +297,7 @@ class ExperienceListingBaseViewController: BaseViewController,UITextViewDelegate
         showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
        
-        params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
+        params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
         
        print(params)
         
@@ -311,7 +311,7 @@ class ExperienceListingBaseViewController: BaseViewController,UITextViewDelegate
             let responseDict:NSDictionary = responseObject as! NSDictionary
             print(responseDict)
             self.hideActivityIndicator(uiView: self.view)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 self.ListingsArray.removeAllObjects()
                 self.ListingsArray.addObjects(from: (responseDict.object(forKey: "experience_listing") as! NSArray) as! [Any])
                 self.ReservationArray.removeAllObjects()
@@ -326,7 +326,7 @@ class ExperienceListingBaseViewController: BaseViewController,UITextViewDelegate
                
            }
            else {
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -344,15 +344,15 @@ class ExperienceListingBaseViewController: BaseViewController,UITextViewDelegate
         print(buttonRow)
         self.tripSelectedInt = buttonRow
         
-      //  futureBookingID = (self.futureTripsArray.object(at: self.tripSelectedInt) as! NSDictionary).value(forKey: "bookingno") as! String
+      //  futureBookingID = (self.futureTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.value(forKey: "bookingno") as? String ?? ""
             
             
       
             self.DropDownShowStatusArray.removeAllObjects()
             
             
-            if (self.ReservationArray.object(at: buttonRow) as! NSDictionary).value(forKey: "cancel_show_status") as! Int == 1 {
-                if (self.ReservationArray.object(at: buttonRow) as! NSDictionary).value(forKey: "is_canceled") as! Int == 1 {
+            if (self.ReservationArray.object(at: buttonRow) as? NSDictionary)?.value(forKey: "cancel_show_status") as? Int ?? 0 == 1 {
+                if (self.ReservationArray.object(at: buttonRow) as? NSDictionary)?.value(forKey: "is_canceled") as? Int ?? 0 == 1 {
                     self.DropDownShowStatusArray.add("Cancelled")
                 }else{
                     self.DropDownShowStatusArray.add("Cancel")
@@ -362,9 +362,9 @@ class ExperienceListingBaseViewController: BaseViewController,UITextViewDelegate
             
             
             
-//            if (self.ReservationArray.object(at: buttonRow) as! NSDictionary).value(forKey: "review_show_status") as! Int == 1 {
+//            if (self.ReservationArray.object(at: buttonRow) as? NSDictionary)?.value(forKey: "review_show_status") as? Int ?? 0 == 1 {
 //
-//                if (self.ReservationArray.object(at: buttonRow) as! NSDictionary).value(forKey: "is_review") as! Int == 1 {
+//                if (self.ReservationArray.object(at: buttonRow) as? NSDictionary)?.value(forKey: "is_review") as? Int ?? 0 == 1 {
 //                    self.DropDownShowStatusArray.add("Your Review")
 //
 //                }else{
@@ -374,9 +374,9 @@ class ExperienceListingBaseViewController: BaseViewController,UITextViewDelegate
 //
 //            }
             
-//            if (self.futureTripsArray.object(at: self.tripSelectedInt) as! NSDictionary).value(forKey: "dispute_show_status") as! Int == 1 {
+//            if (self.futureTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.value(forKey: "dispute_show_status") as? Int ?? 0 == 1 {
 //
-//                if (self.futureTripsArray.object(at: self.tripSelectedInt) as! NSDictionary).value(forKey: "is_dispute") as! Int == 1 {
+//                if (self.futureTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.value(forKey: "is_dispute") as? Int ?? 0 == 1 {
 //                    self.DropDownShowStatusArray.add("Disputed")
 //
 //                }else{
@@ -426,24 +426,24 @@ class ExperienceListingBaseViewController: BaseViewController,UITextViewDelegate
                 
                 if item == "Cancel" {
                     
-                    self.DisputeRentalName.text = (self.ReservationArray.object(at: self.tripSelectedInt) as! NSDictionary).object(forKey: "experience_title") as! String
-                    self.DisputeBookingLbl.text = (self.ReservationArray.object(at: self.tripSelectedInt) as! NSDictionary).object(forKey: "bookingno") as! String
-                    self.DisputeLocation.text = (self.ReservationArray.object(at: self.tripSelectedInt) as! NSDictionary).object(forKey: "experience_address") as! String
+                    self.DisputeRentalName.text = (self.ReservationArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "experience_title") as? String ?? ""
+                    self.DisputeBookingLbl.text = (self.ReservationArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? ""
+                    self.DisputeLocation.text = (self.ReservationArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "experience_address") as? String ?? ""
                     self.AddDisputeView.isHidden = false
                 }else if item == "Cancelled" {
 
                   
-                   let cancelby = (self.ReservationArray.object(at: self.tripSelectedInt) as! NSDictionary).object(forKey: "cancelled_by") as! String
+                   let cancelby = (self.ReservationArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "cancelled_by") as? String ?? ""
 //
                     var params = NSMutableDictionary()
 //
                     if cancelby != "Cancelled By Boat Owner"
                     {
-                        params = ["product_id":"\((self.ReservationArray.object(at: self.tripSelectedInt) as! NSDictionary).object(forKey: "experience_id") as AnyObject)","bookingno":(self.ReservationArray.object(at: self.tripSelectedInt) as! NSDictionary).object(forKey: "bookingno") as! String,"user_id":login_session.value(forKey: "UserId")!,"cancel_by":"user"]
+                        params = ["product_id":"\((self.ReservationArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "experience_id") as AnyObject)","bookingno":(self.ReservationArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? "","user_id":login_session.value(forKey: "UserId")!,"cancel_by":"user"]
 
 
                     }else{
-                        params = ["product_id":"\((self.ReservationArray.object(at: self.tripSelectedInt) as! NSDictionary).object(forKey: "experience_id") as AnyObject)","bookingno":(self.ReservationArray.object(at: self.tripSelectedInt) as! NSDictionary).object(forKey: "bookingno") as! String,"user_id":login_session.value(forKey: "UserId")!,"cancel_by":"host"]
+                        params = ["product_id":"\((self.ReservationArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "experience_id") as AnyObject)","bookingno":(self.ReservationArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? "","user_id":login_session.value(forKey: "UserId")!,"cancel_by":"host"]
                     }
                    
                     self.showActivityIndicator(uiView: self.view)
@@ -459,22 +459,22 @@ class ExperienceListingBaseViewController: BaseViewController,UITextViewDelegate
                         let responseDict:NSDictionary = responseObject as! NSDictionary
                         print(responseDict)
                         self.hideActivityIndicator(uiView: self.view)
-                        if responseDict.value(forKey: "status") as! Int == 1 {
+                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                             
                             print("INVOICE_API RESPONSE:",responseDict)
                             
                             
                             
 
-                            self.showCancelMessageLbl.text = ((responseDict.object(forKey: "Cancel_details") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "message") as! String
+                            self.showCancelMessageLbl.text = ((responseDict.object(forKey: "Cancel_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "message") as? String ?? ""
 
 
-                            self.showCancelBookingIdValueLbl.text = ((responseDict.object(forKey: "Cancel_details") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "Booking_no") as! String
+                            self.showCancelBookingIdValueLbl.text = ((responseDict.object(forKey: "Cancel_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "Booking_no") as? String ?? ""
 
-                            self.showCancelRentalNameValueLbl.text = ((responseDict.object(forKey: "Cancel_details") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "name") as! String
+                            self.showCancelRentalNameValueLbl.text = ((responseDict.object(forKey: "Cancel_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "name") as? String ?? ""
 
-                            self.showCancelLocationValueLbl.text = ((responseDict.object(forKey: "Cancel_details") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "address") as! String
-                            self.showCancelDateLbl.text = ((responseDict.object(forKey: "Cancel_details") as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "cancelled_date") as! String
+                            self.showCancelLocationValueLbl.text = ((responseDict.object(forKey: "Cancel_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "address") as? String ?? ""
+                            self.showCancelDateLbl.text = ((responseDict.object(forKey: "Cancel_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "cancelled_date") as? String ?? ""
 
 
                             self.showCancelBGGrayView.isHidden = false
@@ -484,7 +484,7 @@ class ExperienceListingBaseViewController: BaseViewController,UITextViewDelegate
                         }
                         
                         else {
-                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                         }
                     }, failure: { (operation, error) -> Void in
                         DispatchQueue.main.async {
@@ -498,7 +498,7 @@ class ExperienceListingBaseViewController: BaseViewController,UITextViewDelegate
                 }else if item ==  "Invoice/Receipt"{
                     self.showActivityIndicator(uiView: self.view)
                     var params = NSMutableDictionary()
-                    params = ["booking_no":(self.ReservationArray.object(at: self.tripSelectedInt) as! NSDictionary).object(forKey: "bookingno") as! String,"currency_code":login_session.value(forKey: "APP_CURRENCY")as! String,"device_type":"ios","user_id":login_session.value(forKey: "UserId")!]
+                    params = ["booking_no":(self.ReservationArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? "","currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","device_type":"ios","user_id":login_session.value(forKey: "UserId")!]
            
                     
                     let manager = AFHTTPSessionManager()
@@ -511,7 +511,7 @@ class ExperienceListingBaseViewController: BaseViewController,UITextViewDelegate
                         let responseDict:NSDictionary = responseObject as! NSDictionary
                         print(responseDict)
                         self.hideActivityIndicator(uiView: self.view)
-                        if responseDict.value(forKey: "status") as! Int == 1 {
+                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                             
                             print("INVOICE_API RESPONSE:",responseDict)
                             self.invoiceBGGrayView.isHidden = false
@@ -537,7 +537,7 @@ class ExperienceListingBaseViewController: BaseViewController,UITextViewDelegate
                             
                             self.checkOutLbl.textColor = AppColor
                             
-                            let BookingType = hotelDict!.value(forKey: "booking_type") as! String
+                            let BookingType = hotelDict!.value(forKey: "booking_type") as? String ?? ""
                             
                             if BookingType == "hourly" {
                                 
@@ -588,7 +588,7 @@ class ExperienceListingBaseViewController: BaseViewController,UITextViewDelegate
                         }
                         
                         else {
-                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                         }
                     }, failure: { (operation, error) -> Void in
                         DispatchQueue.main.async {
@@ -641,7 +641,7 @@ extension ExperienceListingBaseViewController: UITableViewDelegate ,UITableViewD
         let cell  = tableView.dequeueReusableCell(withIdentifier: "ExperienceListingBaseTableViewCell") as! ExperienceListingBaseTableViewCell
         cell.selectionStyle = .none
         
-        let ImageStr = (self.ListingsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "experience_image") as! String
+        let ImageStr = (self.ListingsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "experience_image") as? String ?? ""
         
         let urlString = ImageStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         
@@ -654,7 +654,7 @@ extension ExperienceListingBaseViewController: UITableViewDelegate ,UITableViewD
         cell.labelDateAndTime.font = UIFont(name: SemiBoldFont, size: 13)
             cell.Statuslbl.font = UIFont(name: SemiBoldFont, size: 13)
         
-        cell.labelTitle.text = (self.ListingsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "experience_title") as! String
+        cell.labelTitle.text = (self.ListingsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "experience_title") as? String ?? ""
         
         
         let attributedString = NSMutableAttributedString()
@@ -666,15 +666,15 @@ extension ExperienceListingBaseViewController: UITableViewDelegate ,UITableViewD
         let attributed = NSAttributedString(string: start, attributes: [NSAttributedStringKey.foregroundColor : UIColor.darkGray])
         
        
-        let attributedTwo = NSAttributedString(string: "\((self.ListingsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "remaining_steps") as AnyObject) steps to list", attributes: [NSAttributedStringKey.foregroundColor : AppColor])
+        let attributedTwo = NSAttributedString(string: "\((self.ListingsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "remaining_steps") as AnyObject) steps to list", attributes: [NSAttributedStringKey.foregroundColor : AppColor])
         
         attributedString.append(attributed)
         attributedString.append(attributedTwo)
-         cell.labelStatus.text = "\((self.ListingsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "experience_status") as AnyObject)" //attributedString
+         cell.labelStatus.text = "\((self.ListingsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "experience_status") as AnyObject)" //attributedString
         
-        cell.labelDateAndTime.text = (self.ListingsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "created_date") as! String
+        cell.labelDateAndTime.text = (self.ListingsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "created_date") as? String ?? ""
         
-        if (self.ListingsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "experience_status") as! String == "Pay" {
+        if (self.ListingsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "experience_status") as? String ?? "" == "Pay" {
             cell.buttonPayNow.isHidden = false
             
 //            let attributedStrings = NSMutableAttributedString()
@@ -729,54 +729,54 @@ extension ExperienceListingBaseViewController: UITableViewDelegate ,UITableViewD
             cell.ThreeDots.addTarget(self, action: #selector(selectMoreOptions), for: .touchUpInside)
             moreOptionStatusButton.frame = cell.ThreeDots.frame
             
-             cell.ExpNameLbl.text = (self.ReservationArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "experience_title") as! String
+             cell.ExpNameLbl.text = (self.ReservationArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "experience_title") as? String ?? ""
             
-            cell.ExpDateLbl.text = (self.ReservationArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "booking_dates") as! String
+            cell.ExpDateLbl.text = (self.ReservationArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "booking_dates") as? String ?? ""
             
-            cell.ExpaddressLbl.text = (self.ReservationArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "experience_address") as! String
+            cell.ExpaddressLbl.text = (self.ReservationArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "experience_address") as? String ?? ""
 
-            cell.ExpPayStatusValueLbl.text = (self.ReservationArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "payment_status") as! String
+            cell.ExpPayStatusValueLbl.text = (self.ReservationArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "payment_status") as? String ?? ""
             
-            if (self.ReservationArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "approval_status") as! String == "Accepted" {
+            if (self.ReservationArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "approval_status") as? String ?? "" == "Accepted" {
                 cell.ExpHostAppValueLbl.textColor = .green
             }else{
                 cell.ExpHostAppValueLbl.textColor = .black
             }
             
-            cell.ExpHostAppValueLbl.text = (self.ReservationArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "approval_status") as! String
+            cell.ExpHostAppValueLbl.text = (self.ReservationArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "approval_status") as? String ?? ""
             
-            cell.ExpBookingIDValueLbl.text = "\((self.ReservationArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "bookingno") as! AnyObject)"
+            cell.ExpBookingIDValueLbl.text = "\((self.ReservationArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "bookingno") as! AnyObject)"
             
-            cell.ExpHostNameLbl.text = (self.ReservationArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "user_name") as! String
+            cell.ExpHostNameLbl.text = (self.ReservationArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "user_name") as? String ?? ""
             
-            cell.ExpPriceLbl.text = "\((self.ReservationArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "paid_currency_symbol") as! String) \((self.ReservationArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "experience_price") as! AnyObject)"
+            cell.ExpPriceLbl.text = "\((self.ReservationArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "paid_currency_symbol") as? String ?? "") \((self.ReservationArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "experience_price") as! AnyObject)"
            return cell
         }
    }
     
     @objc func updateManageAction(sender: UIButton) {
         let ind = sender.tag
-        currentExpId = "\((self.ListingsArray.object(at: ind) as! NSDictionary).object(forKey: "experience_id") as AnyObject)"
+        currentExpId = "\((self.ListingsArray.object(at: ind) as? NSDictionary)?.object(forKey: "experience_id") as AnyObject)"
         let vc = storyBoardExperience.instantiateViewController(withIdentifier: "ExperienceBaseViewController") as! ExperienceBaseViewController
         isFromManage = true
         self.navigationController?.pushViewController(vc, animated: true)
     }
     @objc func PayNowAction(sender: UIButton) {
         let ind = sender.tag
-       let TotalAmount =  "\((self.ListingsArray.object(at: ind) as! NSDictionary).object(forKey: "App_Currency_Admin_Amount") as AnyObject)"
-        let TotalPrice =  "\((self.ListingsArray.object(at: ind) as! NSDictionary).object(forKey: "Admin_Amount_In_USD") as AnyObject)"
+       let TotalAmount =  "\((self.ListingsArray.object(at: ind) as? NSDictionary)?.object(forKey: "App_Currency_Admin_Amount") as AnyObject)"
+        let TotalPrice =  "\((self.ListingsArray.object(at: ind) as? NSDictionary)?.object(forKey: "Admin_Amount_In_USD") as AnyObject)"
         
-        let HostId =  "\((self.ListingsArray.object(at: ind) as! NSDictionary).object(forKey: "host_id") as AnyObject)"
+        let HostId =  "\((self.ListingsArray.object(at: ind) as? NSDictionary)?.object(forKey: "host_id") as AnyObject)"
         
-        let HostingPrice =  "\((self.ListingsArray.object(at: ind) as! NSDictionary).object(forKey: "Admin_Amount_In_USD") as AnyObject)"
+        let HostingPrice =  "\((self.ListingsArray.object(at: ind) as? NSDictionary)?.object(forKey: "Admin_Amount_In_USD") as AnyObject)"
         
-        let commission =  "\((self.ListingsArray.object(at: ind) as! NSDictionary).object(forKey: "commission") as AnyObject)"
+        let commission =  "\((self.ListingsArray.object(at: ind) as? NSDictionary)?.object(forKey: "commission") as AnyObject)"
         
-        let commissionType =  "\((self.ListingsArray.object(at: ind) as! NSDictionary).object(forKey: "commission_type") as AnyObject)"
+        let commissionType =  "\((self.ListingsArray.object(at: ind) as? NSDictionary)?.object(forKey: "commission_type") as AnyObject)"
         
        
         
-        let PropertId =  "\((self.ListingsArray.object(at: ind) as! NSDictionary).object(forKey: "experience_id") as AnyObject)"
+        let PropertId =  "\((self.ListingsArray.object(at: ind) as? NSDictionary)?.object(forKey: "experience_id") as AnyObject)"
         
         let nav = storyboard?.instantiateViewController(withIdentifier: "NewPaymentViewController") as! NewPaymentViewController
         nav.paymentComingType = "ExperienceListing"
@@ -800,7 +800,7 @@ extension ExperienceListingBaseViewController: UITableViewDelegate ,UITableViewD
         nav.HostingPrice = HostingPrice
         nav.WalletShow = 0
         nav.CouponShow = 0
-//        nav.currency_cron_id = "\((self.ListingsArray.object(at: ind) as! NSDictionary).object(forKey: "experience_id") as AnyObject)"
+//        nav.currency_cron_id = "\((self.ListingsArray.object(at: ind) as? NSDictionary)?.object(forKey: "experience_id") as AnyObject)"
         self.navigationController?.pushViewController(nav, animated: true)
   }
     

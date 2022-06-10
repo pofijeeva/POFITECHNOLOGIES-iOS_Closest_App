@@ -80,7 +80,7 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
         let titleLbl = cell.viewWithTag(10) as! UILabel
         titleLbl.font = UIFont(name: RegularFont, size: 15)
         let dict = self.arrayOfMenus[indexPath.row]
-        titleLbl.text = (dict["name"] as! String)
+        titleLbl.text = (dict["name"] as? String ?? "")
         titleLbl.layer.masksToBounds = true
         titleLbl.layer.cornerRadius = 17.5
         let imageBottom = cell.viewWithTag(11) as! UIImageView
@@ -105,7 +105,7 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
             
             
 //            let arrayTwo = array.object(forKey: <#T##Any#>).object(at: indexPath.row) as! NSDictionary
-//            if arrayTwo.object(forKey: "step_completed") as! String == "true" {
+//            if arrayTwo.object(forKey: "step_completed") as? String ?? "" == "true" {
 //                if BaseSelectedIndex == indexPath.row {
 //                    titleLbl.backgroundColor = AppSecondColor
 //                    titleLbl.textColor = .white
@@ -136,7 +136,7 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
 //            }
 //        }
         if arrayOfBoolValues.count > 0 {
-            if arrayOfBoolValues[indexPath.row] as! String == "true" {
+            if arrayOfBoolValues[indexPath.row] as? String ?? "" == "true" {
                 titleLbl.backgroundColor = AppSecondColor
                 titleLbl.textColor = .white
                 imageBottom.isHidden = true
@@ -174,7 +174,7 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
 //            imageBottom.isHidden = false
 //        }
 //        else {
-//            if dict["selected"] as! String == "1" {
+//            if dict["selected"] as? String ?? "" == "1" {
 //                titleLbl.backgroundColor = AppSecondColor
 //                titleLbl.textColor = .white
 //                imageBottom.isHidden = true
@@ -190,7 +190,7 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let lbl = UILabel(frame: CGRect.zero)
         let dict = self.arrayOfMenus[indexPath.row]
-        lbl.text = (dict["name"] as! String)
+        lbl.text = (dict["name"] as? String ?? "")
         lbl.sizeToFit()
         //let width = lbl.text?.width(withConstrainedHeight: 40.0, font: UIFont(name: RegularFont, size: 12.0)!)
         return CGSize(width: 130, height: 48.0)
@@ -199,9 +199,9 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
         //        if arrayOfdictBasics.count > 0 {
         //            let array = arrayOfdictBasics[0] as! NSMutableArray
         //            let arrayTwo = array.object(at: indexPath.row) as! NSDictionary
-        //            if arrayTwo.object(forKey: "step_completed") as! String == "true" {
+        //            if arrayTwo.object(forKey: "step_completed") as? String ?? "" == "true" {
         if arrayOfBoolValues.count > 0 {
-            if arrayOfBoolValues[indexPath.row] as! String == "true" || BaseSelectedIndex == indexPath.row {
+            if arrayOfBoolValues[indexPath.row] as? String ?? "" == "true" || BaseSelectedIndex == indexPath.row {
                 //                if BaseSelectedIndex != indexPath.row {
                 BaseSelectedIndex = indexPath.row
                 switch indexPath.row {
@@ -353,7 +353,7 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
         if Helper.sharedInstance.isConnectedToInternet() {
           //  Helper.sharedInstance.showActivityIndicator(view: self.view, targetVC: self)
             var params = NSMutableDictionary()
-            params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","exp_id": currentExpId]
+            params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","exp_id": currentExpId]
             let manager = AFHTTPSessionManager()
             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
             print("params",params)
@@ -362,7 +362,7 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
                 Helper.sharedInstance.hideActivityIndicator(view: self.view)
                 let responseDict:NSDictionary = resultData as! NSDictionary
                 print("Response:",responseDict)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     dictOfExperience = responseDict
                     arrayOfCurrency.removeAllObjects()
                     arrayOfCurrency.addObjects(from: (dictOfExperience["Currency"] as! NSArray) as! [Any])
@@ -370,17 +370,17 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
                     arrayOfResult = dictOfExperience["result"] as! NSArray
                     arrayOfBoolValues.removeAllObjects()
                     for i in 0..<arrayOfHeadings.count {
-                        let str = ((arrayOfResult[0] as! NSDictionary).value(forKey:  arrayOfHeadings[i] as! String) as! NSDictionary).object(forKey: "step_completed") as AnyObject
+                        let str = ((arrayOfResult[0] as? NSDictionary)?.value(forKey:  arrayOfHeadings[i] as? String ?? "") as? NSDictionary)?.object(forKey: "step_completed") as AnyObject
                         arrayOfBoolValues.add("\(str)")
                     }
-                 TimingsArray = (((dictOfExperience["result"] as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "Timing") as! NSDictionary).object(forKey: "schedules") as! NSArray
+                 TimingsArray = (((dictOfExperience["result"] as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "Timing") as? NSDictionary)?.object(forKey: "schedules") as! NSArray
                     let emptyArray = NSArray()
                     arrayOfResult = emptyArray
                     self.collectionViewTop.reloadData()
                 }
                 else {
                     Helper.sharedInstance.hideActivityIndicator(view: self.view)
-                //    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                //    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) in
                 print(error)
@@ -390,14 +390,14 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
 
         }
         else {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
     
     func getBaseDetailsWithoutLoader() {
         if Helper.sharedInstance.isConnectedToInternet() {
             var params = NSMutableDictionary()
-            params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","exp_id":currentExpId]
+            params = ["user_id":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","exp_id":currentExpId]
             let manager = AFHTTPSessionManager()
             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
             print("params",params)
@@ -405,17 +405,17 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
             manager.post(ExperienceBaseDetails, parameters: params, headers: ["Authorization":""], progress: nil, success: { (operation, resultData) in
                 let responseDict:NSDictionary = resultData as! NSDictionary
                 print("Response:",responseDict)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     dictOfExperience = responseDict
                     arrayOfResult = dictOfExperience["result"] as! NSArray
                     arrayOfCurrency.removeAllObjects()
                     arrayOfCurrency.addObjects(from: (dictOfExperience["Currency"] as! NSArray) as! [Any])
                     arrayOfBoolValues.removeAllObjects()
                     for i in 0..<arrayOfHeadings.count {
-                        let str = ((arrayOfResult[0] as! NSDictionary).value(forKey:  arrayOfHeadings[i] as! String) as! NSDictionary).object(forKey: "step_completed") as AnyObject
+                        let str = ((arrayOfResult[0] as? NSDictionary)?.value(forKey:  arrayOfHeadings[i] as? String ?? "") as? NSDictionary)?.object(forKey: "step_completed") as AnyObject
                         arrayOfBoolValues.add("\(str)")
                     }
-                    TimingsArray = (((dictOfExperience["result"] as! NSArray).object(at: 0) as! NSDictionary).object(forKey: "Timing") as! NSDictionary).object(forKey: "schedules") as! NSArray
+                    TimingsArray = (((dictOfExperience["result"] as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "Timing") as? NSDictionary)?.object(forKey: "schedules") as! NSArray
                     arrayOfResult = dictOfExperience["result"] as! NSArray
                     self.collectionViewTop.reloadData()
                     
@@ -427,7 +427,7 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
             
         }
         else {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
     

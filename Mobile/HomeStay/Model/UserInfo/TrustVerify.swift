@@ -22,12 +22,12 @@ class TrustVerify : NSObject, NSCoding{
      */
     init(fromDictionary dictionary: [String:Any]){
         country = dictionary["country"] as? Int
-        emailIdVerified = dictionary["email_id_verified"] as? Bool
-        facebookConnect = dictionary["facebook_connect"] as? String
-        googleConnect = dictionary["google_connect"] as? String
-        linkedinConnect = dictionary["linkedin_connect"] as? String
-        phone = dictionary["phone"] as? String
-        phoneVerified = dictionary["phone_verified"] as? Bool
+        emailIdVerified = dictionary["email_id_verified"] as? Bool ?? false
+        facebookConnect = dictionary["facebook_connect"] as? String ?? ""
+        googleConnect = dictionary["google_connect"] as? String ?? ""
+        linkedinConnect = dictionary["linkedin_connect"] as? String ?? ""
+        phone = dictionary["phone"] as? String ?? ""
+        phoneVerified = dictionary["phone_verified"] as? Bool ?? false
     }
 
     /**
@@ -67,12 +67,12 @@ class TrustVerify : NSObject, NSCoding{
     @objc required init(coder aDecoder: NSCoder)
     {
         country = aDecoder.decodeObject(forKey: "country") as? Int
-        emailIdVerified = aDecoder.decodeObject(forKey: "email_id_verified") as? Bool
-        facebookConnect = aDecoder.decodeObject(forKey: "facebook_connect") as? String
-        googleConnect = aDecoder.decodeObject(forKey: "google_connect") as? String
-        linkedinConnect = aDecoder.decodeObject(forKey: "linkedin_connect") as? String
-        phone = aDecoder.decodeObject(forKey: "phone") as? String
-        phoneVerified = aDecoder.decodeObject(forKey: "phone_verified") as? Bool
+        emailIdVerified = aDecoder.decodeObject(forKey: "email_id_verified") as? Bool ?? false
+        facebookConnect = aDecoder.decodeObject(forKey: "facebook_connect") as? String ?? ""
+        googleConnect = aDecoder.decodeObject(forKey: "google_connect") as? String ?? ""
+        linkedinConnect = aDecoder.decodeObject(forKey: "linkedin_connect") as? String ?? ""
+        phone = aDecoder.decodeObject(forKey: "phone") as? String ?? ""
+        phoneVerified = aDecoder.decodeObject(forKey: "phone_verified") as? Bool ?? false
     }
 
     /**

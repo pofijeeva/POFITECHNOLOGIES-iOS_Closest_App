@@ -32,15 +32,15 @@ class ContactUsViewController: BaseViewController {
         self.SubmitBtn.titleLabel?.font = UIFont(name: SemiBoldFont, size: 20)
         self.SubmitBtn.backgroundColor = AppColor
         
-        self.headerLbl.text = GlobalLanguageDictionary.object(forKey: "key_contactUs") as! String
-        self.firstNameTxt.placeholder = GlobalLanguageDictionary.object(forKey: "Key_firstname") as! String
-        self.lastNameTxt.placeholder = GlobalLanguageDictionary.object(forKey: "Key_lastname") as! String
-        self.emailTxt.placeholder = GlobalLanguageDictionary.object(forKey: "key_CEmail") as! String
-        self.mobileNumberTxt.placeholder = GlobalLanguageDictionary.object(forKey: "key_mobilenUm") as! String
+        self.headerLbl.text = GlobalLanguageDictionary.object(forKey: "key_contactUs") as? String ?? ""
+        self.firstNameTxt.placeholder = GlobalLanguageDictionary.object(forKey: "Key_firstname") as? String ?? ""
+        self.lastNameTxt.placeholder = GlobalLanguageDictionary.object(forKey: "Key_lastname") as? String ?? ""
+        self.emailTxt.placeholder = GlobalLanguageDictionary.object(forKey: "key_CEmail") as? String ?? ""
+        self.mobileNumberTxt.placeholder = GlobalLanguageDictionary.object(forKey: "key_mobilenUm") as? String ?? ""
         self.messageTxtView.layer.borderWidth = 1
         self.messageTxtView.layer.borderColor = UIColor.lightGray.cgColor
         
-        if login_session.object(forKey: "Language")as! String == "en"{
+        if login_session.object(forKey: "Language")as? String ?? "" == "en"{
             self.firstNameTxt.textAlignment = .left
             self.lastNameTxt.textAlignment = .left
             self.emailTxt.textAlignment = .left
@@ -71,7 +71,7 @@ class ContactUsViewController: BaseViewController {
                 let responseDict:NSDictionary = json!
                 print(responseDict)
                 if responseDict.value(forKey: "code") as! NSNumber == 200 {
-                    self.showInformation(title: "Closest", message: responseDict.object(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.object(forKey: "message") as? String ?? "")
                 }
                 else if responseDict.value(forKey: "code") as! NSNumber == 400 {
                 
@@ -79,7 +79,7 @@ class ContactUsViewController: BaseViewController {
             }
         }
         else {
-            self.showInformation(title: GlobalLanguageDictionary.object(forKey: "key_info") as! String, message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: GlobalLanguageDictionary.object(forKey: "key_info") as? String ?? "", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
 
     }
@@ -91,18 +91,18 @@ class ContactUsViewController: BaseViewController {
     @IBAction func act_submit(_ sender: UIButton) {
         
         if firstNameTxt.text!.count == 0 {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_Pleaseenterthefirstnametocontinue") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_Pleaseenterthefirstnametocontinue") as? String ?? "")
         }else if lastNameTxt.text!.count == 0 {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_PleaseentertheLastnametocontinue") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_PleaseentertheLastnametocontinue") as? String ?? "")
 
         }else if emailTxt.text!.count == 0 {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_enterEmailId") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_enterEmailId") as? String ?? "")
 
         }else if mobileNumberTxt.text!.count == 0 {
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_enterMobileNum") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_enterMobileNum") as? String ?? "")
 
         }else if messageTxtView.text.count == 0{
-            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_enteryourMessage") as! String)
+            self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_enteryourMessage") as? String ?? "")
 
         }else{
             let parameters:[String : Any] =

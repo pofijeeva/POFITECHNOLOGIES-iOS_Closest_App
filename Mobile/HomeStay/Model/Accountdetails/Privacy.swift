@@ -16,8 +16,8 @@ class Privacy : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        searchByProfile = dictionary["search_by_profile"] as? Bool
-        socialRecommend = dictionary["social_recommend"] as? Bool
+        searchByProfile = dictionary["search_by_profile"] as? Bool ?? false
+        socialRecommend = dictionary["social_recommend"] as? Bool ?? false 
     }
 
     /**
@@ -41,8 +41,8 @@ class Privacy : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        searchByProfile = aDecoder.decodeObject(forKey: "search_by_profile") as? Bool
-        socialRecommend = aDecoder.decodeObject(forKey: "social_recommend") as? Bool
+        searchByProfile = aDecoder.decodeObject(forKey: "search_by_profile") as? Bool ?? false
+        socialRecommend = aDecoder.decodeObject(forKey: "social_recommend") as? Bool ?? false
     }
 
     /**

@@ -19,10 +19,10 @@ class TimeTableClass : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        canBook = dictionary["can_book"] as? String
-        cantbookmsg = dictionary["cantbookmsg"] as? String
-        checkinDate = dictionary["checkin_date"] as? String
-        status = dictionary["status"] as? Int
+        canBook = dictionary["can_book"] as? String ?? ""
+        cantbookmsg = dictionary["cantbookmsg"] as? String ?? ""
+        checkinDate = dictionary["checkin_date"] as? String ?? ""
+        status = dictionary["status"] as? Int ?? 0
         tableDetails = [TableDetail]()
         if let tableDetailsArray = dictionary["table_details"] as? [[String:Any]]{
             for dic in tableDetailsArray{
@@ -66,10 +66,10 @@ class TimeTableClass : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        canBook = aDecoder.decodeObject(forKey: "can_book") as? String
-        cantbookmsg = aDecoder.decodeObject(forKey: "cantbookmsg") as? String
-        checkinDate = aDecoder.decodeObject(forKey: "checkin_date") as? String
-        status = aDecoder.decodeObject(forKey: "status") as? Int
+        canBook = aDecoder.decodeObject(forKey: "can_book") as? String ?? ""
+        cantbookmsg = aDecoder.decodeObject(forKey: "cantbookmsg") as? String ?? ""
+        checkinDate = aDecoder.decodeObject(forKey: "checkin_date") as? String ?? ""
+        status = aDecoder.decodeObject(forKey: "status") as? Int ?? 0
         tableDetails = aDecoder.decodeObject(forKey: "table_details") as? [TableDetail]
     }
 

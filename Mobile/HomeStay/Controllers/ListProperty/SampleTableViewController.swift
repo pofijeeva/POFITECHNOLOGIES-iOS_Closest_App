@@ -45,14 +45,16 @@ extension SampleTableViewController: UICollectionViewDelegate,UICollectionViewDa
         
     }
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SampleCollectionViewCell", for: indexPath) as?
-        SampleCollectionViewCell
         
-        cell?.tabName.text = Singleton.sharedInstance.rootClass.dateDetails[0].tableDetails[indexPath.item].tableName
-        cell?.tabPrice.text = Singleton.sharedInstance.rootClass.dateDetails[0].tableDetails[indexPath.item].price ?? ""
-        cell?.tabTime.text = Singleton.sharedInstance.rootClass.dateDetails[0].tableDetails[indexPath.item].startTime
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SampleCollectionViewCell", for: indexPath) as? SampleCollectionViewCell else { return UICollectionViewCell() }
+
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SampleCollectionViewCell", for: indexPath) as? SampleCollectionViewCell
         
-        return cell!
+        cell.tabName.text = Singleton.sharedInstance.rootClass.dateDetails[0].tableDetails[indexPath.item].tableName
+        cell.tabPrice.text = Singleton.sharedInstance.rootClass.dateDetails[0].tableDetails[indexPath.item].price ?? ""
+        cell.tabTime.text = Singleton.sharedInstance.rootClass.dateDetails[0].tableDetails[indexPath.item].startTime
+        
+        return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath){
         print("Row Number is:",indexPath.item)

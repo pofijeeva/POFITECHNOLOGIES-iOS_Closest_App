@@ -166,7 +166,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
         showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
        
-        params = ["userid":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
+        params = ["userid":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
         
         let manager = AFHTTPSessionManager()
         manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -178,14 +178,14 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
             let responseDict:NSDictionary = responseObject as! NSDictionary
            
             self.hideActivityIndicator(uiView: self.view)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 print("GET_WISHLIST_API Response:::",responseDict)
                 let mod = WishlistModel(fromDictionary: responseDict as! [String : Any])
                 Singleton.sharedInstance.wishListModel = mod
                 self.collectnviewWishlist.reloadData()
            }
            else {
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -199,7 +199,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
         showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
         
-        params = ["user_id":UserID,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","wishlist_id":self.wishListId,"experience_id":self.wishPropertyid,"device_type":"ios"]
+        params = ["user_id":UserID,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","wishlist_id":self.wishListId,"experience_id":self.wishPropertyid,"device_type":"ios"]
         
         
         let manager = AFHTTPSessionManager()
@@ -212,7 +212,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
             let responseDict:NSDictionary = responseObject as! NSDictionary
            
             self.hideActivityIndicator(uiView: self.view)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 print(responseDict)
                 let mod = WishlistModel(fromDictionary: responseDict as! [String : Any])
                 Singleton.sharedInstance.wishListModel = mod
@@ -230,7 +230,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
             }
                 
             else {
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -243,7 +243,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
     func RemoveWishList() {
         showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
-        params = ["lang_code":lanuguage_selection.value(forKey: "language") ?? "en","wishlist_id":self.wishListId,"user_id":UserID,"experience_id":self.wishPropertyid,"device_type":"ios","currency_code":login_session.value(forKey: "APP_CURRENCY") as! String]
+        params = ["lang_code":lanuguage_selection.value(forKey: "language") ?? "en","wishlist_id":self.wishListId,"user_id":UserID,"experience_id":self.wishPropertyid,"device_type":"ios","currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? ""]
         
         let manager = AFHTTPSessionManager()
         manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -255,7 +255,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
             let responseDict:NSDictionary = responseObject as! NSDictionary
            
             self.hideActivityIndicator(uiView: self.view)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 
                 let mod = WishlistModel(fromDictionary: responseDict as! [String : Any])
                 Singleton.sharedInstance.wishListModel = mod
@@ -273,7 +273,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
             }
                 
             else {
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -298,8 +298,8 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
             }
             
             
-            self.wishPropertyid = "\((self.ExperienceArray.object(at: btnRow) as! NSDictionary).object(forKey: "exp_id") as AnyObject)"
-            let favid = "\((self.ExperienceArray.object(at: btnRow) as! NSDictionary).object(forKey: "exp_favourite") as AnyObject)"
+            self.wishPropertyid = "\((self.ExperienceArray.object(at: btnRow) as? NSDictionary)?.object(forKey: "exp_id") as AnyObject)"
+            let favid = "\((self.ExperienceArray.object(at: btnRow) as? NSDictionary)?.object(forKey: "exp_favourite") as AnyObject)"
             if favid == "1"  {
                 RemoveWishList()
                 
@@ -323,7 +323,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
      }
                 else
                 {
-                    self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                    self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
                 }
             }
         }
@@ -334,7 +334,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
         self.showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
         
-        params = ["user_id": login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"lang_code":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "en"]
+        params = ["user_id": login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","lang_code":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "en"]
         print(params)
         
         let manager = AFHTTPSessionManager()
@@ -347,7 +347,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
             let responseDict:NSDictionary = responseObject as! NSDictionary
             print(responseDict)
             self.hideActivityIndicator(uiView: self.view)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 self.EmptyExpView.isHidden = true
                 self.EmptyView.isHidden = true
                 self.ExperienceArray.removeAllObjects()
@@ -365,9 +365,9 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
             }
                 
             else {
-                self.EmptyExpLbl.text = responseDict.value(forKey: "message") as! String
+                self.EmptyExpLbl.text = responseDict.value(forKey: "message") as? String ?? ""
                 self.EmptyExpView.isHidden = false
-               // self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+               // self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -429,7 +429,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
                     showActivityIndicator(uiView: self.view)
                     var params = NSMutableDictionary()
                     
-                     params = ["base_id":1,"userid":login_session.value(forKey: "UserId")!,"wishlist_title":self.txf_Wishlistitle.text!,"property_id":self.wishPropertyid,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String]
+                     params = ["base_id":1,"userid":login_session.value(forKey: "UserId")!,"wishlist_title":self.txf_Wishlistitle.text!,"property_id":self.wishPropertyid,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? ""]
                  
                     let manager = AFHTTPSessionManager()
                     manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -440,7 +440,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
                         }
                         let responseDict:NSDictionary = responseObject as! NSDictionary
                         self.hideActivityIndicator(uiView: self.view)
-                        if responseDict.value(forKey: "status") as! Int == 1 {
+                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                             self.viewWishlisttitlePopup.isHidden = true
                             self.GaryView.isHidden = true
                             self.viewBottom.isHidden = true
@@ -454,7 +454,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
                             
                         }
                        else {
-                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                         }
                     }, failure: { (operation, error) -> Void in
                         DispatchQueue.main.async {
@@ -465,7 +465,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
                     })
       }
                 else {
-                    self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+                    self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
                 }
             }
         }
@@ -590,7 +590,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
         self.showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
         
-        params = ["user_id": login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"lang_code":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "en","category":selectedCatStr]
+        params = ["user_id": login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","lang_code":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "en","category":selectedCatStr]
         print(params)
         let manager = AFHTTPSessionManager()
         manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -602,7 +602,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
             let responseDict:NSDictionary = responseObject as! NSDictionary
             print(responseDict)
             self.hideActivityIndicator(uiView: self.view)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 
                 self.ExperienceArray.removeAllObjects()
                 self.ExperienceTypesArray.removeAllObjects()
@@ -620,7 +620,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
                 
             else {
                 self.EmptyView.isHidden = false
-             //   self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+             //   self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -688,7 +688,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
             self.showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
             
-            params = ["user_id": login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"lang_code":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "en","checkin":self.FromDateLbl.text! ,"checkout":self.toDateLbl.text!]
+            params = ["user_id": login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","lang_code":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "en","checkin":self.FromDateLbl.text! ,"checkout":self.toDateLbl.text!]
              print(params)
             let manager = AFHTTPSessionManager()
             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -700,7 +700,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     
                     self.ExperienceArray.removeAllObjects()
                                    self.ExperienceTypesArray.removeAllObjects()
@@ -718,7 +718,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
                     
                 else {
                     self.EmptyView.isHidden = false
-                   // self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                   // self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -766,7 +766,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
         self.showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
         
-        params = ["user_id": login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"lang_code":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "en","type_id":selectedTypeStr]
+        params = ["user_id": login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","lang_code":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "en","type_id":selectedTypeStr]
          print(params)
         let manager = AFHTTPSessionManager()
         manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -778,7 +778,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
             let responseDict:NSDictionary = responseObject as! NSDictionary
             print(responseDict)
             self.hideActivityIndicator(uiView: self.view)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 
                 self.ExperienceArray.removeAllObjects()
                 self.ExperienceTypesArray.removeAllObjects()
@@ -796,7 +796,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
                 
             else {
                 self.EmptyView.isHidden = false
-               // self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+               // self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -842,75 +842,83 @@ extension ExperienceNowViewController : UITableViewDataSource,UITableViewDelegat
         
         if tableView == self.ExperienceTable {
             if indexPath.row == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ExperienceNowTitleTableViewCell") as? ExperienceNowTitleTableViewCell
-                cell!.selectionStyle = .none
-                cell!.ExperienceName.font = UIFont(name: SemiBoldFont, size: 17)
-                return cell!
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "ExperienceNowTitleTableViewCell") as? ExperienceNowTitleTableViewCell else { return UITableViewCell() }
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "ExperienceNowTitleTableViewCell") as? ExperienceNowTitleTableViewCell
+                cell.selectionStyle = .none
+                cell.ExperienceName.font = UIFont(name: SemiBoldFont, size: 17)
+                return cell
             }
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ExperienceNowTableViewCell") as? ExperienceNowTableViewCell
-            cell!.selectionStyle = .none
             
-            cell!.ExperienceTitle.font = UIFont(name: SemiBoldFont, size: 15)
-            cell!.ExperiencePrice.font = UIFont(name: SemiBoldFont, size: 15)
-            cell!.ExperienceRating.font = UIFont(name: SemiBoldFont, size: 10)
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ExperienceNowTableViewCell") as? ExperienceNowTableViewCell else { return UITableViewCell() }
+
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "ExperienceNowTableViewCell") as? ExperienceNowTableViewCell
+            cell.selectionStyle = .none
+            
+            cell.ExperienceTitle.font = UIFont(name: SemiBoldFont, size: 15)
+            cell.ExperiencePrice.font = UIFont(name: SemiBoldFont, size: 15)
+            cell.ExperienceRating.font = UIFont(name: SemiBoldFont, size: 10)
             
             
-            let url = URL(string: (self.ExperienceArray.object(at: indexPath.row-1) as! NSDictionary).object(forKey: "exp_image") as! String)
-            cell!.ExperienceImg.kf.setImage(with: url)
+            let url = URL(string: (self.ExperienceArray.object(at: indexPath.row-1) as? NSDictionary)?.object(forKey: "exp_image") as? String ?? "")
+            cell.ExperienceImg.kf.setImage(with: url)
             
             
-            cell!.ExperienceTitle.text = (self.ExperienceArray.object(at: indexPath.row-1) as! NSDictionary).object(forKey: "exp_name") as! String
-            cell!.ExperienceRating.text = "\((self.ExperienceArray.object(at: indexPath.row-1) as! NSDictionary).object(forKey: "exp_public_rating") as! AnyObject)"
-            let CurrencySymbol = (self.ExperienceArray.object(at: indexPath.row-1) as! NSDictionary).object(forKey: "userCurSym") as! String
-            cell!.ExperiencePrice.text = CurrencySymbol + " \((self.ExperienceArray.object(at: indexPath.row-1) as! NSDictionary).object(forKey: "exp_price") as! AnyObject)"
+            cell.ExperienceTitle.text = (self.ExperienceArray.object(at: indexPath.row-1) as? NSDictionary)?.object(forKey: "exp_name") as? String ?? ""
+            cell.ExperienceRating.text = "\((self.ExperienceArray.object(at: indexPath.row-1) as? NSDictionary)?.object(forKey: "exp_public_rating") as! AnyObject)"
+            let CurrencySymbol = (self.ExperienceArray.object(at: indexPath.row-1) as? NSDictionary)?.object(forKey: "userCurSym") as? String ?? ""
+            cell.ExperiencePrice.text = CurrencySymbol + " \((self.ExperienceArray.object(at: indexPath.row-1) as? NSDictionary)?.object(forKey: "exp_price") as! AnyObject)"
             
-            let Fav = "\((self.ExperienceArray.object(at: indexPath.row-1) as! NSDictionary).object(forKey: "exp_favourite") as AnyObject)"
+            let Fav = "\((self.ExperienceArray.object(at: indexPath.row-1) as? NSDictionary)?.object(forKey: "exp_favourite") as AnyObject)"
             
             if Fav == "1" {
-                cell!.FavImg.image = UIImage(named: "like")
+                cell.FavImg.image = UIImage(named: "like")
                 
             }else{
-                cell!.FavImg.image = UIImage(named: "unlike")
+                cell.FavImg.image = UIImage(named: "unlike")
             }
             
-            cell?.FavBtn.tag = indexPath.row-1
-                   cell!.FavBtn.addTarget(self, action:#selector(favTapped), for: .touchUpInside)
+            cell.FavBtn.tag = indexPath.row-1
+                   cell.FavBtn.addTarget(self, action:#selector(favTapped), for: .touchUpInside)
             
             
-            return cell!
+            return cell
             
         }else if tableView == self.SelectTypeTable {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ExperienceSelectTypeTableViewCell") as? ExperienceSelectTypeTableViewCell
-            cell!.selectionStyle = .none
-            cell!.SelectTypeLbl.font = UIFont(name: SemiBoldFont, size: 15)
-            cell!.SelectTypeDescLbl.font = UIFont(name: SemiBoldFont, size: 13)
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "ExperienceSelectTypeTableViewCell") as? ExperienceSelectTypeTableViewCell else { return UITableViewCell() }
+
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "ExperienceSelectTypeTableViewCell") as? ExperienceSelectTypeTableViewCell
+            cell.selectionStyle = .none
+            cell.SelectTypeLbl.font = UIFont(name: SemiBoldFont, size: 15)
+            cell.SelectTypeDescLbl.font = UIFont(name: SemiBoldFont, size: 13)
             
-            let SelectedType = "\((self.ExperienceTypesArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "exp_id") as! AnyObject)"
+            let SelectedType = "\((self.ExperienceTypesArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "exp_id") as! AnyObject)"
             
             if self.SelectedType.contains(SelectedType) {
-                cell!.SelectTypeImg.image = UIImage(named: "checkbox-2")
+                cell.SelectTypeImg.image = UIImage(named: "checkbox-2")
             }else{
-                cell!.SelectTypeImg.image = UIImage(named: "unSelectBox")
+                cell.SelectTypeImg.image = UIImage(named: "unSelectBox")
                 
             }
-           cell!.SelectTypeLbl.text = (self.ExperienceTypesArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "exp_type_name") as! String
-            cell!.SelectTypeDescLbl.text = (self.ExperienceTypesArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "exp_type_subname") as! String
-            return cell!
+           cell.SelectTypeLbl.text = (self.ExperienceTypesArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "exp_type_name") as? String ?? ""
+            cell.SelectTypeDescLbl.text = (self.ExperienceTypesArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "exp_type_subname") as? String ?? ""
+            return cell
         }else{
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CategoriesTableViewCell") as? CategoriesTableViewCell
-            cell!.selectionStyle = .none
-            cell!.CategoriesLbl.text = (self.ExperienceCategoriesArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "exp_category_name") as! String
-            cell!.CategoriesLbl.font = UIFont(name: SemiBoldFont, size: 13)
-            cell!.CategoriesLbl.textColor = .darkGray
-            let categoryType = "\((self.ExperienceCategoriesArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "exp_category_id") as! AnyObject)"
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "CategoriesTableViewCell") as? CategoriesTableViewCell else { return UITableViewCell() }
+
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "CategoriesTableViewCell") as? CategoriesTableViewCell
+            cell.selectionStyle = .none
+            cell.CategoriesLbl.text = (self.ExperienceCategoriesArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "exp_category_name") as? String ?? ""
+            cell.CategoriesLbl.font = UIFont(name: SemiBoldFont, size: 13)
+            cell.CategoriesLbl.textColor = .darkGray
+            let categoryType = "\((self.ExperienceCategoriesArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "exp_category_id") as! AnyObject)"
             
             if self.SelectedCategoriesType.contains(categoryType) {
-                cell!.CategoriesImg.image = UIImage(named: "checkbox-2")
+                cell.CategoriesImg.image = UIImage(named: "checkbox-2")
             }else{
-                cell!.CategoriesImg.image = UIImage(named: "unSelectBox")
+                cell.CategoriesImg.image = UIImage(named: "unSelectBox")
                 
             }
-            return cell!
+            return cell
         }
     }
     
@@ -918,13 +926,13 @@ extension ExperienceNowViewController : UITableViewDataSource,UITableViewDelegat
         if tableView == self.ExperienceTable {
             
             let searchVC = self.storyboard?.instantiateViewController(withIdentifier: "ExperienceDetailViewController") as? ExperienceDetailViewController
-            searchVC!.expId =  "\((self.ExperienceArray.object(at: indexPath.row-1) as! NSDictionary).object(forKey: "exp_id") as! AnyObject)"
-            searchVC!.CurrencyCornId = "\((self.ExperienceArray.object(at: indexPath.row-1) as! NSDictionary).object(forKey: "currency_code") as! AnyObject)"
+            searchVC!.expId =  "\((self.ExperienceArray.object(at: indexPath.row-1) as? NSDictionary)?.object(forKey: "exp_id") as! AnyObject)"
+            searchVC!.CurrencyCornId = "\((self.ExperienceArray.object(at: indexPath.row-1) as? NSDictionary)?.object(forKey: "currency_code") as! AnyObject)"
                            
                           self.navigationController?.pushViewController(searchVC!, animated: true)
             
         }else if tableView == self.SelectTypeTable {
-            let SelectedType = "\((self.ExperienceTypesArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "exp_id") as! AnyObject)"
+            let SelectedType = "\((self.ExperienceTypesArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "exp_id") as! AnyObject)"
             if self.SelectedType.contains(SelectedType) {
                 self.SelectedType.remove(SelectedType)
             }else {
@@ -934,7 +942,7 @@ extension ExperienceNowViewController : UITableViewDataSource,UITableViewDelegat
             self.SelectTypeTable.reloadData()
             
         }else{
-            let SelectedType = "\((self.ExperienceCategoriesArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "exp_category_id") as! AnyObject)"
+            let SelectedType = "\((self.ExperienceCategoriesArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "exp_category_id") as! AnyObject)"
             if self.SelectedCategoriesType.contains(SelectedType) {
                 self.SelectedCategoriesType.remove(SelectedType)
             }else {

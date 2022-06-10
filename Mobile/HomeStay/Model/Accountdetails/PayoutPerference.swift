@@ -18,10 +18,10 @@ class PayoutPerference : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        accname = dictionary["accname"] as? String
-        accno = dictionary["accno"] as? String
-        bankname = dictionary["bankname"] as? String
-        paypalEmail = dictionary["paypal_email"] as? String
+        accname = dictionary["accname"] as? String ?? ""
+        accno = dictionary["accno"] as? String ?? ""
+        bankname = dictionary["bankname"] as? String ?? ""
+        paypalEmail = dictionary["paypal_email"] as? String ?? ""
     }
 
     /**
@@ -51,10 +51,10 @@ class PayoutPerference : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        accname = aDecoder.decodeObject(forKey: "accname") as? String
-        accno = aDecoder.decodeObject(forKey: "accno") as? String
-        bankname = aDecoder.decodeObject(forKey: "bankname") as? String
-         paypalEmail = aDecoder.decodeObject(forKey: "paypal_email") as? String
+        accname = aDecoder.decodeObject(forKey: "accname") as? String ?? ""
+        accno = aDecoder.decodeObject(forKey: "accno") as? String ?? ""
+        bankname = aDecoder.decodeObject(forKey: "bankname") as? String ?? ""
+         paypalEmail = aDecoder.decodeObject(forKey: "paypal_email") as? String ?? ""
     }
 
     /**

@@ -17,9 +17,9 @@ class SeasonalCalendarPrice : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        date = dictionary["date"] as? String
-        price = dictionary["price"] as? Int
-        status = dictionary["status"] as? Int
+        date = dictionary["date"] as? String ?? ""
+        price = dictionary["price"] as? Int ?? 0
+        status = dictionary["status"] as? Int ?? 0
     }
 
     /**
@@ -46,9 +46,9 @@ class SeasonalCalendarPrice : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        date = aDecoder.decodeObject(forKey: "date") as? String
-        price = aDecoder.decodeObject(forKey: "price") as? Int
-        status = aDecoder.decodeObject(forKey: "status") as? Int
+        date = aDecoder.decodeObject(forKey: "date") as? String ?? ""
+        price = aDecoder.decodeObject(forKey: "price") as? Int ?? 0
+        status = aDecoder.decodeObject(forKey: "status") as? Int ?? 0
     }
 
     /**

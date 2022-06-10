@@ -17,9 +17,9 @@ class TableDetail : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        tableId = dictionary["table_id"] as? String
-        tableName = dictionary["table_name"] as? String
-        tableTime = dictionary["table_time"] as? String
+        tableId = dictionary["table_id"] as? String ?? ""
+        tableName = dictionary["table_name"] as? String ?? ""
+        tableTime = dictionary["table_time"] as? String ?? ""
     }
 
     /**
@@ -46,9 +46,9 @@ class TableDetail : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        tableId = aDecoder.decodeObject(forKey: "table_id") as? String
-        tableName = aDecoder.decodeObject(forKey: "table_name") as? String
-        tableTime = aDecoder.decodeObject(forKey: "table_time") as? String
+        tableId = aDecoder.decodeObject(forKey: "table_id") as? String ?? ""
+        tableName = aDecoder.decodeObject(forKey: "table_name") as? String ?? ""
+        tableTime = aDecoder.decodeObject(forKey: "table_time") as? String ?? ""
     }
 
     /**

@@ -19,11 +19,11 @@ class PropertyReview : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        review = dictionary["review"] as? String
-        reviewDate = dictionary["review_date"] as? String
+        review = dictionary["review"] as? String ?? ""
+        reviewDate = dictionary["review_date"] as? String ?? ""
         starRating = dictionary["star_rating"] as? AnyObject
-        userImage = dictionary["user_image"] as? String
-        userName = dictionary["user_name"] as? String
+        userImage = dictionary["user_image"] as? String ?? ""
+        userName = dictionary["user_name"] as? String ?? ""
     }
 
     /**
@@ -56,11 +56,11 @@ class PropertyReview : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        review = aDecoder.decodeObject(forKey: "review") as? String
-        reviewDate = aDecoder.decodeObject(forKey: "review_date") as? String
+        review = aDecoder.decodeObject(forKey: "review") as? String ?? ""
+        reviewDate = aDecoder.decodeObject(forKey: "review_date") as? String ?? ""
         starRating = aDecoder.decodeObject(forKey: "star_rating") as? AnyObject
-        userImage = aDecoder.decodeObject(forKey: "user_image") as? String
-        userName = aDecoder.decodeObject(forKey: "user_name") as? String
+        userImage = aDecoder.decodeObject(forKey: "user_image") as? String ?? ""
+        userName = aDecoder.decodeObject(forKey: "user_name") as? String ?? ""
     }
 
     /**

@@ -53,20 +53,20 @@ class ExperienceAddPriceViewController: UIViewController,UITextFieldDelegate {
         Helper.sharedInstance.UpdateTextfield(self.PriceTxt)
 
 //        for item in arrayOfCurrency {
-//            self.currncyNamearray.append(item["currency_type"] as! String)
+//            self.currncyNamearray.append(item["currency_type"] as? String ?? "")
 //        }
         
         
         for i in 0..<arrayOfCurrency.count {
-            let name = (arrayOfCurrency.object(at: i) as! NSDictionary).object(forKey: "currency_type") as! String
-            let symbol = (arrayOfCurrency.object(at: i) as! NSDictionary).object(forKey: "country_symbols") as! String
+            let name = (arrayOfCurrency.object(at: i) as? NSDictionary)?.object(forKey: "currency_type") as? String ?? ""
+            let symbol = (arrayOfCurrency.object(at: i) as? NSDictionary)?.object(forKey: "country_symbols") as? String ?? ""
             self.arrayCurrencySymbol.add(symbol)
             self.currncyNamearray.append(name)
         }
         
 //        arrayOfCurrency.forEach { (dict) in
-//            self.currncyNamearray.append(dict["currency_type"] as! String)
-//            self.arrayCurrencySymbol.append(dict["country_symbols"] as! String)
+//            self.currncyNamearray.append(dict["currency_type"] as? String ?? "")
+//            self.arrayCurrencySymbol.append(dict["country_symbols"] as? String ?? "")
 //            self.arrayCurrencySymbol.addObjects(from: arrayOfCurrency.objects(at: dict))
 //
 //
@@ -78,15 +78,15 @@ class ExperienceAddPriceViewController: UIViewController,UITextFieldDelegate {
         
 
         if arrayOfResult.count > 0 {
-            let PreviousCurrency = ((arrayOfResult[0] as! NSDictionary).object(forKey: "price") as! NSDictionary).object(forKey: "currency_code") as! String
+            let PreviousCurrency = ((arrayOfResult[0] as? NSDictionary)?.object(forKey: "price") as? NSDictionary)?.object(forKey: "currency_code") as? String ?? ""
             if PreviousCurrency == "" {
                 
             }else{
-                self.CurrencyTxt.text = ((arrayOfResult[0] as! NSDictionary).object(forKey: "price") as! NSDictionary).object(forKey: "currency_code") as! String
-                self.PriceTxt.text =  "\(((arrayOfResult[0] as! NSDictionary).object(forKey: "price") as! NSDictionary).object(forKey: "price") as! AnyObject)"
+                self.CurrencyTxt.text = ((arrayOfResult[0] as? NSDictionary)?.object(forKey: "price") as? NSDictionary)?.object(forKey: "currency_code") as? String ?? ""
+                self.PriceTxt.text =  "\(((arrayOfResult[0] as? NSDictionary)?.object(forKey: "price") as? NSDictionary)?.object(forKey: "price") as! AnyObject)"
                 let index =  self.currncyNamearray.index(of: self.CurrencyTxt.text!)
                 self.CuyyencySymLbl.text = self.arrayCurrencySymbol.object(at: index!) as? String
-                ExperiencySelectedCurrency = self.arrayCurrencySymbol.object(at: index!) as! String
+                ExperiencySelectedCurrency = self.arrayCurrencySymbol.object(at: index!) as? String ?? ""
             }
             
             
@@ -111,7 +111,7 @@ class ExperienceAddPriceViewController: UIViewController,UITextFieldDelegate {
             else{
                 Helper.sharedInstance.showActivityIndicator(view: self.view, targetVC: self)
                 var params = NSMutableDictionary()
-                params = ["user_id":login_session.value(forKey: "UserId")!,"exp_id":currentExpId,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"price":self.PriceTxt.text!,"device_type":"ios","currency" : self.CurrencyTxt.text!]
+                params = ["user_id":login_session.value(forKey: "UserId")!,"exp_id":currentExpId,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","price":self.PriceTxt.text!,"device_type":"ios","currency" : self.CurrencyTxt.text!]
                 let manager = AFHTTPSessionManager()
                 manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
                 manager.post(ExperienceAddPrice, parameters: params, headers: ["Authorization":""], progress: nil, success: { (operation, responseObject) -> Void in
@@ -120,7 +120,7 @@ class ExperienceAddPriceViewController: UIViewController,UITextFieldDelegate {
                     Helper.sharedInstance.hideActivityIndicator(view: self.view)
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         //let mod = RentYourSpaceModel(fromDictionary: responseDict as! [String : Any])
                         //   Singleton.sharedInstance.rentYourSpace = mod
                       //  self.showInformation(title: "Closest", message: mod.message)
@@ -128,7 +128,7 @@ class ExperienceAddPriceViewController: UIViewController,UITextFieldDelegate {
                         sharedInstanceExperience.gotoStepSeventeen()
                     }
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -154,8 +154,8 @@ class ExperienceAddPriceViewController: UIViewController,UITextFieldDelegate {
             print("Selected item: \(item) at index: \(index)")
             self.currencyDetails = arrayOfCurrency.object(at: index) as! [String : AnyObject]
             self.CurrencyTxt.text = item
-            self.CuyyencySymLbl.text = self.currencyDetails["country_symbols"] as! String
-            ExperiencySelectedCurrency = self.currencyDetails["country_symbols"] as! String
+            self.CuyyencySymLbl.text = self.currencyDetails["country_symbols"] as? String ?? ""
+            ExperiencySelectedCurrency = self.currencyDetails["country_symbols"] as? String ?? ""
           }
     }
     

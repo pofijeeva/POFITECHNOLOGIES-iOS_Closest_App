@@ -17,8 +17,8 @@ class WishlistModel : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        message = dictionary["message"] as? String
-        status = dictionary["status"] as? Int
+        message = dictionary["message"] as? String ?? ""
+        status = dictionary["status"] as? Int ?? 0
         wishlist = [Wishlist]()
         if let wishlistArray = dictionary["wishlist"] as? [[String:Any]]{
             for dic in wishlistArray{
@@ -56,8 +56,8 @@ class WishlistModel : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        message = aDecoder.decodeObject(forKey: "message") as? String
-        status = aDecoder.decodeObject(forKey: "status") as? Int
+        message = aDecoder.decodeObject(forKey: "message") as? String ?? ""
+        status = aDecoder.decodeObject(forKey: "status") as? Int ?? 0
         wishlist = aDecoder.decodeObject(forKey: "wishlist") as? [Wishlist]
     }
 

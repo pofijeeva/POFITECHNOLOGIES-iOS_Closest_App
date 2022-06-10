@@ -23,8 +23,8 @@ class AccountInfoModel : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        message = dictionary["message"] as? String
-        status = dictionary["status"] as? Int
+        message = dictionary["message"] as? String ?? "" ?? ""
+        status = dictionary["status"] as? Int ?? 0
         accountinfo = [Accountinfo]()
         if let accountinfoArray = dictionary["accountinfo"] as? [[String:Any]]{
             for dic in accountinfoArray{
@@ -151,11 +151,11 @@ class AccountInfoModel : NSObject, NSCoding{
         completedTransaction = aDecoder.decodeObject(forKey: "completed_transaction") as? [CompletedTransaction]
         countryList = aDecoder.decodeObject(forKey: "country_list") as? [CountryList]
         futureTransaction = aDecoder.decodeObject(forKey: "future_transaction") as? [FutureTransaction]
-        message = aDecoder.decodeObject(forKey: "message") as? String
+        message = aDecoder.decodeObject(forKey: "message") as? String ?? ""
         notifications = aDecoder.decodeObject(forKey: "notifications") as? [Notification]
         payoutPerference = aDecoder.decodeObject(forKey: "payout_perference") as? [PayoutPerference]
         privacy = aDecoder.decodeObject(forKey: "privacy") as? [Privacy]
-        status = aDecoder.decodeObject(forKey: "status") as? Int
+        status = aDecoder.decodeObject(forKey: "status") as? Int ?? 0
     }
 
     /**

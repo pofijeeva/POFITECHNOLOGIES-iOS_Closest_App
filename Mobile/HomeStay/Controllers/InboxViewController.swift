@@ -39,7 +39,7 @@ class InboxViewController: BaseViewController,filterDelegate {
 
         //        if Reachability()!.isReachable
         //        {
-        //               let parameters = ["userid":login_session.value(forKey: "UserId")!,"base_id":1,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
+        //               let parameters = ["userid":login_session.value(forKey: "UserId")!,"base_id":1,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
         //
         //
         //            InboxApiCall()
@@ -48,11 +48,11 @@ class InboxViewController: BaseViewController,filterDelegate {
         //
         //      //      let id = Singleton.sharedInstance.selectedCategory!
         ////            self.showActivityIndicator(uiView: self.view)
-        ////            let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&base_id=\(id)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
+        ////            let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&base_id=\(id)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
         ////            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: INBOX_API, APIKEY: "INBOX_API")
         //
         //        }else {
-        //            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as! String)
+        //            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
         //        }
         
     }
@@ -89,7 +89,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                 
                 
                 
-                params = ["userid":login_session.value(forKey: "UserId")as Any,"base_id":id,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios"]
+                params = ["userid":login_session.value(forKey: "UserId")as Any,"base_id":id,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios"]
                 
                 let manager = AFHTTPSessionManager()
                 manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -101,7 +101,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "code") as! Int == 200 {
+                    if responseDict.value(forKey: "code") as? Int ?? 0 == 200 {
                         let mod = InboxListModel(fromDictionary: responseDict as! [String : Any])
                         Singleton.sharedInstance.inboxList = mod
                         
@@ -125,7 +125,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                         self.lblNoMessageFound.isHidden = false
                          self.lblNoMessage.isHidden = false
                         self.searchView.isHidden = true
-//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+//                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -134,7 +134,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                     print(error)
                     self.showInformation(title: "Closest", message: error.localizedDescription)
                 })
-                //                let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&base_id=\(id)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&device_type=\("ios")"
+                //                let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&base_id=\(id)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&device_type=\("ios")"
                 //                Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: INBOX_API, APIKEY: "INBOX_API")
                 //                print(parameterStr)
                 SelectedIds = 1
@@ -159,7 +159,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         let mod = InboxListModel(fromDictionary: responseDict as! [String : Any])
                         Singleton.sharedInstance.inboxList = mod
                         if mod.messageValues.count == 0 {
@@ -181,7 +181,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                         self.lblNoMessageFound.isHidden = false
                          self.lblNoMessage.isHidden = false
                         self.searchView.isHidden = true
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -217,7 +217,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         let mod = InboxListModel(fromDictionary: responseDict as! [String : Any])
                         Singleton.sharedInstance.inboxList = mod
                         if mod.messageValues.count == 0 {
@@ -239,7 +239,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                         self.lblNoMessageFound.isHidden = false
                          self.lblNoMessage.isHidden = false
                         self.searchView.isHidden = true
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -275,7 +275,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         let mod = InboxListModel(fromDictionary: responseDict as! [String : Any])
                         Singleton.sharedInstance.inboxList = mod
                         if mod.messageValues.count == 0 {
@@ -297,7 +297,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                         self.lblNoMessageFound.isHidden = false
                          self.lblNoMessage.isHidden = false
                         self.searchView.isHidden = true
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -336,7 +336,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         let mod = InboxListModel(fromDictionary: responseDict as! [String : Any])
                         Singleton.sharedInstance.inboxList = mod
                         if mod.messageValues.count == 0 {
@@ -358,7 +358,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                         self.lblNoMessageFound.isHidden = false
                          self.lblNoMessage.isHidden = false
                         self.searchView.isHidden = true
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -378,7 +378,7 @@ class InboxViewController: BaseViewController,filterDelegate {
             }
             else  if SelectedId == 6
             {
-                // let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&base_id=\(id)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&device_type=\("ios")"
+                // let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&base_id=\(id)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&device_type=\("ios")"
                 showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
                 
@@ -396,7 +396,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         let mod = InboxListModel(fromDictionary: responseDict as! [String : Any])
                         Singleton.sharedInstance.inboxList = mod
                         if mod.messageValues.count == 0 {
@@ -418,7 +418,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                         self.lblNoMessageFound.isHidden = false
                          self.lblNoMessage.isHidden = false
                         self.searchView.isHidden = true
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -437,7 +437,7 @@ class InboxViewController: BaseViewController,filterDelegate {
             
         else
         {
-            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as! String)
+            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
             
         }
         
@@ -468,7 +468,7 @@ class InboxViewController: BaseViewController,filterDelegate {
     func InboxApiCall() {
         var params = NSMutableDictionary()
         
-        params = ["userid":login_session.value(forKey: "UserId")!,"base_id":1,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
+        params = ["userid":login_session.value(forKey: "UserId")!,"base_id":1,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
         
         let manager = AFHTTPSessionManager()
         manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -479,7 +479,7 @@ class InboxViewController: BaseViewController,filterDelegate {
             }
             let responseDict:NSDictionary = responseObject as! NSDictionary
             print(responseDict)
-            if responseDict.value(forKey: "status") as! Int == 1 {
+            if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 let mod = InboxListModel(fromDictionary: responseDict as! [String : Any])
                 Singleton.sharedInstance.inboxList = mod
                 if mod.messageValues.count == 0 {
@@ -495,7 +495,7 @@ class InboxViewController: BaseViewController,filterDelegate {
             }
                 
             else {
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
         }, failure: { (operation, error) -> Void in
             DispatchQueue.main.async {
@@ -565,7 +565,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         let mod = InboxListModel(fromDictionary: responseDict as! [String : Any])
                         Singleton.sharedInstance.inboxList = mod
                         
@@ -586,7 +586,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                     }
                         
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -631,7 +631,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         let mod = InboxListModel(fromDictionary: responseDict as! [String : Any])
                         Singleton.sharedInstance.inboxList = mod
                         if mod.messageValues.count == 0 {
@@ -650,7 +650,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                     }
                         
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -698,7 +698,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         let mod = InboxListModel(fromDictionary: responseDict as! [String : Any])
                         Singleton.sharedInstance.inboxList = mod
                         if mod.messageValues.count == 0 {
@@ -717,7 +717,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                     }
                         
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -766,7 +766,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         let mod = InboxListModel(fromDictionary: responseDict as! [String : Any])
                         Singleton.sharedInstance.inboxList = mod
                         if mod.messageValues.count == 0 {
@@ -785,7 +785,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                     }
                         
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -834,7 +834,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         let mod = InboxListModel(fromDictionary: responseDict as! [String : Any])
                         Singleton.sharedInstance.inboxList = mod
                         if mod.messageValues.count == 0 {
@@ -853,7 +853,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                     }
                         
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -885,7 +885,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                     }
                     
                 }
-                // let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&base_id=\(id)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as! String)&device_type=\("ios")"
+                // let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&base_id=\(id)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&device_type=\("ios")"
                 
                 showActivityIndicator(uiView: self.view)
                 
@@ -903,7 +903,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                     let responseDict:NSDictionary = responseObject as! NSDictionary
                     print(responseDict)
                     self.hideActivityIndicator(uiView: self.view)
-                    if responseDict.value(forKey: "status") as! Int == 1 {
+                    if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         let mod = InboxListModel(fromDictionary: responseDict as! [String : Any])
                         Singleton.sharedInstance.inboxList = mod
                         if mod.messageValues.count == 0 {
@@ -923,7 +923,7 @@ class InboxViewController: BaseViewController,filterDelegate {
                     }
                         
                     else {
-                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                        self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                     }
                 }, failure: { (operation, error) -> Void in
                     DispatchQueue.main.async {
@@ -939,7 +939,7 @@ class InboxViewController: BaseViewController,filterDelegate {
             }
         }
         else{
-            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as! String)
+            showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
             
         }
         
@@ -1169,13 +1169,13 @@ extension InboxViewController: UITableViewDelegate,UITableViewDataSource {
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     self.tblInbox.reloadData()
                     self.loadDATA()
                 }
                     
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -1193,7 +1193,7 @@ extension InboxViewController: UITableViewDelegate,UITableViewDataSource {
         }
         else
         {
-            self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
     @objc func archiveBtnClick(sender: UIButton)
@@ -1219,13 +1219,13 @@ extension InboxViewController: UITableViewDelegate,UITableViewDataSource {
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
                 self.hideActivityIndicator(uiView: self.view)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     self.tblInbox.reloadData()
                     self.loadDATA()
                 }
                     
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {
@@ -1244,94 +1244,95 @@ extension InboxViewController: UITableViewDelegate,UITableViewDataSource {
         }
         else
         {
-            self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as! String)
+            self.showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? InboxCell
-        cell!.imgUser.layer.cornerRadius = cell!.imgUser.frame.size.width / 2
-        cell!.imgUser.clipsToBounds = true
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? InboxCell else { return UITableViewCell() }
+
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? InboxCell
+        cell.imgUser.layer.cornerRadius = cell.imgUser.frame.size.width / 2
+        cell.imgUser.clipsToBounds = true
         let url = URL(string: Singleton.sharedInstance.inboxList.messageValues[indexPath.row].userImage!)
-        cell?.imgUser.setImageWith(url!, placeholderImage: UIImage(named: "user"))
-//        cell!.imgUser.kf.setImage(with: url)
+        cell.imgUser.setImageWith(url!, placeholderImage: UIImage(named: "user"))
+//        cell.imgUser.kf.setImage(with: url)
         
         
         if  Singleton.sharedInstance.inboxList.messageValues[indexPath.row].starStatus == "0"
         {
-            cell!.starredBtn.setImage(UIImage(named: "starInbox"), for: .normal)
+            cell.starredBtn.setImage(UIImage(named: "starInbox"), for: .normal)
         }
         else
             
         {
-            cell!.starredBtn.setImage(UIImage(named: "star"), for: .normal)
+            cell.starredBtn.setImage(UIImage(named: "star"), for: .normal)
             
         }
-        cell!.starredBtn.tag = indexPath.row
-        cell!.archiveBtn.tag = indexPath.row
-        cell!.starredBtn.addTarget(self, action: #selector(starredbtnClick), for: .touchUpInside)
-        cell!.archiveBtn.addTarget(self, action: #selector(archiveBtnClick), for: .touchUpInside)
+        cell.starredBtn.tag = indexPath.row
+        cell.archiveBtn.tag = indexPath.row
+        cell.starredBtn.addTarget(self, action: #selector(starredbtnClick), for: .touchUpInside)
+        cell.archiveBtn.addTarget(self, action: #selector(archiveBtnClick), for: .touchUpInside)
         
         if Singleton.sharedInstance.inboxList.messageValues[indexPath.row].msgRead!  != "Yes" {
-            cell!.lblDate.textColor = UIColor.black
-            cell!.lblMessage.textColor = UIColor.black
-            cell!.lblBooking.textColor = UIColor.black
-            cell!.lblBooking.font = UIFont(name: SemiBoldFont, size: 15)
+            cell.lblDate.textColor = UIColor.black
+            cell.lblMessage.textColor = UIColor.black
+            cell.lblBooking.textColor = UIColor.black
+            cell.lblBooking.font = UIFont(name: SemiBoldFont, size: 15)
         } else
         {
-            cell!.lblDate.textColor = UIColor.lightGray
-            cell!.lblMessage.textColor = UIColor.lightGray
-            cell!.lblBooking.textColor = UIColor.lightGray
-            cell!.lblBooking.font = UIFont(name: SemiBoldFont, size: 15)
+            cell.lblDate.textColor = UIColor.lightGray
+            cell.lblMessage.textColor = UIColor.lightGray
+            cell.lblBooking.textColor = UIColor.lightGray
+            cell.lblBooking.font = UIFont(name: SemiBoldFont, size: 15)
         }
         
         if SelectedId == 6
         {
-            cell!.starredBtn.isHidden = true
+            cell.starredBtn.isHidden = true
             
             
         }
         else{
-            cell!.starredBtn.isHidden = false
+            cell.starredBtn.isHidden = false
         }
         
         
         //        if Singleton.sharedInstance.inboxList.messageValues[indexPath.row].status! == "Accept"
         //        {
         //            if selected  != true {
-        //                cell!.lblBooking.textColor = UIColor.darkGray
-        //                cell!.lblBooking.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
+        //                cell.lblBooking.textColor = UIColor.darkGray
+        //                cell.lblBooking.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         //            } else
         //            {
-        //                cell!.lblBooking.textColor = UIColor.black
-        //                cell!.lblBooking.font = UIFont(name:"HelveticaNeue-Regular", size: 16.0)
+        //                cell.lblBooking.textColor = UIColor.black
+        //                cell.lblBooking.font = UIFont(name:"HelveticaNeue-Regular", size: 16.0)
         //            }
         //        }else{
         //
         //        }
-        cell!.UnreadMsgCount.layer.cornerRadius = 12.5
-        cell!.UnreadMsgCount.layer.borderWidth = 1
-        cell!.UnreadMsgCount.layer.borderColor = hexStringToUIColor(hex: "#F8BC05").cgColor
-        cell!.lblBooking.text =  Singleton.sharedInstance.inboxList.messageValues[indexPath.row].subject!
+        cell.UnreadMsgCount.layer.cornerRadius = 12.5
+        cell.UnreadMsgCount.layer.borderWidth = 1
+        cell.UnreadMsgCount.layer.borderColor = hexStringToUIColor(hex: "#F8BC05").cgColor
+        cell.lblBooking.text =  Singleton.sharedInstance.inboxList.messageValues[indexPath.row].subject!
         //Singleton.sharedInstance.inboxList.messageValues[indexPath.row].subject!
-        cell!.lblMessage.text = (Singleton.sharedInstance.inboxList.messageValues[indexPath.row].message!).uppercased()
-        cell!.lblMessage.font = UIFont(name: RegularFont, size: 15)
-          cell!.lblDate.font = UIFont(name: RegularFont, size: 12)
-           cell!.UnreadMsgCount.font = UIFont(name: RegularFont, size: 14.0)
+        cell.lblMessage.text = (Singleton.sharedInstance.inboxList.messageValues[indexPath.row].message!).uppercased()
+        cell.lblMessage.font = UIFont(name: RegularFont, size: 15)
+          cell.lblDate.font = UIFont(name: RegularFont, size: 12)
+           cell.UnreadMsgCount.font = UIFont(name: RegularFont, size: 14.0)
         if Singleton.sharedInstance.inboxList.messageValues[indexPath.row].msgUnreadCount! == "0"{
-            cell!.UnreadMsgCount.isHidden = true
+            cell.UnreadMsgCount.isHidden = true
         }else {
-            cell!.UnreadMsgCount.isHidden = false
+            cell.UnreadMsgCount.isHidden = false
         }
         
         if Singleton.sharedInstance.inboxList.messageValues[indexPath.row].message!.uppercased() == "ACCEPTED" {
-                      cell!.lblMessage.textColor = hexStringToUIColor(hex: "00CE22")
+                      cell.lblMessage.textColor = hexStringToUIColor(hex: "00CE22")
                   }else if Singleton.sharedInstance.inboxList.messageValues[indexPath.row].message!.uppercased() == "REJECTED"{
-                       cell!.lblMessage.textColor = hexStringToUIColor(hex: "DE1E00")
+                       cell.lblMessage.textColor = hexStringToUIColor(hex: "DE1E00")
                   }else {
-                    cell!.lblMessage.textColor = .darkGray
+                    cell.lblMessage.textColor = .darkGray
                   }
-        cell!.UnreadMsgCount.text = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].msgUnreadCount!
+        cell.UnreadMsgCount.text = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].msgUnreadCount!
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -1347,31 +1348,31 @@ extension InboxViewController: UITableViewDelegate,UITableViewDataSource {
         
         
         let date = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].dateAdded!.components(separatedBy: " ")
-        cell!.lblDate.text = newformat.string(from: startingDate!)
+        cell.lblDate.text = newformat.string(from: startingDate!)
         
         
         
-          cell!.UnreadMsgCount.isHidden = true
-          cell!.starredBtn.isHidden = true//date[0]
-        return cell!
+          cell.UnreadMsgCount.isHidden = true
+          cell.starredBtn.isHidden = true//date[0]
+        return cell
         
         //        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? InboxCell
-        //        cell!.imgUser.layer.cornerRadius = cell!.imgUser.frame.size.width / 2
-        //        cell!.imgUser.clipsToBounds = true
+        //        cell.imgUser.layer.cornerRadius = cell.imgUser.frame.size.width / 2
+        //        cell.imgUser.clipsToBounds = true
         //        let url = URL(string: Singleton.sharedInstance.inboxList.messageValues[indexPath.row].userImage!)
-        //        //cell!.imgUser.kf.setImage(with: url)
-        //        cell!.imgUser.kf.setImage(with: url, placeholder: UIImage.init(named: "user"), options: nil, progressBlock: nil, completionHandler: nil)
+        //        //cell.imgUser.kf.setImage(with: url)
+        //        cell.imgUser.kf.setImage(with: url, placeholder: UIImage.init(named: "user"), options: nil, progressBlock: nil, completionHandler: nil)
         //
         //
         ////        if Singleton.sharedInstance.inboxList.messageValues[indexPath.row].status! == "Accept"
         ////        {
         ////            if selected  != true {
-        ////                cell!.lblBooking.textColor = UIColor.darkGray
-        ////                cell!.lblBooking.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
+        ////                cell.lblBooking.textColor = UIColor.darkGray
+        ////                cell.lblBooking.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         ////            } else
         ////            {
-        ////                cell!.lblBooking.textColor = UIColor.black
-        ////                cell!.lblBooking.font = UIFont(name:"HelveticaNeue-Regular", size: 16.0)
+        ////                cell.lblBooking.textColor = UIColor.black
+        ////                cell.lblBooking.font = UIFont(name:"HelveticaNeue-Regular", size: 16.0)
         ////            }
         ////        }
         ////        else
@@ -1381,27 +1382,27 @@ extension InboxViewController: UITableViewDelegate,UITableViewDataSource {
         //
         //        if (Singleton.sharedInstance.inboxList.messageValues[indexPath.row].msgRead) == "Yes"
         //        {
-        //            cell!.lblBooking.textColor = UIColor.lightGray
-        //            cell!.lblMessage.textColor = UIColor.lightGray
-        //            cell!.lblDate.textColor = UIColor.lightGray
-        //            cell!.lblBooking.font = UIFont(name:"HelveticaNeue-Regular", size: 16.0)
+        //            cell.lblBooking.textColor = UIColor.lightGray
+        //            cell.lblMessage.textColor = UIColor.lightGray
+        //            cell.lblDate.textColor = UIColor.lightGray
+        //            cell.lblBooking.font = UIFont(name:"HelveticaNeue-Regular", size: 16.0)
         //
         //        }
         //        else
         //        {
-        //            cell!.lblMessage.textColor = UIColor.black
-        //            cell!.lblDate.textColor = UIColor.black
-        //            cell!.lblBooking.textColor = UIColor.black
-        //            cell!.lblBooking.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
+        //            cell.lblMessage.textColor = UIColor.black
+        //            cell.lblDate.textColor = UIColor.black
+        //            cell.lblBooking.textColor = UIColor.black
+        //            cell.lblBooking.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         //
         //        }
         //
-        //        cell!.lblBooking.text = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].subject!
-        //        cell!.lblMessage.text = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].message!
+        //        cell.lblBooking.text = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].subject!
+        //        cell.lblMessage.text = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].message!
         //
         //        let date = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].dateAdded!.components(separatedBy: " ")
-        //        cell!.lblDate.text = date[0]
-        //        return cell!
+        //        cell.lblDate.text = date[0]
+        //        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

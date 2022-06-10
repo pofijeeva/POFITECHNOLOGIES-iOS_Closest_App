@@ -76,37 +76,37 @@ class PropertyListing : NSObject, NSCoding{
     init(fromDictionary dictionary: [String:Any]){
         print(dictionary)
 //        calendarStatus = dictionary["calendar_status"] as? [[String: Any]]
-        cancelBooking = (dictionary["cancel_booking"] as? Int)!
-        dailyStatus = ((dictionary)["daily_sts"] as? Bool)!
+        cancelBooking = (dictionary["cancel_booking"] as? Int) ?? 0
+        dailyStatus = (dictionary["daily_sts"] as? Bool) ?? false
         hourlyPrice = "\((dictionary["hourly_price"] as? AnyObject)!)"
-        hourlystatus = (dictionary["hourly_sts"] as? Bool)!
-        iD = (dictionary["id"] as? Int)!
+        hourlystatus = (dictionary["hourly_sts"] as? Bool) ?? false
+        iD = (dictionary["id"] as? Int) ?? 0
         
-        createdDate = dictionary["created_date"] as? String
-        host_id_verified = dictionary["host_id_verified"] as? String
+        createdDate = dictionary["created_date"] as? String ?? ""
+        host_id_verified = dictionary["host_id_verified"] as? String ?? ""
 
-        hostId = dictionary["host_id"] as? Int
-        hostname = dictionary["hostname"] as? String
-        payable = dictionary["payable"] as? Bool
-        propertyCurrencyCode = dictionary["property_currency_code"] as? String
-        propertyCurrencySymbol = dictionary["property_currency_symbol"] as? String
-        propertyId = dictionary["property_id"] as? Int!
-        propertyImage = dictionary["property_image"] as? String
-        propertyPrice = dictionary["property_price"] as? Int
-        propertyStatus = dictionary["property_status"] as? Bool
-        propertyTitle = dictionary["property_title"] as? String
-        ratingss = (dictionary["ratings"] as? String)!
-        reviewCount = (dictionary["review_count"] as? Int)!
-        stepstoComplete = (dictionary["steps_to_complete"] as? String)!
-        totalBooking = (dictionary["tot_booking"] as? Int)!
+        hostId = dictionary["host_id"] as? Int ?? 0
+        hostname = dictionary["hostname"] as? String ?? ""
+        payable = dictionary["payable"] as? Bool ?? false
+        propertyCurrencyCode = dictionary["property_currency_code"] as? String ?? ""
+        propertyCurrencySymbol = dictionary["property_currency_symbol"] as? String ?? ""
+        propertyId = dictionary["property_id"] as? Int ?? 0
+        propertyImage = dictionary["property_image"] as? String ?? ""
+        propertyPrice = dictionary["property_price"] as? Int ?? 0
+        propertyStatus = dictionary["property_status"] as? Bool ?? false
+        propertyTitle = dictionary["property_title"] as? String ?? ""
+        ratingss = (dictionary["ratings"] as? String ?? "")
+        reviewCount = (dictionary["review_count"] as? Int) ?? 0
+        stepstoComplete = (dictionary["steps_to_complete"] as? String ?? "")
+        totalBooking = (dictionary["tot_booking"] as? Int) ?? 0
         
         
         
-        remainingSteps = dictionary["remaining_steps"] as? Int
-        propertyAddress = dictionary["property_address"] as? String
-        creditCardStatus = dictionary["Credit_Card_status"] as? String
-        stripeStatus = dictionary["Stripe_status"] as? String
-        paypalStatus = dictionary["paypal_status"] as? String
+        remainingSteps = dictionary["remaining_steps"] as? Int ?? 0
+        propertyAddress = dictionary["property_address"] as? String ?? ""
+        creditCardStatus = dictionary["Credit_Card_status"] as? String ?? ""
+        stripeStatus = dictionary["Stripe_status"] as? String ?? ""
+        paypalStatus = dictionary["paypal_status"] as? String ?? ""
     }
     
     /**
@@ -210,37 +210,37 @@ class PropertyListing : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        propertyAddress = aDecoder.decodeObject(forKey: "property_address") as? String
+        propertyAddress = aDecoder.decodeObject(forKey: "property_address") as? String ?? ""
 //        calendarStatus = aDecoder.decodeObject(forKey: "calendar_status") as? [[String: Any]]
-        cancelBooking = (aDecoder.decodeObject(forKey: "cancel_booking") as? Int)!
-        dailyStatus = (aDecoder.decodeObject(forKey: "daily_sts") as? Bool)!
-        hourlyPrice = (aDecoder.decodeObject(forKey: "hourly_price") as? String)!
-        hourlystatus = (aDecoder.decodeObject(forKey: "hourly_sts") as? Bool)!
-        iD = (aDecoder.decodeObject(forKey: "id") as? Int)!
+        cancelBooking = (aDecoder.decodeObject(forKey: "cancel_booking") as? Int) ?? 0
+        dailyStatus = (aDecoder.decodeObject(forKey: "daily_sts") as? Bool) ?? false
+        hourlyPrice = (aDecoder.decodeObject(forKey: "hourly_price") as? String ?? "")
+        hourlystatus = (aDecoder.decodeObject(forKey: "hourly_sts") as? Bool) ?? false
+        iD = (aDecoder.decodeObject(forKey: "id") as? Int) ?? 0
         
-        createdDate = aDecoder.decodeObject(forKey: "created_date") as? String
-        host_id_verified = aDecoder.decodeObject(forKey: "host_id_verified") as? String
+        createdDate = aDecoder.decodeObject(forKey: "created_date") as? String ?? ""
+        host_id_verified = aDecoder.decodeObject(forKey: "host_id_verified") as? String ?? ""
 
-        hostId = aDecoder.decodeObject(forKey: "host_id") as? Int
-        hostname = aDecoder.decodeObject(forKey: "hostname") as? String
-        payable = aDecoder.decodeObject(forKey: "payable") as? Bool
-        propertyCurrencyCode = aDecoder.decodeObject(forKey: "property_currency_code") as? String
-        propertyCurrencySymbol = aDecoder.decodeObject(forKey: "property_currency_symbol") as? String
-        propertyId = aDecoder.decodeObject(forKey: "property_id") as? Int
-        propertyImage = aDecoder.decodeObject(forKey: "property_image") as? String
-        propertyPrice = aDecoder.decodeObject(forKey: "property_price") as? Int
-        propertyStatus = aDecoder.decodeObject(forKey: "property_status") as? Bool
-        propertyTitle = aDecoder.decodeObject(forKey: "property_title") as? String
-        ratingss = (aDecoder.decodeObject(forKey: "ratings") as? String)!
-        reviewCount = (aDecoder.decodeObject(forKey: "review_count") as? Int)!
-        stepstoComplete = (aDecoder.decodeObject(forKey: "steps_to_complete") as? String)!
-        totalBooking = (aDecoder.decodeObject(forKey: "tot_booking") as? Int)!
+        hostId = aDecoder.decodeObject(forKey: "host_id") as? Int ?? 0
+        hostname = aDecoder.decodeObject(forKey: "hostname") as? String ?? ""
+        payable = aDecoder.decodeObject(forKey: "payable") as? Bool ?? false
+        propertyCurrencyCode = aDecoder.decodeObject(forKey: "property_currency_code") as? String ?? ""
+        propertyCurrencySymbol = aDecoder.decodeObject(forKey: "property_currency_symbol") as? String ?? ""
+        propertyId = aDecoder.decodeObject(forKey: "property_id") as? Int ?? 0
+        propertyImage = aDecoder.decodeObject(forKey: "property_image") as? String ?? ""
+        propertyPrice = aDecoder.decodeObject(forKey: "property_price") as? Int ?? 0
+        propertyStatus = aDecoder.decodeObject(forKey: "property_status") as? Bool ?? false
+        propertyTitle = aDecoder.decodeObject(forKey: "property_title") as? String ?? ""
+        ratingss = (aDecoder.decodeObject(forKey: "ratings") as? String ?? "")
+        reviewCount = (aDecoder.decodeObject(forKey: "review_count") as? Int) ?? 0
+        stepstoComplete = (aDecoder.decodeObject(forKey: "steps_to_complete") as? String ?? "")
+        totalBooking = (aDecoder.decodeObject(forKey: "tot_booking") as? Int) ?? 0
         
         
-        remainingSteps = aDecoder.decodeObject(forKey: "remaining_steps") as? Int
-        creditCardStatus = aDecoder.decodeObject(forKey: "Credit_Card_status") as? String
-        stripeStatus = aDecoder.decodeObject(forKey: "Stripe_status") as? String
-        paypalStatus = aDecoder.decodeObject(forKey: "paypal_status") as? String
+        remainingSteps = aDecoder.decodeObject(forKey: "remaining_steps") as? Int ?? 0
+        creditCardStatus = aDecoder.decodeObject(forKey: "Credit_Card_status") as? String ?? ""
+        stripeStatus = aDecoder.decodeObject(forKey: "Stripe_status") as? String ?? ""
+        paypalStatus = aDecoder.decodeObject(forKey: "paypal_status") as? String ?? ""
     }
     
     /**
@@ -320,10 +320,7 @@ class PropertyListing : NSObject, NSCoding{
         if totalBooking != nil{
             aCoder.encode(totalBooking, forKey: "tot_booking")
         }
-        
-        
-        
-        
+                
         if remainingSteps != nil{
             aCoder.encode(remainingSteps, forKey: "remaining_steps")
         }

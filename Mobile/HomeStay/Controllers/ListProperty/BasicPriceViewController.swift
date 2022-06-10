@@ -154,36 +154,36 @@ class BasicPriceViewController: BaseViewController,CommonListingSaveDelegate
     {
         super.viewDidLoad()
         
-        self.BookingTypeLbl.text = GlobalLanguageDictionary.object(forKey: "key_bookingType") as! String
-        self.CurrenceyLbl.text = GlobalLanguageDictionary.object(forKey: "key_currency") as! String
-        self.txf_selectedCurrncy.placeholder = GlobalLanguageDictionary.object(forKey: "key_selectCurrency") as! String
-        self.DailyBookingLbl.text = GlobalLanguageDictionary.object(forKey: "key_dailyBooking") as! String
-        self.dailyBookingTitleLbl.text = GlobalLanguageDictionary.object(forKey: "key_dailyBooking") as! String
-        self.priceperdayTitle.text = GlobalLanguageDictionary.object(forKey: "key_priceperDay") as! String
-        self.dailyBookingDescLbl.text = GlobalLanguageDictionary.object(forKey: "key_dailyBookingDesc") as! String
+        self.BookingTypeLbl.text = GlobalLanguageDictionary.object(forKey: "key_bookingType") as? String ?? ""
+        self.CurrenceyLbl.text = GlobalLanguageDictionary.object(forKey: "key_currency") as? String ?? ""
+        self.txf_selectedCurrncy.placeholder = GlobalLanguageDictionary.object(forKey: "key_selectCurrency") as? String ?? ""
+        self.DailyBookingLbl.text = GlobalLanguageDictionary.object(forKey: "key_dailyBooking") as? String ?? ""
+        self.dailyBookingTitleLbl.text = GlobalLanguageDictionary.object(forKey: "key_dailyBooking") as? String ?? ""
+        self.priceperdayTitle.text = GlobalLanguageDictionary.object(forKey: "key_priceperDay") as? String ?? ""
+        self.dailyBookingDescLbl.text = GlobalLanguageDictionary.object(forKey: "key_dailyBookingDesc") as? String ?? ""
         
         
-        self.weekelyPriceTitleLbl.text = GlobalLanguageDictionary.object(forKey: "key_weeklyPrice") as! String
-        self.txt_PricePerWeek.placeholder = GlobalLanguageDictionary.object(forKey: "key_weeklyPrice") as! String
-    //    self.weekelyPriceDescLbl.text = GlobalLanguageDictionary.object(forKey: "key_weeklyDesc") as! String
+        self.weekelyPriceTitleLbl.text = GlobalLanguageDictionary.object(forKey: "key_weeklyPrice") as? String ?? ""
+        self.txt_PricePerWeek.placeholder = GlobalLanguageDictionary.object(forKey: "key_weeklyPrice") as? String ?? ""
+    //    self.weekelyPriceDescLbl.text = GlobalLanguageDictionary.object(forKey: "key_weeklyDesc") as? String ?? ""
         
-        self.MonthelyPriceTitleLbl.text = GlobalLanguageDictionary.object(forKey: "key_monthlyPrice") as! String
-        self.txt_PricePerMonth.placeholder = GlobalLanguageDictionary.object(forKey: "key_monthlyPrice") as! String
-      //  self.MonthelyPriceDescLbl.text = GlobalLanguageDictionary.object(forKey: "key_monthlyDesc") as! String
+        self.MonthelyPriceTitleLbl.text = GlobalLanguageDictionary.object(forKey: "key_monthlyPrice") as? String ?? ""
+        self.txt_PricePerMonth.placeholder = GlobalLanguageDictionary.object(forKey: "key_monthlyPrice") as? String ?? ""
+      //  self.MonthelyPriceDescLbl.text = GlobalLanguageDictionary.object(forKey: "key_monthlyDesc") as? String ?? ""
         
-        self.yearPriceTitleLbl.text = GlobalLanguageDictionary.object(forKey: "key_yearlyPrice") as! String
-        self.txt_PricePerYear.placeholder = GlobalLanguageDictionary.object(forKey: "key_yearlyPrice") as! String
-     //   self.yearDescLbl.text = GlobalLanguageDictionary.object(forKey: "key_yearlyDesc") as! String
-        self.btn_Next.setTitle(GlobalLanguageDictionary.object(forKey: "key_next") as! String, for: .normal)
+        self.yearPriceTitleLbl.text = GlobalLanguageDictionary.object(forKey: "key_yearlyPrice") as? String ?? ""
+        self.txt_PricePerYear.placeholder = GlobalLanguageDictionary.object(forKey: "key_yearlyPrice") as? String ?? ""
+     //   self.yearDescLbl.text = GlobalLanguageDictionary.object(forKey: "key_yearlyDesc") as? String ?? ""
+        self.btn_Next.setTitle(GlobalLanguageDictionary.object(forKey: "key_next") as? String ?? "", for: .normal)
         
-        self.LblYearlyEna.text = GlobalLanguageDictionary.object(forKey: "key_enable") as! String
-        self.LblMonthlyEna.text = GlobalLanguageDictionary.object(forKey: "key_enable") as! String
-        self.LblWeeklyEna.text = GlobalLanguageDictionary.object(forKey: "key_enable") as! String
-        self.LblWeeklyEna.text = GlobalLanguageDictionary.object(forKey: "key_enable") as! String
+        self.LblYearlyEna.text = GlobalLanguageDictionary.object(forKey: "key_enable") as? String ?? ""
+        self.LblMonthlyEna.text = GlobalLanguageDictionary.object(forKey: "key_enable") as? String ?? ""
+        self.LblWeeklyEna.text = GlobalLanguageDictionary.object(forKey: "key_enable") as? String ?? ""
+        self.LblWeeklyEna.text = GlobalLanguageDictionary.object(forKey: "key_enable") as? String ?? ""
         
-        self.LblYearlyDis.text = GlobalLanguageDictionary.object(forKey: "key_disable") as! String
-        self.LblMonthlyDis.text = GlobalLanguageDictionary.object(forKey: "key_disable") as! String
-        self.LblWeeklyDis.text = GlobalLanguageDictionary.object(forKey: "key_disable") as! String
+        self.LblYearlyDis.text = GlobalLanguageDictionary.object(forKey: "key_disable") as? String ?? ""
+        self.LblMonthlyDis.text = GlobalLanguageDictionary.object(forKey: "key_disable") as? String ?? ""
+        self.LblWeeklyDis.text = GlobalLanguageDictionary.object(forKey: "key_disable") as? String ?? ""
         
         self.btn_Next.backgroundColor = AppColor
         radioController.buttonsArray = [btn_Enable,btn_Disable]
@@ -662,7 +662,7 @@ class BasicPriceViewController: BaseViewController,CommonListingSaveDelegate
             }  else {
                 print("OUTSIDE LOOP")
                 self.showInformation(title: "Closest",
-                message: responseDict.value(forKey: "message") as! String)
+                message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             
         }

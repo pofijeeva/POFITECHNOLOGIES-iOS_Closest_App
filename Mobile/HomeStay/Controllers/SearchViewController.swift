@@ -224,7 +224,7 @@ class SearchViewController: UIViewController,UITextFieldDelegate,UITableViewDele
                 do {
                     let jSONresult = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String:AnyObject]
                     let results:NSArray = jSONresult["predictions"] as! NSArray
-                    let status = jSONresult["status"] as! String
+                    let status = jSONresult["status"] as? String ?? ""
                     if status == "NOT_FOUND" || status == "REQUEST_DENIED"
                     {
                         //                            let userInfo:NSDictionary = ["error": jSONresult["status"]!]
@@ -289,13 +289,15 @@ class SearchViewController: UIViewController,UITextFieldDelegate,UITableViewDele
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell") as? SearchTableViewCell
-        cell?.selectionStyle = .none
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell") as? SearchTableViewCell else { return UITableViewCell() }
+
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell") as? SearchTableViewCell
+        cell.selectionStyle = .none
         let tempDict = NSMutableDictionary()
-        tempDict.addEntries(from: (placeSearchArray.object(at: indexPath.row)as! NSDictionary) as! [AnyHashable : Any])
-        cell?.LocationName.font = UIFont(name: SemiBoldFont, size: 15)
-        cell?.LocationName.text = (tempDict.object(forKey: "description") as! String)
-        return cell!
+        tempDict.addEntries(from: (placeSearchArray.object(at: indexPath.row)as? NSDictionary) as? [AnyHashable : Any] ?? [:])
+        cell.LocationName.font = UIFont(name: SemiBoldFont, size: 15)
+        cell.LocationName.text = (tempDict.object(forKey: "description") as? String ?? "")
+        return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.view.endEditing(true)
@@ -305,19 +307,19 @@ class SearchViewController: UIViewController,UITextFieldDelegate,UITableViewDele
 //        else {
             var placeId = String()
             let tempDict = NSMutableDictionary()
-            tempDict.addEntries(from: (placeSearchArray.object(at: indexPath.row)as! NSDictionary) as! [AnyHashable : Any])
-            SearchTextField.text = (tempDict.object(forKey: "description") as! String)
-            placeId = tempDict.object(forKey: "place_id")as! String
+        tempDict.addEntries(from: (placeSearchArray.object(at: indexPath.row)as? NSDictionary) as? [AnyHashable : Any] ?? [:])
+            SearchTextField.text = (tempDict.object(forKey: "description") as? String ?? "")
+            placeId = tempDict.object(forKey: "place_id")as? String ?? ""
         if isFrom != "exp" {
-            self.searchLoctaionDelegate.getLocation(SearchResult: (tempDict.object(forKey: "description") as! String))
-            self.searchLoctaionDelegate.showPlaceList(searchResult: (tempDict.object(forKey: "description") as! String))
+            self.searchLoctaionDelegate.getLocation(SearchResult: (tempDict.object(forKey: "description") as? String ?? ""))
+            self.searchLoctaionDelegate.showPlaceList(searchResult: (tempDict.object(forKey: "description") as? String ?? ""))
         }
             //  self.navigationController?.popViewController(animated: true)
             self.getLatitudeLogitude(place_id: placeId){ (result) -> Void in
                 print(result)
                 
-                let MomentaryLatitude = result.object(forKey: "lat")as! Double
-                let MomentaryLongitude = result.object(forKey: "lng")as! Double
+                let MomentaryLatitude = result.object(forKey: "lat")as? Double ?? 0
+                let MomentaryLongitude = result.object(forKey: "lng")as? Double ?? 0
                 var coordinate = CLLocationCoordinate2D()
                 coordinate.latitude = MomentaryLatitude
                 coordinate.longitude = MomentaryLongitude
@@ -355,7 +357,7 @@ class SearchViewController: UIViewController,UITextFieldDelegate,UITableViewDele
                     let resultsDict:NSDictionary = jSONresult["result"] as! NSDictionary
                     let geometryDict:NSDictionary = resultsDict["geometry"]as! NSDictionary
                     let locationDict:NSDictionary = geometryDict["location"]as! NSDictionary
-                    let status = jSONresult["status"] as! String
+                    let status = jSONresult["status"] as? String ?? ""
                     if status == "NOT_FOUND" || status == "REQUEST_DENIED"
                     {
                         //                            let userInfo:NSDictionary = ["error": jSONresult["status"]!]

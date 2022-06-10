@@ -17,8 +17,8 @@ class Rooms : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        optionId = dictionary["option_id"] as? Int
-        optionName = dictionary["option_name"] as? String
+        optionId = dictionary["option_id"] as? Int ?? 0
+        optionName = dictionary["option_name"] as? String ?? ""
         options = [OptionsNew]()
         if let optionsArray = dictionary["options"] as? [[String:Any]]{
             for dic in optionsArray{
@@ -56,8 +56,8 @@ class Rooms : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        optionId = aDecoder.decodeObject(forKey: "option_id") as? Int
-        optionName = aDecoder.decodeObject(forKey: "option_name") as? String
+        optionId = aDecoder.decodeObject(forKey: "option_id") as? Int ?? 0
+        optionName = aDecoder.decodeObject(forKey: "option_name") as? String ?? ""
         options = aDecoder.decodeObject(forKey: "options") as? [OptionsNew]
     }
 

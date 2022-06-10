@@ -115,7 +115,7 @@ class ProvideAddItemSheetViewController: UIViewController, UITextViewDelegate {
             var APINAME = ""
             if self.ComingType == "Edit" {
                 APINAME = ExperienceUpdateKit
-                params = ["user_id":login_session.value(forKey: "UserId")!,"exp_id":currentExpId,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","detailed_title" : self.TitleTxt.text!,"kit_detailed":self.AboutTxt.text!,"kit_count":self.QuantityTxt.text!,"kit_description":self.DescTextView.text!,"kit_id":self.KitID,"main_title" : self.TitleTxt.text! ]
+                params = ["user_id":login_session.value(forKey: "UserId")!,"exp_id":currentExpId,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","detailed_title" : self.TitleTxt.text!,"kit_detailed":self.AboutTxt.text!,"kit_count":self.QuantityTxt.text!,"kit_description":self.DescTextView.text!,"kit_id":self.KitID,"main_title" : self.TitleTxt.text! ]
                 
 //                Manikandan P (manikandan@pofitec.com)
 //                kit_id=47&user_id=12&exp_id=346&detailed_title=hsyz&kit_count=3&device_type=android&main_title=hzyz&kit_description=thegsbzh&currency_code=EUR
@@ -123,7 +123,7 @@ class ProvideAddItemSheetViewController: UIViewController, UITextViewDelegate {
                 
             }else{
                 APINAME = ExperienceAddKit
-                params = ["user_id":login_session.value(forKey: "UserId")!,"exp_id":currentExpId,"currency_code":login_session.value(forKey: "APP_CURRENCY") as! String,"device_type":"ios","kit_title" : self.TitleTxt.text!,"kit_detailed":self.AboutTxt.text!,"kit_count":self.QuantityTxt.text!,"kit_description":self.DescTextView.text!]
+                params = ["user_id":login_session.value(forKey: "UserId")!,"exp_id":currentExpId,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","kit_title" : self.TitleTxt.text!,"kit_detailed":self.AboutTxt.text!,"kit_count":self.QuantityTxt.text!,"kit_description":self.DescTextView.text!]
             }
             Helper.sharedInstance.showActivityIndicator(view: self.view, targetVC: self)
             let manager = AFHTTPSessionManager()
@@ -134,13 +134,13 @@ class ProvideAddItemSheetViewController: UIViewController, UITextViewDelegate {
                 }
                 let responseDict:NSDictionary = responseObject as! NSDictionary
                 print(responseDict)
-                if responseDict.value(forKey: "status") as! Int == 1 {
+                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     self.navigationController?.popViewController(animated: true)
                     // self.showInformation(title: "Closest", message: mod.message)
                 }
                 
                 else {
-                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as! String)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
             }, failure: { (operation, error) -> Void in
                 DispatchQueue.main.async {

@@ -22,14 +22,14 @@ class Message : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        id = dictionary["Id"] as? String
-        isHostRead = dictionary["is_host_read"] as? Bool
-        isReceiverRead = dictionary["is_receiver_read"] as? Bool
-        isSubject = dictionary["is_subject"] as? Bool
-        message = dictionary["message"] as? String
-        messageBy = dictionary["message_by"] as? String
-        serverTime = dictionary["server_time"] as? String
-        userImage = dictionary["user_image"] as? String
+        id = dictionary["Id"] as? String ?? ""
+        isHostRead = dictionary["is_host_read"] as? Bool ?? false
+        isReceiverRead = dictionary["is_receiver_read"] as? Bool ?? false
+        isSubject = dictionary["is_subject"] as? Bool ?? false
+        message = dictionary["message"] as? String ?? ""
+        messageBy = dictionary["message_by"] as? String ?? ""
+        serverTime = dictionary["server_time"] as? String ?? ""
+        userImage = dictionary["user_image"] as? String ?? ""
     }
 
     /**
@@ -71,14 +71,14 @@ class Message : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        id = aDecoder.decodeObject(forKey: "Id") as? String
-        isHostRead = aDecoder.decodeObject(forKey: "is_host_read") as? Bool
-        isReceiverRead = aDecoder.decodeObject(forKey: "is_receiver_read") as? Bool
-        isSubject = aDecoder.decodeObject(forKey: "is_subject") as? Bool
-        message = aDecoder.decodeObject(forKey: "message") as? String
-        messageBy = aDecoder.decodeObject(forKey: "message_by") as? String
-        serverTime = aDecoder.decodeObject(forKey: "server_time") as? String
-        userImage = aDecoder.decodeObject(forKey: "user_image") as? String
+        id = aDecoder.decodeObject(forKey: "Id") as? String ?? ""
+        isHostRead = aDecoder.decodeObject(forKey: "is_host_read") as? Bool ?? false
+        isReceiverRead = aDecoder.decodeObject(forKey: "is_receiver_read") as? Bool ?? false
+        isSubject = aDecoder.decodeObject(forKey: "is_subject") as? Bool ?? false
+        message = aDecoder.decodeObject(forKey: "message") as? String ?? ""
+        messageBy = aDecoder.decodeObject(forKey: "message_by") as? String ?? ""
+        serverTime = aDecoder.decodeObject(forKey: "server_time") as? String ?? ""
+        userImage = aDecoder.decodeObject(forKey: "user_image") as? String ?? ""
     }
 
     /**

@@ -17,8 +17,8 @@ class CouponDetailsJson : NSObject, NSCoding{
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        message = dictionary["message"] as? String
-        status = dictionary["status"] as? Int
+        message = dictionary["message"] as? String ?? "" ?? ""
+        status = dictionary["status"] as? Int ?? 0
         couponDetails = [CouponDetail]()
         if let couponDetailsArray = dictionary["coupon_details"] as? [[String:Any]]{
             for dic in couponDetailsArray{
@@ -57,8 +57,8 @@ class CouponDetailsJson : NSObject, NSCoding{
     @objc required init(coder aDecoder: NSCoder)
     {
         couponDetails = aDecoder.decodeObject(forKey: "coupon_details") as? [CouponDetail]
-        message = aDecoder.decodeObject(forKey: "message") as? String
-        status = aDecoder.decodeObject(forKey: "status") as? Int
+        message = aDecoder.decodeObject(forKey: "message") as? String ?? ""
+        status = aDecoder.decodeObject(forKey: "status") as? Int ?? 0
     }
 
     /**

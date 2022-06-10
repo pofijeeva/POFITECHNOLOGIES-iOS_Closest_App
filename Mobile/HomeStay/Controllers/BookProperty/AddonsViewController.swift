@@ -76,46 +76,47 @@ class AddonsViewController: UIViewController,UITableViewDelegate,UITableViewData
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AddonsTableViewCell") as? AddonsTableViewCell
-            cell!.selectionStyle = .none
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "AddonsTableViewCell") as? AddonsTableViewCell else { return UITableViewCell() }
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "AddonsTableViewCell") as? AddonsTableViewCell
+            cell.selectionStyle = .none
         
         let attributedString = NSMutableAttributedString()
-        attributedString.append(NSAttributedString(string: (self.AddonsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "list_name") as! String, attributes: [NSAttributedString.Key.foregroundColor: UIColor.black]));
-        attributedString.append(NSAttributedString(string: "  -  \(login_session.value(forKey: "APP_CURRENCYSYM") as? String ?? "$") \((self.AddonsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "amount") as AnyObject)", attributes: [NSAttributedString.Key.foregroundColor: AppColor]))
+        attributedString.append(NSAttributedString(string: (self.AddonsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "list_name") as? String ?? "", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black]));
+        attributedString.append(NSAttributedString(string: "  -  \(login_session.value(forKey: "APP_CURRENCYSYM") as? String ?? "$") \((self.AddonsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "amount") as AnyObject)", attributes: [NSAttributedString.Key.foregroundColor: AppColor]))
         
-      //  let NameCurrency = (self.AddonsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "add_on_name") as! String + " ( USD - \((self.AddonsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "add_on_price") as AnyObject))"
-        cell!.AddonsLbl.attributedText = attributedString
-        cell?.AddonsLbl.font = UIFont(name: SemiBoldFont, size: 14)
+      //  let NameCurrency = (self.AddonsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "add_on_name") as? String ?? "" + " ( USD - \((self.AddonsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "add_on_price") as AnyObject))"
+        cell.AddonsLbl.attributedText = attributedString
+        cell.AddonsLbl.font = UIFont(name: SemiBoldFont, size: 14)
         
-        let AddOnId = "\((self.AddonsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "list_id") as AnyObject)"
+        let AddOnId = "\((self.AddonsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "list_id") as AnyObject)"
 
 
 //        for i in 0..<AddonsSelectedDictValues.count {
-//            let BundleIds = "\((AddonsSelectedDictValues.object(at: i) as! NSDictionary).object(forKey: "id") as AnyObject)"
+//            let BundleIds = "\((AddonsSelectedDictValues.object(at: i) as? NSDictionary)?.object(forKey: "id") as AnyObject)"
 //            print(BundleIds)
 //            if AddonsSelectedDictValues.contains(BundleIds) || AddonsSelectedDictValues.contains(AddOnId) {
-//                cell!.AddonsImg.image = UIImage(named: "Group-2")
+//                cell.AddonsImg.image = UIImage(named: "Group-2")
 //            }else{
-//                cell!.AddonsImg.image = UIImage(named: "Rectangle")
+//                cell.AddonsImg.image = UIImage(named: "Rectangle")
 //            }
 //        }
         
         if AddonsSelectedDictValues.contains(AddOnId) {
-            cell!.AddonsImg.image = UIImage(named: "Group-2")
+            cell.AddonsImg.image = UIImage(named: "Group-2")
         }else{
-            cell!.AddonsImg.image = UIImage(named: "Rectangle")
+            cell.AddonsImg.image = UIImage(named: "Rectangle")
         }
-            return cell!
+            return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
         
         
-        let AddOnId = "\((self.AddonsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "list_id") as AnyObject)"
-        let AddOnName = "\((self.AddonsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "list_name") as AnyObject)"
+        let AddOnId = "\((self.AddonsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "list_id") as AnyObject)"
+        let AddOnName = "\((self.AddonsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "list_name") as AnyObject)"
         
-        let Amount = "\((self.AddonsArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "amount") as AnyObject)"
+        let Amount = "\((self.AddonsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "amount") as AnyObject)"
         
         let decimal = Decimal(floatLiteral: Double(Amount)!)
         let intValue = (decimal as NSDecimalNumber).intValue
@@ -125,7 +126,7 @@ class AddonsViewController: UIViewController,UITableViewDelegate,UITableViewData
             self.AmountStr = add_on_amount - intValue
             
             for i in 0..<AddonsSelectedValuesDict.count{
-                let addonIds = "\((AddonsSelectedValuesDict.object(at: i) as! NSDictionary).object(forKey: "id") as AnyObject)"
+                let addonIds = "\((AddonsSelectedValuesDict.object(at: i) as? NSDictionary)?.object(forKey: "id") as AnyObject)"
                 if AddOnId == addonIds{
                     AddonsSelectedValuesDict.removeObject(at: i)
                     break
