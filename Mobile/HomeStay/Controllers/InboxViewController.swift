@@ -1248,90 +1248,91 @@ extension InboxViewController: UITableViewDelegate,UITableViewDataSource {
         }
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? InboxCell
-        cell!.imgUser.layer.cornerRadius = cell!.imgUser.frame.size.width / 2
-        cell!.imgUser.clipsToBounds = true
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? InboxCell else { return UITableViewCell() }
+
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? InboxCell
+        cell.imgUser.layer.cornerRadius = cell.imgUser.frame.size.width / 2
+        cell.imgUser.clipsToBounds = true
         let url = URL(string: Singleton.sharedInstance.inboxList.messageValues[indexPath.row].userImage!)
-        cell?.imgUser.setImageWith(url!, placeholderImage: UIImage(named: "user"))
-//        cell!.imgUser.kf.setImage(with: url)
+        cell.imgUser.setImageWith(url!, placeholderImage: UIImage(named: "user"))
+//        cell.imgUser.kf.setImage(with: url)
         
         
         if  Singleton.sharedInstance.inboxList.messageValues[indexPath.row].starStatus == "0"
         {
-            cell!.starredBtn.setImage(UIImage(named: "starInbox"), for: .normal)
+            cell.starredBtn.setImage(UIImage(named: "starInbox"), for: .normal)
         }
         else
             
         {
-            cell!.starredBtn.setImage(UIImage(named: "star"), for: .normal)
+            cell.starredBtn.setImage(UIImage(named: "star"), for: .normal)
             
         }
-        cell!.starredBtn.tag = indexPath.row
-        cell!.archiveBtn.tag = indexPath.row
-        cell!.starredBtn.addTarget(self, action: #selector(starredbtnClick), for: .touchUpInside)
-        cell!.archiveBtn.addTarget(self, action: #selector(archiveBtnClick), for: .touchUpInside)
+        cell.starredBtn.tag = indexPath.row
+        cell.archiveBtn.tag = indexPath.row
+        cell.starredBtn.addTarget(self, action: #selector(starredbtnClick), for: .touchUpInside)
+        cell.archiveBtn.addTarget(self, action: #selector(archiveBtnClick), for: .touchUpInside)
         
         if Singleton.sharedInstance.inboxList.messageValues[indexPath.row].msgRead!  != "Yes" {
-            cell!.lblDate.textColor = UIColor.black
-            cell!.lblMessage.textColor = UIColor.black
-            cell!.lblBooking.textColor = UIColor.black
-            cell!.lblBooking.font = UIFont(name: SemiBoldFont, size: 15)
+            cell.lblDate.textColor = UIColor.black
+            cell.lblMessage.textColor = UIColor.black
+            cell.lblBooking.textColor = UIColor.black
+            cell.lblBooking.font = UIFont(name: SemiBoldFont, size: 15)
         } else
         {
-            cell!.lblDate.textColor = UIColor.lightGray
-            cell!.lblMessage.textColor = UIColor.lightGray
-            cell!.lblBooking.textColor = UIColor.lightGray
-            cell!.lblBooking.font = UIFont(name: SemiBoldFont, size: 15)
+            cell.lblDate.textColor = UIColor.lightGray
+            cell.lblMessage.textColor = UIColor.lightGray
+            cell.lblBooking.textColor = UIColor.lightGray
+            cell.lblBooking.font = UIFont(name: SemiBoldFont, size: 15)
         }
         
         if SelectedId == 6
         {
-            cell!.starredBtn.isHidden = true
+            cell.starredBtn.isHidden = true
             
             
         }
         else{
-            cell!.starredBtn.isHidden = false
+            cell.starredBtn.isHidden = false
         }
         
         
         //        if Singleton.sharedInstance.inboxList.messageValues[indexPath.row].status! == "Accept"
         //        {
         //            if selected  != true {
-        //                cell!.lblBooking.textColor = UIColor.darkGray
-        //                cell!.lblBooking.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
+        //                cell.lblBooking.textColor = UIColor.darkGray
+        //                cell.lblBooking.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         //            } else
         //            {
-        //                cell!.lblBooking.textColor = UIColor.black
-        //                cell!.lblBooking.font = UIFont(name:"HelveticaNeue-Regular", size: 16.0)
+        //                cell.lblBooking.textColor = UIColor.black
+        //                cell.lblBooking.font = UIFont(name:"HelveticaNeue-Regular", size: 16.0)
         //            }
         //        }else{
         //
         //        }
-        cell!.UnreadMsgCount.layer.cornerRadius = 12.5
-        cell!.UnreadMsgCount.layer.borderWidth = 1
-        cell!.UnreadMsgCount.layer.borderColor = hexStringToUIColor(hex: "#F8BC05").cgColor
-        cell!.lblBooking.text =  Singleton.sharedInstance.inboxList.messageValues[indexPath.row].subject!
+        cell.UnreadMsgCount.layer.cornerRadius = 12.5
+        cell.UnreadMsgCount.layer.borderWidth = 1
+        cell.UnreadMsgCount.layer.borderColor = hexStringToUIColor(hex: "#F8BC05").cgColor
+        cell.lblBooking.text =  Singleton.sharedInstance.inboxList.messageValues[indexPath.row].subject!
         //Singleton.sharedInstance.inboxList.messageValues[indexPath.row].subject!
-        cell!.lblMessage.text = (Singleton.sharedInstance.inboxList.messageValues[indexPath.row].message!).uppercased()
-        cell!.lblMessage.font = UIFont(name: RegularFont, size: 15)
-          cell!.lblDate.font = UIFont(name: RegularFont, size: 12)
-           cell!.UnreadMsgCount.font = UIFont(name: RegularFont, size: 14.0)
+        cell.lblMessage.text = (Singleton.sharedInstance.inboxList.messageValues[indexPath.row].message!).uppercased()
+        cell.lblMessage.font = UIFont(name: RegularFont, size: 15)
+          cell.lblDate.font = UIFont(name: RegularFont, size: 12)
+           cell.UnreadMsgCount.font = UIFont(name: RegularFont, size: 14.0)
         if Singleton.sharedInstance.inboxList.messageValues[indexPath.row].msgUnreadCount! == "0"{
-            cell!.UnreadMsgCount.isHidden = true
+            cell.UnreadMsgCount.isHidden = true
         }else {
-            cell!.UnreadMsgCount.isHidden = false
+            cell.UnreadMsgCount.isHidden = false
         }
         
         if Singleton.sharedInstance.inboxList.messageValues[indexPath.row].message!.uppercased() == "ACCEPTED" {
-                      cell!.lblMessage.textColor = hexStringToUIColor(hex: "00CE22")
+                      cell.lblMessage.textColor = hexStringToUIColor(hex: "00CE22")
                   }else if Singleton.sharedInstance.inboxList.messageValues[indexPath.row].message!.uppercased() == "REJECTED"{
-                       cell!.lblMessage.textColor = hexStringToUIColor(hex: "DE1E00")
+                       cell.lblMessage.textColor = hexStringToUIColor(hex: "DE1E00")
                   }else {
-                    cell!.lblMessage.textColor = .darkGray
+                    cell.lblMessage.textColor = .darkGray
                   }
-        cell!.UnreadMsgCount.text = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].msgUnreadCount!
+        cell.UnreadMsgCount.text = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].msgUnreadCount!
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -1347,31 +1348,31 @@ extension InboxViewController: UITableViewDelegate,UITableViewDataSource {
         
         
         let date = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].dateAdded!.components(separatedBy: " ")
-        cell!.lblDate.text = newformat.string(from: startingDate!)
+        cell.lblDate.text = newformat.string(from: startingDate!)
         
         
         
-          cell!.UnreadMsgCount.isHidden = true
-          cell!.starredBtn.isHidden = true//date[0]
-        return cell!
+          cell.UnreadMsgCount.isHidden = true
+          cell.starredBtn.isHidden = true//date[0]
+        return cell
         
         //        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? InboxCell
-        //        cell!.imgUser.layer.cornerRadius = cell!.imgUser.frame.size.width / 2
-        //        cell!.imgUser.clipsToBounds = true
+        //        cell.imgUser.layer.cornerRadius = cell.imgUser.frame.size.width / 2
+        //        cell.imgUser.clipsToBounds = true
         //        let url = URL(string: Singleton.sharedInstance.inboxList.messageValues[indexPath.row].userImage!)
-        //        //cell!.imgUser.kf.setImage(with: url)
-        //        cell!.imgUser.kf.setImage(with: url, placeholder: UIImage.init(named: "user"), options: nil, progressBlock: nil, completionHandler: nil)
+        //        //cell.imgUser.kf.setImage(with: url)
+        //        cell.imgUser.kf.setImage(with: url, placeholder: UIImage.init(named: "user"), options: nil, progressBlock: nil, completionHandler: nil)
         //
         //
         ////        if Singleton.sharedInstance.inboxList.messageValues[indexPath.row].status! == "Accept"
         ////        {
         ////            if selected  != true {
-        ////                cell!.lblBooking.textColor = UIColor.darkGray
-        ////                cell!.lblBooking.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
+        ////                cell.lblBooking.textColor = UIColor.darkGray
+        ////                cell.lblBooking.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         ////            } else
         ////            {
-        ////                cell!.lblBooking.textColor = UIColor.black
-        ////                cell!.lblBooking.font = UIFont(name:"HelveticaNeue-Regular", size: 16.0)
+        ////                cell.lblBooking.textColor = UIColor.black
+        ////                cell.lblBooking.font = UIFont(name:"HelveticaNeue-Regular", size: 16.0)
         ////            }
         ////        }
         ////        else
@@ -1381,27 +1382,27 @@ extension InboxViewController: UITableViewDelegate,UITableViewDataSource {
         //
         //        if (Singleton.sharedInstance.inboxList.messageValues[indexPath.row].msgRead) == "Yes"
         //        {
-        //            cell!.lblBooking.textColor = UIColor.lightGray
-        //            cell!.lblMessage.textColor = UIColor.lightGray
-        //            cell!.lblDate.textColor = UIColor.lightGray
-        //            cell!.lblBooking.font = UIFont(name:"HelveticaNeue-Regular", size: 16.0)
+        //            cell.lblBooking.textColor = UIColor.lightGray
+        //            cell.lblMessage.textColor = UIColor.lightGray
+        //            cell.lblDate.textColor = UIColor.lightGray
+        //            cell.lblBooking.font = UIFont(name:"HelveticaNeue-Regular", size: 16.0)
         //
         //        }
         //        else
         //        {
-        //            cell!.lblMessage.textColor = UIColor.black
-        //            cell!.lblDate.textColor = UIColor.black
-        //            cell!.lblBooking.textColor = UIColor.black
-        //            cell!.lblBooking.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
+        //            cell.lblMessage.textColor = UIColor.black
+        //            cell.lblDate.textColor = UIColor.black
+        //            cell.lblBooking.textColor = UIColor.black
+        //            cell.lblBooking.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
         //
         //        }
         //
-        //        cell!.lblBooking.text = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].subject!
-        //        cell!.lblMessage.text = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].message!
+        //        cell.lblBooking.text = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].subject!
+        //        cell.lblMessage.text = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].message!
         //
         //        let date = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].dateAdded!.components(separatedBy: " ")
-        //        cell!.lblDate.text = date[0]
-        //        return cell!
+        //        cell.lblDate.text = date[0]
+        //        return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

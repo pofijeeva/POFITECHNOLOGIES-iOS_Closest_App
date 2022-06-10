@@ -318,42 +318,45 @@ else{
         
         if iswallet == true
         {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cellnew") as? SearchCell
-             cell!.selectionStyle = .none
-            
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "cellnew") as? SearchCell else { return UITableViewCell() }
+
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "cellnew") as? SearchCell
+             cell.selectionStyle = .none
            
             
-               cell!.YourEarings.font = UIFont(name: SemiBoldFont, size: 15)
-             cell!.walletAmount.font = UIFont(name: SemiBoldFont, size: 15)
-             cell!.usedWalletLabel.font = UIFont(name: SemiBoldFont, size: 15)
-             cell!.balenceWallet.font = UIFont(name: SemiBoldFont, size: 15)
+               cell.YourEarings.font = UIFont(name: SemiBoldFont, size: 15)
+             cell.walletAmount.font = UIFont(name: SemiBoldFont, size: 15)
+             cell.usedWalletLabel.font = UIFont(name: SemiBoldFont, size: 15)
+             cell.balenceWallet.font = UIFont(name: SemiBoldFont, size: 15)
             
-                cell!.walletAmount.font = UIFont(name: RegularFont, size: 14)
-                cell!.usedWalletLabel.font = UIFont(name: RegularFont, size: 14)
-            cell!.balenceWallet.font = UIFont(name: RegularFont, size: 14)
+                cell.walletAmount.font = UIFont(name: RegularFont, size: 14)
+                cell.usedWalletLabel.font = UIFont(name: RegularFont, size: 14)
+            cell.balenceWallet.font = UIFont(name: RegularFont, size: 14)
             
-            cell!.walletAmount.text = self.totalwallet
-              cell!.usedWalletLabel.text = self.usedWallet
-              cell!.balenceWallet.text = self.balenceWallet
-             return cell!
+            cell.walletAmount.text = self.totalwallet
+              cell.usedWalletLabel.text = self.usedWallet
+              cell.balenceWallet.text = self.balenceWallet
+             return cell
         }
         else
         {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "NewCouponTableViewCell") as? NewCouponTableViewCell
-            cell!.selectionStyle = .none
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "NewCouponTableViewCell") as? NewCouponTableViewCell else { return UITableViewCell() }
+
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "NewCouponTableViewCell") as? NewCouponTableViewCell
+            cell.selectionStyle = .none
             let dict = Singleton.sharedInstance.couponDetailsJson.couponDetails[indexPath.row]
             
-           cell!.PropertyNameLbl.font = UIFont(name: SemiBoldFont, size: 14)
-                cell!.PropertyPerLbl.font = UIFont(name: SemiBoldFont, size: 20)
+           cell.PropertyNameLbl.font = UIFont(name: SemiBoldFont, size: 14)
+                cell.PropertyPerLbl.font = UIFont(name: SemiBoldFont, size: 20)
           
             
-                cell!.offLbl.font = UIFont(name: SemiBoldFont, size: 13)
-                 cell!.CouponCodeLbl.font = UIFont(name: SemiBoldFont, size: 14)
-              cell!.ExpiryLbl.font = UIFont(name: SemiBoldFont, size: 14)
-               cell!.ExpiryDateLbl.font = UIFont(name: SemiBoldFont, size: 14)
-                cell!.LimitLbl.font = UIFont(name: RegularFont, size: 14)
-             cell!.limitValLbl.font = UIFont(name: RegularFont, size: 15)
-             cell!.PropertyNameLbl.font = UIFont(name: RegularFont, size: 15)
+                cell.offLbl.font = UIFont(name: SemiBoldFont, size: 13)
+                 cell.CouponCodeLbl.font = UIFont(name: SemiBoldFont, size: 14)
+              cell.ExpiryLbl.font = UIFont(name: SemiBoldFont, size: 14)
+               cell.ExpiryDateLbl.font = UIFont(name: SemiBoldFont, size: 14)
+                cell.LimitLbl.font = UIFont(name: RegularFont, size: 14)
+             cell.limitValLbl.font = UIFont(name: RegularFont, size: 15)
+             cell.PropertyNameLbl.font = UIFont(name: RegularFont, size: 15)
            
              
             let dateFormatter = DateFormatter()
@@ -367,14 +370,14 @@ else{
             
             
             
-    cell!.CouponCodeLbl.text = "CODE :" + dict.couponCode!
+    cell.CouponCodeLbl.text = "CODE :" + dict.couponCode!
             let dataArray = dict.couponAssignedProducts!
             
             if dataArray.count == 1{
-                cell!.PropertyNameLbl.text = dataArray[0].productTitle
-                cell?.bgImgView.isHidden = false
-                cell?.BaseView.layer.borderWidth = 0
-                cell?.BaseView.layer.cornerRadius = 0
+                cell.PropertyNameLbl.text = dataArray[0].productTitle
+                cell.bgImgView.isHidden = false
+                cell.BaseView.layer.borderWidth = 0
+                cell.BaseView.layer.cornerRadius = 0
                     //(dataArray![0] as? NSDictionary)?.object(forKey: "product_title")as? String
             }else{
                 var tempStr = String()
@@ -388,21 +391,21 @@ else{
                         let str = dataArray[i].productTitle
                         tempStr = tempStr + "\n" + str!
                     }
-                    cell?.bgImgView.isHidden = true
+                    cell.bgImgView.isHidden = true
                 }
-                cell!.PropertyNameLbl.text = tempStr
-                cell?.BaseView.layer.cornerRadius = 5.0
-                cell?.BaseView.layer.borderWidth = 0.1
-                cell?.BaseView.layer.borderColor = UIColor.groupTableViewBackground.cgColor
+                cell.PropertyNameLbl.text = tempStr
+                cell.BaseView.layer.cornerRadius = 5.0
+                cell.BaseView.layer.borderWidth = 0.1
+                cell.BaseView.layer.borderColor = UIColor.groupTableViewBackground.cgColor
             }
             
-    cell!.PropertyPerLbl.text = String(format: "%@", dict.couponPriceValue)
+    cell.PropertyPerLbl.text = String(format: "%@", dict.couponPriceValue)
             
-            cell!.limitValLbl.text = String(format: "%@", dict.couponAvailableCount as! CVarArg)
-    cell!.ExpiryDateLbl.text = String(format: "%@", newformat.string(from: startingDate!))
+            cell.limitValLbl.text = String(format: "%@", dict.couponAvailableCount as! CVarArg)
+    cell.ExpiryDateLbl.text = String(format: "%@", newformat.string(from: startingDate!))
        
         
-            return cell!
+            return cell
    
         }
     

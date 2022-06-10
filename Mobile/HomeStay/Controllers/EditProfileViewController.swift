@@ -324,19 +324,19 @@ extension EditProfileViewController : UITableViewDelegate,UITableViewDataSource 
         }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? HostpropCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? HostpropCell else { return UITableViewCell() }
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? HostpropCell
         
-        cell?.lbl_PropName.font = UIFont(name: SemiBoldFont, size: 14)
-        cell?.lbl_LocationProp.font = UIFont(name: SemiBoldFont, size: 14)
+        cell.lbl_PropName.font = UIFont(name: SemiBoldFont, size: 14)
+        cell.lbl_LocationProp.font = UIFont(name: SemiBoldFont, size: 14)
         
-        cell?.lbl_PropName.textColor = AppColor
+        cell.lbl_PropName.textColor = AppColor
         
-             cell?.lbl_PropName.text = Singleton.sharedInstance.userInfoModel.propertyListing[indexPath.row].propertyTitle
-             cell?.lbl_LocationProp.text = Singleton.sharedInstance.userInfoModel.propertyListing[indexPath.row].propertyAddress
+             cell.lbl_PropName.text = Singleton.sharedInstance.userInfoModel.propertyListing[indexPath.row].propertyTitle
+             cell.lbl_LocationProp.text = Singleton.sharedInstance.userInfoModel.propertyListing[indexPath.row].propertyAddress
             let imgurl = URL(string: Singleton.sharedInstance.userInfoModel.propertyListing[indexPath.row].propertyImage!)
-             cell?.img_Property.kf.setImage(with: imgurl)
-            return cell!
+             cell.img_Property.kf.setImage(with: imgurl)
+            return cell
         }
     
    

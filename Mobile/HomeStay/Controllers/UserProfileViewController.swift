@@ -419,33 +419,36 @@ extension UserProfileViewController : UITableViewDataSource , UITableViewDelegat
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? UserProfileCell
-//        cell!.bgView.setBorder(withColor: UIColor.lightGray, width: 1.0, cornerRadius: 5.0)
-//        cell!.lblName.text = listArr[indexPath.row]
-//        cell!.btnViewAll.tag = indexPath.row
-//        cell!.btnViewAll.setTitle(listBtnArr[indexPath.row], for: .normal)
-//        cell!.btnViewAll.addTarget(self, action: #selector(ViewAll), for: .touchUpInside)
-//        return cell!
+//        cell.bgView.setBorder(withColor: UIColor.lightGray, width: 1.0, cornerRadius: 5.0)
+//        cell.lblName.text = listArr[indexPath.row]
+//        cell.btnViewAll.tag = indexPath.row
+//        cell.btnViewAll.setTitle(listBtnArr[indexPath.row], for: .normal)
+//        cell.btnViewAll.addTarget(self, action: #selector(ViewAll), for: .touchUpInside)
+//        return cell
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? UserProfileCell else { return UITableViewCell() }
+
       
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? UserProfileCell
-          //  cell!.bgView.setBorder(withColor: UIColor.lightGray, width: 1.0, cornerRadius: 5.0)
-            cell!.lblName.text = listArr[indexPath.row]
-            cell!.btnViewAll.tag = indexPath.row
-            cell?.countLbl.isHidden = true
-            cell!.selectionStyle = .none
-             cell!.lblName.font = UIFont(name: RegularFont, size: 14)
-         cell!.countLbl.font = UIFont(name: RegularFont, size: 13)
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? UserProfileCell
+          //  cell.bgView.setBorder(withColor: UIColor.lightGray, width: 1.0, cornerRadius: 5.0)
+            cell.lblName.text = listArr[indexPath.row]
+            cell.btnViewAll.tag = indexPath.row
+            cell.countLbl.isHidden = true
+            cell.selectionStyle = .none
+             cell.lblName.font = UIFont(name: RegularFont, size: 14)
+         cell.countLbl.font = UIFont(name: RegularFont, size: 13)
         
         if self.selectedRow == indexPath.row {
-            cell!.lblName.textColor = AppSecondColor
-            cell!.btnViewAll.setImage(UIImage(named: "arrow-left4"), for: .normal)
+            cell.lblName.textColor = AppSecondColor
+            cell.btnViewAll.setImage(UIImage(named: "arrow-left4"), for: .normal)
         }else{
-            cell!.lblName.textColor = .darkGray
-            cell!.btnViewAll.setImage(UIImage(named: "arrow-left"), for: .normal)
+            cell.lblName.textColor = .darkGray
+            cell.btnViewAll.setImage(UIImage(named: "arrow-left"), for: .normal)
         }
         
-        cell!.countLbl.backgroundColor = AppSecondColor
+        cell.countLbl.backgroundColor = AppSecondColor
         
-        cell!.btnViewAll.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 13)
+        cell.btnViewAll.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 13)
             if indexPath.row == 2
             {
                 let newnumber:Int = Singleton.sharedInstance.userInfoModel.profileinfo[0].cancellationAboutYouCount + Singleton.sharedInstance.userInfoModel.profileinfo[0].cancellationByYouCount
@@ -453,16 +456,16 @@ extension UserProfileViewController : UITableViewDataSource , UITableViewDelegat
                 
                 if  String(format: "%d", newnumber) == "0"
                 {
-                    cell?.countLbl.isHidden = true
+                    cell.countLbl.isHidden = true
                     
                 }
                 else
                 {
                    
-                    cell?.countLbl.text =  String(format: "%d", newnumber)
-                    cell?.countLbl.isHidden = false
-                    cell?.countLbl.layer.cornerRadius = 10
-                    cell?.countLbl.layer.masksToBounds = true
+                    cell.countLbl.text =  String(format: "%d", newnumber)
+                    cell.countLbl.isHidden = false
+                    cell.countLbl.layer.cornerRadius = 10
+                    cell.countLbl.layer.masksToBounds = true
                 }
                 
                 
@@ -475,30 +478,30 @@ extension UserProfileViewController : UITableViewDataSource , UITableViewDelegat
                 
                 if  String(format: "%d", newnumber) == "0"
                 {
-                    cell?.countLbl.isHidden = true
+                    cell.countLbl.isHidden = true
                     
                 }
                 else
                 {
                     
-                    cell?.countLbl.text =  String(format: "%d", newnumber)
-                    cell?.countLbl.isHidden = false
-                    cell?.countLbl.layer.cornerRadius = 10
-                    cell?.countLbl.layer.masksToBounds = true
+                    cell.countLbl.text =  String(format: "%d", newnumber)
+                    cell.countLbl.isHidden = false
+                    cell.countLbl.layer.cornerRadius = 10
+                    cell.countLbl.layer.masksToBounds = true
                 }
                 
             }
             else
             {
                 
-                cell?.countLbl.isHidden = true
+                cell.countLbl.isHidden = true
             }
             
-            cell!.btnViewAll.setTitle(listBtnArr[indexPath.row], for: .normal)
-            cell!.btnViewAll.addTarget(self, action: #selector(ViewAll), for: .touchUpInside)
+            cell.btnViewAll.setTitle(listBtnArr[indexPath.row], for: .normal)
+            cell.btnViewAll.addTarget(self, action: #selector(ViewAll), for: .touchUpInside)
             
             
-            return cell!
+            return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

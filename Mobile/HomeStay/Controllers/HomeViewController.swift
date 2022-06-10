@@ -1165,6 +1165,7 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
         
 
             if tableView == self.tableViewSideMenu {
+
                 let cell = tableView.dequeueReusableCell(withIdentifier: "cellList",for: indexPath)
                 //  cell?.lblMenu.text = MenuArray[indexPath.row]
 //                cell?.lblMenu.text = Dropmenu[indexPath.row] as? String

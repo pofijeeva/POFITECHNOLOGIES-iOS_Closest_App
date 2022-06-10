@@ -2244,7 +2244,9 @@ extension YourTripsViewController: UITableViewDataSource,UITableViewDelegate {
         
         if tableView == InvoiceTable {
             if indexPath.section == 0 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "InvoiceFirstTableViewCell") as! InvoiceFirstTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "InvoiceFirstTableViewCell") as? InvoiceFirstTableViewCell else { return UITableViewCell() }
+
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "InvoiceFirstTableViewCell") as! InvoiceFirstTableViewCell
                 cell.RemntalNameValueLbl.text = (self.InvoiceDetails.object(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "product_title") as? String ?? ""
                 
                 let Address = "\((self.InvoiceDetails.object(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "state") as? String ?? "") \((self.InvoiceDetails.object(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "city") as? String ?? "") \((self.InvoiceDetails.object(forKey: "invoice_details") as? NSDictionary)?.object(forKey: "street") as? String ?? "")"
@@ -2269,7 +2271,9 @@ extension YourTripsViewController: UITableViewDataSource,UITableViewDelegate {
             }
             else if indexPath.section == 1{
                 
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as! ProductDetailTitleTableViewCell
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as? ProductDetailTitleTableViewCell else { return UITableViewCell() }
+
+//                let cell = tableView.dequeueReusableCell(withIdentifier: "ProductDetailTitleTableViewCell") as! ProductDetailTitleTableViewCell
                 if indexPath.row == 0 {
                     cell.BaseTitle.text = "Addons Details"
                     cell.BaseTitle.textColor = .black
@@ -2408,45 +2412,47 @@ extension YourTripsViewController: UITableViewDataSource,UITableViewDelegate {
             }
         }else{
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? YourTripsCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? YourTripsCell else { return UITableViewCell() }
+
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? YourTripsCell
             var mytrip: Mytrip!
             
             
-            cell!.lblTripAmount.font = UIFont(name: RegularFont, size: 15)
-            cell!.lblTripHostedBy.font = UIFont(name: RegularFont, size: 13)
-            cell!.lblTripDate.font = UIFont(name: RegularFont, size: 13)
-            cell!.lblTripBookingNo.font = UIFont(name: RegularFont, size: 13)
-            cell!.lblTripPaymentStatus.font = UIFont(name: RegularFont, size: 13)
-            cell!.lblTripHostApproved.font = UIFont(name: RegularFont, size: 13)
-            cell!.CouponLbl.font = UIFont(name: RegularFont, size: 13)
-            cell!.BalanceLbl.font = UIFont(name: RegularFont, size: 13)
+            cell.lblTripAmount.font = UIFont(name: RegularFont, size: 15)
+            cell.lblTripHostedBy.font = UIFont(name: RegularFont, size: 13)
+            cell.lblTripDate.font = UIFont(name: RegularFont, size: 13)
+            cell.lblTripBookingNo.font = UIFont(name: RegularFont, size: 13)
+            cell.lblTripPaymentStatus.font = UIFont(name: RegularFont, size: 13)
+            cell.lblTripHostApproved.font = UIFont(name: RegularFont, size: 13)
+            cell.CouponLbl.font = UIFont(name: RegularFont, size: 13)
+            cell.BalanceLbl.font = UIFont(name: RegularFont, size: 13)
             
-            cell!.lblTripName.font = UIFont(name: SemiBoldFont, size: 13)
-            cell!.lblTripPropertyName.font = UIFont(name: SemiBoldFont, size: 16)
+            cell.lblTripName.font = UIFont(name: SemiBoldFont, size: 13)
+            cell.lblTripPropertyName.font = UIFont(name: SemiBoldFont, size: 16)
             
-            cell?.PayBalanceBtn.titleLabel?.font = UIFont(name: SemiBoldFont, size: 14)
+            cell.PayBalanceBtn.titleLabel?.font = UIFont(name: SemiBoldFont, size: 14)
             
             if isFuture == true {
-                //  cell?.btn_moreOptions.isHidden = false
+                //  cell.btn_moreOptions.isHidden = false
                 mytrip = futureTrip[indexPath.row]
-                cell?.PayBalance.isHidden = true
-                cell?.PayBalanceHeight.constant = 0
+                cell.PayBalance.isHidden = true
+                cell.PayBalanceHeight.constant = 0
             } else {
-                cell?.PayBalance.isHidden = true
-                cell?.PayBalanceHeight.constant = 0
-                // cell?.btn_moreOptions.isHidden = true
+                cell.PayBalance.isHidden = true
+                cell.PayBalanceHeight.constant = 0
+                // cell.btn_moreOptions.isHidden = true
                 mytrip = pastTrip[indexPath.row]
             }
-            cell!.lblTripBookingNo.isHidden = false
-            cell!.lblTripAmount.isHidden = false
-            cell!.lblTripPaymentStatus.isHidden = false
-            cell!.lblTripHostApproved.isHidden = false
+            cell.lblTripBookingNo.isHidden = false
+            cell.lblTripAmount.isHidden = false
+            cell.lblTripPaymentStatus.isHidden = false
+            cell.lblTripHostApproved.isHidden = false
             let url = URL(string: mytrip.propertyImage)
-            //  cell!.imgTrip.kf.setImage(with: url)
-            cell?.imgTrip.setImageWith(url!, placeholderImage: UIImage(named: "picture-frame"))
-            cell!.lblTripPropertyName.text = mytrip.propertyTitle
-            cell!.lblTripName.text = houseIn + " " + mytrip.propertyAddress!
-            cell!.lblTripHostedBy.text = houseHost + " " + mytrip.hostName!
+            //  cell.imgTrip.kf.setImage(with: url)
+            cell.imgTrip.setImageWith(url!, placeholderImage: UIImage(named: "picture-frame"))
+            cell.lblTripPropertyName.text = mytrip.propertyTitle
+            cell.lblTripName.text = houseIn + " " + mytrip.propertyAddress!
+            cell.lblTripHostedBy.text = houseHost + " " + mytrip.hostName!
             
             
             
@@ -2547,28 +2553,28 @@ extension YourTripsViewController: UITableViewDataSource,UITableViewDelegate {
                 
                 if result == .orderedAscending {
                     print("current date is less")
-                    cell!.lblTripDate.text =  houseDate + " : " + fromDateString + " - " + String(describing: toDateString)
-                    cell!.lblTripBookingNo.isHidden = false
-                    cell!.lblTripAmount.isHidden = false
-                    cell!.lblTripPaymentStatus.isHidden = false
-                    cell!.lblTripHostApproved.isHidden = false
+                    cell.lblTripDate.text =  houseDate + " : " + fromDateString + " - " + String(describing: toDateString)
+                    cell.lblTripBookingNo.isHidden = false
+                    cell.lblTripAmount.isHidden = false
+                    cell.lblTripPaymentStatus.isHidden = false
+                    cell.lblTripHostApproved.isHidden = false
                     
                     
                 } else if result == .orderedDescending {
                     print("server date is less")
-                    cell!.lblTripPaymentStatus.text =  "Expired"
-                    cell!.lblTripBookingNo.isHidden = true
-                    cell!.lblTripAmount.isHidden = true
-                    cell!.lblTripPaymentStatus.isHidden = false
-                    cell!.lblTripHostApproved.isHidden = true
+                    cell.lblTripPaymentStatus.text =  "Expired"
+                    cell.lblTripBookingNo.isHidden = true
+                    cell.lblTripAmount.isHidden = true
+                    cell.lblTripPaymentStatus.isHidden = false
+                    cell.lblTripHostApproved.isHidden = true
                     
                 } else if result == .orderedSame {
                     print("Both dates are same")
-                    cell!.lblTripDate.text =  houseDate + " : " + fromDateString + " - " + String(describing: toDateString)
-                    cell!.lblTripBookingNo.isHidden = false
-                    cell!.lblTripAmount.isHidden = false
-                    cell!.lblTripPaymentStatus.isHidden = false
-                    cell!.lblTripHostApproved.isHidden = false
+                    cell.lblTripDate.text =  houseDate + " : " + fromDateString + " - " + String(describing: toDateString)
+                    cell.lblTripBookingNo.isHidden = false
+                    cell.lblTripAmount.isHidden = false
+                    cell.lblTripPaymentStatus.isHidden = false
+                    cell.lblTripHostApproved.isHidden = false
                 } else {
                     print("Date cannot be compared")
                 }
@@ -2576,81 +2582,81 @@ extension YourTripsViewController: UITableViewDataSource,UITableViewDelegate {
             }
             else
             {
-                cell!.lblTripDate.text =  houseDate + " : " + fromDateString + " - " + String(describing: toDateString)
+                cell.lblTripDate.text =  houseDate + " : " + fromDateString + " - " + String(describing: toDateString)
                 
             }
-            cell!.lblTripBookingNo.isHidden = false
+            cell.lblTripBookingNo.isHidden = false
             
             let CouponStatus = mytrip.isCouponUsed!
             if CouponStatus == "No" {
-                cell!.CouponLblHeight.constant = 0
+                cell.CouponLblHeight.constant = 0
                 
             }else{
-                cell!.CouponLblHeight.constant = 25
+                cell.CouponLblHeight.constant = 25
                 
             }
             
             if "\(mytrip.pay_later_availabe!)" == "0" {
-                cell?.PayBalance.isHidden = true
-                cell?.PayBalanceHeight.constant = 0
+                cell.PayBalance.isHidden = true
+                cell.PayBalanceHeight.constant = 0
                 
             }else{
-                cell?.PayBalance.isHidden = false
-                cell?.PayBalanceHeight.constant = 65
-                cell?.BalanceLbl.text = "Amount to be paid : \(mytrip.pay_later_balance_amount!)"
+                cell.PayBalance.isHidden = false
+                cell.PayBalanceHeight.constant = 65
+                cell.BalanceLbl.text = "Amount to be paid : \(mytrip.pay_later_balance_amount!)"
             }
             
-            cell?.PayBalanceBtn.tag = indexPath.row
-            cell!.PayBalanceBtn.addTarget(self, action: #selector(payBalanceAmount), for: .touchUpInside)
-            cell!.CouponLbl.text = "Coupon : " + mytrip.couponAmount! + " \(mytrip.userCurrencySymbol!)"
-            cell!.lblTripDate.text =  houseDate + " : " + fromDateString + " - " + String(describing: toDateString)
+            cell.PayBalanceBtn.tag = indexPath.row
+            cell.PayBalanceBtn.addTarget(self, action: #selector(payBalanceAmount), for: .touchUpInside)
+            cell.CouponLbl.text = "Coupon : " + mytrip.couponAmount! + " \(mytrip.userCurrencySymbol!)"
+            cell.lblTripDate.text =  houseDate + " : " + fromDateString + " - " + String(describing: toDateString)
             
-            cell!.lblTripBookingNo.text = houseBooking + " : "  + mytrip.bookingno!
+            cell.lblTripBookingNo.text = houseBooking + " : "  + mytrip.bookingno!
             print("\(mytrip.total!)")
-            cell!.lblTripAmount.text =  mytrip.userCurrencyCode + " \(mytrip.total!)"
-            cell?.btn_moreOptions.tag = indexPath.row
-            cell!.btn_moreOptions.addTarget(self, action: #selector(selectMoreOptions), for: .touchUpInside)
-            moreOptionStatusButton.frame = cell!.btn_moreOptions.frame
+            cell.lblTripAmount.text =  mytrip.userCurrencyCode + " \(mytrip.total!)"
+            cell.btn_moreOptions.tag = indexPath.row
+            cell.btn_moreOptions.addTarget(self, action: #selector(selectMoreOptions), for: .touchUpInside)
+            moreOptionStatusButton.frame = cell.btn_moreOptions.frame
             if isFuture == true
             {
                 if mytrip.bookingStatus == "Pending" {
                     if mytrip.isBookingAllowed == "not allowed" {
-                        cell?.btn_moreOptions.isHidden = true
-                        cell!.lblTripPaymentStatus.textColor = UIColor.darkGray
-                        cell!.lblTripPaymentStatus.attributedText =  NSAttributedString().changeColor(text1: "Pay Status" + " : ", text2: "Date Unavailable", color1: UIColor.darkGray, color2: UIColor.red)
+                        cell.btn_moreOptions.isHidden = true
+                        cell.lblTripPaymentStatus.textColor = UIColor.darkGray
+                        cell.lblTripPaymentStatus.attributedText =  NSAttributedString().changeColor(text1: "Pay Status" + " : ", text2: "Date Unavailable", color1: UIColor.darkGray, color2: UIColor.red)
                     }else{
-                        cell?.btn_moreOptions.isHidden = true
-                        cell!.lblTripPaymentStatus.attributedText =  NSAttributedString().changeColor(text1: housePayment + " : ", text2: mytrip!.bookingStatus!, color1: UIColor.darkGray, color2: UIColor.red)
+                        cell.btn_moreOptions.isHidden = true
+                        cell.lblTripPaymentStatus.attributedText =  NSAttributedString().changeColor(text1: housePayment + " : ", text2: mytrip!.bookingStatus!, color1: UIColor.darkGray, color2: UIColor.red)
                     }
                 }
                 else if mytrip.bookingStatus == "Accept" {
-                    cell?.btn_moreOptions.isHidden = false
-                    cell!.lblTripPaymentStatus.attributedText =  NSAttributedString().changeColor(text1: housePayment + " : ", text2: mytrip!.bookingStatus!, color1: UIColor.darkGray, color2: ForestGreen)
+                    cell.btn_moreOptions.isHidden = false
+                    cell.lblTripPaymentStatus.attributedText =  NSAttributedString().changeColor(text1: housePayment + " : ", text2: mytrip!.bookingStatus!, color1: UIColor.darkGray, color2: ForestGreen)
                 }
                 else if mytrip.bookingStatus == "Pay" {
-                    cell!.lblTripPaymentStatus.attributedText =  NSAttributedString().changeColor(text1: housePayment + " : ", text2: mytrip!.bookingStatus!, color1: UIColor.darkGray, color2: UIColor.blue)
+                    cell.lblTripPaymentStatus.attributedText =  NSAttributedString().changeColor(text1: housePayment + " : ", text2: mytrip!.bookingStatus!, color1: UIColor.darkGray, color2: UIColor.blue)
                 }
                 else
                 {
-                    cell!.lblTripPaymentStatus.attributedText =  NSAttributedString().changeColor(text1: housePayment + " : ", text2: mytrip!.bookingStatus!, color1: UIColor.darkGray, color2: UIColor.red)
+                    cell.lblTripPaymentStatus.attributedText =  NSAttributedString().changeColor(text1: housePayment + " : ", text2: mytrip!.bookingStatus!, color1: UIColor.darkGray, color2: UIColor.red)
                 }
                 if mytrip.approvalStatus == "Pending" {
-                    cell!.lblTripHostApproved.attributedText =  NSAttributedString().changeColor(text1: houseApproval + " : ", text2: mytrip!.approvalStatus!, color1: UIColor.darkGray, color2: UIColor.red)
+                    cell.lblTripHostApproved.attributedText =  NSAttributedString().changeColor(text1: houseApproval + " : ", text2: mytrip!.approvalStatus!, color1: UIColor.darkGray, color2: UIColor.red)
                 }
                 else if mytrip.approvalStatus == "Accept" {
-                    cell!.lblTripHostApproved.attributedText =  NSAttributedString().changeColor(text1: houseApproval + " : " , text2: mytrip!.approvalStatus!, color1: UIColor.darkGray, color2: UIColor.green)
+                    cell.lblTripHostApproved.attributedText =  NSAttributedString().changeColor(text1: houseApproval + " : " , text2: mytrip!.approvalStatus!, color1: UIColor.darkGray, color2: UIColor.green)
                 }
                 else
                 {
                     
                 }
             }else{
-                cell!.lblTripPaymentStatus.isHidden = false
-                cell!.lblTripPaymentStatus.text = "Expired"
-                cell!.lblTripHostApproved.isHidden = true
+                cell.lblTripPaymentStatus.isHidden = false
+                cell.lblTripPaymentStatus.text = "Expired"
+                cell.lblTripHostApproved.isHidden = true
             }
             
-            return cell!
+            return cell
         }
         
     }

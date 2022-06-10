@@ -289,13 +289,15 @@ class SearchViewController: UIViewController,UITextFieldDelegate,UITableViewDele
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell") as? SearchTableViewCell
-        cell?.selectionStyle = .none
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell") as? SearchTableViewCell else { return UITableViewCell() }
+
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchTableViewCell") as? SearchTableViewCell
+        cell.selectionStyle = .none
         let tempDict = NSMutableDictionary()
         tempDict.addEntries(from: (placeSearchArray.object(at: indexPath.row)as? NSDictionary) as? [AnyHashable : Any] ?? [:])
-        cell?.LocationName.font = UIFont(name: SemiBoldFont, size: 15)
-        cell?.LocationName.text = (tempDict.object(forKey: "description") as? String ?? "")
-        return cell!
+        cell.LocationName.font = UIFont(name: SemiBoldFont, size: 15)
+        cell.LocationName.text = (tempDict.object(forKey: "description") as? String ?? "")
+        return cell
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.view.endEditing(true)

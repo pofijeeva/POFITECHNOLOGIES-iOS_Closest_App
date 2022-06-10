@@ -77,22 +77,25 @@ extension PopViewController: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PopOverCell") as? PopOverCell
-        cell?.textLabel?.textAlignment =  .center
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PopOverCell") as? PopOverCell else { return UITableViewCell() }
+
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "PopOverCell") as? PopOverCell
+        cell.textLabel?.textAlignment =  .center
         
           if currCheckStr == "YES" {
         
         if login_session.value(forKey: "APP_CURRENCY") as? String == dropDownArray[indexPath.row] as? String {
-             cell?.textLabel?.textColor = UIColor.red
+             cell.textLabel?.textColor = UIColor.red
         }else{
-              cell?.textLabel?.textColor = UIColor.black
+              cell.textLabel?.textColor = UIColor.black
         }
             
         }
         
-        cell?.textLabel?.text =  dropDownArray[indexPath.row] as? String
-        cell?.textLabel?.font = UIFont(name: RegularFont, size: 14.0)
-        return cell!
+        cell.textLabel?.text =  dropDownArray[indexPath.row] as? String
+        cell.textLabel?.font = UIFont(name: RegularFont, size: 14.0)
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
