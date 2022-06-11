@@ -27,26 +27,26 @@ class ReviewsViewController: BaseViewController
     @IBOutlet weak var DropView: UIView!
     @IBOutlet weak var EmptyImg: UIImageView!
     
-    var isDropDown = Bool()
-    var headerTitle = String()
-    var aboutyou = String()
-    var byYou = String()
+    var isDropDown : Bool = false
+    var headerTitle : String = ""
+    var aboutyou : String = ""
+    var byYou : String = ""
     var reviewAbt = NSArray()
     var reviewBy = NSArray()
     var isReviewabtYou = true
-    var selectId = Int()
-    var selectDropCount = Int()
-    var selectDropBYCount = Int()
+    var selectId : Int = 0
+    var selectDropCount : Int = 0
+    var selectDropBYCount : Int = 0
     
-    var reviewSelected = Bool()
-    var disputeSelected = Bool()
-    var Reviewsby = String()
-    var statusChange = String()
-    var ReviewsAbt = String()
-    var dropDownArr = NSMutableArray()
-    var ProcessingArr = NSMutableArray()
-    var MainArray = NSMutableArray()
-    var MainArrayBy = NSMutableArray()
+    var reviewSelected : Bool = false
+    var disputeSelected : Bool = false
+    var Reviewsby : String = ""
+    var statusChange : String = ""
+    var ReviewsAbt : String = ""
+    var dropDownArr : NSMutableArray = []
+    var ProcessingArr : NSMutableArray = []
+    var MainArray : NSMutableArray = []
+    var MainArrayBy : NSMutableArray = []
     
     
     let stateDropDowns = DropDown()
@@ -94,7 +94,7 @@ class ReviewsViewController: BaseViewController
         disByLbl.layer.masksToBounds = true
         
         self.lbl_header.text = "All Disputes"
-        let id = Singleton.sharedInstance.selectedCategory!
+        let id = Singleton.sharedInstance.selectedCategory
         
         isReviewabtYou = true
         
@@ -115,7 +115,7 @@ class ReviewsViewController: BaseViewController
 
 
 func UserInformation(){
-    if (Reachability()?.isReachable)!
+    if (Reachability()?.isReachable ?? false)
     {
         
         showActivityIndicator(uiView: self.view)
@@ -1030,7 +1030,7 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
 
 //                let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ReviewsTableViewCell
                 cell.selectionStyle = .none
-                let dict = Singleton.sharedInstance.userInfoModel.disputeAboutYou[indexPath.section]
+                let dict: DisputeAboutYou = Singleton.sharedInstance.userInfoModel.disputeAboutYou[indexPath.section]
                 
                  cell.lbl_reviewComments.font = UIFont(name: SemiBoldFont, size: 15)
                 cell.rentalName.font = UIFont(name: RegularFont, size: 15)
@@ -1041,19 +1041,19 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
                 cell.acceptBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
                 cell.rejectBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
                 
-                cell.lbl_reviewComments.text = dict.message!
+                cell.lbl_reviewComments.text = dict.message
                 cell.img_user.layer.masksToBounds = true
                 cell.img_user.layer.cornerRadius = 40
-                let imgURL = URL(string: Singleton.sharedInstance.userInfoModel.disputeAboutYou[indexPath.section].userImage!)
+                let imgURL = URL(string: Singleton.sharedInstance.userInfoModel.disputeAboutYou[indexPath.section].userImage)
                 cell.img_user.kf.setImage(with: imgURL!, placeholder:UIImage(named:"user"))
-                cell.rentalName.text = dict.rentalName!
+                cell.rentalName.text = dict.rentalName
                 if dict.hostName != nil
                 {
-                    cell.lbl_userName.text = String(format: "by %@", dict.hostName!)
+                    cell.lbl_userName.text = String(format: "by %@", dict.hostName)
                 }
                 
-                cell.bookingIdLabel.text = dict.bookingNo!
-                let date = dict.createdDate!
+                cell.bookingIdLabel.text = dict.bookingNo ?? ""
+                let date = dict.createdDate
                 let dateFormatter = DateFormatter()
                 
                 dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -1127,7 +1127,7 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
 
 //                let cell = tableView.dequeueReusableCell(withIdentifier: "ByCell") as? ReviewsByTableViewCell
                 cell.selectionStyle = .none
-                let dict = Singleton.sharedInstance.userInfoModel.disputeByYou[indexPath.section]
+                let dict: DisputeByYou = Singleton.sharedInstance.userInfoModel.disputeByYou[indexPath.section]
                 
                 
                 cell.lbl_reviews.font = UIFont(name: SemiBoldFont, size: 15)
@@ -1140,12 +1140,12 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
                 
                 
                 
-                cell.lbl_reviews.text = dict.message!
+                cell.lbl_reviews.text = dict.message
                 cell.img_User.layer.masksToBounds = true
                 cell.img_User.layer.cornerRadius = 40
-                let imgURL = URL(string: Singleton.sharedInstance.userInfoModel.disputeByYou[indexPath.section].userImage!)
+                let imgURL = URL(string: Singleton.sharedInstance.userInfoModel.disputeByYou[indexPath.section].userImage)
                 cell.img_User.kf.setImage(with: imgURL!, placeholder:UIImage(named:"user"))
-                cell.rentalName.text = dict.rentalName!
+                cell.rentalName.text = dict.rentalName
                 
 
                 
@@ -1156,20 +1156,20 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
                     
                 else
                 {
-                    cell.statusLabel.text = dict.status!
+                    cell.statusLabel.text = dict.status
                 }
                 
                 
-                cell.hostName.text =  String(format: "to %@", dict.hostName!)
+                cell.hostName.text =  String(format: "to %@", dict.hostName)
                 
-                cell.bookingIdLabel.text = dict.bookingNo!
+                cell.bookingIdLabel.text = dict.bookingNo ?? ""
                 
                 let datee = dict.createdDate
                 let dateFormatter = DateFormatter()
                 
                 dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                 dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-                let dateFromString   = dateFormatter.date(from: datee!)! as NSDate
+                let dateFromString   = dateFormatter.date(from: datee)! as NSDate
                 dateFormatter.dateFormat = "dd-MM-yyyy"
                 dateFormatter.locale = Locale(identifier: "en_US_POSIX")
                 let datenew = dateFormatter.string(from: dateFromString as Date)
@@ -1358,7 +1358,7 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
             }
             
             
-            if (Reachability()?.isReachable)!
+            if (Reachability()?.isReachable ?? false)
             {
                 
                 showActivityIndicator(uiView: self.view)
@@ -1427,7 +1427,7 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
             }
             
             
-            if (Reachability()?.isReachable)!
+            if (Reachability()?.isReachable ?? false)
             {
                 showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
@@ -1483,7 +1483,7 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
         
         if isDropDown == false
         {
-            if (Reachability()?.isReachable)!
+            if (Reachability()?.isReachable ?? false)
             {
                 self.showActivityIndicator(uiView: self.view)
                 Network.shared.HTTP_POST_STRING_REQUEST_DELEGATE = self
@@ -1539,7 +1539,7 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
             }
         }
         else{
-            if (Reachability()?.isReachable)!
+            if (Reachability()?.isReachable ?? false)
             {
                 self.showActivityIndicator(uiView: self.view)
                 Network.shared.HTTP_POST_STRING_REQUEST_DELEGATE = self
@@ -1665,7 +1665,7 @@ extension ReviewsViewController : HTTP_POST_STRING_REQUEST_PROTOCOL
             if errorDict.count == 0 {
                 print(responseDict)
                 Network.shared.HTTP_POST_STRING_REQUEST_DELEGATE = self
-                let id = Singleton.sharedInstance.selectedCategory!
+                let id = Singleton.sharedInstance.selectedCategory
                 if responseDict.value(forKey: "status") as? Int ?? 0 == 1{
                     
                     self.showInformation(title: "Message", message: responseDict.value(forKey: "message") as? String ?? "")

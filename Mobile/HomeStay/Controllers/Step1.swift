@@ -8,13 +8,13 @@ import Foundation
 
 class Step1 : NSObject, NSCoding{
 
-    var accommodates : String!
-    var address : String!
-    var homeType : String!
-    var propertyid : Int!
-    var roomType : String!
-    var status : String!
-    var stepCompleted : Bool!
+    var accommodates : String = ""
+    var address : String = ""
+    var homeType : String = ""
+    var propertyid : Int = 0
+    var roomType : String = ""
+    var status : String = ""
+    var stepCompleted : Bool = false 
 
 
     /**

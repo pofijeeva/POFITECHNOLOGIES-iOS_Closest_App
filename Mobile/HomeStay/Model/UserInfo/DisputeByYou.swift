@@ -8,15 +8,15 @@ import Foundation
 
 class DisputeByYou : NSObject, NSCoding{
     
-    var bookingNo : String!
-    var createdDate : String!
-    var disputeId : String!
-    var hostName : String!
-    var message : String!
-    var rentalName : String!
-    var reviewEmail : String!
-    var status : String!
-    var userImage : String!
+    var bookingNo : String = ""
+    var createdDate : String = ""
+    var disputeId : String = ""
+    var hostName : String = ""
+    var message : String = ""
+    var rentalName : String = ""
+    var reviewEmail : String = ""
+    var status : String = ""
+    var userImage : String = ""
     
     
     /**

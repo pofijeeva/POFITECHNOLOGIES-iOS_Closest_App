@@ -8,7 +8,7 @@ import Foundation
 
 class DateDetail : NSObject, NSCoding{
     var tableDetails : [RestTableDetail]!
-    var timingFor : String!
+    var timingFor : String = ""
     
     
     /**

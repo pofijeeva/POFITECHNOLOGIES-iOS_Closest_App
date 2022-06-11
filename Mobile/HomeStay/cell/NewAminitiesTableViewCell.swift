@@ -14,7 +14,7 @@ class NewAminitiesTableViewCell: UITableViewCell,UICollectionViewDelegate,UIColl
     @IBOutlet weak var AminitiesCollection: UICollectionView!
     @IBOutlet weak var AminitiesCollectionHeight: NSLayoutConstraint!
 
-    var favDesArray = NSMutableArray()
+    var favDesArray : NSMutableArray = []
 
     override func awakeFromNib() {
         super.awakeFromNib()

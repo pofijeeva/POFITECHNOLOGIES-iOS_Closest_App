@@ -66,39 +66,39 @@
 //    var fromDate = Date()
 //    var toDate = Date()
 //    var minimumDate = Date()
-//    var arriveDate = String()
-//    var departDate = String()
-//    var noOfNights = Int()
-//    var RoomType = String()
-//    var HomeType = String()
+//    var arriveDate : String = ""
+//    var departDate : String = ""
+//    var noOfNights : Int = 0
+//    var RoomType : String = ""
+//    var HomeType : String = ""
 //    var cityName:String!
 //    var FilterArr = [Room]()
-//    var filterId = String()
-//    var roomChildID = Int()
-//    var homeChildID = Int()
-//    var listChildID = Int()
-//    var HiDSArray = NSMutableArray()
-//    var RiDSArray = NSMutableArray()
-//    var AttriDSArray = NSMutableArray()
-//    var HomeString = String()
-//    var RoomString = String()
-//    var AttributeString = String()
-//    var guest = String()
-//    var guests = String()
-//    var moreFilterId = NSMutableArray()
-//    var moreFilterIDS = NSMutableArray()
-//    var moreFilterIDSA = NSMutableArray()
-//    var FilterId = String()
-//    var FilterIDS = String()
-//    var FilterIDSA = String()
-//    var minPrice = String()
-//    var maxPrice = String()
-//    var moreOpenId = NSMutableArray()
-//    var moreCusinId = NSMutableArray()
-//    var openIDS = String()
-//    var CusinIDS = String()
-//    var arrivedDate = String()
-//    var departingDate = String()
+//    var filterId : String = ""
+//    var roomChildID : Int = 0
+//    var homeChildID : Int = 0
+//    var listChildID : Int = 0
+//    var HiDSArray : NSMutableArray = []
+//    var RiDSArray : NSMutableArray = []
+//    var AttriDSArray : NSMutableArray = []
+//    var HomeString : String = ""
+//    var RoomString : String = ""
+//    var AttributeString : String = ""
+//    var guest : String = ""
+//    var guests : String = ""
+//    var moreFilterId : NSMutableArray = []
+//    var moreFilterIDS : NSMutableArray = []
+//    var moreFilterIDSA : NSMutableArray = []
+//    var FilterId : String = ""
+//    var FilterIDS : String = ""
+//    var FilterIDSA : String = ""
+//    var minPrice : String = ""
+//    var maxPrice : String = ""
+//    var moreOpenId : NSMutableArray = []
+//    var moreCusinId : NSMutableArray = []
+//    var openIDS : String = ""
+//    var CusinIDS : String = ""
+//    var arrivedDate : String = ""
+//    var departingDate : String = ""
 //
 //    @IBOutlet weak var applyfilteers: UIButton!
 //    @IBOutlet weak var checkInCalenderView: FSCalendar!
@@ -115,12 +115,12 @@
 //    var ids = NSArray()
 //    var cds = NSArray()
 //    var idss = NSArray()
-//    var idsMutableArray = NSMutableArray()
-//    var CheckinDateString = String()
-//    var maxval = Float()
-//    var minVal = Float()
-//    var miniAmount = Float()
-//    var maxmAmount = Float()
+//    var idsMutableArray : NSMutableArray = []
+//    var CheckinDateString : String = ""
+//    var maxval : Float = 0
+//    var minVal : Float = 0
+//    var miniAmount : Float = 0
+//    var maxmAmount : Float = 0
 //    var InstantPaySelect = false
 //
 //    fileprivate let gregorian = Calendar(identifier: .gregorian)
@@ -147,7 +147,7 @@
 //    fileprivate weak var calendar: FSCalendar!
 //    fileprivate weak var eventLabel: UILabel!
 //    
-//    var selectedIDArray = NSMutableArray()
+//    var selectedIDArray : NSMutableArray = []
 //    
 //    override func viewDidLoad() {
 //        super.viewDidLoad()
@@ -411,9 +411,9 @@
 //    
 //    func ApplyFilters(tag_value : UIButton)
 //    {
-//        let id = Singleton.sharedInstance.selectedCategory!
+//        let id = Singleton.sharedInstance.selectedCategory
 //        
-//        if (Reachability()?.isReachable)!
+//        if (Reachability()?.isReachable ?? false)
 //        {
 //            showActivityIndicator(uiView: self.view)
 //            var InstantStatus = ""
@@ -428,7 +428,7 @@
 //            print(self.amenitieARR)
 //            
 //            
-//            let propertyIds = NSMutableArray()
+//            let propertyIds : NSMutableArray = []
 //            propertyIds.addObjects(from: self.propertyARR)
 //            print(FilterIDSA)
 //            print(filterId)
@@ -468,10 +468,10 @@
 //    @objc func listingSelected(sender: UIButton) {
 //        print("Button Clicked")
 //        print(sender.tag)
-//        if (Reachability()?.isReachable)!
+//        if (Reachability()?.isReachable ?? false)
 //        {
 //            showActivityIndicator(uiView: self.view)
-//            let id = Singleton.sharedInstance.selectedCategory!
+//            let id = Singleton.sharedInstance.selectedCategory
 //            let parameterStr = "mcity_name=\(cityName!)&f_p_min=&f_p_max=&f_room_type=\(roomChildID)&f_home_type=\(HomeString)&f_list_type=\(listChildID)&f_date_arrive=\(self.arriveDate)&f_date_depart=\(self.departDate)&base_id=\(id)&f_guest=&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&user_id=\(login_session.value(forKey: "UserId")!)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: REQ_PROPERTY_DETAIL_PAGE, APIKEY: "REQ_PROPERTY_DETAIL_PAGE")
 //        }
@@ -484,10 +484,10 @@
 //    {
 //        print("Button Clicked")
 //        print(sender.tag)
-//        if (Reachability()?.isReachable)!
+//        if (Reachability()?.isReachable ?? false)
 //        {
 //            showActivityIndicator(uiView: self.view)
-//            let id = Singleton.sharedInstance.selectedCategory!
+//            let id = Singleton.sharedInstance.selectedCategory
 //            let parameterStr = "mcity_name=\(cityName!)&f_p_min=&f_p_max=&f_room_type=\(roomChildID)&f_home_type=\(HomeString)&f_list_type=\(listChildID)&f_date_arrive=\(self.arriveDate)&f_date_depart=\(self.departDate)&base_id=\(id)&f_guest=&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&user_id=\(login_session.value(forKey: "UserId")!)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
 //            print(parameterStr)
 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: REQ_PROPERTY_DETAIL_PAGE, APIKEY: "REQ_PROPERTY_DETAIL_PAGE")

@@ -68,9 +68,9 @@ enum Menu {
 
 class Singleton {
     static var sharedInstance = Singleton()
-    //var selectedCategory: String!
-    var selectedCategory: String! = "1"
-    var listingCurrencySymb = String()
+    //var selectedCategory: String = ""
+    var selectedCategory: String = "1"
+    var listingCurrencySymb : String = ""
     var rentYourSpace : RentYourSpaceModel!
     var PlaceList : PlaceListModel!
     var PropertyDetail: PropertyDetails!
@@ -92,24 +92,24 @@ class Singleton {
 }
 
 //maintaine opening time closingTime
-var constant_openingTime = Int()
-var constant_closingTime = Int()
+var constant_openingTime : Int = 0
+var constant_closingTime : Int = 0
 
 
 // MARK:- Variable Constant
-var applyFilterButtonClickedBool = Bool()
+var applyFilterButtonClickedBool : Bool = false
 
-var filter_header_text = String()
-var filter_list_type = String()
-var filter_room_type = String()
-var filter_home_type = String()
-var filter_arriveDate = String()
-var filter_departDate = String()
+var filter_header_text : String = ""
+var filter_list_type : String = ""
+var filter_room_type : String = ""
+var filter_home_type : String = ""
+var filter_arriveDate : String = ""
+var filter_departDate : String = ""
 var filter_p_min =  String()
-var filter_p_max = String()
-var filter_guest = Int()
-var add_on_amount = Int()
-var Bundle_amount = Int()
+var filter_p_max : String = ""
+var filter_guest : Int = 0
+var add_on_amount : Int = 0
+var Bundle_amount : Int = 0
 
 var SelectTabIndex = 2
 
@@ -119,32 +119,32 @@ var RegularFont = "SofiaProMedium"//"Sofia Pro Medium"
 var BoldFont = "SofiaProBold"//Sofia Pro Bold"
 var forAddPhotoDict = NSMutableDictionary()
 var commonMaintainListDataDict = NSMutableDictionary()
-var BUndleSelectedArray = NSMutableArray()
-var BundleArray = NSMutableArray()
+var BUndleSelectedArray : NSMutableArray = []
+var BundleArray : NSMutableArray = []
 
-var BundleSelectedDictValues = NSMutableArray()
-var AddonsSelectedDictValues = NSMutableArray()
-var AddonsSelectedValuesDict = NSMutableArray()
+var BundleSelectedDictValues : NSMutableArray = []
+var AddonsSelectedDictValues : NSMutableArray = []
+var AddonsSelectedValuesDict : NSMutableArray = []
 var ListingAddonsDict = NSMutableDictionary()
-var bundle_checkindate = String()
-var bundle_checkoutdate = String()
+var bundle_checkindate : String = ""
+var bundle_checkoutdate : String = ""
 
-var ListingAddonsArray = NSMutableArray()
+var ListingAddonsArray : NSMutableArray = []
 
 var GlobalLanguageDictionary = NSMutableDictionary()
 
-var isFromHomePage_Search = Bool()
-var isFromRentYourSpace_search = Bool()
-var listingIndex = Int()
-var isFromPaymentSuccess = Bool()
-var isFromBookingDetails = Bool()
-var SelectedBookingNum = NSMutableArray()
+var isFromHomePage_Search : Bool = false
+var isFromRentYourSpace_search : Bool = false
+var listingIndex : Int = 0
+var isFromPaymentSuccess : Bool = false
+var isFromBookingDetails : Bool = false
+var SelectedBookingNum : NSMutableArray = []
 var SharedsaveInstance = ExperienceListingBundleViewController()
 var sharedInstanceExperience = ExperienceBaseViewController()
 var sharedInstanceListing = ListingViewControllersBundle()
 let addressKey = "address"
-var UserID = String()
-var UserEmail = String()
+var UserID : String = ""
+var UserEmail : String = ""
 var BaseSelectedIndex = 0
  // let AppColor = UIColor(red: 3/255.0, green: 32/255.0, blue: 84/255.0, alpha: 1.0)
 var AppColor = UIColor(red: 255/255.0, green: 56/255.0, blue: 36/255.0, alpha: 1.0)
@@ -530,23 +530,23 @@ let CHECKEMAILVERIFICATION = HDDN_BASEURL + "checkemail_verfiy"
 
 
 //maintain Flight filterData
-var ifFlightFilterApplied = Bool()
+var ifFlightFilterApplied : Bool = false
 var flightFliterData = NSMutableDictionary()
 var flightFilterResultsData = NSMutableDictionary()
-var flightFilterResultsArray = NSMutableArray()
-var Flight_journey_type = String()
-var flight_adults_count = String()
-var flight_children_count = String()
-var flight_infant_count = String()
-var flight_type_class = String()
+var flightFilterResultsArray : NSMutableArray = []
+var Flight_journey_type : String = ""
+var flight_adults_count : String = ""
+var flight_children_count : String = ""
+var flight_infant_count : String = ""
+var flight_type_class : String = ""
 
 
-var checkedIDArray = NSMutableArray()
-var AddonscheckedIDArray = NSMutableArray()
+var checkedIDArray : NSMutableArray = []
+var AddonscheckedIDArray : NSMutableArray = []
 
-var accountSelectedCountry = String()
-var seasonalDatesArray = NSMutableArray()
-var ExperiencySelectedCurrency = String()
+var accountSelectedCountry : String = ""
+var seasonalDatesArray : NSMutableArray = []
+var ExperiencySelectedCurrency : String = ""
 
 // Flight API's
 let FLIGHT_HOMEPAGE =  HDDN_BASEURL+"flights_home"
@@ -709,17 +709,17 @@ let CONTACTUS = HDDN_BASEURL + "contact-us"
 
 
 var dictOfExperience = NSDictionary()
-var arrayOfdictBasics = NSMutableArray()
+var arrayOfdictBasics : NSMutableArray = []
 var currentExpId = ""
-var arrayOfCurrency = NSMutableArray()
+var arrayOfCurrency : NSMutableArray = []
 var TimingsArray = NSArray()
-var imageArrayExperience = NSMutableArray()
+var imageArrayExperience : NSMutableArray = []
 var isFromManage = false
-var arrayOfBoolValues = NSMutableArray()
+var arrayOfBoolValues : NSMutableArray = []
 var arrayOfResult = NSArray()
-var arrayOfHeadings = NSMutableArray()
-var SelectedCurrency = String()
-var accessToken = String()
+var arrayOfHeadings : NSMutableArray = []
+var SelectedCurrency : String = ""
+var accessToken : String = ""
 
 
 struct HomeStayConstants {

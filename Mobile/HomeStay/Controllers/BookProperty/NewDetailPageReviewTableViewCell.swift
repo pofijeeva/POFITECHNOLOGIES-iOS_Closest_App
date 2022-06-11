@@ -65,11 +65,11 @@ class NewDetailPageReviewTableViewCell: UITableViewCell,UICollectionViewDataSour
         
         
         
-        cell.ReviewMsg.text = Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].review!
-        cell.ReviewerName.text = Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].userName!.uppercased()
-        cell.ReviewDate.text = Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].reviewDate!
+        cell.ReviewMsg.text = Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].review
+        cell.ReviewerName.text = Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].userName.uppercased()
+        cell.ReviewDate.text = Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].reviewDate
         
-        let ImageUrl = URL(string: Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].userImage!)
+        let ImageUrl = URL(string: Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].userImage)
         
         cell.ReviewImg.setImageWith(ImageUrl!, placeholderImage: UIImage(named: "user"))
         

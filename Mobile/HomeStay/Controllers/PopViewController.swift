@@ -23,8 +23,8 @@ class PopViewController: UIViewController {
 
     var popOverDelegate: DropDownProtocol?
     var key: Any?
-    var headerTxt = String()
-    var currCheckStr = String()
+    var headerTxt : String = ""
+    var currCheckStr : String = ""
     //MARK:- Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()

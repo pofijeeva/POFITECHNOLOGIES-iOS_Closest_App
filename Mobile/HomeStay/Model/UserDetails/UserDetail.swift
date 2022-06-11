@@ -8,18 +8,18 @@ import Foundation
 
 class UserDetail : NSObject, NSCoding{
 
-    var descriptionField : String!
-    var dob : String!
-    var firstname : String!
-    var gender : String!
-    var idVerified : String!
-    var image : String!
-    var isVerified : String!
-    var lastname : String!
-    var phVerified : String!
-    var phoneNo : String!
-    var since : String!
-    var userName : String!
+    var descriptionField : String = ""
+    var dob : String = ""
+    var firstname : String = ""
+    var gender : String = ""
+    var idVerified : String = ""
+    var image : String = ""
+    var isVerified : String = ""
+    var lastname : String = ""
+    var phVerified : String = ""
+    var phoneNo : String = ""
+    var since : String = ""
+    var userName : String = ""
 
 
     /**

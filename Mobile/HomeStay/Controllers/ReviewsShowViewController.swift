@@ -18,13 +18,13 @@ class ReviewsShowViewController: BaseViewController {
     @IBOutlet weak var view_Indicator: UIView!
     @IBOutlet weak var lbl_noReviewsImg: UIImageView!
     
-    var headerTitle = String()
-    var aboutyou = String()
-    var byYou = String()
+    var headerTitle : String = ""
+    var aboutyou : String = ""
+    var byYou : String = ""
     var reviewAbt = NSArray()
     var reviewBy = NSArray()
     var isReviewabtYou = true
-    var selectId = Int()
+    var selectId : Int = 0
     
     
     override func viewDidLoad() {
@@ -44,7 +44,7 @@ class ReviewsShowViewController: BaseViewController {
         userInfo()
     }
     func userInfo(){
-        if (Reachability()?.isReachable)!
+        if (Reachability()?.isReachable ?? false)
         {
             
             showActivityIndicator(uiView: self.view)
@@ -263,16 +263,16 @@ extension ReviewsShowViewController : UITableViewDataSource,UITableViewDelegate 
             cell.reviewBookNoLbl.font = UIFont(name: RegularFont, size: 11)
             cell.lbl_userName.font = UIFont(name: RegularFont, size: 13)
             
-            cell.lbl_reviewComments.text = dict.reviewerComments!
+            cell.lbl_reviewComments.text = dict.reviewerComments
             cell.img_user.layer.masksToBounds = true
             cell.img_user.layer.cornerRadius = 30
-            let imgURL = URL(string: Singleton.sharedInstance.userInfoModel.reviewsAboutYou[indexPath.section].reviwerImage!)
+            let imgURL = URL(string: Singleton.sharedInstance.userInfoModel.reviewsAboutYou[indexPath.section].reviwerImage)
             cell.img_user.kf.setImage(with: imgURL!, placeholder:UIImage(named:"user"))
-            cell.lbl_userName.text = "By " + dict.reviewerName!
-            cell.rentalNameButton.setTitle(dict.reviewPropertyName!, for: .normal)
-            cell.reviewBookNoLbl.text = String(format: "%@",dict.reviewBookingNo!)
+            cell.lbl_userName.text = "By " + dict.reviewerName
+            cell.rentalNameButton.setTitle(dict.reviewPropertyName, for: .normal)
+            cell.reviewBookNoLbl.text = String(format: "%@",dict.reviewBookingNo)
             cell.reviewRatings.rating = Float(dict.reviewerRating)!
-            cell.bookingDateLabel.text = dict.reviewDate!
+            cell.bookingDateLabel.text = dict.reviewDate
             
             return cell
         }
@@ -289,15 +289,15 @@ extension ReviewsShowViewController : UITableViewDataSource,UITableViewDelegate 
             cell.lbl_username.font = UIFont(name: RegularFont, size: 13)
             
             
-            cell.lbl_reviews.text = dict.reviewerComments!
+            cell.lbl_reviews.text = dict.reviewerComments
             cell.img_User.layer.masksToBounds = true
             cell.img_User.layer.cornerRadius = 30
-            let imgURL = URL(string: Singleton.sharedInstance.userInfoModel.reviewsByYou[indexPath.section].reviwerImage!)
+            let imgURL = URL(string: Singleton.sharedInstance.userInfoModel.reviewsByYou[indexPath.section].reviwerImage)
             cell.img_User.kf.setImage(with: imgURL!, placeholder:UIImage(named:"user"))
-            cell.lbl_username.text = String(format: "To %@", dict.reviewerName!)
-            cell.rentalNameButton.setTitle(dict.reviewPropertyName!, for: .normal)
-            cell.rentalBookingLbl.text = dict.reviewBookingNo!
-            cell.reviewDateLbl.text = dict.reviewDate!
+            cell.lbl_username.text = String(format: "To %@", dict.reviewerName)
+            cell.rentalNameButton.setTitle(dict.reviewPropertyName, for: .normal)
+            cell.rentalBookingLbl.text = dict.reviewBookingNo
+            cell.reviewDateLbl.text = dict.reviewDate
             //String(format: "Booking No :%@" , dict.reviewBookingNo!)
             cell.reviewsRatingView.rating = Float(dict.reviewerRating)!
             

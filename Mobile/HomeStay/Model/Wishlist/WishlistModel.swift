@@ -8,8 +8,8 @@ import Foundation
 
 class WishlistModel : NSObject, NSCoding{
 
-    var message : String!
-    var status : Int!
+    var message : String = ""
+    var status : Int = 0
     var wishlist : [Wishlist]!
 
 

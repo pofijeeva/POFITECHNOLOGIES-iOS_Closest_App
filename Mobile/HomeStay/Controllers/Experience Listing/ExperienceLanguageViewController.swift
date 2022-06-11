@@ -17,7 +17,7 @@ class ExperienceLanguageViewController: UIViewController,CommonListingSaveDelega
      @IBOutlet weak var LanguageCollection: UICollectionView!
     
      var ListingActivityDelegate: listingActivityProtocol!
-    var SelectedArray = NSMutableArray()
+    var SelectedArray : NSMutableArray = []
     override func viewDidLoad() {
         super.viewDidLoad()
  SharedsaveInstance.delegate = self

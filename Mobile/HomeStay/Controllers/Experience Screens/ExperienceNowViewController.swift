@@ -70,8 +70,8 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
     @IBOutlet weak var EmptyExpLbl: UILabel!
     
     
-    var wishListId = Int()
-     var wishPropertyid = String()
+    var wishListId : Int = 0
+     var wishPropertyid : String = ""
     var isFromDate = "Arrive"
     
     var minimumDate = Date()
@@ -101,16 +101,16 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
     private var firstDate: Date?
     private var lastDate: Date?
     private var datesRange: [Date]?
-    var fromDateStr = String()
-    var toDateStr = String()
+    var fromDateStr : String = ""
+    var toDateStr : String = ""
     
     var DatesShow:String = "Show"
     
-    var ExperienceArray = NSMutableArray()
-    var ExperienceTypesArray = NSMutableArray()
-    var ExperienceCategoriesArray = NSMutableArray()
-    var SelectedType = NSMutableArray()
-    var SelectedCategoriesType = NSMutableArray()
+    var ExperienceArray : NSMutableArray = []
+    var ExperienceTypesArray : NSMutableArray = []
+    var ExperienceCategoriesArray : NSMutableArray = []
+    var SelectedType : NSMutableArray = []
+    var SelectedCategoriesType : NSMutableArray = []
     
     
     
@@ -317,7 +317,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
                 },
                                   completion: nil)
                 
-                if (Reachability()?.isReachable)!
+                if (Reachability()?.isReachable ?? false)
                 {
                      WishListApiCall()
      }
@@ -353,9 +353,9 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
                 self.ExperienceArray.removeAllObjects()
                 self.ExperienceTypesArray.removeAllObjects()
                 self.ExperienceCategoriesArray.removeAllObjects()
-                self.ExperienceArray.addObjects(from: (responseDict.object(forKey: "experience_details")as! NSArray) as! [Any])
-                self.ExperienceTypesArray.addObjects(from: (responseDict.object(forKey: "experience_types")as! NSArray) as! [Any])
-                self.ExperienceCategoriesArray.addObjects(from: (responseDict.object(forKey: "experience_categories")as! NSArray) as! [Any])
+                self.ExperienceArray.addObjects(from: (responseDict.object(forKey: "experience_details")as? NSArray) as? [Any] ?? [])
+                self.ExperienceTypesArray.addObjects(from: (responseDict.object(forKey: "experience_types")as? NSArray) as? [Any] ?? [])
+                self.ExperienceCategoriesArray.addObjects(from: (responseDict.object(forKey: "experience_categories")as? NSArray) as? [Any] ?? [])
                 print(self.ExperienceArray)
                 print(self.ExperienceTypesArray)
                 print(self.ExperienceCategoriesArray)
@@ -424,7 +424,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
             else {
                
              
-                if (Reachability()?.isReachable)!
+                if (Reachability()?.isReachable ?? false)
                 {
                     showActivityIndicator(uiView: self.view)
                     var params = NSMutableDictionary()
@@ -581,7 +581,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
         self.SelectType.isHidden = true
         self.CategoriesView.isHidden = true
         
-        var selectedCatStr = String()
+        var selectedCatStr : String = ""
         
         
         selectedCatStr = self.SelectedCategoriesType.componentsJoined(by: ",")
@@ -607,9 +607,9 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
                 self.ExperienceArray.removeAllObjects()
                 self.ExperienceTypesArray.removeAllObjects()
                 self.ExperienceCategoriesArray.removeAllObjects()
-                self.ExperienceArray.addObjects(from: (responseDict.object(forKey: "experience_details")as! NSArray) as! [Any])
-                self.ExperienceTypesArray.addObjects(from: (responseDict.object(forKey: "experience_types")as! NSArray) as! [Any])
-                self.ExperienceCategoriesArray.addObjects(from: (responseDict.object(forKey: "experience_categories")as! NSArray) as! [Any])
+                self.ExperienceArray.addObjects(from: (responseDict.object(forKey: "experience_details")as? NSArray) as? [Any] ?? [])
+                self.ExperienceTypesArray.addObjects(from: (responseDict.object(forKey: "experience_types")as? NSArray) as? [Any] ?? [])
+                self.ExperienceCategoriesArray.addObjects(from: (responseDict.object(forKey: "experience_categories")as? NSArray) as? [Any] ?? [])
                 print(self.ExperienceArray)
                 print(self.ExperienceTypesArray)
                 print(self.ExperienceCategoriesArray)
@@ -705,9 +705,9 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
                     self.ExperienceArray.removeAllObjects()
                                    self.ExperienceTypesArray.removeAllObjects()
                                    self.ExperienceCategoriesArray.removeAllObjects()
-                    self.ExperienceArray.addObjects(from: (responseDict.object(forKey: "experience_details")as! NSArray) as! [Any])
-                    self.ExperienceTypesArray.addObjects(from: (responseDict.object(forKey: "experience_types")as! NSArray) as! [Any])
-                    self.ExperienceCategoriesArray.addObjects(from: (responseDict.object(forKey: "experience_categories")as! NSArray) as! [Any])
+                    self.ExperienceArray.addObjects(from: (responseDict.object(forKey: "experience_details")as? NSArray) as? [Any] ?? [])
+                    self.ExperienceTypesArray.addObjects(from: (responseDict.object(forKey: "experience_types")as? NSArray) as? [Any] ?? [])
+                    self.ExperienceCategoriesArray.addObjects(from: (responseDict.object(forKey: "experience_categories")as? NSArray) as? [Any] ?? [])
                     print(self.ExperienceArray)
                     print(self.ExperienceTypesArray)
                     print(self.ExperienceCategoriesArray)
@@ -757,7 +757,7 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
     @IBAction func SelectTypeOkAct(_ sender: Any) {
         self.GaryView.isHidden = true
         self.SelectType.isHidden = true
-        var selectedTypeStr = String()
+        var selectedTypeStr : String = ""
         
         
         selectedTypeStr = self.SelectedType.componentsJoined(by: ",")
@@ -783,9 +783,9 @@ class ExperienceNowViewController: BaseViewController,FSCalendarDataSource, FSCa
                 self.ExperienceArray.removeAllObjects()
                 self.ExperienceTypesArray.removeAllObjects()
                 self.ExperienceCategoriesArray.removeAllObjects()
-                self.ExperienceArray.addObjects(from: (responseDict.object(forKey: "experience_details")as! NSArray) as! [Any])
-                self.ExperienceTypesArray.addObjects(from: (responseDict.object(forKey: "experience_types")as! NSArray) as! [Any])
-                self.ExperienceCategoriesArray.addObjects(from: (responseDict.object(forKey: "experience_categories")as! NSArray) as! [Any])
+                self.ExperienceArray.addObjects(from: (responseDict.object(forKey: "experience_details")as? NSArray) as? [Any] ?? [])
+                self.ExperienceTypesArray.addObjects(from: (responseDict.object(forKey: "experience_types")as? NSArray) as? [Any] ?? [])
+                self.ExperienceCategoriesArray.addObjects(from: (responseDict.object(forKey: "experience_categories")as? NSArray) as? [Any] ?? [])
                 print(self.ExperienceArray)
                 print(self.ExperienceTypesArray)
                 print(self.ExperienceCategoriesArray)
@@ -972,10 +972,10 @@ extension ExperienceNowViewController: UICollectionViewDelegate,UICollectionView
    
    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "wcell", for: indexPath as IndexPath) as! WishlistCollectionViewCell
-       cell.lbl_WishlistName.text = Singleton.sharedInstance.wishListModel.wishlist[indexPath.row].wishlistTitle!
+       cell.lbl_WishlistName.text = Singleton.sharedInstance.wishListModel.wishlist[indexPath.row].wishlistTitle
          cell.lbl_WishlistName.font = UIFont(name: SemiBoldFont, size: 13)
        cell.lbl_wishlistcount.font = UIFont(name: SemiBoldFont, size: 13)
-       let wishlistImgUrl = URL(string: Singleton.sharedInstance.wishListModel.wishlist[indexPath.row].wishlistImage!)
+       let wishlistImgUrl = URL(string: Singleton.sharedInstance.wishListModel.wishlist[indexPath.row].wishlistImage)
        if wishlistImgUrl != nil {
            
            cell.img_Wishlist.kf.setImage(with: wishlistImgUrl, placeholder: UIImage.init(named: "testImage.jpg"), options: nil, progressBlock: nil, completionHandler: nil)

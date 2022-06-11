@@ -10,11 +10,11 @@ class PlaceListModel : NSObject, NSCoding{
 
     var attribute : [Attribute]!
     var currencyList : [AnyObject]!
-    var message : String!
+    var message : String = ""
     var property : [Property]!
     var rentalList : [RentalList]!
     var rooms : [Room]!
-    var status : Int!
+    var status : Int = 0
 
 
     /**

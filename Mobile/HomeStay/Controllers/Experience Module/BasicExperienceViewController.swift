@@ -29,12 +29,12 @@ class BasicExperienceViewController: UIViewController,UITextFieldDelegate {
             ]
     }()
     var arrayExperienceTypeDropDown = ["Immersion","Experience"]
-    var arrayExperienceCategory = NSMutableArray()
-    var arrayExperienceCategoryID = NSMutableArray()
+    var arrayExperienceCategory : NSMutableArray = []
+    var arrayExperienceCategoryID : NSMutableArray = []
     var selectedIndexForExperienceCategory = ""
     var experienceTypeID = ""
-    var DaysCount = String()
-    var HoursCount = String()
+    var DaysCount : String = ""
+    var HoursCount : String = ""
    
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -305,7 +305,7 @@ class BasicExperienceViewController: UIViewController,UITextFieldDelegate {
                     
                     if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                         currentExpId = "\(responseDict.object(forKey: "experience_id") as AnyObject)"
-                        arrayOfdictBasics.addObjects(from: (responseDict.object(forKey: "result") as! NSArray) as! [Any])
+                        arrayOfdictBasics.addObjects(from: (responseDict.object(forKey: "result") as? NSArray) as? [Any] ?? [])
                         let aray = arrayOfdictBasics[0] as! NSDictionary
                         var arrayOfDict = [[String:AnyObject]]()
                         sharedInstanceExperience.gotoStepTwo()

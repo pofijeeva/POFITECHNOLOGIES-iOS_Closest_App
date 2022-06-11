@@ -8,23 +8,23 @@ import Foundation
 
 class Step8 : NSObject, NSCoding{
 
-    var address : String!
-    var city : String!
-    var country : String!
-    var lat : String!
-    var longField : String!
-    var propertyid : Int!
-    var state : String!
-    var stepCompleted : Bool!
-    var street : String!
-    var zip : String!
+    var address : String = ""
+    var city : String = ""
+    var country : String = ""
+    var lat : String = ""
+    var longField : String = ""
+    var propertyid : Int = 0
+    var state : String = ""
+    var stepCompleted : Bool = false 
+    var street : String = ""
+    var zip : String = ""
     
-    var location_id : Int!
-    var status : Int!
-    var street_address : String!
-    var zip_code : String!
-    var latitude : String!
-    var longitude : String!
+    var location_id : Int = 0
+    var status : Int = 0
+    var street_address : String = ""
+    var zip_code : String = ""
+    var latitude : String = ""
+    var longitude : String = ""
 
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values

@@ -23,7 +23,7 @@ class PriceViewController: UIViewController {
     var ListingActivityDelegate: listingActivityProtocol!
     var dropDownDelegate: DropDownProtocol!
     var dropDownCurrencyArray = [String]()
-    var propertyID = Int()
+    var propertyID : Int = 0
     var currencyArr = [Currency]()
     var priceChange = false
     
@@ -116,7 +116,7 @@ class PriceViewController: UIViewController {
                 
 //                var params = NSMutableDictionary()
                 
-//                 params = ["user_id":login_session.value(forKey: "UserId")!,"property_id":Singleton.sharedInstance.rentYourSpace.propertyid!,"currency_code":self.txtCurrency.text!,"price":self.txtPtice.text!,"chk":"","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","base_id":Singleton.sharedInstance.selectedCategory!]
+//                 params = ["user_id":login_session.value(forKey: "UserId")!,"property_id":Singleton.sharedInstance.rentYourSpace.propertyid,"currency_code":self.txtCurrency.text!,"price":self.txtPtice.text!,"chk":"","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","base_id":Singleton.sharedInstance.selectedCategory]
                 
                 var params = NSMutableDictionary()
                 
@@ -164,8 +164,8 @@ class PriceViewController: UIViewController {
                 APIManager.apiPostWithHeaders(serviceName: SAVE_PRICE_LISTING, parameters: params as? [String : Any]) { (json:NSDictionary?, error:NSError?) in
                     DispatchQueue.main.async {  }
                     if error != nil {
-                        print(error!.localizedDescription)
-                        self.showInformation(title: "Closest", message: error!.localizedDescription)
+                        print(error?.localizedDescription ?? "")
+                        self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                         return
                     }
                     let responseDict:NSDictionary = json!
@@ -199,7 +199,7 @@ class PriceViewController: UIViewController {
                 
                 
                 
-//            let parameterStr = "user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(Singleton.sharedInstance.rentYourSpace.propertyid!)&currency_code=\(self.txtCurrency.text!)&price=\(self.txtPtice.text!)&chk=&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&base_id=\(Singleton.sharedInstance.selectedCategory!)"
+//            let parameterStr = "user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(Singleton.sharedInstance.rentYourSpace.propertyid)&currency_code=\(self.txtCurrency.text!)&price=\(self.txtPtice.text!)&chk=&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&base_id=\(Singleton.sharedInstance.selectedCategory)"
 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: SAVE_PRICE_LISTING, APIKEY: "SAVE_PRICE_LISTING")
 //            print(parameterStr)
           }

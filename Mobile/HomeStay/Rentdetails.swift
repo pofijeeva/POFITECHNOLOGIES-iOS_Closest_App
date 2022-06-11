@@ -13,15 +13,15 @@ class Rentdetails : NSObject, NSCoding{
    
     
    
-    var ren_guest_axes : String!
-    var ren_house_rule : String!
-    var ren_other_things : String!
-    var ren_space : String!
-    var ren_summary : String!
-    var ren_title : String!
-    var ren_meta_title : String!
-    var ren_meta_keyword : String!
-    var ren_meta_desc : String!
+    var ren_guest_axes : String = ""
+    var ren_house_rule : String = ""
+    var ren_other_things : String = ""
+    var ren_space : String = ""
+    var ren_summary : String = ""
+    var ren_title : String = ""
+    var ren_meta_title : String = ""
+    var ren_meta_keyword : String = ""
+    var ren_meta_desc : String = ""
     
     
     
@@ -30,15 +30,15 @@ class Rentdetails : NSObject, NSCoding{
      */
     init(fromDictionary dictionary: [String:Any]){
        
-        ren_guest_axes = dictionary["ren_guest_axes"] as? String
-        ren_house_rule = dictionary["ren_house_rule"] as? String
-        ren_other_things = dictionary["ren_other_things"] as? String
-        ren_space = dictionary["ren_space"] as? String
-        ren_summary = dictionary["ren_summary"] as? String
-        ren_title = dictionary["ren_title"] as? String
-        ren_meta_title = dictionary["ren_meta_title"] as? String
-        ren_meta_keyword = dictionary["ren_meta_keyword"] as? String
-        ren_meta_desc = dictionary["ren_meta_desc"] as? String
+        ren_guest_axes = dictionary["ren_guest_axes"] as? String ?? ""
+        ren_house_rule = dictionary["ren_house_rule"] as? String ?? ""
+        ren_other_things = dictionary["ren_other_things"] as? String ?? ""
+        ren_space = dictionary["ren_space"] as? String ?? ""
+        ren_summary = dictionary["ren_summary"] as? String ?? ""
+        ren_title = dictionary["ren_title"] as? String ?? ""
+        ren_meta_title = dictionary["ren_meta_title"] as? String ?? ""
+        ren_meta_keyword = dictionary["ren_meta_keyword"] as? String ?? ""
+        ren_meta_desc = dictionary["ren_meta_desc"] as? String ?? ""
         
         
        
@@ -88,15 +88,15 @@ class Rentdetails : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        ren_guest_axes = aDecoder.decodeObject(forKey: "ren_guest_axes") as? String
-        ren_house_rule = aDecoder.decodeObject(forKey: "ren_house_rule") as? String
-        ren_other_things = aDecoder.decodeObject(forKey: "ren_other_things") as? String
-        ren_space = aDecoder.decodeObject(forKey: "ren_space") as? String
-        ren_summary = aDecoder.decodeObject(forKey: "ren_summary") as? String
-        ren_title = aDecoder.decodeObject(forKey: "ren_title") as? String
-        ren_meta_title = aDecoder.decodeObject(forKey: "ren_meta_title") as? String
-        ren_meta_keyword = aDecoder.decodeObject(forKey: "ren_meta_keyword") as? String
-        ren_meta_desc = aDecoder.decodeObject(forKey: "ren_meta_desc") as? String
+        ren_guest_axes = aDecoder.decodeObject(forKey: "ren_guest_axes") as? String ?? ""
+        ren_house_rule = aDecoder.decodeObject(forKey: "ren_house_rule") as? String ?? ""
+        ren_other_things = aDecoder.decodeObject(forKey: "ren_other_things") as? String ?? ""
+        ren_space = aDecoder.decodeObject(forKey: "ren_space") as? String ?? ""
+        ren_summary = aDecoder.decodeObject(forKey: "ren_summary") as? String ?? ""
+        ren_title = aDecoder.decodeObject(forKey: "ren_title") as? String ?? ""
+        ren_meta_title = aDecoder.decodeObject(forKey: "ren_meta_title") as? String ?? ""
+        ren_meta_keyword = aDecoder.decodeObject(forKey: "ren_meta_keyword") as? String ?? ""
+        ren_meta_desc = aDecoder.decodeObject(forKey: "ren_meta_desc") as? String ?? ""
     }
 
     /**

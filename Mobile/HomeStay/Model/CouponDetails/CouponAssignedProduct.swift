@@ -8,9 +8,9 @@ import Foundation
 
 class CouponAssignedProduct : NSObject, NSCoding{
     
-    var address : String!
-    var id : String!
-    var productTitle : String!
+    var address : String = ""
+    var id : String = ""
+    var productTitle : String = ""
     
     
     /**

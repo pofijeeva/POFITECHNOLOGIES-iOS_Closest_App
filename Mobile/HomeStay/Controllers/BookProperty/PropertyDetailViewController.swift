@@ -65,7 +65,7 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
     @IBOutlet weak var lineview5: UIView!
     @IBOutlet weak var livew6: UIView!
     @IBOutlet weak var view_Calendar: FSCalendar!
-    var CancelString = String()
+    var CancelString : String = ""
     @IBOutlet weak var view7: UIView!
     @IBOutlet weak var navTitle: UILabel!
     
@@ -100,28 +100,28 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
      @IBOutlet weak var LoginMessagetxtLbl: UILabel!
      @IBOutlet weak var LoginOkBtn: UIButton!
     
-    var DatesMutable = NSMutableArray()
-    var navString = String()
-    var time = NSMutableArray()
-    var checkinDateStr = String()
-    var sunLeaveStatus = Bool()
-    var monLeaveStatus = Bool()
-    var tueLeaveStatus = Bool()
-    var wedLeaveStatus = Bool()
-    var thuLeaveStatus = Bool()
-    var friLeaveStatus = Bool()
-    var satLeaveStatus = Bool()
-    var aminityNames = NSMutableArray()
-    var aminityTitle = NSMutableArray()
-    var ServiceTYPE = Int()
-    var hotelServiceType = String()
-    var hotelServiceVal = Float()
-    var startinDate = String()
-    var endinDate = String()
+    var DatesMutable : NSMutableArray = []
+    var navString : String = ""
+    var time : NSMutableArray = []
+    var checkinDateStr : String = ""
+    var sunLeaveStatus : Bool = false
+    var monLeaveStatus : Bool = false
+    var tueLeaveStatus : Bool = false
+    var wedLeaveStatus : Bool = false
+    var thuLeaveStatus : Bool = false
+    var friLeaveStatus : Bool = false
+    var satLeaveStatus : Bool = false
+    var aminityNames : NSMutableArray = []
+    var aminityTitle : NSMutableArray = []
+    var ServiceTYPE : Int = 0
+    var hotelServiceType : String = ""
+    var hotelServiceVal : Float = 0
+    var startinDate : String = ""
+    var endinDate : String = ""
     var selctdDates = NSArray()
-    var cancelPercent = String()
+    var cancelPercent : String = ""
     //MARK:- Variables
-    var PropertyID: String!
+    var PropertyID: String = ""
     var BTN_FRAME_COLOR = UIColor(red: 234/255.0, green: 61/255.0, blue: 62/255.0, alpha: 1.0).cgColor
     let newPin = MKPointAnnotation()
     var stringFromDate : String?
@@ -129,51 +129,51 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
     var restAminity = [Attribute]()
     var optionsArr = [Option]()
     // var aminitsArr = [Amenty]()
-    var hostedby = String()
-    var sunCheck = Bool()
-    var monCheck = Bool()
-    var tueCheck = Bool()
-    var wedCheck = Bool()
-    var thuCheck = Bool()
-    var friCheck = Bool()
-    var satCheck = Bool()
-    var nobeds = String()
-    var bed = String()
-    var bedss = String()
-    var nobedrooms = String()
-    var bedroomss = String()
-    var bedroom = String()
-    var noguest = String()
-    var guest = String()
-    var guests = String()
-    var notAvaliable = String()
-    var nights = String()
-    var minimum_Stay = Int()
+    var hostedby : String = ""
+    var sunCheck : Bool = false
+    var monCheck : Bool = false
+    var tueCheck : Bool = false
+    var wedCheck : Bool = false
+    var thuCheck : Bool = false
+    var friCheck : Bool = false
+    var satCheck : Bool = false
+    var nobeds : String = ""
+    var bed : String = ""
+    var bedss : String = ""
+    var nobedrooms : String = ""
+    var bedroomss : String = ""
+    var bedroom : String = ""
+    var noguest : String = ""
+    var guest : String = ""
+    var guests : String = ""
+    var notAvaliable : String = ""
+    var nights : String = ""
+    var minimum_Stay : Int = 0
     var firstDate = Date()
     var lastDate = Date()
-    var daysRange = Int()
-    var datesUsedArr = NSMutableArray()
-    var instantPaycheck = Bool()
-    var reqToBookcheck = Bool()
-    var aminitiesDisplay = NSMutableArray()
-    var detailsleftSideNamesArr = NSMutableArray()
-    var PROP_ID = Int()
-    var headerTxt = String()
-    var base_ID = String()
-    var titleText = String()
+    var daysRange : Int = 0
+    var datesUsedArr : NSMutableArray = []
+    var instantPaycheck : Bool = false
+    var reqToBookcheck : Bool = false
+    var aminitiesDisplay : NSMutableArray = []
+    var detailsleftSideNamesArr : NSMutableArray = []
+    var PROP_ID : Int = 0
+    var headerTxt : String = ""
+    var base_ID : String = ""
+    var titleText : String = ""
     
-    var instantPayStatusValue = Int()
-    var reqToBookStatusValue = Int()
+    var instantPayStatusValue : Int = 0
+    var reqToBookStatusValue : Int = 0
     
-    var host_Status_Str = String()
-    var guest_Capacity = Int()
+    var host_Status_Str : String = ""
+    var guest_Capacity : Int = 0
     
     
-    var currencySymbol = String()
-    var bookedDays = NSMutableArray()
+    var currencySymbol : String = ""
+    var bookedDays : NSMutableArray = []
     var mydates : [String] = []
-    var checkedIndate = String()
-    var checkedOutdate = String()
+    var checkedIndate : String = ""
+    var checkedOutdate : String = ""
     var seasonalCalendar = NSArray()
     
     var timeEnd : Date?
@@ -218,7 +218,7 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
         
         // Calender
         self.view_AllAmenities.isHidden = true
-        //        if (Reachability()?.isReachable)!
+        //        if (Reachability()?.isReachable ?? false)
         //        {
         //
         //            showActivityIndicator(uiView: self.view)
@@ -325,7 +325,7 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
         showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
         
-        params =  ["prod_id": PropertyID!,"page_Id":"1","lang_code":"en","user_id":UserID]
+        params =  ["prod_id": PropertyID,"page_Id":"1","lang_code":"en","user_id":UserID]
         
         let manager = AFHTTPSessionManager()
         manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -341,7 +341,7 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
                 let mod = PropertyDetails(fromDictionary: responseDict as! [String : Any])
                 Singleton.sharedInstance.PropertyDetail = mod
                 print(responseDict)
-                Int(mod.minimumStay!) ?? 1
+//                Int(mod.minimumStay) ?? 1
                 let checkdatesArr = responseDict.value(forKey: "check") as! NSArray
                 if (responseDict.value(forKey: "host_status") as? String) != nil
                 {
@@ -456,9 +456,9 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
                 let Dates = Singleton.sharedInstance.PropertyDetail.seasonalCalendarPrice.count
                 
                 for i in 0..<Dates{
-                    let dateString = Singleton.sharedInstance.PropertyDetail.seasonalCalendarPrice[i].date!
-                    let dateStatus = Singleton.sharedInstance.PropertyDetail.seasonalCalendarPrice[i].status!
-                    let datePrice = Singleton.sharedInstance.PropertyDetail.seasonalCalendarPrice[i].price!
+                    let dateString = Singleton.sharedInstance.PropertyDetail.seasonalCalendarPrice[i].date
+                    let dateStatus = Singleton.sharedInstance.PropertyDetail.seasonalCalendarPrice[i].status
+                    let datePrice = Singleton.sharedInstance.PropertyDetail.seasonalCalendarPrice[i].price
                     let datesArray = NSMutableDictionary()
                     datesArray.setValue(dateString, forKey: "DateString")
                     datesArray.setValue(dateStatus, forKey: "DateStatus")
@@ -553,7 +553,7 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
     //
     //            if error != nil
     //            {
-    //                print(error!.localizedDescription)
+    //                print(error?.localizedDescription ?? "")
     //                return
     //            }
     //            print(json!)
@@ -797,7 +797,7 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
         if login_session.value(forKey: "IS_USER_LOGGEDIN") as? Bool == true
         {
             let userId = login_session.value(forKey: "UserId") as? AnyObject
-            let hostId = Singleton.sharedInstance.PropertyDetail.hostId!
+            let hostId = Singleton.sharedInstance.PropertyDetail.hostId
             
             if String(describing: userId!) == String(describing: hostId) {
                 self.showInformation(title: "Closest", message: "Host is unable to book own Property")
@@ -841,7 +841,7 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
         if login_session.value(forKey: "IS_USER_LOGGEDIN") as? Bool == true
         {
             let userId = login_session.value(forKey: "UserId") as? AnyObject
-            let hostId = Singleton.sharedInstance.PropertyDetail.hostId!
+            let hostId = Singleton.sharedInstance.PropertyDetail.hostId
             
             if String(describing: userId!) == String(describing: hostId) {
                 self.showInformation(title: "Closest", message: "Host is unable to book own Property")
@@ -885,7 +885,7 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
         if login_session.value(forKey: "IS_USER_LOGGEDIN") as? Bool == true
         {
             let userId = login_session.value(forKey: "UserId") as? AnyObject
-            let hostId = Singleton.sharedInstance.PropertyDetail.hostId!
+            let hostId = Singleton.sharedInstance.PropertyDetail.hostId
             
             if String(describing: userId!) == String(describing: hostId) {
                 self.showInformation(title: "Closest", message: "Host is unable to book own Property")
@@ -967,10 +967,10 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
         self.tbl_AllAmenities.isHidden = false
         self.view_AllAmenities.isHidden = false
         self.view_grey.isHidden = false
-        if (Reachability()?.isReachable)!
+        if (Reachability()?.isReachable ?? false)
         {
             showActivityIndicator(uiView: self.view)
-            let id = Singleton.sharedInstance.selectedCategory!
+            let id = Singleton.sharedInstance.selectedCategory
             let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
             Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: REQ_RENT_YOUR_SPACE, APIKEY: "REQ_RENT_YOUR_SPACE")
         }
@@ -1113,10 +1113,10 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
         self.view_grey.isHidden = false
         self.tbl_AllAmenities.reloadData()
         
-        //        if (Reachability()?.isReachable)!
+        //        if (Reachability()?.isReachable ?? false)
         //        {
         //            showActivityIndicator(uiView: self.view)
-        //            let id = Singleton.sharedInstance.selectedCategory!
+        //            let id = Singleton.sharedInstance.selectedCategory
         //            let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
         //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: REQ_RENT_YOUR_SPACE, APIKEY: "REQ_RENT_YOUR_SPACE")
         //        }
@@ -1158,7 +1158,7 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
         
         
         let userId = login_session.value(forKey: "UserId") as? AnyObject
-        let hostId = Singleton.sharedInstance.PropertyDetail.hostId!
+        let hostId = Singleton.sharedInstance.PropertyDetail.hostId
         
         if String(describing: userId!) == String(describing: hostId) {
             self.showInformation(title: "Closest", message: "Host is unable to book own Property")
@@ -1225,7 +1225,7 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
         
         let lat = Singleton.sharedInstance.PropertyDetail.latitude
         let long = Singleton.sharedInstance.PropertyDetail.longitude
-        let center = CLLocationCoordinate2D(latitude: Double(lat!)! , longitude: Double(long!)!)
+        let center = CLLocationCoordinate2D(latitude: Double(lat)! , longitude: Double(long)!)
         let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         mapLocation.setRegion(region, animated: true)
         newPin.coordinate =  center
@@ -1333,26 +1333,26 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
             let NetAmount = String(format: "%.2f",rounding1)
             //self.lblPrice.text = "  " + Singleton.sharedInstance.PropertyDetail.userCurrency + " " + String(describing: price)
             //self.lblPriceDetailPrice.text = "  " + Singleton.sharedInstance.PropertyDetail.userCurrency + " " + String(describing: price)
-            if let userCurrencyStr:String = Singleton.sharedInstance.PropertyDetail.userCurrency{
-                self.lblPricetxtfield.text = "" + userCurrencyStr + " " + String(describing: NetAmount)
-                self.lblPriceDetailPrice.text = "  " + userCurrencyStr + " " + String(describing: NetAmount)
-            }else{
-                self.lblPricetxtfield.text = "" + currencySymbol + " " + String(describing: NetAmount)
-                self.lblPriceDetailPrice.text = "  " + currencySymbol + " " + String(describing: NetAmount)
-                
-            }
+//            if let userCurrencyStr:String = Singleton.sharedInstance.PropertyDetail.userCurrency{
+                self.lblPricetxtfield.text = "" + Singleton.sharedInstance.PropertyDetail.userCurrency + " " + String(describing: NetAmount)
+                self.lblPriceDetailPrice.text = "  " + Singleton.sharedInstance.PropertyDetail.userCurrency + " " + String(describing: NetAmount)
+//            }else{
+//                self.lblPricetxtfield.text = "" + currencySymbol + " " + String(describing: NetAmount)
+//                self.lblPriceDetailPrice.text = "  " + currencySymbol + " " + String(describing: NetAmount)
+//
+//            }
         }
-        if let proName = Singleton.sharedInstance.PropertyDetail.defaultproducttitle {
-            self.lblPropertyName.text = proName
-            self.lblPropertyName2.text = proName
-        }
-        if let hostName = Singleton.sharedInstance.PropertyDetail.hostname {
-            self.lblHostName.text = hostedby + " " + String(describing: hostName)
-        }
-        if let hostID = Singleton.sharedInstance.PropertyDetail.hostId
-        {
-            print(hostID)
-        }
+//        if let proName = Singleton.sharedInstance.PropertyDetail.defaultproducttitle {
+            self.lblPropertyName.text = Singleton.sharedInstance.PropertyDetail.defaultproducttitle
+            self.lblPropertyName2.text = Singleton.sharedInstance.PropertyDetail.defaultproducttitle
+//        }
+//        if let hostName = Singleton.sharedInstance.PropertyDetail.hostname {
+            self.lblHostName.text = hostedby + " " + String(describing: Singleton.sharedInstance.PropertyDetail.hostname)
+//        }
+//        if let hostID = Singleton.sharedInstance.PropertyDetail.hostId
+//        {
+//            print(hostID)
+//        }
         if Singleton.sharedInstance.PropertyDetail.hostimg != nil
         {
             let imgUpdated = URL(string:Singleton.sharedInstance.PropertyDetail.hostimg)
@@ -1363,7 +1363,8 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
             
             
         }
-        if let beds = Singleton.sharedInstance.PropertyDetail.beds {
+        if !Singleton.sharedInstance.PropertyDetail.beds.isEmpty {
+            let beds = Singleton.sharedInstance.PropertyDetail.beds
             if beds == "0" || beds == ""{
                 self.lblBeds.text = nobeds
             } else if beds == "1" {
@@ -1374,7 +1375,8 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
         } else {
             self.lblBeds.text =  nobeds
         }
-        if let bedrooms = Singleton.sharedInstance.PropertyDetail.bedrooms {
+        if !Singleton.sharedInstance.PropertyDetail.bedrooms.isEmpty {
+            let bedrooms = Singleton.sharedInstance.PropertyDetail.bedrooms
             if bedrooms == "0" || bedrooms == ""{
                 self.llblBedroom.text = nobedrooms
             } else if bedrooms == "1" {
@@ -1417,7 +1419,9 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
             self.viewPropReview.isHidden = false
         }
         
-        if let minimumStay = Singleton.sharedInstance.PropertyDetail.minimumStay {
+        if !Singleton.sharedInstance.PropertyDetail.minimumStay.isEmpty{
+            
+            let minimumStay = Singleton.sharedInstance.PropertyDetail.minimumStay
             if minimumStay == "0" || minimumStay == ""{
                 self.btnMinStay.setTitle(notAvaliable, for: .normal)
             } else if minimumStay == "1" {
@@ -1429,8 +1433,9 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
             self.btnMinStay.setTitle(notAvaliable, for: .normal)
         }
         
-        if let cancellation = Singleton.sharedInstance.PropertyDetail.cancellation
+        if Singleton.sharedInstance.PropertyDetail.cancellation.isEmpty
         {
+            let cancellation = Singleton.sharedInstance.PropertyDetail.cancellation
             self.btnCancellationPolicy.setTitle(cancellation, for: .normal)
         }
         else
@@ -1440,12 +1445,12 @@ class PropertyDetailViewController: BaseViewController,FSCalendarDataSource, FSC
         
         if let secuDeposit = Singleton.sharedInstance.PropertyDetail.securityDeposit {
             //self.lblPriceDetailSecurityDepo.text = "  " + Singleton.sharedInstance.PropertyDetail.userCurrency + " " + String(describing: secuDeposit)
-            if let userCurrencyStr:String = Singleton.sharedInstance.PropertyDetail.userCurrency{
-                self.lblPriceDetailSecurityDepo.text = " " + userCurrencyStr + " " + String(describing: secuDeposit)
-            }
-            else {
-                self.lblPriceDetailSecurityDepo.text = " " + "" + " " + "0.0"
-            }
+//            if let userCurrencyStr:String = Singleton.sharedInstance.PropertyDetail.userCurrency{
+                self.lblPriceDetailSecurityDepo.text = " " + Singleton.sharedInstance.PropertyDetail.userCurrency + " " + String(describing: secuDeposit)
+//            }
+//            else {
+//                self.lblPriceDetailSecurityDepo.text = " " + "" + " " + "0.0"
+//            }
         } else {
             self.lblPriceDetailSecurityDepo.text = " " + Singleton.sharedInstance.PropertyDetail.userCurrency + " " + "0.0"
         }
@@ -1558,13 +1563,13 @@ extension PropertyDetailViewController: UITableViewDelegate,UITableViewDataSourc
                 let dateFormatter1 = DateFormatter()
                 dateFormatter1.dateFormat = "yyyy-MM-dd"
                 dateFormatter1.locale = Locale(identifier: "en_US_POSIX")
-                cell!.couponName.text =  String(format: " Coupon offer : %@ %@",Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponPriceValue!,"%")
-                cell!.couponCodeLbl.text =  String(format: " Coupon code : %@",Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponCode!)
+                cell!.couponName.text =  String(format: " Coupon offer : %@ %@",Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponPriceValue,"%")
+                cell!.couponCodeLbl.text =  String(format: " Coupon code : %@",Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponCode)
                 UIPasteboard.general.string = cell!.couponCodeLbl.text
-                cell!.couponTimeLimit.text =  String(format: "Time Limit : %@ - %@",Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDatefrom!,Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDateto!)
+                cell!.couponTimeLimit.text =  String(format: "Time Limit : %@ - %@",Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDatefrom,Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDateto)
                 
-                let fromdate = Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDatefrom!
-                let todate = Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDateto!
+                let fromdate = Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDatefrom
+                let todate = Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDateto
                 //  let FromdateObj = dateFormatter1.date(from: fromdate)
                 let TodateObj = dateFormatter1.date(from: todate)
                 
@@ -1641,11 +1646,11 @@ extension PropertyDetailViewController: UITableViewDelegate,UITableViewDataSourc
                 cell!.selectionStyle = .none
                 cell!.lblAmenitiesName.font = UIFont(name: RegularFont, size: 14)
                 cell!.lblAmenitiesValue.font = UIFont(name: RegularFont, size: 14)
-                if let lab = Singleton.sharedInstance.PropertyDetail.listingInfo[indexPath.row].label {
-                    cell!.lblAmenitiesName.text = lab
-                }
-                if let val = Singleton.sharedInstance.PropertyDetail.listingInfo[indexPath.row].value{
-                    cell!.lblAmenitiesValue.text = val
+//                if let lab = Singleton.sharedInstance.PropertyDetail.listingInfo[indexPath.row].label {
+                    cell!.lblAmenitiesName.text = Singleton.sharedInstance.PropertyDetail.listingInfo[indexPath.row].label
+//                }
+                if !Singleton.sharedInstance.PropertyDetail.listingInfo[indexPath.row].value.isEmpty{
+                    cell!.lblAmenitiesValue.text = Singleton.sharedInstance.PropertyDetail.listingInfo[indexPath.row].value
                 } else {
                     cell!.lblAmenitiesValue.text = "Not Available"
                 }
@@ -1661,7 +1666,8 @@ extension PropertyDetailViewController: UITableViewDelegate,UITableViewDataSourc
                 cell!.detailsNameTxtLabel.text = (detailsleftSideNamesArr[indexPath.row] as? String ?? "")
                 if indexPath.row == 0
                 {
-                    if let minimumStay = Singleton.sharedInstance.PropertyDetail.minimumStay {
+                    if !Singleton.sharedInstance.PropertyDetail.minimumStay.isEmpty {
+                        let minimumStay = Singleton.sharedInstance.PropertyDetail.minimumStay
                         if minimumStay == "0" || minimumStay == ""{
                             cell!.detailsValueButton.setTitle(notAvaliable, for: .normal)
                         } else if minimumStay == "1" {
@@ -1675,9 +1681,9 @@ extension PropertyDetailViewController: UITableViewDelegate,UITableViewDataSourc
                     
                 }else if indexPath.row == 1
                 {
-                    if let cancellation = Singleton.sharedInstance.PropertyDetail.cancellation
+                    if !Singleton.sharedInstance.PropertyDetail.cancellation.isEmpty
                     {
-                        cell!.detailsValueButton.setTitle(cancellation, for: .normal)
+                        cell!.detailsValueButton.setTitle(Singleton.sharedInstance.PropertyDetail.cancellation, for: .normal)
                     }
                     else
                     {
@@ -1951,7 +1957,7 @@ extension PropertyDetailViewController: UICollectionViewDelegate , UICollectionV
             
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as?
             PropertyDetailSliderCell
-            let url = URL(string:Singleton.sharedInstance.PropertyDetail.productImage[indexPath.row].productImage!)
+            let url = URL(string:Singleton.sharedInstance.PropertyDetail.productImage[indexPath.row].productImage)
             //cell!.imgSlider.kf.setImage(with: url)
             cell!.imgSlider.kf.setImage(with: url, placeholder: UIImage.init(named: "testImage.jpg"), options: nil, progressBlock: nil, completionHandler: nil)
             return cell!
@@ -1961,8 +1967,8 @@ extension PropertyDetailViewController: UICollectionViewDelegate , UICollectionV
             cell!.bgView.layer.cornerRadius = 5.0
             cell!.bgView.layer.borderColor = UIColor.darkGray.cgColor
             cell!.bgView.layer.borderWidth = 1.0
-            cell!.imgReviewUser.imageFromURL(urlString: Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].userImage!)
-            cell!.lblReviewComment.text = Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].userName!
+            cell!.imgReviewUser.imageFromURL(urlString: Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].userImage)
+            cell!.lblReviewComment.text = Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].userName
             cell!.ratingView.rating = Float(Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].starRating as! NSNumber)
             return cell!
         }
@@ -1979,7 +1985,7 @@ extension PropertyDetailViewController : HTTP_POST_STRING_REQUEST_PROTOCOL {
                 if (responseDict.value(forKey: "status")  as? Int) == 1{
                     let mod = PropertyDetails(fromDictionary: responseDict as! [String : Any])
                     print(responseDict)
-                    Int(mod.minimumStay!) ?? 1
+                    Int(mod.minimumStay) ?? 1
                     let checkdatesArr = responseDict.value(forKey: "check") as! NSArray
                     if (responseDict.value(forKey: "host_status") as? String) != nil
                     {
@@ -2094,9 +2100,9 @@ extension PropertyDetailViewController : HTTP_POST_STRING_REQUEST_PROTOCOL {
                     let Dates = Singleton.sharedInstance.PropertyDetail.seasonalCalendarPrice.count
                     
                     for i in 0..<Dates{
-                        let dateString = Singleton.sharedInstance.PropertyDetail.seasonalCalendarPrice[i].date!
-                        let dateStatus = Singleton.sharedInstance.PropertyDetail.seasonalCalendarPrice[i].status!
-                        let datePrice = Singleton.sharedInstance.PropertyDetail.seasonalCalendarPrice[i].price!
+                        let dateString = Singleton.sharedInstance.PropertyDetail.seasonalCalendarPrice[i].date
+                        let dateStatus = Singleton.sharedInstance.PropertyDetail.seasonalCalendarPrice[i].status
+                        let datePrice = Singleton.sharedInstance.PropertyDetail.seasonalCalendarPrice[i].price
                         let datesArray = NSMutableDictionary()
                         datesArray.setValue(dateString, forKey: "DateString")
                         datesArray.setValue(dateStatus, forKey: "DateStatus")

@@ -14,7 +14,7 @@ class MyInvoiceVC: BaseViewController {
     @IBOutlet weak var addReview: UITextView!
     @IBOutlet weak var ratingView: CosmosView!
     var delegate: MyBookingVCPrototcol?
-    var PropertId = String()
+    var PropertId : String = ""
     var review_details = [String:Any]()
     var ratingValue : Double?
     override func viewDidLoad() {
@@ -41,7 +41,7 @@ class MyInvoiceVC: BaseViewController {
             
             return
         }
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
             showActivityIndicator(uiView: self.view)
                 
             let parameters:[String : Any] =  ["lang_code" : lanuguage_selection.value(forKey: "language") ?? "en",

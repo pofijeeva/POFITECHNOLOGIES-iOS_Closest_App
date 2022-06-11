@@ -8,10 +8,10 @@ import Foundation
 
 class PayoutPerference : NSObject, NSCoding{
 
-    var accname : String!
-    var accno : String!
-    var bankname : String!
-    var paypalEmail : String!
+    var accname : String = ""
+    var accno : String = ""
+    var bankname : String = ""
+    var paypalEmail : String = ""
 
 
     /**

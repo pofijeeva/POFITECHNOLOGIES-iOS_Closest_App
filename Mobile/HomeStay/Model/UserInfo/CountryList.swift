@@ -8,8 +8,8 @@ import Foundation
 
 class CountryList : NSObject, NSCoding{
 
-    var countryName : String!
-    var id : Int!
+    var countryName : String = ""
+    var id : Int = 0
 
 
     /**
@@ -17,7 +17,7 @@ class CountryList : NSObject, NSCoding{
      */
     init(fromDictionary dictionary: [String:Any]){
         countryName = dictionary["country_name"] as? String ?? ""
-        id = dictionary["id"] as? Int
+        id = dictionary["id"] as? Int ?? 0
     }
 
     /**
@@ -42,7 +42,7 @@ class CountryList : NSObject, NSCoding{
     @objc required init(coder aDecoder: NSCoder)
     {
         countryName = aDecoder.decodeObject(forKey: "country_name") as? String ?? ""
-        id = aDecoder.decodeObject(forKey: "id") as? Int
+        id = aDecoder.decodeObject(forKey: "id") as? Int ?? 0
     }
 
     /**

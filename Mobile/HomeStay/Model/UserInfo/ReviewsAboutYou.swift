@@ -8,16 +8,16 @@ import Foundation
 
 class ReviewsAboutYou : NSObject, NSCoding{
     
-    var id : String!
-    var reviewBookingNo : String!
-    var reviewDate : String!
-    var reviewPropertyId : String!
-    var reviewPropertyName : String!
-    var reviewerComments : String!
-    var reviewerId : String!
-    var reviewerName : String!
-    var reviewerRating : String!
-    var reviwerImage : String!
+    var id : String = ""
+    var reviewBookingNo : String = ""
+    var reviewDate : String = ""
+    var reviewPropertyId : String = ""
+    var reviewPropertyName : String = ""
+    var reviewerComments : String = ""
+    var reviewerId : String = ""
+    var reviewerName : String = ""
+    var reviewerRating : String = ""
+    var reviwerImage : String = ""
     
     
     /**

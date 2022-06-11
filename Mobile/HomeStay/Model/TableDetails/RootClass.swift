@@ -9,14 +9,14 @@ import Foundation
 class RootClass : NSObject, NSCoding{
 
     var dateDetails : [DateDetail]!
-    var status : Int!
+    var status : Int = 0
     
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        status = dictionary["status"] as? Int
+        status = dictionary["status"] as? Int ?? 0
         dateDetails = [DateDetail]()
         if let dateDetailsArray = dictionary["date_details"] as? [[String:Any]]{
             for dic in dateDetailsArray{
@@ -52,7 +52,7 @@ class RootClass : NSObject, NSCoding{
     @objc required init(coder aDecoder: NSCoder)
     {
         dateDetails = aDecoder.decodeObject(forKey: "date_details") as? [DateDetail]
-        status = aDecoder.decodeObject(forKey: "status") as? Int
+        status = aDecoder.decodeObject(forKey: "status") as? Int ?? 0
     }
     
     /**

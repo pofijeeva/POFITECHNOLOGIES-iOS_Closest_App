@@ -10,8 +10,8 @@ import Foundation
 
 class YBTextPickerDataModel : NSObject{
     
-    var title : String!
-    var identity : Int!
+    var title : String = ""
+    var identity : Int = 0
     
     init(_ title:String, _ identity:Int) {
         super.init()

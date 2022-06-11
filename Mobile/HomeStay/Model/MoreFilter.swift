@@ -10,11 +10,11 @@ class MoreFilter : NSObject, NSCoding{
 
     var attribute : [Attributes]!
     var currencyList : [AnyObject]!
-    var message : String!
+    var message : String = ""
     var property : [Propertys]!
     var rentalList : [RentalLists]!
     var rooms : [Rooms]!
-    var status : Int!
+    var status : Int = 0
 
 
     /**

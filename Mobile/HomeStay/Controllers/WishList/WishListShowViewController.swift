@@ -14,15 +14,15 @@ class WishListShowViewController: UIViewController {
     
     @IBOutlet weak var NavTitle: UILabel!
 
-    var image = String()
-    var name = String()
+    var image : String = ""
+    var name : String = ""
     var price : AnyObject!
-    var currency = String()
-    var selectedRow = Int()
-    var wishListArr = NSMutableArray()
+    var currency : String = ""
+    var selectedRow : Int = 0
+    var wishListArr : NSMutableArray = []
 
     
-    let id = Singleton.sharedInstance.selectedCategory!
+    let id = Singleton.sharedInstance.selectedCategory
     override func viewDidLoad() {
         super.viewDidLoad()
         self.NavTitle.font = UIFont(name: SemiBoldFont, size: 18)
@@ -53,8 +53,8 @@ extension WishListShowViewController: UITableViewDelegate ,UITableViewDataSource
         
         let cell  = tableView.dequeueReusableCell(withIdentifier: "cell") as! PlaceListCell
         cell.selectionStyle = .none
-        let imageArray = NSMutableArray()
-        imageArray.addObjects(from: ((wishListArr.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "property_images")as! NSArray) as! [Any])
+        let imageArray : NSMutableArray = []
+        imageArray.addObjects(from: ((wishListArr.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "property_images")as? NSArray) as? [Any] ?? [])
         let wishlistImgUrl = URL(string:(imageArray.object(at: 0)as? NSDictionary)?.object(forKey: "property_image")as? String ?? "")
         cell.lblPlace.font = UIFont(name: SemiBoldFont, size: 15)
         cell.lblPrice.font = UIFont(name: SemiBoldFont, size: 16)

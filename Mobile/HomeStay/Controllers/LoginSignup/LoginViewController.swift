@@ -62,7 +62,7 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
     
     let accessTokenEndPoint = "https://www.linkedin.com/uas/oauth2/accessToken"
 
-    var isRememberPassword: Bool!
+    var isRememberPassword: Bool = false 
     var firstName: String = ""
     var lastName: String = ""
     var email: String = ""
@@ -70,12 +70,12 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
     var key: String = ""
     var loginType: String = ""
     var deviceType: String = ""
-    var fcmTokenStr = String()
+    var fcmTokenStr : String = ""
     // Linkedin intialization helper.
     var appleID: String = ""
     var requestString = ""
     var Authorization : String = ""
-    var fcmToken = String()
+    var fcmToken : String = ""
     let loginManager = LoginManager()
 
     
@@ -221,7 +221,7 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
     
     func loginAPI() {
         showActivityIndicator(uiView: self.view)
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
             //showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
             
@@ -236,8 +236,8 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
             APIManager.apiPostWithHeaders(serviceName: REQ_LOGIN, parameters: params as? [String : Any]) { (json:NSDictionary?, error:NSError?) in
                 DispatchQueue.main.async {  }
                 if error != nil {
-                    print(error!.localizedDescription)
-                    self.showInformation(title: "Closest", message: error!.localizedDescription)
+                    print(error?.localizedDescription ?? "")
+                    self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                     return
                 }
                 let responseDict:NSDictionary = json!
@@ -345,9 +345,9 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
                 
                 // Create an account as per your requirement
 
-                 var userIdentifier = String()
-                 var fullName  = String()
-                 var email = String()
+                 var userIdentifier : String = ""
+                 var fullName  : String = ""
+                 var email : String = ""
                  if appleIDCredential.fullName?.givenName != nil {
                      userIdentifier = appleIDCredential.user
                      fullName = appleIDCredential.fullName?.givenName! ?? ""
@@ -443,7 +443,7 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
 
      
             var params = NSMutableDictionary()
-            if (Reachability()?.isReachable)! {
+            if (Reachability()?.isReachable ?? false) {
                 self.showActivityIndicator(uiView: self.view)
                
             
@@ -487,7 +487,7 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
     func socialMediaLogin() {
         Network.shared.HTTP_POST_STRING_REQUEST_DELEGATE = self
 
-        if (Reachability()?.isReachable)!
+        if (Reachability()?.isReachable ?? false)
         {
             self.showActivityIndicator(uiView: self.view)
         
@@ -502,8 +502,8 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
             APIManager.apiPostWithHeaders(serviceName: REQ_SIGNUP, parameters: paramstoSend as! [String : Any]) { (json:NSDictionary?, error:NSError?) in
                 DispatchQueue.main.async {  }
                 if error != nil {
-                    print(error!.localizedDescription)
-                    self.showInformation(title: "Closest", message: error!.localizedDescription)
+                    print(error?.localizedDescription ?? "")
+                    self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                     return
                 }
                 let responseDict:NSDictionary = json!
@@ -686,7 +686,7 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
     
     @IBAction func act_Facebook(_ sender: UIButton) {
         
-        if (Reachability()?.isReachable)!
+        if (Reachability()?.isReachable ?? false)
         {
             self.showActivityIndicator(uiView: self.view)
             let completion = {
@@ -753,7 +753,7 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
   
     
     @IBAction func act_Google(_ sender: UIButton) {
-        if (Reachability()?.isReachable)!
+        if (Reachability()?.isReachable ?? false)
         {
             //GIDSignIn.sharedInstance().uiDelegate = self
             userSelectedLogin = "google"

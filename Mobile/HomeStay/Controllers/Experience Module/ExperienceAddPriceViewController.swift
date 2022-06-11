@@ -32,7 +32,7 @@ class ExperienceAddPriceViewController: UIViewController,UITextFieldDelegate {
     var ListingActivityDelegate: listingActivityProtocol!
     var currncyNamearray = [String]()
     var currencyDetails = [String:AnyObject]()
-    var arrayCurrencySymbol = NSMutableArray()
+    var arrayCurrencySymbol : NSMutableArray = []
     
     
     override func viewDidLoad() {

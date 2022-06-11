@@ -9,12 +9,12 @@ import Foundation
 class Step5 : NSObject, NSCoding{
 
     var productImage : [ProductImage]!
-    var propertyid : Int!
-    var stepCompleted : Bool!
+    var propertyid : Int = 0
+    var stepCompleted : Bool = false 
     var photos : PhotosAdded!
     
-    var doc_verified_status: Bool!
-    var document: String!
+    var doc_verified_status: Bool = false 
+    var document: String = ""
     var photo_list : [ProductImage]!
         
     /**

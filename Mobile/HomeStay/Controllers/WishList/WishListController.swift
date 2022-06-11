@@ -21,11 +21,11 @@ class WishListController: BaseViewController {
     
       @IBOutlet weak var lblNoItems: UIImageView!
     
-    let wishListCounttempArray = NSMutableArray()
+    let wishListCounttempArray : NSMutableArray = []
 
     var wishListDict = NSMutableDictionary()
     
-    let id = Singleton.sharedInstance.selectedCategory!
+    let id = Singleton.sharedInstance.selectedCategory
     //MARK:- Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,12 +40,12 @@ class WishListController: BaseViewController {
         
         
         Network.shared.HTTP_POST_STRING_REQUEST_DELEGATE = self
-        if (Reachability()?.isReachable)!
+        if (Reachability()?.isReachable ?? false)
         {
             WishListApiCall()
             
             
-//            let id = Singleton.sharedInstance.selectedCategory!
+//            let id = Singleton.sharedInstance.selectedCategory
 //
 //            let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
 //            print(parameterStr)
@@ -78,7 +78,7 @@ class WishListController: BaseViewController {
                 Singleton.sharedInstance.wishListModel = mod
                 self.wishListDict.addEntries(from: responseDict as! [AnyHashable : Any])
                 self.wishListCounttempArray.removeAllObjects()
-                self.wishListCounttempArray.addObjects(from: (self.wishListDict.object(forKey: "wishlist")as! NSArray) as! [Any])
+                self.wishListCounttempArray.addObjects(from: (self.wishListDict.object(forKey: "wishlist")as? NSArray) as? [Any] ?? [])
                 
                 if mod.wishlist.count == 0
                 {
@@ -233,9 +233,9 @@ extension WishListController: UICollectionViewDelegate, UICollectionViewDataSour
     {
         let nav = storyboard?.instantiateViewController(withIdentifier: "WishListShowViewController") as? WishListShowViewController
         nav?.selectedRow = indexPath.row
-        let tempArray = NSMutableArray()
-        tempArray.addObjects(from: (wishListDict.object(forKey: "wishlist")as! NSArray) as! [Any])
-        nav?.wishListArr.addObjects(from: ((tempArray.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "property_details")as! NSArray) as! [Any])
+        let tempArray : NSMutableArray = []
+        tempArray.addObjects(from: (wishListDict.object(forKey: "wishlist")as? NSArray) as? [Any] ?? [])
+        nav?.wishListArr.addObjects(from: ((tempArray.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "property_details")as? NSArray) as? [Any] ?? [])
         self.navigationController?.pushViewController(nav!, animated: true)
         
     }
@@ -263,7 +263,7 @@ extension WishListController : HTTP_POST_STRING_REQUEST_PROTOCOL {
                 Singleton.sharedInstance.wishListModel = mod
                 wishListDict.addEntries(from: responseDict as! [AnyHashable : Any])
                 wishListCounttempArray.removeAllObjects()
-                wishListCounttempArray.addObjects(from: (wishListDict.object(forKey: "wishlist")as! NSArray) as! [Any])
+                wishListCounttempArray.addObjects(from: (wishListDict.object(forKey: "wishlist")as? NSArray) as? [Any] ?? [])
 
                 if mod.wishlist.count == 0
                 {

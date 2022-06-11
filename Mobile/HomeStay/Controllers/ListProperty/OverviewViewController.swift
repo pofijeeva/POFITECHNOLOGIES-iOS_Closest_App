@@ -72,7 +72,7 @@ class OverviewViewController: UIViewController {
     //MARK:- Variables
     
     var ListingActivityDelegate: listingActivityProtocol!
-    var propertyID = Int()
+    var propertyID : Int = 0
     var isInstantPay:String = "No"
     var isRequestToBook = "Yes"
     var PayLaterStr = "No"
@@ -205,12 +205,12 @@ class OverviewViewController: UIViewController {
         if let result = Singleton.sharedInstance.rentYourSpace.result.first,
            let step4 = result.step4 {
             
-            self.txtTitleEn.text = step4.rentDetail.en.ren_title!
-            self.txtviewSummaryEn.text = step4.rentDetail.en.ren_summary!
-            self.txtviewHouseRulesEn.text = step4.rentDetail.en.ren_house_rule!
-            self.txtviewOtherthingsEn.text = step4.rentDetail.en.ren_other_things!
-            self.txtviewGuestAccessEn.text = step4.rentDetail.en.ren_guest_axes!
-            self.txtviewSpaceEn.text = step4.rentDetail.en.ren_space!
+            self.txtTitleEn.text = step4.rentDetail.en.ren_title
+            self.txtviewSummaryEn.text = step4.rentDetail.en.ren_summary
+            self.txtviewHouseRulesEn.text = step4.rentDetail.en.ren_house_rule
+            self.txtviewOtherthingsEn.text = step4.rentDetail.en.ren_other_things
+            self.txtviewGuestAccessEn.text = step4.rentDetail.en.ren_guest_axes
+            self.txtviewSpaceEn.text = step4.rentDetail.en.ren_space
         
             
         }
@@ -231,21 +231,21 @@ class OverviewViewController: UIViewController {
                 self.txtlanguage.text = item
             let stepFour = Singleton.sharedInstance.rentYourSpace.result[0].step4!
             if (index == 0){
-                self.txtTitleEn.text = stepFour.rentDetail.en.ren_title!
-                self.txtviewSummaryEn.text = stepFour.rentDetail.en.ren_summary!
-                self.txtviewHouseRulesEn.text = stepFour.rentDetail.en.ren_house_rule!
-                self.txtviewOtherthingsEn.text = stepFour.rentDetail.en.ren_other_things!
-                self.txtviewGuestAccessEn.text = stepFour.rentDetail.en.ren_guest_axes!
-                self.txtviewSpaceEn.text = stepFour.rentDetail.en.ren_space!
+                self.txtTitleEn.text = stepFour.rentDetail.en.ren_title
+                self.txtviewSummaryEn.text = stepFour.rentDetail.en.ren_summary
+                self.txtviewHouseRulesEn.text = stepFour.rentDetail.en.ren_house_rule
+                self.txtviewOtherthingsEn.text = stepFour.rentDetail.en.ren_other_things
+                self.txtviewGuestAccessEn.text = stepFour.rentDetail.en.ren_guest_axes
+                self.txtviewSpaceEn.text = stepFour.rentDetail.en.ren_space
                 self.requestView.isHidden = false
                 
             }else{
-                self.txtTitleEn.text = stepFour.rentDetail.ar.ren_title!
-                self.txtviewSummaryEn.text = stepFour.rentDetail.ar.ren_summary!
-                self.txtviewHouseRulesEn.text = stepFour.rentDetail.ar.ren_house_rule!
-                self.txtviewOtherthingsEn.text = stepFour.rentDetail.ar.ren_other_things!
-                self.txtviewGuestAccessEn.text = stepFour.rentDetail.ar.ren_guest_axes!
-                self.txtviewSpaceEn.text = stepFour.rentDetail.ar.ren_space!
+                self.txtTitleEn.text = stepFour.rentDetail.ar.ren_title
+                self.txtviewSummaryEn.text = stepFour.rentDetail.ar.ren_summary
+                self.txtviewHouseRulesEn.text = stepFour.rentDetail.ar.ren_house_rule
+                self.txtviewOtherthingsEn.text = stepFour.rentDetail.ar.ren_other_things
+                self.txtviewGuestAccessEn.text = stepFour.rentDetail.ar.ren_guest_axes
+                self.txtviewSpaceEn.text = stepFour.rentDetail.ar.ren_space
                 self.requestView.isHidden = true
             }
             }
@@ -334,7 +334,7 @@ class OverviewViewController: UIViewController {
                         self.ListingActivityDelegate.hideActivity()
                     }
                     if error != nil {
-                        self.showInformation(title: "Closest", message: error!.localizedDescription)
+                        self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                     } else {
                         print(response)
                         let mod = RentYourSpaceModel(fromDictionary: response as! [String : Any])

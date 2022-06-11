@@ -8,9 +8,9 @@ import Foundation
 
 class YourTripModel : NSObject, NSCoding{
 
-    var message : String!
+    var message : String = ""
     var mytrips : [Mytrip]!
-    var status : Int!
+    var status : Int = 0
 
 
     /**

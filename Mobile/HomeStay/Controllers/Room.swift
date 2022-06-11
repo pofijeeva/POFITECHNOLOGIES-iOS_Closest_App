@@ -8,8 +8,8 @@ import Foundation
 
 class Room : NSObject, NSCoding{
 
-    var optionId : String!
-    var optionName : String!
+    var optionId : String = ""
+    var optionName : String = ""
     var options : [Option]!
 
 

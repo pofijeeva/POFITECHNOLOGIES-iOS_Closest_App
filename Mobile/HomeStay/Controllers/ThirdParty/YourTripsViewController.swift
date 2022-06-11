@@ -30,17 +30,17 @@ class YourTripsViewController: BaseViewController, UIGestureRecognizerDelegate, 
     
     
     var chek =  String()
-    var currency_cron_idss = String()
-    var enquiryidss = String()
-    var restaurant_idss = String()
+    var currency_cron_idss : String = ""
+    var enquiryidss : String = ""
+    var restaurant_idss : String = ""
     var moreOptionStatusButton  = UIButton()
     
     var tripDict = NSMutableDictionary()
-    var tripSelectedInt = Int()
-    var cancelOkaySelectedInt = Int()
-    var messageOkaySelectedInt = Int()
-    var disputeOkaySelectedInt = Int()
-    var reviewOkaySelectedInt = Int()
+    var tripSelectedInt : Int = 0
+    var cancelOkaySelectedInt : Int = 0
+    var messageOkaySelectedInt : Int = 0
+    var disputeOkaySelectedInt : Int = 0
+    var reviewOkaySelectedInt : Int = 0
     
     
     //MARK:- Popupviews
@@ -186,40 +186,40 @@ class YourTripsViewController: BaseViewController, UIGestureRecognizerDelegate, 
     var pastTrip = [Mytrip]()
     var moreOptions = [Mytrip]()
     var isFuture = true
-    var currentDateTime = String()
+    var currentDateTime : String = ""
     var canceldetail = [Mytrip]()
     var yourTripModel: YourTripModel!
     var myTripsArr = [Mytrip]()
     var hostID:Int!
-    var API = String()
-    var Options_Chosen = String()
-    var OPTIONS_MODE = String()
-    var cancelDispute = String()
-    var houseIn = String()
-    var houseDate = String()
-    var houseHost = String()
-    var houseBooking = String()
-    var housePayment = String()
-    var houseApproval = String()
-    var HideShowArr = NSMutableArray()
-    var cancelDisputeShow = String()
-    var canceldDiputedShow = String()
+    var API : String = ""
+    var Options_Chosen : String = ""
+    var OPTIONS_MODE : String = ""
+    var cancelDispute : String = ""
+    var houseIn : String = ""
+    var houseDate : String = ""
+    var houseHost : String = ""
+    var houseBooking : String = ""
+    var housePayment : String = ""
+    var houseApproval : String = ""
+    var HideShowArr : NSMutableArray = []
+    var cancelDisputeShow : String = ""
+    var canceldDiputedShow : String = ""
     
-    var pastTripsArray = NSMutableArray()
-    var futureTripsArray = NSMutableArray()
+    var pastTripsArray : NSMutableArray = []
+    var futureTripsArray : NSMutableArray = []
     
-    var fromDateString = String()
-    var toDateString = String()
-    var startDateString = String()
+    var fromDateString : String = ""
+    var toDateString : String = ""
+    var startDateString : String = ""
     
-    var futureBookingID = String()
-    var pastBookingID = String()
+    var futureBookingID : String = ""
+    var pastBookingID : String = ""
     
     
     var selectedAvailableStatus:String = ""
     var selectedStatusCode : String = ""
     
-    var DropDownShowStatusArray = NSMutableArray()
+    var DropDownShowStatusArray : NSMutableArray = []
     
     var availableStatusArr = NSArray()
     let statusAvailableDropDown = DropDown()
@@ -231,17 +231,17 @@ class YourTripsViewController: BaseViewController, UIGestureRecognizerDelegate, 
     let maxLength = 320
     
     
-    var AddreviewPropertyId = String()
-    var AddreviewPropertyBookingNum = String()
+    var AddreviewPropertyId : String = ""
+    var AddreviewPropertyBookingNum : String = ""
     
     
-    var messagePropertyId = String()
-    var messageBookingNum = String()
+    var messagePropertyId : String = ""
+    var messageBookingNum : String = ""
     
-    var DisputePropertyId = String()
-    var DisputeBookingNum = String()
+    var DisputePropertyId : String = ""
+    var DisputeBookingNum : String = ""
     
-    var DiputeCanceklApi = String()
+    var DiputeCanceklApi : String = ""
     
     
     
@@ -290,7 +290,7 @@ class YourTripsViewController: BaseViewController, UIGestureRecognizerDelegate, 
         //        if Reachability()!.isReachable
         //        {
         //            self.showActivityIndicator(uiView: self.view)
-        //            let id = Singleton.sharedInstance.selectedCategory!
+        //            let id = Singleton.sharedInstance.selectedCategory
         //            print(login_session.value(forKey: "Email") as? String ?? "")
         //            print(id)
         //            print(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")
@@ -550,7 +550,7 @@ class YourTripsViewController: BaseViewController, UIGestureRecognizerDelegate, 
         if Reachability()!.isReachable
         {
             self.showActivityIndicator(uiView: self.view)
-            let id = Singleton.sharedInstance.selectedCategory!
+            let id = Singleton.sharedInstance.selectedCategory
             print(login_session.value(forKey: "Email") as? String ?? "")
             print(id)
             print(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")
@@ -747,7 +747,7 @@ class YourTripsViewController: BaseViewController, UIGestureRecognizerDelegate, 
                     //   self.showInformation(title: "Info", message: "Already Cancelled")
                 }else if item == "Dispute" {
                     self.DisputeRentalName.text = (self.futureTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_title") as? String ?? ""
-                    self.DisputeBookingLbl.text = (self.futureTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? "" //Singleton.sharedInstance.yourTripModel.mytrips[self.tripSelectedInt].bookingno!
+                    self.DisputeBookingLbl.text = (self.futureTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? "" //Singleton.sharedInstance.yourTripModel.mytrips[self.tripSelectedInt].bookingno
                     self.DisputeLocation.text = (self.futureTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_address") as? String ?? ""//Singleton.sharedInstance.yourTripModel.mytrips[self.tripSelectedInt].propertyAddress!
                     
                     
@@ -1111,7 +1111,7 @@ class YourTripsViewController: BaseViewController, UIGestureRecognizerDelegate, 
                     //   self.showInformation(title: "Info", message: "Already Cancelled")
                 }else if item == "Dispute" {
                     self.DisputeRentalName.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_title") as? String ?? ""
-                    self.DisputeBookingLbl.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? "" //Singleton.sharedInstance.yourTripModel.mytrips[self.tripSelectedInt].bookingno!
+                    self.DisputeBookingLbl.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? "" //Singleton.sharedInstance.yourTripModel.mytrips[self.tripSelectedInt].bookingno
                     self.DisputeLocation.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_address") as? String ?? ""
                     
                     self.DisputePropertyId = "\((self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_id") as AnyObject)"
@@ -1431,7 +1431,7 @@ class YourTripsViewController: BaseViewController, UIGestureRecognizerDelegate, 
                 showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
                 
-                params = ["base_id":1,"email":login_session.value(forKey: "Email") as? String ?? "","property_id":Singleton.sharedInstance.yourTripModel.mytrips[cancelOkaySelectedInt].propertyId!,"bookingno":Singleton.sharedInstance.yourTripModel.mytrips[cancelOkaySelectedInt].bookingno!,"cancel_percentage":Singleton.sharedInstance.yourTripModel.mytrips[cancelOkaySelectedInt].cancelPercentage!,"user_id":login_session.value(forKey: "UserId")!,"disputer_id":HostStr,"message":self.CancelMessage.text!]
+                params = ["base_id":1,"email":login_session.value(forKey: "Email") as? String ?? "","property_id":Singleton.sharedInstance.yourTripModel.mytrips[cancelOkaySelectedInt].propertyId,"bookingno":Singleton.sharedInstance.yourTripModel.mytrips[cancelOkaySelectedInt].bookingno,"cancel_percentage":Singleton.sharedInstance.yourTripModel.mytrips[cancelOkaySelectedInt].cancelPercentage,"user_id":login_session.value(forKey: "UserId")!,"disputer_id":HostStr,"message":self.CancelMessage.text!]
                 
                 let manager = AFHTTPSessionManager()
                 manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -1528,8 +1528,8 @@ class YourTripsViewController: BaseViewController, UIGestureRecognizerDelegate, 
                 
                 
                 //            self.showActivityIndicator(uiView: self.view)
-                //            let id = Singleton.sharedInstance.selectedCategory!
-                //            let parameterStr = "user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(Singleton.sharedInstance.yourTripModel.mytrips[disputeOkaySelectedInt].propertyId!)&bookingno=\(Singleton.sharedInstance.yourTripModel.mytrips[disputeOkaySelectedInt].bookingno!)&message=\(self.DisputeMessageTextField.text!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
+                //            let id = Singleton.sharedInstance.selectedCategory
+                //            let parameterStr = "user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(Singleton.sharedInstance.yourTripModel.mytrips[disputeOkaySelectedInt].propertyId)&bookingno=\(Singleton.sharedInstance.yourTripModel.mytrips[disputeOkaySelectedInt].bookingno)&message=\(self.DisputeMessageTextField.text!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
                 //            print("Dispute message parameters:",parameterStr)
                 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: DISPUTE_API, APIKEY: "DISPUTE_API")
             }
@@ -1558,7 +1558,7 @@ class YourTripsViewController: BaseViewController, UIGestureRecognizerDelegate, 
                 showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
                 
-                params = ["base_id":1,"email":login_session.value(forKey: "Email") as? String ?? "","property_id":Singleton.sharedInstance.yourTripModel.mytrips[cancelOkaySelectedInt].propertyId!,"bookingno":Singleton.sharedInstance.yourTripModel.mytrips[cancelOkaySelectedInt].bookingno!,"cancel_percentage":Singleton.sharedInstance.yourTripModel.mytrips[cancelOkaySelectedInt].cancelPercentage!,"user_id":login_session.value(forKey: "UserId")!,"disputer_id":HostStr,"message":self.CancelMessageTextField.text!]
+                params = ["base_id":1,"email":login_session.value(forKey: "Email") as? String ?? "","property_id":Singleton.sharedInstance.yourTripModel.mytrips[cancelOkaySelectedInt].propertyId,"bookingno":Singleton.sharedInstance.yourTripModel.mytrips[cancelOkaySelectedInt].bookingno,"cancel_percentage":Singleton.sharedInstance.yourTripModel.mytrips[cancelOkaySelectedInt].cancelPercentage,"user_id":login_session.value(forKey: "UserId")!,"disputer_id":HostStr,"message":self.CancelMessageTextField.text!]
                 
                 let manager = AFHTTPSessionManager()
                 manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -1596,8 +1596,8 @@ class YourTripsViewController: BaseViewController, UIGestureRecognizerDelegate, 
                 
                 
                 //                self.showActivityIndicator(uiView: self.view)
-                //                let id = Singleton.sharedInstance.selectedCategory!
-                //                let parametrStr = "base_id=\(id)&email=\(login_session.value(forKey: "Email") as? String ?? "")&property_id=\(Singleton.sharedInstance.yourTripModel.mytrips[cancelOkaySelectedInt].propertyId!)&bookingno=\(Singleton.sharedInstance.yourTripModel.mytrips[cancelOkaySelectedInt].bookingno!)&cancel_percentage=\(Singleton.sharedInstance.yourTripModel.mytrips[cancelOkaySelectedInt].cancelPercentage!)&user_id=\(login_session.value(forKey: "UserId")!)&disputer_id=\(HostStr)&message=\(self.CancelMessageTextField.text!)"
+                //                let id = Singleton.sharedInstance.selectedCategory
+                //                let parametrStr = "base_id=\(id)&email=\(login_session.value(forKey: "Email") as? String ?? "")&property_id=\(Singleton.sharedInstance.yourTripModel.mytrips[cancelOkaySelectedInt].propertyId)&bookingno=\(Singleton.sharedInstance.yourTripModel.mytrips[cancelOkaySelectedInt].bookingno)&cancel_percentage=\(Singleton.sharedInstance.yourTripModel.mytrips[cancelOkaySelectedInt].cancelPercentage)&user_id=\(login_session.value(forKey: "UserId")!)&disputer_id=\(HostStr)&message=\(self.CancelMessageTextField.text!)"
                 //
                 //                Network.shared.POSTRequest(withParameterString: parametrStr, serviceURL: CANCELLATION_API, APIKEY: "CANCELLATION_API")
                 //                print(parametrStr)
@@ -1629,7 +1629,7 @@ class YourTripsViewController: BaseViewController, UIGestureRecognizerDelegate, 
         {
             if Reachability()!.isReachable {
                 self.showActivityIndicator(uiView: self.view)
-                let id = Singleton.sharedInstance.selectedCategory!
+//                let id = Singleton.sharedInstance.selectedCategory
                 
                 showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
@@ -1689,7 +1689,7 @@ class YourTripsViewController: BaseViewController, UIGestureRecognizerDelegate, 
             if Reachability()!.isReachable
             {
                 self.showActivityIndicator(uiView: self.view)
-                let id = Singleton.sharedInstance.selectedCategory!
+                let id = Singleton.sharedInstance.selectedCategory
                 
                 
                 //            let parametrStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&review=\(self.reviewTxtFld.text!)&property_id=\(self.propertyId)&star_rating=\(self.reviewRating.rating)&base_id=\(id)&bookingno=\(self.bookingNum)&user_id=\(login_session.value(forKey: "UserId")!)"
@@ -1730,7 +1730,7 @@ class YourTripsViewController: BaseViewController, UIGestureRecognizerDelegate, 
                 
                 
                 
-                //            let parametrStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&review=\(self.ReviewMessageTextView.text!)&property_id=\(Singleton.sharedInstance.yourTripModel.mytrips[reviewOkaySelectedInt].propertyId!)&star_rating=\(self.ReviewFloatRatingView.rating)&base_id=\(id)&bookingno=\(Singleton.sharedInstance.yourTripModel.mytrips[reviewOkaySelectedInt].bookingno!)&user_id=\(login_session.value(forKey: "UserId")!)"
+                //            let parametrStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&review=\(self.ReviewMessageTextView.text!)&property_id=\(Singleton.sharedInstance.yourTripModel.mytrips[reviewOkaySelectedInt].propertyId)&star_rating=\(self.ReviewFloatRatingView.rating)&base_id=\(id)&bookingno=\(Singleton.sharedInstance.yourTripModel.mytrips[reviewOkaySelectedInt].bookingno)&user_id=\(login_session.value(forKey: "UserId")!)"
                 //
                 //            Network.shared.POSTRequest(withParameterString: parametrStr, serviceURL: ADD_REVIEW_API, APIKEY: "ADD_REVIEW_API")
                 //            print(parametrStr)
@@ -1791,8 +1791,8 @@ class YourTripsViewController: BaseViewController, UIGestureRecognizerDelegate, 
     {
         if Reachability()!.isReachable {
             self.showActivityIndicator(uiView: self.view)
-            let id = Singleton.sharedInstance.selectedCategory!
-            let parametrStr = "base_id=\(id)&email=\(login_session.value(forKey: "Email") as? String ?? "")&property_id=\(Singleton.sharedInstance.yourTripModel.mytrips[0].propertyId!)&bookingno=\(Singleton.sharedInstance.yourTripModel.mytrips[0].bookingno!)&cancel_percentage=\(Singleton.sharedInstance.yourTripModel.mytrips[0].cancelPercentage!)&user_id=\(login_session.value(forKey: "UserId")!)&disputer_id=\(Singleton.sharedInstance.yourTripModel.mytrips[0].hostId!)&message="
+            let id = Singleton.sharedInstance.selectedCategory
+            let parametrStr = "base_id=\(id)&email=\(login_session.value(forKey: "Email") as? String ?? "")&property_id=\(Singleton.sharedInstance.yourTripModel.mytrips[0].propertyId)&bookingno=\(Singleton.sharedInstance.yourTripModel.mytrips[0].bookingno)&cancel_percentage=\(Singleton.sharedInstance.yourTripModel.mytrips[0].cancelPercentage)&user_id=\(login_session.value(forKey: "UserId")!)&disputer_id=\(Singleton.sharedInstance.yourTripModel.mytrips[0].hostId)&message="
             Network.shared.POSTRequest(withParameterString: parametrStr, serviceURL: CANCELLATION_API, APIKEY: "CANCELLATION_API")
             print(parametrStr)
             //txtview_Cancellation.text = "Cancelled"
@@ -1865,7 +1865,7 @@ class YourTripsViewController: BaseViewController, UIGestureRecognizerDelegate, 
                 
             }else{
                 
-                let PaymentMethodsArr = NSMutableArray()
+                let PaymentMethodsArr : NSMutableArray = []
                 
                 let StripeStatus = mytrip.stripeStatus
                 let PaypalStatus = mytrip.paypalStatus
@@ -1893,12 +1893,12 @@ class YourTripsViewController: BaseViewController, UIGestureRecognizerDelegate, 
                 nav!.PaymentsArray = PaymentMethodsArr
                 nav!.subTotal = "\(mytrip.subTotal!)"
                 nav!.TotalAmount = "\(mytrip.pay_later_balance_amount!)"
-                nav!.enquiryid = "\(Enquiry!)"
+                nav!.enquiryid = "\(Enquiry)"
                 nav!.ServiceFee = "\(mytrip.serviceFee!)"
                 nav!.SecurityDeposit = "\(mytrip.securityDeposit!)"
                 nav!.choosed_option = "pay_later"
                 nav!.pay_balance = 1
-                nav!.PropertId = "\(mytrip.propertyId!)"
+                nav!.PropertId = "\(mytrip.propertyId)"
                 self.navigationController?.pushViewController(nav!, animated: true)
             }
         } else {
@@ -2451,8 +2451,8 @@ extension YourTripsViewController: UITableViewDataSource,UITableViewDelegate {
             //  cell.imgTrip.kf.setImage(with: url)
             cell.imgTrip.setImageWith(url!, placeholderImage: UIImage(named: "picture-frame"))
             cell.lblTripPropertyName.text = mytrip.propertyTitle
-            cell.lblTripName.text = houseIn + " " + mytrip.propertyAddress!
-            cell.lblTripHostedBy.text = houseHost + " " + mytrip.hostName!
+            cell.lblTripName.text = houseIn + " " + mytrip.propertyAddress
+            cell.lblTripHostedBy.text = houseHost + " " + mytrip.hostName
             
             
             
@@ -2462,7 +2462,7 @@ extension YourTripsViewController: UITableViewDataSource,UITableViewDelegate {
             let dateFormatterPrint = DateFormatter()
             dateFormatterPrint.dateFormat = "MMM dd, yyyy HH:mm"
             dateFormatterPrint.locale = Locale(identifier: "en_US_POSIX")
-            let orderDateStringPasser = mytrip.checkin!
+            let orderDateStringPasser = mytrip.checkin
             
             if let date = dateFormatterGet.date(from: orderDateStringPasser)
             {
@@ -2512,7 +2512,7 @@ extension YourTripsViewController: UITableViewDataSource,UITableViewDelegate {
             dateFormatterPrint1.dateFormat = "MMM dd, yyyy HH:mm"
             dateFormatterPrint1.locale = Locale(identifier: "en_US_POSIX")
             
-            let deliveryDateStringPasser = mytrip.checkout!
+            let deliveryDateStringPasser = mytrip.checkout
             
             if let date = dateFormatterGet.date(from: deliveryDateStringPasser)
             {
@@ -2587,7 +2587,7 @@ extension YourTripsViewController: UITableViewDataSource,UITableViewDelegate {
             }
             cell.lblTripBookingNo.isHidden = false
             
-            let CouponStatus = mytrip.isCouponUsed!
+            let CouponStatus = mytrip.isCouponUsed
             if CouponStatus == "No" {
                 cell.CouponLblHeight.constant = 0
                 
@@ -2608,10 +2608,10 @@ extension YourTripsViewController: UITableViewDataSource,UITableViewDelegate {
             
             cell.PayBalanceBtn.tag = indexPath.row
             cell.PayBalanceBtn.addTarget(self, action: #selector(payBalanceAmount), for: .touchUpInside)
-            cell.CouponLbl.text = "Coupon : " + mytrip.couponAmount! + " \(mytrip.userCurrencySymbol!)"
+            cell.CouponLbl.text = "Coupon : " + mytrip.couponAmount + " \(mytrip.userCurrencySymbol)"
             cell.lblTripDate.text =  houseDate + " : " + fromDateString + " - " + String(describing: toDateString)
             
-            cell.lblTripBookingNo.text = houseBooking + " : "  + mytrip.bookingno!
+            cell.lblTripBookingNo.text = houseBooking + " : "  + mytrip.bookingno
             print("\(mytrip.total!)")
             cell.lblTripAmount.text =  mytrip.userCurrencyCode + " \(mytrip.total!)"
             cell.btn_moreOptions.tag = indexPath.row
@@ -2626,25 +2626,25 @@ extension YourTripsViewController: UITableViewDataSource,UITableViewDelegate {
                         cell.lblTripPaymentStatus.attributedText =  NSAttributedString().changeColor(text1: "Pay Status" + " : ", text2: "Date Unavailable", color1: UIColor.darkGray, color2: UIColor.red)
                     }else{
                         cell.btn_moreOptions.isHidden = true
-                        cell.lblTripPaymentStatus.attributedText =  NSAttributedString().changeColor(text1: housePayment + " : ", text2: mytrip!.bookingStatus!, color1: UIColor.darkGray, color2: UIColor.red)
+                        cell.lblTripPaymentStatus.attributedText =  NSAttributedString().changeColor(text1: housePayment + " : ", text2: mytrip!.bookingStatus, color1: UIColor.darkGray, color2: UIColor.red)
                     }
                 }
                 else if mytrip.bookingStatus == "Accept" {
                     cell.btn_moreOptions.isHidden = false
-                    cell.lblTripPaymentStatus.attributedText =  NSAttributedString().changeColor(text1: housePayment + " : ", text2: mytrip!.bookingStatus!, color1: UIColor.darkGray, color2: ForestGreen)
+                    cell.lblTripPaymentStatus.attributedText =  NSAttributedString().changeColor(text1: housePayment + " : ", text2: mytrip!.bookingStatus, color1: UIColor.darkGray, color2: ForestGreen)
                 }
                 else if mytrip.bookingStatus == "Pay" {
-                    cell.lblTripPaymentStatus.attributedText =  NSAttributedString().changeColor(text1: housePayment + " : ", text2: mytrip!.bookingStatus!, color1: UIColor.darkGray, color2: UIColor.blue)
+                    cell.lblTripPaymentStatus.attributedText =  NSAttributedString().changeColor(text1: housePayment + " : ", text2: mytrip!.bookingStatus, color1: UIColor.darkGray, color2: UIColor.blue)
                 }
                 else
                 {
-                    cell.lblTripPaymentStatus.attributedText =  NSAttributedString().changeColor(text1: housePayment + " : ", text2: mytrip!.bookingStatus!, color1: UIColor.darkGray, color2: UIColor.red)
+                    cell.lblTripPaymentStatus.attributedText =  NSAttributedString().changeColor(text1: housePayment + " : ", text2: mytrip!.bookingStatus, color1: UIColor.darkGray, color2: UIColor.red)
                 }
                 if mytrip.approvalStatus == "Pending" {
-                    cell.lblTripHostApproved.attributedText =  NSAttributedString().changeColor(text1: houseApproval + " : ", text2: mytrip!.approvalStatus!, color1: UIColor.darkGray, color2: UIColor.red)
+                    cell.lblTripHostApproved.attributedText =  NSAttributedString().changeColor(text1: houseApproval + " : ", text2: mytrip!.approvalStatus, color1: UIColor.darkGray, color2: UIColor.red)
                 }
                 else if mytrip.approvalStatus == "Accept" {
-                    cell.lblTripHostApproved.attributedText =  NSAttributedString().changeColor(text1: houseApproval + " : " , text2: mytrip!.approvalStatus!, color1: UIColor.darkGray, color2: UIColor.green)
+                    cell.lblTripHostApproved.attributedText =  NSAttributedString().changeColor(text1: houseApproval + " : " , text2: mytrip!.approvalStatus, color1: UIColor.darkGray, color2: UIColor.green)
                 }
                 else
                 {
@@ -2680,7 +2680,7 @@ extension YourTripsViewController: UITableViewDataSource,UITableViewDelegate {
                         
                     }else{
                         
-                        let PaymentMethodsArr = NSMutableArray()
+                        let PaymentMethodsArr : NSMutableArray = []
                         
                         let StripeStatus = mytrip.stripeStatus
                         let PaypalStatus = mytrip.paypalStatus
@@ -2708,12 +2708,12 @@ extension YourTripsViewController: UITableViewDataSource,UITableViewDelegate {
                         nav!.PaymentsArray = PaymentMethodsArr
                         nav!.subTotal = "\(mytrip.subTotal!)"
                         nav!.TotalAmount = "\(mytrip.pay_later_balance_amount!)"
-                        nav!.enquiryid = "\(Enquiry!)"
+                        nav!.enquiryid = "\(Enquiry)"
                         nav!.ServiceFee = "\(mytrip.serviceFee!)"
                         nav!.SecurityDeposit = "\(mytrip.securityDeposit!)"
                         nav!.choosed_option = ""
                         nav!.pay_balance = 1
-                        nav!.PropertId = "\(mytrip.propertyId!)"
+                        nav!.PropertId = "\(mytrip.propertyId)"
                         self.navigationController?.pushViewController(nav!, animated: true)
                         
                         

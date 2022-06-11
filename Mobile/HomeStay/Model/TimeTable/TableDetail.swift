@@ -8,9 +8,9 @@ import Foundation
 
 class TableDetail : NSObject, NSCoding{
 
-    var tableId : String!
-    var tableName : String!
-    var tableTime : String!
+    var tableId : String = ""
+    var tableName : String = ""
+    var tableTime : String = ""
 
 
     /**

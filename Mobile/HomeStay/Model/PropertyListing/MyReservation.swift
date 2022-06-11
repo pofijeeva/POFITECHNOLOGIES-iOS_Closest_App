@@ -8,45 +8,45 @@ import Foundation
 
 class MyReservation : NSObject, NSCoding{
 
-    var approvalStatus : String!
-    var bookingDates : String!
-    var bookingno : String!
-    var cancelShowStatus : Bool!
-    var cancellationPolicy : String!
-    var cancelledBy : String!
-    var checkin : String!
-    var checkout : String!
-    var city : String!
-    var country : String!
-    var guestAccess : String!
-    var guestId : String!
-    var houseRules : String!
-    var id : String!
+    var approvalStatus : String = ""
+    var bookingDates : String = ""
+    var bookingno : String = ""
+    var cancelShowStatus : Bool = false 
+    var cancellationPolicy : String = ""
+    var cancelledBy : String = ""
+    var checkin : String = ""
+    var checkout : String = ""
+    var city : String = ""
+    var country : String = ""
+    var guestAccess : String = ""
+    var guestId : String = ""
+    var houseRules : String = ""
+    var id : String = ""
     var interactGuest : AnyObject!
-    var isCanceled : Bool!
-    var loginUserType : String!
-    var neighborAround : String!
-    var neighborOverview : String!
-    var noofGuest : String!
-    var numofdates : String!
-    var otherThingsToNote : String!
-    var paidCurrencyCode : String!
-    var paidCurrencySymbol : String!
-    var paymentStatus : String!
-    var postCode : String!
-    var propertyAddress : String!
-    var propertyCurrencyCode : String!
-    var propertyCurrencySymbol : String!
-    var propertyId : String!
-    var propertyPrice : Int!
-    var propertyTitle : String!
-    var securityDeposit : Int!
-    var serviceFee : Int!
-    var state : String!
-    var subTotal : Int!
+    var isCanceled : Bool = false 
+    var loginUserType : String = ""
+    var neighborAround : String = ""
+    var neighborOverview : String = ""
+    var noofGuest : String = ""
+    var numofdates : String = ""
+    var otherThingsToNote : String = ""
+    var paidCurrencyCode : String = ""
+    var paidCurrencySymbol : String = ""
+    var paymentStatus : String = ""
+    var postCode : String = ""
+    var propertyAddress : String = ""
+    var propertyCurrencyCode : String = ""
+    var propertyCurrencySymbol : String = ""
+    var propertyId : String = ""
+    var propertyPrice : Int = 0
+    var propertyTitle : String = ""
+    var securityDeposit : Int = 0
+    var serviceFee : Int = 0
+    var state : String = ""
+    var subTotal : Int = 0
     var total :  AnyObject!
-    var userImage : String!
-    var userName : String!
+    var userImage : String = ""
+    var userName : String = ""
     
     
     /**
@@ -83,12 +83,12 @@ class MyReservation : NSObject, NSCoding{
         propertyCurrencyCode = dictionary["property_currency_code"] as? String ?? ""
         propertyCurrencySymbol = dictionary["property_currency_symbol"] as? String ?? ""
         propertyId = dictionary["property_id"] as? String ?? ""
-        propertyPrice = dictionary["property_price"] as? Int
+        propertyPrice = dictionary["property_price"] as? Int ?? 0
         propertyTitle = dictionary["property_title"] as? String ?? ""
-        securityDeposit = dictionary["security_deposit"] as? Int
-        serviceFee = dictionary["service_fee"] as? Int
+        securityDeposit = dictionary["security_deposit"] as? Int ?? 0
+        serviceFee = dictionary["service_fee"] as? Int ?? 0
         state = dictionary["state"] as? String ?? ""
-        subTotal = dictionary["sub_total"] as? Int
+        subTotal = dictionary["sub_total"] as? Int ?? 0
         total = dictionary["total"]  as AnyObject
         userImage = dictionary["user_image"] as? String ?? ""
         userName = dictionary["user_name"] as? String ?? ""
@@ -256,12 +256,12 @@ class MyReservation : NSObject, NSCoding{
         propertyCurrencyCode = aDecoder.decodeObject(forKey: "property_currency_code") as? String ?? ""
         propertyCurrencySymbol = aDecoder.decodeObject(forKey: "property_currency_symbol") as? String ?? ""
         propertyId = aDecoder.decodeObject(forKey: "property_id") as? String ?? ""
-        propertyPrice = aDecoder.decodeObject(forKey: "property_price") as? Int
+        propertyPrice = aDecoder.decodeObject(forKey: "property_price") as? Int ?? 0
         propertyTitle = aDecoder.decodeObject(forKey: "property_title") as? String ?? ""
-        securityDeposit = aDecoder.decodeObject(forKey: "security_deposit") as? Int
-        serviceFee = aDecoder.decodeObject(forKey: "service_fee") as? Int
+        securityDeposit = aDecoder.decodeObject(forKey: "security_deposit") as? Int ?? 0
+        serviceFee = aDecoder.decodeObject(forKey: "service_fee") as? Int ?? 0
         state = aDecoder.decodeObject(forKey: "state") as? String ?? ""
-        subTotal = aDecoder.decodeObject(forKey: "sub_total") as? Int
+        subTotal = aDecoder.decodeObject(forKey: "sub_total") as? Int ?? 0
         total = aDecoder.decodeObject(forKey: "total") as AnyObject!
         userImage = aDecoder.decodeObject(forKey: "user_image") as? String ?? ""
         userName = aDecoder.decodeObject(forKey: "user_name") as? String ?? ""

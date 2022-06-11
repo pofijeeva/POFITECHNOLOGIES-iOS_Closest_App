@@ -54,14 +54,14 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
     @IBOutlet weak var labelYear: UILabel!
     @IBOutlet weak var greyView: UIView!
     
-    var BookindDates = NSMutableArray()
-    var submitType = String()
-    var TimeId = String()
+    var BookindDates : NSMutableArray = []
+    var submitType : String = ""
+    var TimeId : String = ""
 
     var fromDate = Date()
     var toDate = Date()
-    var startDate = String()
-    var endDate = String()
+    var startDate : String = ""
+    var endDate : String = ""
     var firstDate: Date?
     // last date in the range
     var lastDate: Date?
@@ -100,12 +100,12 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
     // Oct 21, 2017
     fileprivate weak var calendar: FSCalendar!
     fileprivate weak var eventLabel: UILabel!
-    var fromDateStr = String()
-    var toDateStr = String()
+    var fromDateStr : String = ""
+    var toDateStr : String = ""
     
-    var arrayOfDit = NSMutableArray()
+    var arrayOfDit : NSMutableArray = []
     var dictValues = [String:AnyObject]()
-    var result = NSMutableArray()
+    var result : NSMutableArray = []
     var status = ""
 
     let currencyDropdown = DropDown()
@@ -115,7 +115,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
             ]
     }()
     
-    var dateId = String()
+    var dateId : String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -207,7 +207,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
         self.LabelNoScheduleAvailable.isHidden = false
 
 //        if arrayOfResult.count > 0 {
-//            self.arrayOfDit.addObjects(from: (((arrayOfResult[0] as? NSDictionary)?.object(forKey: "Timing") as? NSDictionary)?.object(forKey: "schedules") as! NSArray) as! [Any])
+//            self.arrayOfDit.addObjects(from: (((arrayOfResult[0] as? NSDictionary)?.object(forKey: "Timing") as? NSDictionary)?.object(forKey: "schedules") as? NSArray) as? [Any] ?? [])
 //            self.tableListSchedules.reloadData()
 //            if arrayOfDit.count > 0 {
 //                self.imageNoScheduleAvailable.isHidden = true
@@ -239,7 +239,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
                     self.hideActivityIndicator(uiView: self.view)
 
                     self.arrayOfDit.removeAllObjects()
-                    self.arrayOfDit.addObjects(from: (responseDict.object(forKey: "Time_details") as! NSArray) as! [Any])
+                    self.arrayOfDit.addObjects(from: (responseDict.object(forKey: "Time_details") as? NSArray) as? [Any] ?? [])
                     if self.arrayOfDit.count == 0 {
                         self.imageNoScheduleAvailable.isHidden = false
                         self.LabelNoScheduleAvailable.isHidden = false
@@ -287,7 +287,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
                 if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     self.hideActivityIndicator(uiView: self.view)
                     self.arrayOfDit.removeAllObjects()
-                    self.arrayOfDit.addObjects(from: (responseDict.object(forKey: "Time_details") as! NSArray) as! [Any])
+                    self.arrayOfDit.addObjects(from: (responseDict.object(forKey: "Time_details") as? NSArray) as? [Any] ?? [])
                     if self.arrayOfDit.count == 0 {
                         self.imageNoScheduleAvailable.isHidden = false
                         self.LabelNoScheduleAvailable.isHidden = false
@@ -345,7 +345,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
                 if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                    // currentExpId = "\(responseDict.object(forKey: "experience_id") as AnyObject)"
                     self.arrayOfDit.removeAllObjects()
-                    self.arrayOfDit.addObjects(from: (responseDict.object(forKey: "Time_details") as! NSArray) as! [Any])
+                    self.arrayOfDit.addObjects(from: (responseDict.object(forKey: "Time_details") as? NSArray) as? [Any] ?? [])
                     if self.arrayOfDit.count > 0 {
                         self.imageNoScheduleAvailable.isHidden = true
                         self.LabelNoScheduleAvailable.isHidden = true
@@ -673,7 +673,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
             if Helper.sharedInstance.isConnectedToInternet() {
                 self.showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
-                var APINAME = String()
+                var APINAME : String = ""
                 
                 if self.submitType == "Add" {
                     APINAME = AddExperienceTimeSheet
@@ -700,7 +700,7 @@ class AddTimeSheetViewController: BaseViewController, UITableViewDelegate,UITabl
                         self.viewContentAddTimeSheet.isHidden = true
 //                        currentExpId = "\(responseDict.object(forKey: "experience_id") as AnyObject)"
                         self.arrayOfDit.removeAllObjects()
-                        self.arrayOfDit.addObjects(from: (responseDict.object(forKey: "Time_details") as! NSArray) as! [Any])
+                        self.arrayOfDit.addObjects(from: (responseDict.object(forKey: "Time_details") as? NSArray) as? [Any] ?? [])
                         self.tableListSchedules.reloadData()
                         if self.arrayOfDit.count > 0 {
                             self.imageNoScheduleAvailable.isHidden = true

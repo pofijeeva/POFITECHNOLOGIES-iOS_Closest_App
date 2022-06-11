@@ -14,12 +14,12 @@ class UserInfo : NSObject, NSCoding{
     var disputeAboutYou : [DisputeAboutYou]!
     var disputeByYou : [DisputeByYou]!
     var hostCancellation : [HostCancellation]!
-    var message : String!
+    var message : String = ""
     var profileinfo : [Profileinfo]!
     var propertyListing : [PropertyListing]!
     var reviewsAboutYou : [ReviewsAboutYou]!
     var reviewsByYou : [ReviewsByYou]!
-    var status : Int!
+    var status : Int = 0
     var trustVerify : [TrustVerify]!
     
     

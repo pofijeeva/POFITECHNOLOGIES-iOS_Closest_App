@@ -27,10 +27,10 @@ class ExperienceListingBaseViewController: BaseViewController,UITextViewDelegate
     
     
     
-    var ListingsArray = NSMutableArray()
-    var ReservationArray = NSMutableArray()
+    var ListingsArray : NSMutableArray = []
+    var ReservationArray : NSMutableArray = []
     var isFromList = false
-    var SelectedType = String()
+    var SelectedType : String = ""
     var moreOptionStatusButton  = UIButton()
     let statusAvailableDropDown = DropDown()
     lazy var dropDowns: [DropDown] = {
@@ -38,9 +38,9 @@ class ExperienceListingBaseViewController: BaseViewController,UITextViewDelegate
             self.statusAvailableDropDown
         ]
     }()
-    var DropDownShowStatusArray = NSMutableArray()
+    var DropDownShowStatusArray : NSMutableArray = []
     let maxLength = 320
-    var tripSelectedInt = Int()
+    var tripSelectedInt : Int = 0
 
     
     // Invoice  @IBOutlet weak var InvoiceDetailsLbl: UILabel!
@@ -313,9 +313,9 @@ class ExperienceListingBaseViewController: BaseViewController,UITextViewDelegate
             self.hideActivityIndicator(uiView: self.view)
             if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 self.ListingsArray.removeAllObjects()
-                self.ListingsArray.addObjects(from: (responseDict.object(forKey: "experience_listing") as! NSArray) as! [Any])
+                self.ListingsArray.addObjects(from: (responseDict.object(forKey: "experience_listing") as? NSArray) as? [Any] ?? [])
                 self.ReservationArray.removeAllObjects()
-                self.ReservationArray.addObjects(from: (responseDict.object(forKey: "my_reservation") as! NSArray) as! [Any])
+                self.ReservationArray.addObjects(from: (responseDict.object(forKey: "my_reservation") as? NSArray) as? [Any] ?? [])
                 
                if self.ListingsArray.count == 0 {
                     self.EmptyScree.isHidden = false
@@ -780,7 +780,7 @@ extension ExperienceListingBaseViewController: UITableViewDelegate ,UITableViewD
         
         let nav = storyboard?.instantiateViewController(withIdentifier: "NewPaymentViewController") as! NewPaymentViewController
         nav.paymentComingType = "ExperienceListing"
-        var PaymentMethodsArr = NSMutableArray()
+        var PaymentMethodsArr : NSMutableArray = []
         PaymentMethodsArr.add("Stripe")
         PaymentMethodsArr.add("PayPal")
         //PaymentMethodsArr.add("Credit Card")

@@ -8,11 +8,11 @@ import Foundation
 
 class ProductImage : NSObject, NSCoding{
 
-    var productImage : String!
-    var productImageId : Int!
+    var productImage : String = ""
+    var productImageId : Int = 0
     
-    var imagePath : String!
-    var propertyImageId : Int!
+    var imagePath : String = ""
+    var propertyImageId : Int = 0
 
 
     /**

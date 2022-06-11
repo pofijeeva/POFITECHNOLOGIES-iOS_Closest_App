@@ -8,80 +8,80 @@ import Foundation
 
 class PropertyDetails : NSObject, NSCoding{
     
-    var accommodates : String!
-    var address : String!
-    var bathrooms : String!
-    var bedrooms : String!
-    var beds : String!
-    var cancellation : String!
+    var accommodates : String = ""
+    var address : String = ""
+    var bathrooms : String = ""
+    var bedrooms : String = ""
+    var beds : String = ""
+    var cancellation : String = ""
     var check : [Check]!
-    var city : String!
-    var country : String!
-    var datefrom : String!
-    var dateto : String!
-    var defaultproducttitle : String!
-    var emailVerified : String!
-    var facebook : String!
-    var google : String!
-    var guestAccess : String!
-    var homeType : String!
-    var hostEmail : String!
-    var hostId : Int!
-    var hostabout : String!
-    var hostimg : String!
-    var hostname : String!
-    var houseRules : String!
-    var idVerified : String!
-    var instantPayStatus : Int!
-    var requestToBookStatus : Bool!
-    var interactGuest : String!
-    var isFavourite : Int!
-    var latitude : String!
+    var city : String = ""
+    var country : String = ""
+    var datefrom : String = ""
+    var dateto : String = ""
+    var defaultproducttitle : String = ""
+    var emailVerified : String = ""
+    var facebook : String = ""
+    var google : String = ""
+    var guestAccess : String = ""
+    var homeType : String = ""
+    var hostEmail : String = ""
+    var hostId : Int = 0
+    var hostabout : String = ""
+    var hostimg : String = ""
+    var hostname : String = ""
+    var houseRules : String = ""
+    var idVerified : String = ""
+    var instantPayStatus : Int = 0
+    var requestToBookStatus : Bool = false 
+    var interactGuest : String = ""
+    var isFavourite : Int = 0
+    var latitude : String = ""
     var listDetails : [ListDetail]!
-    var listName : String!
+    var listName : String = ""
     var listingInfo : [ListingInfo]!
-    var loginUserType : String!
-    var longitude : String!
-    var memberSince : String!
-    var message : String!
-    var minimumStay : String!
-    var monthPrice : String!
-    var neighborAround : String!
-    var neighborOverview : String!
-    var otherThingsToNote : String!
-    var phVerified : String!
-    var postCode : String!
+    var loginUserType : String = ""
+    var longitude : String = ""
+    var memberSince : String = ""
+    var message : String = ""
+    var minimumStay : String = ""
+    var monthPrice : String = ""
+    var neighborAround : String = ""
+    var neighborOverview : String = ""
+    var otherThingsToNote : String = ""
+    var phVerified : String = ""
+    var postCode : String = ""
     var productImage : [ProductImage]!
-    var productdesc : String!
+    var productdesc : String = ""
     var productprice : AnyObject!
-    var propertyCurrencyCode : String!
-    var propertyCurrencySymbol : String!
+    var propertyCurrencyCode : String = ""
+    var propertyCurrencySymbol : String = ""
     var propertyReviews : [PropertyReview]!
-    var rentalId : Int!
+    var rentalId : Int = 0
     var seasonalCalendarPrice : [SeasonalCalendarPrice]!
     var securityDeposit : AnyObject!
     var services : Service!
-    var starRating : Int!
-    var state : String!
-    var status : Int!
-    var totalReviewCount : Int!
-    var url : String!
-    var userAbout : String!
-    var userCurrency : String!
-    var userAddress : String!
-    var weekPrice : String!
-    var productSpace : String!
+    var starRating : Int = 0
+    var state : String = ""
+    var status : Int = 0
+    var totalReviewCount : Int = 0
+    var url : String = ""
+    var userAbout : String = ""
+    var userCurrency : String = ""
+    var userAddress : String = ""
+    var weekPrice : String = ""
+    var productSpace : String = ""
     var couponDetails : [CouponDetail]!
-    var min_hour_price : String!
-    var booking_type : String!
-     var min_hour : Int!
-     var min_days : Int!
-    var guest_capacity : String!
+    var min_hour_price : String = ""
+    var booking_type : String = ""
+     var min_hour : Int = 0
+     var min_days : Int = 0
+    var guest_capacity : String = ""
     var over_all_rating : AnyObject!
-    var rental_hourly_price : String!
-    var host_status : String!
-    var guest_status : String!
-    var min_hour_exprice : String!
+    var rental_hourly_price : String = ""
+    var host_status : String = ""
+    var guest_status : String = ""
+    var min_hour_exprice : String = ""
     var pay_later_status : AnyObject!
 
     /**
@@ -126,7 +126,7 @@ class PropertyDetails : NSObject, NSCoding{
         houseRules = dictionary["house_rules"] as? String ?? ""
         idVerified = dictionary["id_verified"] as? String ?? ""
         instantPayStatus = dictionary["instant_pay_status"] as? Int ?? 0
-        requestToBookStatus = dictionary["request_to_book_status"] as? Bool
+        requestToBookStatus = dictionary["request_to_book_status"] as? Bool ?? false
         interactGuest = dictionary["interact_guest"] as? String ?? ""
         isFavourite = dictionary["is_favourite"] as? Int ?? 0
         latitude = dictionary["latitude"] as? String ?? ""
@@ -524,7 +524,7 @@ class PropertyDetails : NSObject, NSCoding{
         houseRules = aDecoder.decodeObject(forKey: "house_rules") as? String ?? ""
         idVerified = aDecoder.decodeObject(forKey: "id_verified") as? String ?? ""
         instantPayStatus = aDecoder.decodeObject(forKey: "instant_pay_status") as? Int ?? 0
-        requestToBookStatus = aDecoder.decodeObject(forKey: "request_to_book_status") as? Bool
+        requestToBookStatus = aDecoder.decodeObject(forKey: "request_to_book_status") as? Bool ?? false
         interactGuest = aDecoder.decodeObject(forKey: "interact_guest") as? String ?? ""
         isFavourite = aDecoder.decodeObject(forKey: "is_favourite") as? Int ?? 0
         latitude = aDecoder.decodeObject(forKey: "latitude") as? String ?? ""

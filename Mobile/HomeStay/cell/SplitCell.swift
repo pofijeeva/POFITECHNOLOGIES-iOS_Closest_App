@@ -39,8 +39,8 @@
     @IBOutlet weak var couponCellView: UIView!
     
     
-    var selectedIndex = Int()
-    var propertyId = String()
+    var selectedIndex : Int = 0
+    var propertyId : String = ""
     
     @IBOutlet weak var collectionView: UICollectionView!
     var delegate : delegateForCategorySearch?

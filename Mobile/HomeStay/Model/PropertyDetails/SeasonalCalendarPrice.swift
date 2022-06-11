@@ -8,9 +8,9 @@ import Foundation
 
 class SeasonalCalendarPrice : NSObject, NSCoding{
 
-    var date : String!
-    var price : Int!
-    var status : Int!
+    var date : String = ""
+    var price : Int = 0
+    var status : Int = 0
 
 
     /**

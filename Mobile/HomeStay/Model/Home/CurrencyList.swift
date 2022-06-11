@@ -8,10 +8,10 @@ import Foundation
 
 class CurrencyList : NSObject, NSCoding{
 
-    var currencyCode : String!
-    var currencySymbol : String!
-    var currencyValue : Int!
-    var id : Int!
+    var currencyCode : String = ""
+    var currencySymbol : String = ""
+    var currencyValue : Int = 0
+    var id : Int = 0
 
 
     /**

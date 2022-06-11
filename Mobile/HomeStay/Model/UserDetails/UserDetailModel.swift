@@ -9,8 +9,8 @@ import Foundation
 class UserDetailModel : NSObject, NSCoding{
 
     var activeRentals : [ActiveRental]!
-    var image : String!
-    var pageId : String!
+    var image : String = ""
+    var pageId : String = ""
     var userDetails : UserDetail!
 
 

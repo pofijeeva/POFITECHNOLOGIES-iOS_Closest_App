@@ -8,8 +8,8 @@ import Foundation
 
 class Privacy : NSObject, NSCoding{
 
-    var searchByProfile : Bool!
-    var socialRecommend : Bool!
+    var searchByProfile : Bool = false 
+    var socialRecommend : Bool = false 
 
 
     /**

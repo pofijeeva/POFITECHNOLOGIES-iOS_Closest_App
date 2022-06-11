@@ -9,24 +9,24 @@ import Foundation
 
 class Step2 : NSObject, NSCoding{
 
-    var calendarChecked : String!
-    var calendarStatus : Bool!
-    var datefrom : String!
-    var dateto : String!
-    var propertyid : Int!
+    var calendarChecked : String = ""
+    var calendarStatus : Bool = false 
+    var datefrom : String = ""
+    var dateto : String = ""
+    var propertyid : Int = 0
     var seasonalCalendarPrice : [AnyObject]!
-    var stepCompleted : Bool!
+    var stepCompleted : Bool = false 
     
-    var monthly_price_list : Double!
-    var monthly_price_status : Bool!
-    var price_list : Double!
-    var weekly_price_list : Double!
-    var weekly_price_status : Bool!
-    var yearly_price_list : Double!
-    var yearly_price_status : Bool!
-    var currencyCode: String!
-    var daily_sts : Bool!
-    var hourly_sts : Bool!
+    var monthly_price_list : Double = 0
+    var monthly_price_status : Bool = false 
+    var price_list : Double = 0
+    var weekly_price_list : Double = 0
+    var weekly_price_status : Bool = false 
+    var yearly_price_list : Double = 0
+    var yearly_price_status : Bool = false 
+    var currencyCode: String = ""
+    var daily_sts : Bool = false 
+    var hourly_sts : Bool = false 
     var hour_price : AnyObject!
     var min_hour : AnyObject!
     var min_hour_price : AnyObject!

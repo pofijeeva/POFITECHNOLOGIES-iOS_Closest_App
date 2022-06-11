@@ -17,7 +17,7 @@ class ProductDetailFeaturesTableViewCell: UITableViewCell,UICollectionViewDelega
      @IBOutlet weak var BaseHeight: NSLayoutConstraint!
    
     
-    var DataArray = NSMutableArray()
+    var DataArray : NSMutableArray = []
     
     override func awakeFromNib() {
         super.awakeFromNib()

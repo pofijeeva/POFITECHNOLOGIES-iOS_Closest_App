@@ -119,17 +119,17 @@ class BasicPriceViewController: BaseViewController,CommonListingSaveDelegate
     
 
     
-    var PROPERTY_ID = String()
+    var PROPERTY_ID : String = ""
     
     
     
     
-    var dailySelected = Bool()
-    var hourlySelected = Bool()
-    var PropertyID = Int()
-    var Currencies = NSMutableArray()
-    var BookingType = String()
-    var BothSelected = Bool()
+    var dailySelected : Bool = false
+    var hourlySelected : Bool = false
+    var PropertyID : Int = 0
+    var Currencies : NSMutableArray = []
+    var BookingType : String = ""
+    var BothSelected : Bool = false
     var dropDownCurrencyArray = [String]()
     var priceChange = false
     var currencyArr = [Currency]()
@@ -141,12 +141,12 @@ class BasicPriceViewController: BaseViewController,CommonListingSaveDelegate
         ]
     }()
     var ListingActivityDelegate: listingActivityProtocol!
-    var pickuptype = String()
-    var selectdCurrncy = String()
-    var isDailyBooking = Bool()
-    var isHourlyBooking = Bool()
-    var CurrncySymblArray = NSMutableArray()
-    var symbol = String()
+    var pickuptype : String = ""
+    var selectdCurrncy : String = ""
+    var isDailyBooking : Bool = false
+    var isHourlyBooking : Bool = false
+    var CurrncySymblArray : NSMutableArray = []
+    var symbol : String = ""
     var minHrArray = ["01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00","10:00","11:00"]
     var minDaysArray = ["1","2","3","4","5","6","7","8","9","10"]
     
@@ -370,7 +370,7 @@ class BasicPriceViewController: BaseViewController,CommonListingSaveDelegate
                 self.btn_HourlyBooking.setImage(UIImage(named: "tick-off")?.maskWithColor(color: AppColor), for: .normal)
              }
             
-            if "\(step2.weekly_price_list!)" != "" {
+            if "\(step2.weekly_price_list)" != "" {
                 radioController.buttonArrayUpdated(buttonSelected: btn_Enable)
                 txt_PricePerWeek.isHidden = false
                 txt_PricePerWeek.isUserInteractionEnabled = true

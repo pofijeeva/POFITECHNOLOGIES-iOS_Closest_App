@@ -8,12 +8,12 @@ import Foundation
 
 class HomePageDetail : NSObject, NSCoding{
 
-    var citythumb : String!
-    var imageUrl : String!
-    var name : String!
-    var overAllUnreadCount : Int!
-    var propertyUrl : String!
-    var no_of_listing : Int!
+    var citythumb : String = ""
+    var imageUrl : String = ""
+    var name : String = ""
+    var overAllUnreadCount : Int = 0
+    var propertyUrl : String = ""
+    var no_of_listing : Int = 0
     
     
     /**

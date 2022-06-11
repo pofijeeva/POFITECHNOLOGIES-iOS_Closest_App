@@ -8,8 +8,8 @@ import Foundation
 
 class ListingInfo : NSObject, NSCoding{
 
-    var label : String!
-    var value : String!
+    var label : String = ""
+    var value : String = ""
 
 
     /**

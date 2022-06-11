@@ -56,7 +56,7 @@ extension ManageCurrencyViewController: UITableViewDelegate,UITableViewDataSourc
         
         
         
-            if login_session.value(forKey: "APP_CURRENCY") as? String == Singleton.sharedInstance.homeModel.currencyList[indexPath.row].currencyCode!{
+        if login_session.value(forKey: "APP_CURRENCY") as? String == Singleton.sharedInstance.homeModel.currencyList[indexPath.row].currencyCode{
                
                  cell.CurrencyBtn.setImage(UIImage(named: "radiobtnselected"), for: .normal)
         }else{
@@ -66,8 +66,8 @@ extension ManageCurrencyViewController: UITableViewDelegate,UITableViewDataSourc
             
       
         
-        cell.CurrencySymbol.text =  Singleton.sharedInstance.homeModel.currencyList[indexPath.row].currencySymbol!
-         cell.CurrencyCode.text =  Singleton.sharedInstance.homeModel.currencyList[indexPath.row].currencyCode!
+        cell.CurrencySymbol.text =  Singleton.sharedInstance.homeModel.currencyList[indexPath.row].currencySymbol
+        cell.CurrencyCode.text =  Singleton.sharedInstance.homeModel.currencyList[indexPath.row].currencyCode
         
         cell.CurrencySymbol.font = UIFont(name: RegularFont, size: 14.0)
          cell.CurrencyCode.font = UIFont(name: RegularFont, size: 16)
@@ -75,8 +75,8 @@ extension ManageCurrencyViewController: UITableViewDelegate,UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let SelectedCurrency = Singleton.sharedInstance.homeModel.currencyList[indexPath.row].currencyCode!
-        let SelectedCurrencySymbol = Singleton.sharedInstance.homeModel.currencyList[indexPath.row].currencySymbol!
+        let SelectedCurrency = Singleton.sharedInstance.homeModel.currencyList[indexPath.row].currencyCode
+        let SelectedCurrencySymbol = Singleton.sharedInstance.homeModel.currencyList[indexPath.row].currencySymbol
        
             login_session.set(SelectedCurrency, forKey: "APP_CURRENCY")
         login_session.set(SelectedCurrencySymbol, forKey: "APP_CURRENCY_SYMBOL")

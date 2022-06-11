@@ -12,11 +12,11 @@ class AccountInfoModel : NSObject, NSCoding{
     var completedTransaction : [CompletedTransaction]!
     var countryList : [CountryList]!
     var futureTransaction : [FutureTransaction]!
-    var message : String!
+    var message : String = ""
     var notifications : [Notification]!
     var payoutPerference : [PayoutPerference]!
     var privacy : [Privacy]!
-    var status : Int!
+    var status : Int = 0
 
 
     /**

@@ -8,8 +8,8 @@ import Foundation
 
 class Attribute : NSObject, NSCoding{
 
-    var optionId : String!
-    var optionName : String!
+    var optionId : String = ""
+    var optionName : String = ""
     var options : [Option]!
 
     /**

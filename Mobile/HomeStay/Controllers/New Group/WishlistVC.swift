@@ -82,7 +82,7 @@ class WishlistVC: BaseViewController {
         let model = self.wishlist[sender.tag]
         print(model)
         
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
             showActivityIndicator(uiView: self.view)
                 
             let parameters:[String : Any] =  ["lang_code" : lanuguage_selection.value(forKey: "language") ?? "en",
@@ -147,12 +147,12 @@ class WishlistVC: BaseViewController {
     
     func getWishlistApiResponse(params: [String:Any]){
         showActivityIndicator(uiView: self.view)
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
             APIManager.apiPostWithHeaders(serviceName: WISHLISTVIEW, parameters: params) { (json:NSDictionary?, error:NSError?) in
                 self.hideActivityIndicator(uiView: self.view)
                 if error != nil {
-                    print(error!.localizedDescription)
-                    self.showInformation(title: "Info", message: error!.localizedDescription)
+                    print(error?.localizedDescription ?? "")
+                    self.showInformation(title: "Info", message: error?.localizedDescription ?? "")
                     return
                 }
                 let responseDict:NSDictionary = json!

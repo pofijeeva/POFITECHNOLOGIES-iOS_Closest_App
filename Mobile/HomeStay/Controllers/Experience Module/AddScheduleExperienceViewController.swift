@@ -79,8 +79,8 @@ class AddScheduleExperienceViewController: BaseViewController, UITableViewDelega
     private var firstDate: Date?
     private var lastDate: Date?
     private var datesRange: [Date]?
-    var fromDateStr = String()
-    var toDateStr = String()
+    var fromDateStr : String = ""
+    var toDateStr : String = ""
     var dateId = ""
     var status = ""
     
@@ -316,7 +316,7 @@ class AddScheduleExperienceViewController: BaseViewController, UITableViewDelega
         let diff = calendar.dateComponents([.day], from: startDatee!, to: endDatee!) // print the diff between thedates
         print("difference dates:",diff)
         
-        var dates = NSMutableArray()
+        var dates : NSMutableArray = []
         
         for i in 0 ... diff.day! {
             if let newDate = Calendar.current.date(byAdding: .day, value: i + 1, to: startDatee!) {

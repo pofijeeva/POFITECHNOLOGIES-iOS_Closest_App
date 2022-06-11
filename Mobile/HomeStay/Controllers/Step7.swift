@@ -9,13 +9,13 @@ import Foundation
 class Step7 : NSObject, NSCoding{
 
     var attribute : [String:Any]!
-    var homeType : String!
-    var propertyid : Int!
-    var roomType : String!
-    var stepCompleted : Bool!
+    var homeType : String = ""
+    var propertyid : Int = 0
+    var roomType : String = ""
+    var stepCompleted : Bool = false 
     var saved_listing : [[String: Any]]!
-    var allow_multiple_qty : Int!
-    var max_qty : Int!
+    var allow_multiple_qty : Int = 0
+    var max_qty : Int = 0
 
 
     /**

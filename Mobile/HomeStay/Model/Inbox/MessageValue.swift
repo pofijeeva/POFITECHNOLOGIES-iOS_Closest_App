@@ -8,21 +8,21 @@ import Foundation
 
 class MessageValue : NSObject, NSCoding{
 
-    var bookingno : String!
-    var dateAdded : String!
-    var hostMsgreadStatus : String!
-    var id : String!
-    var message : String!
-    var msgRead : String!
-    var msgStatus : String!
-    var msgUnreadCount : String!
-    var propertyId : String!
-    var senderName : String!
-    var starStatus : String!
-    var status : String!
-    var subject : String!
-    var userImage : String!
-    var userMsgreadStatus : String!
+    var bookingno : String = ""
+    var dateAdded : String = ""
+    var hostMsgreadStatus : String = ""
+    var id : String = ""
+    var message : String = ""
+    var msgRead : String = ""
+    var msgStatus : String = ""
+    var msgUnreadCount : String = ""
+    var propertyId : String = ""
+    var senderName : String = ""
+    var starStatus : String = ""
+    var status : String = ""
+    var subject : String = ""
+    var userImage : String = ""
+    var userMsgreadStatus : String = ""
     
     
     /**

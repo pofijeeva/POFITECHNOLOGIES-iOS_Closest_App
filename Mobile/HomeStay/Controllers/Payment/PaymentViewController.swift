@@ -94,44 +94,44 @@ class PaymentViewController: BaseViewController,UITextFieldDelegate {
 
     //MARK:- Validation Constants
     
-    var totalwallet  = String()
-    var usedwallet  = String()
+    var totalwallet  : String = ""
+    var usedwallet  : String = ""
     
-    var balenceWalletPrice = String()
+    var balenceWalletPrice : String = ""
     
-    var iscoupon = Bool()
-    var iswalletPayment = Bool()
-    var isCheck = Bool()
-    var couponTotalAmount = String()
-    var walletTotalAmount = String()
+    var iscoupon : Bool = false
+    var iswalletPayment : Bool = false
+    var isCheck : Bool = false
+    var couponTotalAmount : String = ""
+    var walletTotalAmount : String = ""
     
-    var instaEnquiryId = Int()
-    var PaymentFor = String()
-    var PAYMENT_MODE = String()
-    var cardtype = String()
-    var cardnumber = String()
-    var cc_exp_day = String()
-    var cc_exp_year = String()
-    var credit_card_identifier = String()
+    var instaEnquiryId : Int = 0
+    var PaymentFor : String = ""
+    var PAYMENT_MODE : String = ""
+    var cardtype : String = ""
+    var cardnumber : String = ""
+    var cc_exp_day : String = ""
+    var cc_exp_year : String = ""
+    var credit_card_identifier : String = ""
     var total_price : AnyObject!
-    var currency_code = String()
-    var enquiryid  = String()
-    var discountAmount  = String()
-    var currencycode = String()
-    var user_id = String()
-    var property_id = String()
-    var paySuccess = String()
-    var carderr = String()
-    var yearexp = String()
-    var monexp = String()
-    var cvvexp = String()
-    var cardexp = String()
-    var commission = String()
-    var commission_type = String()
-    var hosting_price = String()
-    var currency_cron_idssqq = String()
-    var enquiryidssqq = String()
-    var restaurant_idssqq = String()
+    var currency_code : String = ""
+    var enquiryid  : String = ""
+    var discountAmount  : String = ""
+    var currencycode : String = ""
+    var user_id : String = ""
+    var property_id : String = ""
+    var paySuccess : String = ""
+    var carderr : String = ""
+    var yearexp : String = ""
+    var monexp : String = ""
+    var cvvexp : String = ""
+    var cardexp : String = ""
+    var commission : String = ""
+    var commission_type : String = ""
+    var hosting_price : String = ""
+    var currency_cron_idssqq : String = ""
+    var enquiryidssqq : String = ""
+    var restaurant_idssqq : String = ""
     var AmtPaypal : AnyObject!
     var dropDownArray = NSArray()
     var cardsArr = ["Visa","American Express","Master Card","Discover"]
@@ -159,11 +159,11 @@ class PaymentViewController: BaseViewController,UITextFieldDelegate {
     var resultText = "" // empty
     var braintreeClient: BTAPIClient?
     var clientToken:String = ""
-    var nonceStr = String()
-    var endingStr = String()
+    var nonceStr : String = ""
+    var endingStr : String = ""
     var paymentMethod : BTPaymentMethodNonce?
-    var transaction_id: String! = ""
-    var responseCode: String! = ""
+    var transaction_id: String = ""
+    var responseCode: String = ""
     
     var totalamount : AnyObject!
     var totalserviceFee: NSDecimalNumber = NSDecimalNumber(string: "0.0")
@@ -171,13 +171,13 @@ class PaymentViewController: BaseViewController,UITextFieldDelegate {
     var totalDeposit: NSDecimalNumber = NSDecimalNumber(string: "0.0")
     var totalproductPrice : NSDecimalNumber = NSDecimalNumber(string: "0.0")
     var hostId : AnyObject!
-    var currencySymbol = String()
+    var currencySymbol : String = ""
     var totalserviceFees =  String()
     
-    var stripe_Status = String()
-    var card_Status = String()
-    var paypal_status = String()
-    var AmounttoPay = Int()
+    var stripe_Status : String = ""
+    var card_Status : String = ""
+    var paypal_status : String = ""
+    var AmounttoPay : Int = 0
     
     //MARK:- Lifecycle Methods
     
@@ -1126,7 +1126,7 @@ class PaymentViewController: BaseViewController,UITextFieldDelegate {
         if isCheck == true
         {
             
-            if (Reachability()?.isReachable)!
+            if (Reachability()?.isReachable ?? false)
             {
                 
                 showActivityIndicator(uiView: self.view)
@@ -1294,7 +1294,7 @@ class PaymentViewController: BaseViewController,UITextFieldDelegate {
         
         if PaymentFor == "Booking"
         {
-            if (Reachability()?.isReachable)!
+            if (Reachability()?.isReachable ?? false)
             {
                 
                 
@@ -1485,7 +1485,7 @@ class PaymentViewController: BaseViewController,UITextFieldDelegate {
                 self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         } else {
-            if (Reachability()?.isReachable)!
+            if (Reachability()?.isReachable ?? false)
             {
                 
                 showActivityIndicator(uiView: self.view)
@@ -1570,8 +1570,8 @@ class PaymentViewController: BaseViewController,UITextFieldDelegate {
     
     // MARK: payByCredircard
     func payByCredircard() {
-        if (Reachability()?.isReachable)! {
-            let id = Singleton.sharedInstance.selectedCategory!
+        if (Reachability()?.isReachable ?? false) {
+            let id = Singleton.sharedInstance.selectedCategory
             self.showActivityIndicator(uiView: self.view)
             if PaymentFor == "Booking" {
                 showActivityIndicator(uiView: self.view)

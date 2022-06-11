@@ -8,10 +8,10 @@ import Foundation
 
 class TimeTableClass : NSObject, NSCoding{
 
-    var canBook : String!
-    var cantbookmsg : String!
-    var checkinDate : String!
-    var status : Int!
+    var canBook : String = ""
+    var cantbookmsg : String = ""
+    var checkinDate : String = ""
+    var status : Int = 0
     var tableDetails : [TableDetail]!
 
 

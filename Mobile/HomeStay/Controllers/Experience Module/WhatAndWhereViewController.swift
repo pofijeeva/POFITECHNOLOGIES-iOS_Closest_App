@@ -15,7 +15,7 @@ class WhatAndWhereViewController: UIViewController,UITextViewDelegate {
     @IBOutlet weak var textViewDescription: UITextView!
     @IBOutlet weak var buttonNext: UIButton!
     
-    var isWhatOrWhere = String()
+    var isWhatOrWhere : String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()

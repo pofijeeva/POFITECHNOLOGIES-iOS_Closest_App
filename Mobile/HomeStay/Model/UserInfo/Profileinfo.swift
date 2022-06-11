@@ -8,59 +8,59 @@ import Foundation
 
 class Profileinfo : NSObject, NSCoding{
     
-    var accname : String!
-    var accno : String!
-    var bankname : String!
-    var cancellationAboutYouCount : Int!
-    var cancellationByYouCount : Int!
-    var country : Int!
-    var created : String!
-    var descriptionField : String!
-    var displayLists : Bool!
+    var accname : String = ""
+    var accno : String = ""
+    var bankname : String = ""
+    var cancellationAboutYouCount : Int = 0
+    var cancellationByYouCount : Int = 0
+    var country : Int = 0
+    var created : String = ""
+    var descriptionField : String = ""
+    var displayLists : Bool = false 
     var disputeAboutYouCount : Int!
     var disputeByYouCount : Int!
-    var dobDate : String!
-    var dobMonth : String!
-    var dobYear : String!
-    var email : String!
-    var emailNotifications : String!
-    var expiredDate : String!
-    var facebookId : String!
-    var featureProduct : String!
-    var firstname : String!
-    var followersCount : String!
-    var followingCount : String!
-    var gender : String!
-    var googleId : String!
-    var group : String!
+    var dobDate : String = ""
+    var dobMonth : String = ""
+    var dobYear : String = ""
+    var email : String = ""
+    var emailNotifications : String = ""
+    var expiredDate : String = ""
+    var facebookId : String = ""
+    var featureProduct : String = ""
+    var firstname : String = ""
+    var followersCount : String = ""
+    var followingCount : String = ""
+    var gender : String = ""
+    var googleId : String = ""
+    var group : String = ""
     var id : Int!
-    var idVerified : Bool!
-    var isBrand : Bool!
-    var isVerified : Bool!
-    var language : String!
-    var languagesKnown : String!
-    var lastLoginDate : String!
-    var lastLogoutDate : String!
-    var lastname : String!
-    var linkedinId : String!
-    var loginHit : String!
-    var loginUserType : String!
-    var notifications : String!
-    var packageStatus : String!
-    var phVerified : Bool!
-    var phoneNo : String!
-    var requestStatus : String!
-    var school : String!
-    var searchByProfile : Bool!
-    var socialRecommend : Bool!
-    var status : String!
-    var subscriber : Bool!
-    var updates : String!
-    var userImage : String!
-    var verifyCode : String!
-    var visibility : String!
-    var whereYouLive : String!
-    var work : String!
+    var idVerified : Bool = false 
+    var isBrand : Bool = false 
+    var isVerified : Bool = false 
+    var language : String = ""
+    var languagesKnown : String = ""
+    var lastLoginDate : String = ""
+    var lastLogoutDate : String = ""
+    var lastname : String = ""
+    var linkedinId : String = ""
+    var loginHit : String = ""
+    var loginUserType : String = ""
+    var notifications : String = ""
+    var packageStatus : String = ""
+    var phVerified : Bool = false 
+    var phoneNo : String = ""
+    var requestStatus : String = ""
+    var school : String = ""
+    var searchByProfile : Bool = false 
+    var socialRecommend : Bool = false 
+    var status : String = ""
+    var subscriber : Bool = false 
+    var updates : String = ""
+    var userImage : String = ""
+    var verifyCode : String = ""
+    var visibility : String = ""
+    var whereYouLive : String = ""
+    var work : String = ""
     
     
     /**
@@ -75,7 +75,7 @@ class Profileinfo : NSObject, NSCoding{
         country = dictionary["country"] as? Int ?? 0
         created = dictionary["created"] as? String ?? ""
         descriptionField = dictionary["description"] as? String ?? ""
-        displayLists = dictionary["display_lists"] as? Bool
+        displayLists = dictionary["display_lists"] as? Bool ?? false ?? false
         disputeAboutYouCount = dictionary["dispute_aboutYou_count"] as? Int ?? 0
         disputeByYouCount = dictionary["dispute_byYou_count"] as? Int ?? 0
         dobDate = dictionary["dob_date"] as? String ?? ""
@@ -93,9 +93,9 @@ class Profileinfo : NSObject, NSCoding{
         googleId = dictionary["google_id"] as? String ?? ""
         group = dictionary["group"] as? String ?? ""
         id = dictionary["id"] as? Int ?? 0
-        idVerified = dictionary["id_verified"] as? Bool
-        isBrand = dictionary["is_brand"] as? Bool
-        isVerified = dictionary["is_verified"] as? Bool
+        idVerified = dictionary["id_verified"] as? Bool ?? false
+        isBrand = dictionary["is_brand"] as? Bool ?? false
+        isVerified = dictionary["is_verified"] as? Bool ?? false
         language = dictionary["language"] as? String ?? ""
         languagesKnown = dictionary["languages_known"] as? String ?? ""
         lastLoginDate = dictionary["last_login_date"] as? String ?? ""
@@ -106,14 +106,14 @@ class Profileinfo : NSObject, NSCoding{
         loginUserType = dictionary["loginUserType"] as? String ?? ""
         notifications = dictionary["notifications"] as? String ?? ""
         packageStatus = dictionary["package_status"] as? String ?? ""
-        phVerified = dictionary["ph_verified"] as? Bool
+        phVerified = dictionary["ph_verified"] as? Bool ?? false
         phoneNo = dictionary["phone_no"] as? String ?? ""
         requestStatus = dictionary["request_status"] as? String ?? ""
         school = dictionary["school"] as? String ?? ""
-        searchByProfile = dictionary["search_by_profile"] as? Bool
-        socialRecommend = dictionary["social_recommend"] as? Bool
+        searchByProfile = dictionary["search_by_profile"] as? Bool ?? false
+        socialRecommend = dictionary["social_recommend"] as? Bool ?? false
         status = dictionary["status"] as? String ?? ""
-        subscriber = dictionary["subscriber"] as? Bool
+        subscriber = dictionary["subscriber"] as? Bool ?? false
         updates = dictionary["updates"] as? String ?? ""
         userImage = dictionary["user_image"] as? String ?? ""
         verifyCode = dictionary["verify_code"] as? String ?? ""
@@ -304,7 +304,7 @@ class Profileinfo : NSObject, NSCoding{
         country = aDecoder.decodeObject(forKey: "country") as? Int ?? 0
         created = aDecoder.decodeObject(forKey: "created") as? String ?? ""
         descriptionField = aDecoder.decodeObject(forKey: "description") as? String ?? ""
-        displayLists = aDecoder.decodeObject(forKey: "display_lists") as? Bool
+        displayLists = aDecoder.decodeObject(forKey: "display_lists") as? Bool ?? false
         disputeAboutYouCount = aDecoder.decodeObject(forKey: "dispute_aboutYou_count") as? Int ?? 0
         disputeByYouCount = aDecoder.decodeObject(forKey: "dispute_byYou_count") as? Int ?? 0
         dobDate = aDecoder.decodeObject(forKey: "dob_date") as? String ?? ""
@@ -322,9 +322,9 @@ class Profileinfo : NSObject, NSCoding{
         googleId = aDecoder.decodeObject(forKey: "google_id") as? String ?? ""
         group = aDecoder.decodeObject(forKey: "group") as? String ?? ""
         id = aDecoder.decodeObject(forKey: "id") as? Int ?? 0
-        idVerified = aDecoder.decodeObject(forKey: "id_verified") as? Bool
-        isBrand = aDecoder.decodeObject(forKey: "is_brand") as? Bool
-        isVerified = aDecoder.decodeObject(forKey: "is_verified") as? Bool
+        idVerified = aDecoder.decodeObject(forKey: "id_verified") as? Bool ?? false
+        isBrand = aDecoder.decodeObject(forKey: "is_brand") as? Bool ?? false
+        isVerified = aDecoder.decodeObject(forKey: "is_verified") as? Bool ?? false
         language = aDecoder.decodeObject(forKey: "language") as? String ?? ""
         languagesKnown = aDecoder.decodeObject(forKey: "languages_known") as? String ?? ""
         lastLoginDate = aDecoder.decodeObject(forKey: "last_login_date") as? String ?? ""
@@ -335,14 +335,14 @@ class Profileinfo : NSObject, NSCoding{
         loginUserType = aDecoder.decodeObject(forKey: "loginUserType") as? String ?? ""
         notifications = aDecoder.decodeObject(forKey: "notifications") as? String ?? ""
         packageStatus = aDecoder.decodeObject(forKey: "package_status") as? String ?? ""
-        phVerified = aDecoder.decodeObject(forKey: "ph_verified") as? Bool
+        phVerified = aDecoder.decodeObject(forKey: "ph_verified") as? Bool ?? false
         phoneNo = aDecoder.decodeObject(forKey: "phone_no") as? String ?? ""
         requestStatus = aDecoder.decodeObject(forKey: "request_status") as? String ?? ""
         school = aDecoder.decodeObject(forKey: "school") as? String ?? ""
-        searchByProfile = aDecoder.decodeObject(forKey: "search_by_profile") as? Bool
-        socialRecommend = aDecoder.decodeObject(forKey: "social_recommend") as? Bool
+        searchByProfile = aDecoder.decodeObject(forKey: "search_by_profile") as? Bool ?? false
+        socialRecommend = aDecoder.decodeObject(forKey: "social_recommend") as? Bool ?? false
         status = aDecoder.decodeObject(forKey: "status") as? String ?? ""
-        subscriber = aDecoder.decodeObject(forKey: "subscriber") as? Bool
+        subscriber = aDecoder.decodeObject(forKey: "subscriber") as? Bool ?? false
         updates = aDecoder.decodeObject(forKey: "updates") as? String ?? ""
         userImage = aDecoder.decodeObject(forKey: "user_image") as? String ?? ""
         verifyCode = aDecoder.decodeObject(forKey: "verify_code") as? String ?? ""

@@ -239,8 +239,8 @@ class YBTextPicker: UIViewController {
     
     @IBAction func doneAction(_ sender: Any) {
         
-        let indexes = selectedValues.map{$0.identity!}
-        let values = selectedValues.map{$0.title!}
+        let indexes = selectedValues.map{$0.identity}
+        let values = selectedValues.map{$0.title}
         completionHandler?(indexes, values)
         
         closePicker()

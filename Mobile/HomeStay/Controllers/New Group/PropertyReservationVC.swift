@@ -64,7 +64,7 @@ class PropertyReservationVC: BaseViewController {
     
     func getPropertyReservationApiResponse(params: [String:Any]){
         
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
             showActivityIndicator(uiView: self.view)
             
             APIManager.apiPostWithHeadersCodable(serviceName: PROPERTY_RESERVATION, parameters:params) { (data, error) in

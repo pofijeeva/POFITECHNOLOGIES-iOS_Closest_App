@@ -33,10 +33,10 @@ class AddressViewController: UIViewController {
     //MARK:- Variables
     var loctaionManager = CLLocationManager()
     var ListingActivityDelegate: listingActivityProtocol?
-    var PropertyID = Int()
-    var AddressLocation = String()
-    var Lat = String()
-    var Lng = String()
+    var PropertyID : Int = 0
+    var AddressLocation : String = ""
+    var Lat : String = ""
+    var Lng : String = ""
     
     //MARK:- Lifecycle methods
     override func viewDidLoad() {
@@ -215,7 +215,7 @@ class AddressViewController: UIViewController {
                     }
                     
                     if error != nil {
-                        self.showInformation(title: "Closest", message: error!.localizedDescription)
+                        self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                     } else {
                         let mod = RentYourSpaceModel(fromDictionary: response as! [String : Any])
                         Singleton.sharedInstance.rentYourSpace = mod
@@ -259,7 +259,7 @@ class AddressViewController: UIViewController {
             {(placemarks, error) in
                 if (error != nil)
                 {
-                    print("reverse geodcode fail: \(error!.localizedDescription)")
+                    print("reverse geodcode fail: \(error?.localizedDescription ?? "")")
                 }
                 let pm = placemarks! as [CLPlacemark]
                 

@@ -8,27 +8,27 @@ import Foundation
 
 class Step9 : NSObject, NSCoding{
     
-    var baseId : String!
-    var cancelDescription : String!
-    var cancelDescriptionPh : String!
-    var cancelPercentage : String!
-    var cancellationPolicy : String!
-    var cancellationPolicyDescription : String!
-    var cancellationPolicyTitle : String!
-    var metaDescription : String!
-    var metaDescriptionPh : String!
-    var metaKeyword : String!
-    var metaKeywordPh : String!
-    var metaTitle : String!
-    var metaTitlePh : String!
-    var propertyCurrency : String!
-    var propertyid : Int!
-    var securityDeposit : String!
-    var stepCompleted : Bool!
+    var baseId : String = ""
+    var cancelDescription : String = ""
+    var cancelDescriptionPh : String = ""
+    var cancelPercentage : String = ""
+    var cancellationPolicy : String = ""
+    var cancellationPolicyDescription : String = ""
+    var cancellationPolicyTitle : String = ""
+    var metaDescription : String = ""
+    var metaDescriptionPh : String = ""
+    var metaKeyword : String = ""
+    var metaKeywordPh : String = ""
+    var metaTitle : String = ""
+    var metaTitlePh : String = ""
+    var propertyCurrency : String = ""
+    var propertyid : Int = 0
+    var securityDeposit : String = ""
+    var stepCompleted : Bool = false 
     
     var ren_tax_percent : AnyObject!
-    var cancel_policy_type : String!
-    var sec_dep : Int!
+    var cancel_policy_type : String = ""
+    var sec_dep : Int = 0
     var seo_tags : Language!
     var ren_details : Lang!
     

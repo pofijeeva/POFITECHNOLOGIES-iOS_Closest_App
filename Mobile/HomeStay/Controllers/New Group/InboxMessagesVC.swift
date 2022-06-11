@@ -76,12 +76,12 @@ class InboxMessagesVC: BaseViewController {
   
     func getInboxApiResponse(params: [String:Any]) {
         showActivityIndicator(uiView: self.view)
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
             APIManager.apiPostWithHeaders(serviceName: INBOX, parameters: params) { (json:NSDictionary?, error:NSError?) in
                 self.hideActivityIndicator(uiView: self.view)
                 if error != nil {
-                    print(error!.localizedDescription)
-                    self.showInformation(title: "Info", message: error!.localizedDescription)
+                    print(error?.localizedDescription ?? "")
+                    self.showInformation(title: "Info", message: error?.localizedDescription ?? "")
                     return
                 }
                 let responseDict:NSDictionary = json!

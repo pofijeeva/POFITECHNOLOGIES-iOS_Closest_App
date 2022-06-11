@@ -22,14 +22,14 @@ class ProfileViewController: BaseViewController {
     @IBOutlet weak var txfWork: UITextField!
     @IBOutlet weak var titlebl: UILabel!
 
-    var firstName = String()
-    var lastName = String()
-    var phoneNum = String()
-    var abtMe = String()
-    var work = String()
-    var UserImg = String()
+    var firstName : String = ""
+    var lastName : String = ""
+    var phoneNum : String = ""
+    var abtMe : String = ""
+    var work : String = ""
+    var UserImg : String = ""
     var imagePicker = UIImagePickerController()
-    var userpic = String()
+    var userpic : String = ""
     
     
     override func viewDidLoad()

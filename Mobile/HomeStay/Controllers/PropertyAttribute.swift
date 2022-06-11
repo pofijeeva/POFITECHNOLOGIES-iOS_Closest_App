@@ -8,16 +8,16 @@ import Foundation
 
 class PropertyAttribute : NSObject, NSCoding{
 
-    var attributeId : Int!
-    var attributeLabel : String!
-    var attributeName : String!
-    var attributeType : String!
+    var attributeId : Int = 0
+    var attributeLabel : String = ""
+    var attributeName : String = ""
+    var attributeType : String = ""
     var attributeValue : [Attributevalue]!
-    var usePropertyAttribute : Bool!
+    var usePropertyAttribute : Bool = false 
     
-    var host_req : Int!
-    var list_id : Int!
-    var list_name : String!
+    var host_req : Int = 0
+    var list_id : Int = 0
+    var list_name : String = ""
 
     
     

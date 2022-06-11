@@ -8,9 +8,9 @@ import Foundation
 
 class Currency : NSObject, NSCoding{
 
-    var countrySymbols : String!
-    var currencyType : String!
-    var id : String!
+    var countrySymbols : String = ""
+    var currencyType : String = ""
+    var id : String = ""
 
 
     /**

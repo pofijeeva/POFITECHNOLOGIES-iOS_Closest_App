@@ -12,10 +12,10 @@ import Foundation
 class RentDe : NSObject, NSCoding {
     
    
-    var cancel_policy_desc : String!
-    var sec_dep_desc : String!
-    var ren_meta_title : String!
-    var ren_tax : String!
+    var cancel_policy_desc : String = ""
+    var sec_dep_desc : String = ""
+    var ren_meta_title : String = ""
+    var ren_tax : String = ""
     
     
     

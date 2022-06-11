@@ -33,7 +33,7 @@ class InboxMessageDetailVC: BaseViewController {
     var isLoading:Bool = true
     var currentPage = 1
     var msgDIct = [String:Any]()
-    var PropertyID = Int()
+    var PropertyID : Int = 0
     var detailCell: InboxMessageSubmitTVCell?
     var filteredArray = [ [String: Any]]()
 //    var
@@ -76,7 +76,7 @@ class InboxMessageDetailVC: BaseViewController {
     }
     @objc func deleteButtonTapped(sender: UIButton) {
         showActivityIndicator(uiView: self.view)
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
             let dict = self.messages[sender.tag]
                 
 
@@ -149,7 +149,7 @@ class InboxMessageDetailVC: BaseViewController {
         print(params)
 
 
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
             showActivityIndicator(uiView: self.view)
             APIManager.apiPostWithHeadersCodable(serviceName: SEND_MESSAGE, parameters: params as [String : Any]) { (data, error) in
                 self.hideActivityIndicator(uiView: self.view)
@@ -213,13 +213,13 @@ class InboxMessageDetailVC: BaseViewController {
 
     func  getInboxApiResponse(params: [String:Any]) {
         showActivityIndicator(uiView: self.view)
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
 
             APIManager.apiPostWithHeaders(serviceName: INBOXCONVERSATION, parameters: params) { (json:NSDictionary?, error:NSError?) in
                 self.hideActivityIndicator(uiView: self.view)
                 if error != nil {
-                    print(error!.localizedDescription)
-                    self.showInformation(title: "Info", message: error!.localizedDescription)
+                    print(error?.localizedDescription ?? "")
+                    self.showInformation(title: "Info", message: error?.localizedDescription ?? "")
                     return
                 }
                 let responseDict:NSDictionary = json!

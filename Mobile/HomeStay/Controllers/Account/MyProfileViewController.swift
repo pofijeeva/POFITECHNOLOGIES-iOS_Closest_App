@@ -35,7 +35,7 @@ class MyProfileViewController: UIViewController {
     @IBOutlet var PEmailAddressLbl: UILabel!
     @IBOutlet var PPhoneNumberLbl: UILabel!
     
-    var Array = NSMutableArray()
+    var Array : NSMutableArray = []
     var SelectedRow = 0
     
     override func viewDidLoad() {
@@ -75,8 +75,8 @@ class MyProfileViewController: UIViewController {
                 APIManager.apiPostWithHeaders(serviceName: UPDATE_USER_PROF_API, parameters: parameters) { (json:NSDictionary?, error:NSError?) in
                     DispatchQueue.main.async {  }
                     if error != nil {
-                        print(error!.localizedDescription)
-                        self.showInformation(title: "Closest", message: error!.localizedDescription)
+                        print(error?.localizedDescription ?? "")
+                        self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                         return
                     }
                     let responseDict:NSDictionary = json!
@@ -144,8 +144,8 @@ class MyProfileViewController: UIViewController {
                 APIManager.apiPostWithHeaders(serviceName: UPDATE_USER_PROF_API, parameters: parameters) { (json:NSDictionary?, error:NSError?) in
                     DispatchQueue.main.async {  }
                     if error != nil {
-                        print(error!.localizedDescription)
-                        self.showInformation(title: "Closest", message: error!.localizedDescription)
+                        print(error?.localizedDescription ?? "")
+                        self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                         return
                     }
                     let responseDict:NSDictionary = json!

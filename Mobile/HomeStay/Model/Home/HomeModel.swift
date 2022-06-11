@@ -10,9 +10,9 @@ class HomeModel : NSObject, NSCoding{
 
     var currencyList : [CurrencyList]!
     var homePageDetails : [HomePageDetail]!
-    var message : String!
-    var status : Int!
-    var baseId : Int!
+    var message : String = ""
+    var status : Int = 0
+    var baseId : Int = 0
 
 
     /**

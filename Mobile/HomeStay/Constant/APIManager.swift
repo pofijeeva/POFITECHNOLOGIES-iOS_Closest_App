@@ -21,7 +21,7 @@ class HeaderManager {
         
         
         
-        var fcmToken = String()
+        var fcmToken : String = ""
         if UserDefaults.standard.object(forKey: "fcmToken") != nil{
             fcmToken = UserDefaults.standard.object(forKey: "fcmToken") as? String ?? ""
         }else{
@@ -29,21 +29,21 @@ class HeaderManager {
         }
         
         
-        var iPhoneOSVersionString = String()
+        var iPhoneOSVersionString : String = ""
         if UserDefaults.standard.object(forKey: "iPhoneOSVersionString") != nil{
             iPhoneOSVersionString = UserDefaults.standard.object(forKey: "iPhoneOSVersionString") as? String ?? ""
         }else{
             iPhoneOSVersionString = ""
         }
         
-        var iPhoneModelString = String()
+        var iPhoneModelString : String = ""
         if UserDefaults.standard.object(forKey: "iPhoneModelString") != nil{
             iPhoneModelString = UserDefaults.standard.object(forKey: "iPhoneModelString") as? String ?? ""
         }else{
             iPhoneModelString = ""
         }
         
-        var iPhoneIDString = String()
+        var iPhoneIDString : String = ""
      iPhoneIDString = UIDevice.current.identifierForVendor!.uuidString
        print(iPhoneIDString)
         
@@ -65,7 +65,7 @@ class HeaderManager {
 
          print("systemVersion is:: ", iPhoneOSVersionString)
 
-        var appBuildVersion = String()
+        var appBuildVersion : String = ""
         appBuildVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
         print("appVersion is:: ", appBuildVersion)
 
@@ -161,7 +161,7 @@ class APIManager: NSObject {
 
         let cryptLib = CryptLib()
         //let newStr =
-        var newStr = String()
+        var newStr : String = ""
         newStr = plainText as String
         let encryStr = cryptLib.encryptPlainText(newStr, key: key, iv: iv)
         let jsonData = try! JSONSerialization.data(withJSONObject: [encryStr!] as Any, options: [])
@@ -209,7 +209,7 @@ print(jsonData)
         }
     }
     class func apiPostWithHeaders(serviceName:String,parameters: [String:Any]?, completionHandler: @escaping (NSDictionary?, NSError?) -> ()) {
-        var tokenStr = String()
+        var tokenStr : String = ""
         if login_session.value(forKey: "loginToken") != nil {
             tokenStr = login_session.object(forKey: "loginToken")as? String ?? ""
         }
@@ -239,7 +239,7 @@ print(jsonData)
         }
     }
     class func apiPostWithHeadersCodable(serviceName:String,parameters: [String:Any]?, completionHandler: @escaping (_ responseData: Data?,_ error: Error?) -> ()) {
-        var tokenStr = String()
+        var tokenStr : String = ""
         if login_session.value(forKey: "loginToken") != nil {
             tokenStr = login_session.object(forKey: "loginToken")as? String ?? ""
         }

@@ -46,29 +46,29 @@ class PropertyListing : NSObject, NSCoding{
     var hourlystatus : Bool
     var iD : Int
     
-    var createdDate : String!
-    var hostId : Int!
-    var hostname : String!
-    var payable : Bool!
-    var propertyCurrencyCode : String!
-    var propertyCurrencySymbol : String!
-    var propertyId : Int!
-    var propertyImage : String!
-    var propertyPrice : Int!
-    var propertyStatus : Bool!
-    var propertyTitle : String!
+    var createdDate : String = ""
+    var hostId : Int = 0
+    var hostname : String = ""
+    var payable : Bool = false 
+    var propertyCurrencyCode : String = ""
+    var propertyCurrencySymbol : String = ""
+    var propertyId : Int = 0
+    var propertyImage : String = ""
+    var propertyPrice : Int = 0
+    var propertyStatus : Bool = false 
+    var propertyTitle : String = ""
     var ratingss : String
     var reviewCount : Int
     var stepstoComplete : String
     var  totalBooking : Int
     
         
-    var remainingSteps : Int!
-    var propertyAddress : String!
-    var creditCardStatus : String!
-    var stripeStatus : String!
-    var paypalStatus : String!
-    var host_id_verified : String!
+    var remainingSteps : Int = 0
+    var propertyAddress : String = ""
+    var creditCardStatus : String = ""
+    var stripeStatus : String = ""
+    var paypalStatus : String = ""
+    var host_id_verified : String = ""
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values

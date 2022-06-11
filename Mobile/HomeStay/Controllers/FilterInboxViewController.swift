@@ -16,7 +16,7 @@ protocol filterDelegate {
     var filterDelegate : filterDelegate!
     var selectedRows:[IndexPath] = []
     var infoArray =  NSMutableArray()
-    var selectedId = Int()
+    var selectedId : Int = 0
     @IBOutlet weak var tableView: UITableView!
          @IBOutlet weak var TitleLBL: UILabel!
     override func viewDidLoad() {
@@ -26,7 +26,7 @@ protocol filterDelegate {
         if Reachability()!.isReachable
         {
             
-            let id = Singleton.sharedInstance.selectedCategory!
+            let id = Singleton.sharedInstance.selectedCategory
             self.showActivityIndicator(uiView: self.view)
             
             if selectedId == 1

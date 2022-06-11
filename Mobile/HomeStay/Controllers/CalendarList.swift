@@ -9,13 +9,13 @@
 import Foundation
 class CalendarList : NSObject, NSCoding{
     
-    var book_id : Int!
-    var check_in : String!
-    var check_out : String!
-    var created_at : String!
-    var price : Int!
-    var prop_id : Int!
-    var prop_status : Int!
+    var book_id : Int = 0
+    var check_in : String = ""
+    var check_out : String = ""
+    var created_at : String = ""
+    var price : Int = 0
+    var prop_id : Int = 0
+    var prop_status : Int = 0
     
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values

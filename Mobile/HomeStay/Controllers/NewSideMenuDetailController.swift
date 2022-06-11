@@ -24,9 +24,9 @@ class NewSideMenuDetailController: BaseViewController {
     var detailArray = [MenuDetailModel]()
     var delegate: NewSideMenuProtocol?
     
-    var idProofVerify = String()
-    var emailVerify = String()
-    var phoneVerify = String()
+    var idProofVerify : String = ""
+    var emailVerify : String = ""
+    var phoneVerify : String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,8 +47,8 @@ class NewSideMenuDetailController: BaseViewController {
                          APIManager.apiPostWithHeaders(serviceName: USER_INFO_API, parameters: parameters) { (json:NSDictionary?, error:NSError?) in
                      DispatchQueue.main.async {  }
                      if error != nil {
-                         print(error!.localizedDescription)
-                         self.showInformation(title: "Closest", message: error!.localizedDescription)
+                         print(error?.localizedDescription ?? "")
+                         self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                          return
                      }
                      let responseDict:NSDictionary = json!
@@ -123,8 +123,8 @@ class NewSideMenuDetailController: BaseViewController {
                 self.hideActivityIndicator(uiView: self.view)
             }
             if error != nil {
-                print(error!.localizedDescription)
-                self.showInformation(title: "Closest", message: error!.localizedDescription)
+                print(error?.localizedDescription ?? "")
+                self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                 return
             }
             let responseDict:NSDictionary = json!
@@ -331,7 +331,7 @@ extension NewSideMenuDetailController: UITableViewDelegate, UITableViewDataSourc
                 let picker = YBTextPicker.init(with: arrTheme, appearance: theme, onCompletion: { (selectedIndexes, selectedValues) in
                     if let selectedValue = selectedValues.first{
                         print(selectedValue)
-                        var langCode = String()
+                        var langCode : String = ""
 
                         if selectedValue == GlobalLanguageDictionary.object(forKey: "key_english") as? String ?? ""{
                              langCode = "en"

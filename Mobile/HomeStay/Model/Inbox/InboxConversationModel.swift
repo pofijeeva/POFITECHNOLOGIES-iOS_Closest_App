@@ -8,24 +8,24 @@ import Foundation
 
 class InboxConversationModel : NSObject, NSCoding{
 
-    var approval : String!
-    var bookingId : String!
-    var checkin : String!
-    var checkout : String!
-    var hostId : String!
-    var hostImage : String!
-    var hostName : String!
-    var memberFrom : String!
-    var message : String!
+    var approval : String = ""
+    var bookingId : String = ""
+    var checkin : String = ""
+    var checkout : String = ""
+    var hostId : String = ""
+    var hostImage : String = ""
+    var hostName : String = ""
+    var memberFrom : String = ""
+    var message : String = ""
     var messages : [Message]!
-    var noOfGuest : String!
-    var propertyCurrencyCode : String!
-    var propertyId : String!
-    var propertyName : String!
-    var requesterId : String!
-    var requesterImage : String!
-    var requesterName : String!
-    var status : Int!
+    var noOfGuest : String = ""
+    var propertyCurrencyCode : String = ""
+    var propertyId : String = ""
+    var propertyName : String = ""
+    var requesterId : String = ""
+    var requesterImage : String = ""
+    var requesterName : String = ""
+    var status : Int = 0
     var totalAmount : Float!
     
 

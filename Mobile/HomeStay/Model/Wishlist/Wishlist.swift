@@ -15,9 +15,9 @@ class Wishlist : NSObject, NSCoding{
     var resortDetails : [AnyObject]!
     var restaurantDetails : [AnyObject]!
     var vansDetails : [AnyObject]!
-    var wishlistId : Int!
-    var wishlistImage : String!
-    var wishlistTitle : String!
+    var wishlistId : Int = 0
+    var wishlistImage : String = ""
+    var wishlistTitle : String = ""
 
 
     /**

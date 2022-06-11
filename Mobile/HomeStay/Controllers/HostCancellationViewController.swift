@@ -110,7 +110,7 @@
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? ReviewsTableViewCell
         
         let ImageStr = Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].userImage
-        let UpdateStr = ImageStr!.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        let UpdateStr = ImageStr.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
         let Image = URL(string: UpdateStr!)
         cell.img_user.setImageWith(Image!)
         
@@ -130,13 +130,13 @@
         
         
         cell.rentNameLbl.text = Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].productTitle
-        cell.bookingDateTimeLbl.text = "\(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].checkin!) - \(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].checkout!)"
+        cell.bookingDateTimeLbl.text = "\(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].checkin) - \(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].checkout)"
         cell.bookingNumLbl.text = Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].bookingNo
         cell.bookingDateLbl.text = Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].bookedDate
-        cell.cancelAmountLbl.text = "Cancel Amount : \(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].cancellationAmount!)"
-        cell.paidLbl.text = "Paid : \(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].paidAmount!)"
-        cell.balenceLbl.text = "Balance : \(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].balanceAmount!)"
-        cell.statusLbl.text = "Status : \(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].paidStatus!)"
+        cell.cancelAmountLbl.text = "Cancel Amount : \(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].cancellationAmount)"
+        cell.paidLbl.text = "Paid : \(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].paidAmount)"
+        cell.balenceLbl.text = "Balance : \(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].balanceAmount)"
+        cell.statusLbl.text = "Status : \(Singleton.sharedInstance.userInfoModel.hostCancellation[indexPath.section].paidStatus)"
         return cell
     }
     

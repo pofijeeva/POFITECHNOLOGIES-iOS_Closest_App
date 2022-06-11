@@ -8,13 +8,13 @@ import Foundation
 
 class Step6 : NSObject, NSCoding{
 
-    var listName : String!
-    var propertyid : Int!
-    var stepCompleted : Bool!
+    var listName : String = ""
+    var propertyid : Int = 0
+    var stepCompleted : Bool = false 
     
-    var amen_id : Int!
-    var host_req : Int!
-    var amen_name : String!
+    var amen_id : Int = 0
+    var host_req : Int = 0
+    var amen_name : String = ""
     var saved_amenities : [[String: Any]]!
     
     /**
@@ -22,7 +22,7 @@ class Step6 : NSObject, NSCoding{
      */
     init(fromDictionary dictionary: [String:Any]){
         listName = dictionary["list_name"] as? String ?? ""
-        propertyid = dictionary["propertyid"] as? Int ?? 0 ?? 0
+        propertyid = dictionary["propertyid"] as? Int ?? 0
         stepCompleted = dictionary["step_completed"] as? Bool ?? false
         saved_amenities = dictionary["saved_amenities"] as? [[String:Any]]
     }

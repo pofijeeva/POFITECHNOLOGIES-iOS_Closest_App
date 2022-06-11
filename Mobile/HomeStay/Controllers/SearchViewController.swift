@@ -24,9 +24,9 @@
 //    var resultsViewController: GMSAutocompleteResultsViewController?
 //    var searchController: UISearchController?
 //    var resultView: UITextView?
-//    var locationName: String!
+//    var locationName: String = ""
 //    var searchLoctaionDelegate: LoctaionSearchProtocol!
-//    var BookingTypes = String()
+//    var BookingTypes : String = ""
 //
 //    //Outlets
 //    @IBOutlet weak var lblHeader: UILabel!
@@ -150,10 +150,10 @@ class SearchViewController: UIViewController,UITextFieldDelegate,UITableViewDele
     var resultsViewController: GMSAutocompleteResultsViewController?
     var searchController: UISearchController?
     var resultView: UITextView?
-    var locationName: String!
+    var locationName: String = ""
     var searchLoctaionDelegate: LoctaionSearchProtocol!
-    var BookingTypes = String()
-    var placeSearchArray = NSMutableArray()
+    var BookingTypes : String = ""
+    var placeSearchArray : NSMutableArray = []
     var isFrom = ""
     
     //Outlets
@@ -305,7 +305,7 @@ class SearchViewController: UIViewController,UITextFieldDelegate,UITableViewDele
 //            self.navigationController?.popViewController(animated: true)
 //        }
 //        else {
-            var placeId = String()
+            var placeId : String = ""
             let tempDict = NSMutableDictionary()
         tempDict.addEntries(from: (placeSearchArray.object(at: indexPath.row)as? NSDictionary) as? [AnyHashable : Any] ?? [:])
             SearchTextField.text = (tempDict.object(forKey: "description") as? String ?? "")
@@ -401,7 +401,7 @@ class SearchViewController: UIViewController,UITextFieldDelegate,UITableViewDele
             {(placemarks, error) in
                 if (error != nil)
                 {
-                    print("reverse geodcode fail: \(error!.localizedDescription)")
+                    print("reverse geodcode fail: \(error?.localizedDescription ?? "")")
                 }
                 let pm = placemarks! as [CLPlacemark]
                 if pm.count > 0 {
@@ -422,23 +422,23 @@ class SearchViewController: UIViewController,UITextFieldDelegate,UITableViewDele
                     }
                     var addressString : String = ""
                     if pm.subThoroughfare != nil {
-                        addressString = addressString + pm.subThoroughfare! + ", "
+                        addressString = addressString + (pm.subThoroughfare ?? "") + ", "
                     }
                     if pm.subLocality != nil {
-                        addressString = addressString + pm.subLocality! + ", "
+                        addressString = addressString + (pm.subLocality ?? "") + ", "
                     }
                     if pm.thoroughfare != nil {
-                        addressString = addressString + pm.thoroughfare! + ", "
+                        addressString = addressString + (pm.thoroughfare ?? "") + ", "
                     }
                     if pm.locality != nil {
-                        addressString = addressString + pm.locality! + ", "
+                        addressString = addressString + (pm.locality ?? "") + ", "
                     }
                    
                     if pm.country != nil {
-                        addressString = addressString + pm.country! + ", "
+                        addressString = addressString + (pm.country ?? "") + ", "
                     }
                     if pm.postalCode != nil {
-                        addressString = addressString + pm.postalCode! + " "
+                        addressString = addressString + (pm.postalCode ?? "") + " "
                     }
                     
                    print("addressString",addressString)
@@ -482,7 +482,7 @@ extension SearchViewController: GMSAutocompleteResultsViewControllerDelegate
     {
         
         searchController?.isActive = false
-        locationName = place.name
+        locationName = place.name ?? ""
        
         if searchLoctaionDelegate != nil{
             searchLoctaionDelegate?.getLocationFromCoordinates(lat: String(place.coordinate.latitude), long:String(place.coordinate.longitude))

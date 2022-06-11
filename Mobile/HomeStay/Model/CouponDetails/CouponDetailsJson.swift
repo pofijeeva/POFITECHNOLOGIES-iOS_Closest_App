@@ -9,8 +9,8 @@ import Foundation
 class CouponDetailsJson : NSObject, NSCoding{
 
     var couponDetails : [CouponDetail]!
-    var message : String!
-    var status : Int!
+    var message : String = ""
+    var status : Int = 0
 
 
     /**

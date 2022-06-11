@@ -8,21 +8,21 @@ import Foundation
 
 class RentalList : NSObject, NSCoding{
 
-    var descriptionField : String!
-    var homeType : String!
-    var hostId : Int!
-    var hostname : String!
-    var isFavourite : Int!
-    var latitude : String!
-    var longitude : String!
-    var propertyCurrencyCode : String!
-    var propertyCurrencySymbol : String!
-    var rentalId : Int!
-    var rentalImage : String!
+    var descriptionField : String = ""
+    var homeType : String = ""
+    var hostId : Int = 0
+    var hostname : String = ""
+    var isFavourite : Int = 0
+    var latitude : String = ""
+    var longitude : String = ""
+    var propertyCurrencyCode : String = ""
+    var propertyCurrencySymbol : String = ""
+    var rentalId : Int = 0
+    var rentalImage : String = ""
     var rentalPrice : AnyObject!
-    var rentalTitle : String!
-    var userCurrency : String!
-    var userphoto : String!
+    var rentalTitle : String = ""
+    var userCurrency : String = ""
+    var userphoto : String = ""
     var rental_hourly_price : AnyObject!
 
     /**

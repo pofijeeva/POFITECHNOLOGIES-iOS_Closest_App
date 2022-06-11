@@ -37,12 +37,12 @@ class Report_CancelVC: BaseViewController {
     
     func getReportApiResponse(params: [String:Any]) {
         showActivityIndicator(uiView: self.view)
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
             APIManager.apiPostWithHeaders(serviceName: DISPUTEDETAILS, parameters: params) { (json:NSDictionary?, error:NSError?) in
                 self.hideActivityIndicator(uiView: self.view)
                 if error != nil {
-                    print(error!.localizedDescription)
-                    self.showInformation(title: "Info", message: error!.localizedDescription)
+                    print(error?.localizedDescription ?? "")
+                    self.showInformation(title: "Info", message: error?.localizedDescription ?? "")
                     return
                 }
                 let responseDict:NSDictionary = json!
@@ -82,12 +82,12 @@ class Report_CancelVC: BaseViewController {
     
     func getCancelpiResponse(params: [String:Any]) {
         showActivityIndicator(uiView: self.view)
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
             APIManager.apiPostWithHeaders(serviceName: CANCELDETAILS, parameters: params) { (json:NSDictionary?, error:NSError?) in
                 self.hideActivityIndicator(uiView: self.view)
                 if error != nil {
-                    print(error!.localizedDescription)
-                    self.showInformation(title: "Info", message: error!.localizedDescription)
+                    print(error?.localizedDescription ?? "")
+                    self.showInformation(title: "Info", message: error?.localizedDescription ?? "")
                     return
                 }
                 let responseDict:NSDictionary = json!

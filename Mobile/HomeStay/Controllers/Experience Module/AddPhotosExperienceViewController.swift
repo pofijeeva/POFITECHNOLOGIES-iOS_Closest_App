@@ -24,9 +24,9 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
     
     var imagePickerCont = UIImagePickerController()
     var arrayOfItems = [String]()
-    var imageArray = NSMutableArray()
+    var imageArray : NSMutableArray = []
     var selectedImageID:String = ""
-    var PropertyID = Int()
+    var PropertyID : Int = 0
     var nCount:Int = 0
     var indexForTag = 0
 
@@ -65,7 +65,7 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
         if arrayOfResult.count > 0 {
             
             self.imageArray.removeAllObjects()
-            self.imageArray.addObjects(from:(((arrayOfResult[0] as? NSDictionary)?.object(forKey: "Photos")as? NSDictionary)?.object(forKey: "exp_images")as! NSArray) as! [Any])
+            self.imageArray.addObjects(from:(((arrayOfResult[0] as? NSDictionary)?.object(forKey: "Photos")as? NSDictionary)?.object(forKey: "exp_images")as? NSArray) as? [Any] ?? [])
         }
         
         if imageArray.count == 0  {
@@ -332,7 +332,7 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
                     forAddPhotoDict.addEntries(from: result[0] as! [AnyHashable : Any])
                     print("CREATED_PROPERTY_STATUS forAddPhotoDict:::::",forAddPhotoDict)
                     self.imageArray.removeAllObjects()
-                    self.imageArray.addObjects(from:((forAddPhotoDict.object(forKey: "Photos")as? NSDictionary)?.object(forKey: "exp_images")as! NSArray) as! [Any])
+                    self.imageArray.addObjects(from:((forAddPhotoDict.object(forKey: "Photos")as? NSDictionary)?.object(forKey: "exp_images")as? NSArray) as? [Any] ?? [])
                     self.nCount = self.imageArray.count
                     if self.imageArray.count == 0 {
                         self.heightCollectionList.constant = 0
@@ -371,7 +371,7 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
             }
            
             var params = NSMutableDictionary()
-              params = ["lang_code":lanuguage_selection.value(forKey: "language") ?? "en","property_id":self.PropertyID,"base_id":Singleton.sharedInstance.selectedCategory!]
+            params = ["lang_code":lanuguage_selection.value(forKey: "language") ?? "en","property_id":self.PropertyID,"base_id":Singleton.sharedInstance.selectedCategory]
           
             
             let manager = AFHTTPSessionManager()
@@ -393,7 +393,7 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
                     forAddPhotoDict.addEntries(from: result[0] as! [AnyHashable : Any])
                     print("CREATED_PROPERTY_STATUS forAddPhotoDict:::::",forAddPhotoDict)
                     self.imageArray.removeAllObjects()
-                    self.imageArray.addObjects(from:((forAddPhotoDict.object(forKey: "step5")as? NSDictionary)?.object(forKey: "product_image")as! NSArray) as! [Any])
+                    self.imageArray.addObjects(from:((forAddPhotoDict.object(forKey: "step5")as? NSDictionary)?.object(forKey: "product_image")as? NSArray) as? [Any] ?? [])
                     self.nCount = self.imageArray.count
                     if self.imageArray.count == 0 {
                         self.heightCollectionList.constant = 0
@@ -432,7 +432,7 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
             {
                 if ((image as? UIImage) != nil){
                     var params = NSMutableDictionary()
-                    let id = Singleton.sharedInstance.selectedCategory!
+                    let id = Singleton.sharedInstance.selectedCategory
                     params = [
                         "exp_id": "\(currentExpId)",
                         "lang_code": "\(lanuguage_selection.value(forKey: "language") ?? "en")",
@@ -476,7 +476,7 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
             forAddPhotoDict.addEntries(from: result[0] as! [AnyHashable : Any])
             print("forAddPhotoDict:::::",forAddPhotoDict)
             self.imageArray.removeAllObjects()
-            self.imageArray.addObjects(from:((forAddPhotoDict.object(forKey: "Photos")as? NSDictionary)?.object(forKey: "exp_images")as! NSArray) as! [Any])
+            self.imageArray.addObjects(from:((forAddPhotoDict.object(forKey: "Photos")as? NSDictionary)?.object(forKey: "exp_images")as? NSArray) as? [Any] ?? [])
             sharedInstanceExperience.gotoStepEight()
 
             if responseDictionary.object(forKey: "status") as? Int ?? 0 != 0

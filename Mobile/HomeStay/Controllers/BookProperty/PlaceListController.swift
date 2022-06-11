@@ -46,52 +46,52 @@
     var fromDate = Date()
     var toDate = Date()
     var minimumDate = Date()
-    var noOfNights = Int()
-    var arriveDate = String()
-    var departDate = String()
-    var wishlistName : String!
-    var selectedItem = Int()
-    var Rental_ID = Int()
-    var base_ID = String()
-    var f_room_type = String()
-    var f_home_type = String()
-    var f_list_type = String()
-    var f_p_min  = String()
-    var f_p_max = String()
-    var f_guest = Int()
-    var message = String()
-    var wishmsg = String()
-    var checkInternet = String()
-    var cuisines = String()
-    var timesof_day = String()
-    var listvalue = String()
-    var wishListId = Int()
-    var homeChildIDs = String()
-    var HiDSArrays = NSMutableArray()
-    var HomeStrings = String()
-    var homeChiIDs = String()
-    var HiDSArrIds = NSMutableArray()
-    var HomeStrIds = String()
-    var wishPropertyid = Int()
-    var isfav = String()
-    var roomChildIDs = String()
-    var RiDSArrays = NSMutableArray()
-    var roomChiIDs = String()
-    var RiDSArrIds = NSMutableArray()
-    var checkinDateStr = String()
-    var HideDates = NSMutableArray()
+    var noOfNights : Int = 0
+    var arriveDate : String = ""
+    var departDate : String = ""
+    var wishlistName : String = ""
+    var selectedItem : Int = 0
+    var Rental_ID : Int = 0
+    var base_ID : String = ""
+    var f_room_type : String = ""
+    var f_home_type : String = ""
+    var f_list_type : String = ""
+    var f_p_min  : String = ""
+    var f_p_max : String = ""
+    var f_guest : Int = 0
+    var message : String = ""
+    var wishmsg : String = ""
+    var checkInternet : String = ""
+    var cuisines : String = ""
+    var timesof_day : String = ""
+    var listvalue : String = ""
+    var wishListId : Int = 0
+    var homeChildIDs : String = ""
+    var HiDSArrays : NSMutableArray = []
+    var HomeStrings : String = ""
+    var homeChiIDs : String = ""
+    var HiDSArrIds : NSMutableArray = []
+    var HomeStrIds : String = ""
+    var wishPropertyid : Int = 0
+    var isfav : String = ""
+    var roomChildIDs : String = ""
+    var RiDSArrays : NSMutableArray = []
+    var roomChiIDs : String = ""
+    var RiDSArrIds : NSMutableArray = []
+    var checkinDateStr : String = ""
+    var HideDates : NSMutableArray = []
     private var currentCalendar: Calendar?
-    let id = Singleton.sharedInstance.selectedCategory!
-    var priceArray = NSMutableArray()
-    var minval = Int()
-    var maxval = Int()
-    var hotelPrice = NSMutableArray()
-    var headerTxt = String()
-    var isCalledForFirstTime = Bool()
+    let id = Singleton.sharedInstance.selectedCategory
+    var priceArray : NSMutableArray = []
+    var minval : Int = 0
+    var maxval : Int = 0
+    var hotelPrice : NSMutableArray = []
+    var headerTxt : String = ""
+    var isCalledForFirstTime : Bool = false
     var wishListDict = NSMutableDictionary()
     
-    var CurrencySymbol = String()
-    var Location = String()
+    var CurrencySymbol : String = ""
+    var Location : String = ""
 
     fileprivate let gregorian = Calendar(identifier: .gregorian)
     fileprivate let formatter: DateFormatter = {
@@ -383,9 +383,9 @@
 //    func calenderFilter()
 //    {
 //
-//        let id = Singleton.sharedInstance.selectedCategory!
+//        let id = Singleton.sharedInstance.selectedCategory
 //        self.showActivityIndicator(uiView: self.view)
-//        if (Reachability()?.isReachable)!
+//        if (Reachability()?.isReachable ?? false)
 //        {
 //
 //            let parameterStr = "mcity_name=\(self.Location)&f_p_min=\(self.f_p_min)&f_p_max=\(self.f_p_max)&f_room_type=\(self.f_room_type)&f_home_type=\(self.f_home_type)&f_list_type=\(self.f_list_type)&f_date_arrive=\(self.arriveDate)&f_date_depart=\(self.departDate)&base_id=\(id)&f_guest=\(self.f_guest)&currency_code=\(login_session.value(forKey: "APP_CURRENCY")!)&user_id=\(login_session.value(forKey: "UserId")!)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
@@ -481,10 +481,10 @@
     }
     func ReasturantAddWishList()
     {
-        if (Reachability()?.isReachable)!
+        if (Reachability()?.isReachable ?? false)
         {
             showActivityIndicator(uiView: self.view)
-            let id = Singleton.sharedInstance.selectedCategory!
+            let id = Singleton.sharedInstance.selectedCategory
             let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY") ?? "USD")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&wishlist_id=\(self.wishListId)&user_id=\(UserID)&restaurant_id=\(self.wishPropertyid)&notes="
             print(parameterStr)
             Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: REASTURANT_ADD_WISHLIST, APIKEY: "REASTURANT_ADD_WISHLIST")
@@ -492,10 +492,10 @@
     }
     func ReasturantRemoveWishList()
     {
-        if (Reachability()?.isReachable)!
+        if (Reachability()?.isReachable ?? false)
         {
             showActivityIndicator(uiView: self.view)
-            _ = Singleton.sharedInstance.selectedCategory!
+            _ = Singleton.sharedInstance.selectedCategory
             let parameterStr = "lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&wishlist_id=\(self.wishListId)&user_id=\(UserID)&restaurant_id=\(self.wishPropertyid)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") ?? "USD")"
             print(parameterStr)
             Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: REASTURANT_REMOVE_WISHLIST, APIKEY: "REASTURANT_REMOVE_WISHLIST")
@@ -503,10 +503,10 @@
     }
 //    func AddWishList()
 //    {
-//        if (Reachability()?.isReachable)!
+//        if (Reachability()?.isReachable ?? false)
 //        {
 //            showActivityIndicator(uiView: self.view)
-//            let id = Singleton.sharedInstance.selectedCategory!
+//            let id = Singleton.sharedInstance.selectedCategory
 //            let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY") ?? "USD")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&wishlist_id=\(self.wishListId)&user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(self.wishPropertyid)"
 //            print(parameterStr)
 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: ADD_WISHLIST, APIKEY: "ADD_WISHLIST")
@@ -614,10 +614,10 @@
     
 //    func RemoveWishList()
 //    {
-//        if (Reachability()?.isReachable)!
+//        if (Reachability()?.isReachable ?? false)
 //        {
 //            showActivityIndicator(uiView: self.view)
-//            _ = Singleton.sharedInstance.selectedCategory!
+//            _ = Singleton.sharedInstance.selectedCategory
 //            let parameterStr = "lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&wishlist_id=\(self.wishListId)&user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(self.wishPropertyid)"
 //            print(parameterStr)
 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: REMOVE_WISHLIST, APIKEY: "REMOVE_WISHLIST")
@@ -706,13 +706,13 @@
         else {
             self.viewWishlisttitlePopup.isHidden = true
             self.greyView.isHidden = false
-            self.wishlistName = self.txf_Wishlistitle.text
-            if (Reachability()?.isReachable)!
+            self.wishlistName = self.txf_Wishlistitle.text ?? ""
+            if (Reachability()?.isReachable ?? false)
             {
                 showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
                 
-                 params = ["base_id":1,"userid":login_session.value(forKey: "UserId")!,"wishlist_title":self.wishlistName!,"property_id":Singleton.sharedInstance.PlaceList.rentalList[sender.tag].rentalId!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? ""]
+                 params = ["base_id":1,"userid":login_session.value(forKey: "UserId")!,"wishlist_title":self.wishlistName,"property_id":Singleton.sharedInstance.PlaceList.rentalList[sender.tag].rentalId,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? ""]
              
                 let manager = AFHTTPSessionManager()
                 manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -749,8 +749,8 @@
                     print(error)
                     self.showInformation(title: "Closest", message: error.localizedDescription)
                 })
-//                let id = Singleton.sharedInstance.selectedCategory!
-//                let parameterStr = "base_id=\(id)&userid=\(login_session.value(forKey: "UserId")!)&wishlist_title=\(self.wishlistName!)&property_id=\(Singleton.sharedInstance.PlaceList.rentalList[sender.tag].rentalId!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")"
+//                let id = Singleton.sharedInstance.selectedCategory
+//                let parameterStr = "base_id=\(id)&userid=\(login_session.value(forKey: "UserId")!)&wishlist_title=\(self.wishlistName!)&property_id=\(Singleton.sharedInstance.PlaceList.rentalList[sender.tag].rentalId)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")"
 //                print(parameterStr)
 //
 //                Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL:CREATE_WISHLIST_API , APIKEY: "CREATE_WISHLIST_API")
@@ -825,7 +825,7 @@
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? PlaceListCell else { return UITableViewCell() }
 
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? PlaceListCell
-        cell.lblPlace.text = Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].rentalTitle!
+        cell.lblPlace.text = Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].rentalTitle
          cell.lblPlace.font = UIFont(name: SemiBoldFont, size: 14)
         cell.lblPrice.font = UIFont(name: SemiBoldFont, size: 14)
      //   cell.lblPrice.textColor = AppSecondColor
@@ -840,9 +840,10 @@
         let rounding2 = Double(truncating: amount2)
         let NetAmount2 = String(format: "%.2f",rounding2)
         //cell.lblPrice.text = Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].userCurrency + " " + String(describing: price)
-        if let currStr:String = Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].userCurrency {
+        if !Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].userCurrency.isEmpty {
+            let currStr =  Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].userCurrency
             CurrencySymbol = login_session.value(forKey: "APP_CURRENCYSYM") as? String ?? "$"
-//currStr
+            //currStr
             
             cell.lblPrice.text = currStr + " " + "\(String(describing: NetAmount))day / \(String(describing : NetAmount2))Hr"
             
@@ -853,18 +854,15 @@
                 cell.lblPrice.text = currStr + " " + "\(String(describing: NetAmount))day "
             }
             
-            
-            
-        }
-        else {
+        }else {
             CurrencySymbol = "$"
             cell.lblPrice.text = "$" + " " + "\(String(describing: NetAmount))day / \(String(describing : NetAmount2))Hr"
         }
         
         cell.img_Host.layer.cornerRadius = cell.img_Host.frame.size.width / 2
         cell.img_Host.clipsToBounds = true
-        let plcURL = URL(string: Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].rentalImage!)
-        let hostURL = URL(string: Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].userphoto!)
+        let plcURL = URL(string: Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].rentalImage)
+//        let hostURL = URL(string: Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].userphoto)
         
         
         cell.imgPlace.setImageWith(plcURL!, placeholderImage: UIImage(named: "picture-frame"))
@@ -887,10 +885,10 @@
         
         
         
-        cell.btnFav.tag = Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].rentalId!
+        cell.btnFav.tag = Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].rentalId
         cell.btnFav.tag = indexPath.row
         cell.btnFav.addTarget(self, action:#selector(favTapped), for: .touchUpInside)
-        let isfav = String(Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].isFavourite!)
+        let isfav = String(Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].isFavourite)
         
         if (isfav == "1")
         {
@@ -923,7 +921,7 @@
         BUndleSelectedArray.removeAllObjects()
         BundleArray.removeAllObjects()
         let nav = self.storyboard?.instantiateViewController(withIdentifier: "NewProductDetailViewController") as? NewProductDetailViewController
-       nav!.PropertyID = String(Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].rentalId!)
+       nav!.PropertyID = String(Singleton.sharedInstance.PlaceList.rentalList[indexPath.row].rentalId)
 //        nav!.startinDate = self.btn_selectArriveDate.currentTitle!
 //        nav!.endinDate = self.btn_selectDepartDate.currentTitle!
       //  nav!.titleText = self.headerTxt
@@ -941,10 +939,10 @@
         else {
             print("btnRow is :", btnRow)
         }
-        print("ID is :", Singleton.sharedInstance.PlaceList.rentalList[btnRow].rentalId!)
-        self.wishPropertyid = Singleton.sharedInstance.PlaceList.rentalList[btnRow].rentalId!
+        print("ID is :", Singleton.sharedInstance.PlaceList.rentalList[btnRow].rentalId)
+        self.wishPropertyid = Singleton.sharedInstance.PlaceList.rentalList[btnRow].rentalId
         let fav = sender.tag
-        let favid = String(Singleton.sharedInstance.PlaceList.rentalList[fav].isFavourite!)
+        let favid = String(Singleton.sharedInstance.PlaceList.rentalList[fav].isFavourite)
         if favid == "1"  {
             RemoveWishList()
             
@@ -959,10 +957,10 @@
             },
                               completion: nil)
             
-            if (Reachability()?.isReachable)!
+            if (Reachability()?.isReachable ?? false)
             {
                  WishListApiCall()
-//                let id = Singleton.sharedInstance.selectedCategory!
+//                let id = Singleton.sharedInstance.selectedCategory
 //                showActivityIndicator(uiView: self.view)
 //                let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") ?? "USD")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
 //                Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: GET_WISHLIST_API, APIKEY: "GET_WISHLIST_API")
@@ -1043,10 +1041,10 @@
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "wcell", for: indexPath as IndexPath) as! WishlistCollectionViewCell
-        cell.lbl_WishlistName.text = Singleton.sharedInstance.wishListModel.wishlist[indexPath.row].wishlistTitle!
+        cell.lbl_WishlistName.text = Singleton.sharedInstance.wishListModel.wishlist[indexPath.row].wishlistTitle
           cell.lbl_WishlistName.font = UIFont(name: SemiBoldFont, size: 13)
         cell.lbl_wishlistcount.font = UIFont(name: SemiBoldFont, size: 13)
-        let wishlistImgUrl = URL(string: Singleton.sharedInstance.wishListModel.wishlist[indexPath.row].wishlistImage!)
+        let wishlistImgUrl = URL(string: Singleton.sharedInstance.wishListModel.wishlist[indexPath.row].wishlistImage)
         if wishlistImgUrl != nil {
             //cell.img_Wishlist.kf.setImage(with: wishlistImgUrl!)
             cell.img_Wishlist.kf.setImage(with: wishlistImgUrl, placeholder: UIImage.init(named: "testImage.jpg"), options: nil, progressBlock: nil, completionHandler: nil)

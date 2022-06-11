@@ -8,7 +8,7 @@ import Foundation
 
 class PropertyImage : NSObject, NSCoding{
 
-    var propertyImage : String!
+    var propertyImage : String = ""
 
 
     /**

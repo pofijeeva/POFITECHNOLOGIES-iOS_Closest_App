@@ -33,16 +33,16 @@
     @IBOutlet weak var reviewRat: FloatRatingView!
     @IBOutlet weak var cancelButton: UIButton!
     
-    var canclbutton : String!
-    var cancelPercent = String()
-    var disputer_ID = Int()
-    var propertyId = Int()
-    var bookingNum = String()
-    var cancelPercentage = String()
-    var hostid = Int()
-    var messages = String()
-    var rating = String()
-    var selectedIndex = Int()
+    var canclbutton : String = ""
+    var cancelPercent : String = ""
+    var disputer_ID : Int = 0
+    var propertyId : Int = 0
+    var bookingNum : String = ""
+    var cancelPercentage : String = ""
+    var hostid : Int = 0
+    var messages : String = ""
+    var rating : String = ""
+    var selectedIndex : Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,7 +124,7 @@
             self.myreview.isHidden = false
             self.myreview.text = "Your Review"
             self.showActivityIndicator(uiView: self.view)
-            let id = Singleton.sharedInstance.selectedCategory!
+            let id = Singleton.sharedInstance.selectedCategory
             let parameterStr = "booking_no=\(self.bookingNum)&currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&user_id=\(login_session.value(forKey: "UserId")!)"
             Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: HOTEL_YOUR_REVIEW, APIKEY: "HOTEL_YOUR_REVIEW")
             print(parameterStr)
@@ -153,8 +153,8 @@
     func messageAct() {
         if Reachability()!.isReachable {
             self.showActivityIndicator(uiView: self.view)
-            let id = Singleton.sharedInstance.selectedCategory!
-            let parameterStr = "sender_id=\(login_session.value(forKey: "UserId")!)&property_id=\(Singleton.sharedInstance.yourTripModel.mytrips[0].propertyId!)&bookingno=\(Singleton.sharedInstance.yourTripModel.mytrips[0].bookingno!)&message=\(self.messageTxt.text!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&device_type=iphone&receiver_id=\(Singleton.sharedInstance.yourTripModel.mytrips[0].hostId!)"
+            let id = Singleton.sharedInstance.selectedCategory
+            let parameterStr = "sender_id=\(login_session.value(forKey: "UserId")!)&property_id=\(Singleton.sharedInstance.yourTripModel.mytrips[0].propertyId)&bookingno=\(Singleton.sharedInstance.yourTripModel.mytrips[0].bookingno)&message=\(self.messageTxt.text!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&device_type=iphone&receiver_id=\(Singleton.sharedInstance.yourTripModel.mytrips[0].hostId)"
             
             Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: SEND_MESSAGE, APIKEY: "SEND_MESSAGE")
             print(parameterStr)
@@ -170,7 +170,7 @@
         if Reachability()!.isReachable
         {
             self.showActivityIndicator(uiView: self.view)
-            let id = Singleton.sharedInstance.selectedCategory!
+            let id = Singleton.sharedInstance.selectedCategory
             let parametrStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&review=\(self.messageTxt.text!)&property_id=\(self.propertyId)&star_rating=\(self.ratingView.rating)&base_id=\(id)&bookingno=\(self.bookingNum)&user_id=\(login_session.value(forKey: "UserId")!)"
             Network.shared.POSTRequest(withParameterString: parametrStr, serviceURL: ADD_REVIEW_API, APIKEY: "ADD_REVIEW_API")
             print(parametrStr)
@@ -185,8 +185,8 @@
         if Reachability()!.isReachable
         {
             self.showActivityIndicator(uiView: self.view)
-            let id = Singleton.sharedInstance.selectedCategory!
-            let parametrStr = "base_id=\(id)&email=\(login_session.value(forKey: "Email") as? String ?? "")&property_id=\(Singleton.sharedInstance.yourTripModel.mytrips[0].propertyId!)&bookingno=\(Singleton.sharedInstance.yourTripModel.mytrips[0].bookingno!)&cancel_percentage=\(Singleton.sharedInstance.yourTripModel.mytrips[0].cancelPercentage!)&user_id=\(login_session.value(forKey: "UserId")!)&disputer_id=\(Singleton.sharedInstance.yourTripModel.mytrips[0].hostId!)&message=\(self.messageTxt.text!)"
+            let id = Singleton.sharedInstance.selectedCategory
+            let parametrStr = "base_id=\(id)&email=\(login_session.value(forKey: "Email") as? String ?? "")&property_id=\(Singleton.sharedInstance.yourTripModel.mytrips[0].propertyId)&bookingno=\(Singleton.sharedInstance.yourTripModel.mytrips[0].bookingno)&cancel_percentage=\(Singleton.sharedInstance.yourTripModel.mytrips[0].cancelPercentage)&user_id=\(login_session.value(forKey: "UserId")!)&disputer_id=\(Singleton.sharedInstance.yourTripModel.mytrips[0].hostId)&message=\(self.messageTxt.text!)"
             Network.shared.POSTRequest(withParameterString: parametrStr, serviceURL: CANCELLATION_API, APIKEY: "CANCELLATION_API")
             
             print(parametrStr)
@@ -214,8 +214,8 @@
             if result == "Dispute" {
                 if Reachability()!.isReachable {
                     self.showActivityIndicator(uiView: self.view)
-                    let id = Singleton.sharedInstance.selectedCategory!
-                    let parameterStr = "user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(Singleton.sharedInstance.yourTripModel.mytrips[0].propertyId!)&bookingno=\(Singleton.sharedInstance.yourTripModel.mytrips[0].bookingno!)&message=\(self.messageTxt.text!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
+                    let id = Singleton.sharedInstance.selectedCategory
+                    let parameterStr = "user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(Singleton.sharedInstance.yourTripModel.mytrips[0].propertyId)&bookingno=\(Singleton.sharedInstance.yourTripModel.mytrips[0].bookingno)&message=\(self.messageTxt.text!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
                     Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: DISPUTE_API, APIKEY: "DISPUTE_API")
                     print(parameterStr)
                 }
@@ -336,8 +336,8 @@
   if Reachability()!.isReachable
   {
   self.showActivityIndicator(uiView: self.view)
-  let id = Singleton.sharedInstance.selectedCategory!
-  let parameterStr = "user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(Singleton.sharedInstance.yourTripModel.mytrips[0].propertyId!)&bookingno=\(Singleton.sharedInstance.yourTripModel.mytrips[0].bookingno!)&message=\(self.messageTxt.text!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
+  let id = Singleton.sharedInstance.selectedCategory
+  let parameterStr = "user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(Singleton.sharedInstance.yourTripModel.mytrips[0].propertyId)&bookingno=\(Singleton.sharedInstance.yourTripModel.mytrips[0].bookingno)&message=\(self.messageTxt.text!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
   Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: DISPUTE_API, APIKEY: "DISPUTE_API")
   print(parameterStr)
   }

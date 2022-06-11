@@ -8,53 +8,53 @@ import Foundation
 
 class Accountinfo : NSObject, NSCoding{
 
-    var accname : String!
-    var accno : String!
-    var bankname : String!
-    var country : Int!
-    var created : String!
-    var descriptionField : String!
-    var displayLists : Bool!
-    var dobDate : String!
-    var dobMonth : String!
-    var dobYear : String!
-    var email : String!
-    var emailNotifications : String!
-    var expiredDate : String!
-    var facebookId : String!
-    var featureProduct : String!
-    var firstname : String!
-    var followersCount : String!
-    var followingCount : String!
-    var gender : String!
-    var googleId : String!
-    var group : String!
-    var id : Int!
-    var idVerified : Bool!
-    var isBrand : Bool!
-    var isVerified : Bool!
-    var language : String!
-    var languagesKnown : String!
-    var lastLoginDate : String!
-    var lastLogoutDate : String!
-    var lastname : String!
-    var linkedinId : String!
-    var loginHit : String!
-    var loginUserType : String!
-    var notifications : String!
-    var packageStatus : String!
-    var phVerified : Bool!
-    var phoneNo : String!
-    var requestStatus : String!
-    var searchByProfile : String!
-    var socialRecommend : Bool!
-    var status : String!
-    var subscriber : Bool!
-    var updates : String!
-    var userImage : String!
-    var verifyCode : String!
-    var visibility : String!
-    var whereYouLive : String!
+    var accname : String = ""
+    var accno : String = ""
+    var bankname : String = ""
+    var country : Int = 0
+    var created : String = ""
+    var descriptionField : String = ""
+    var displayLists : Bool = false 
+    var dobDate : String = ""
+    var dobMonth : String = ""
+    var dobYear : String = ""
+    var email : String = ""
+    var emailNotifications : String = ""
+    var expiredDate : String = ""
+    var facebookId : String = ""
+    var featureProduct : String = ""
+    var firstname : String = ""
+    var followersCount : String = ""
+    var followingCount : String = ""
+    var gender : String = ""
+    var googleId : String = ""
+    var group : String = ""
+    var id : Int = 0
+    var idVerified : Bool = false 
+    var isBrand : Bool = false 
+    var isVerified : Bool = false 
+    var language : String = ""
+    var languagesKnown : String = ""
+    var lastLoginDate : String = ""
+    var lastLogoutDate : String = ""
+    var lastname : String = ""
+    var linkedinId : String = ""
+    var loginHit : String = ""
+    var loginUserType : String = ""
+    var notifications : String = ""
+    var packageStatus : String = ""
+    var phVerified : Bool = false 
+    var phoneNo : String = ""
+    var requestStatus : String = ""
+    var searchByProfile : String = ""
+    var socialRecommend : Bool = false 
+    var status : String = ""
+    var subscriber : Bool = false 
+    var updates : String = ""
+    var userImage : String = ""
+    var verifyCode : String = ""
+    var visibility : String = ""
+    var whereYouLive : String = ""
 
 
     /**

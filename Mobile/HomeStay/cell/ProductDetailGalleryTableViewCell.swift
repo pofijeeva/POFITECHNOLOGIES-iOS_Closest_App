@@ -14,7 +14,7 @@ class ProductDetailGalleryTableViewCell: UITableViewCell,UICollectionViewDelegat
           @IBOutlet weak var GalleryCollection: UICollectionView!
     
     
-    var photoGallery = NSMutableArray()
+    var photoGallery : NSMutableArray = []
     
     override func awakeFromNib() {
         super.awakeFromNib()

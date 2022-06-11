@@ -55,30 +55,30 @@ class NewProductDetailViewController: BaseViewController {
     
     
     
-    var PropertyID: String!
+    var PropertyID: String = ""
     
-    var NoOfLines = String()
+    var NoOfLines : String = ""
     let newPin = MKPointAnnotation()
-    var instantPayStatusValue = String()
-    var reqToBookStatusValue = String()
-    var payLaterStatusValue = String()
+    var instantPayStatusValue : String = ""
+    var reqToBookStatusValue : String = ""
+    var payLaterStatusValue : String = ""
     
-    var currencySymbol = String()
-    var booking_type = String()
+    var currencySymbol : String = ""
+    var booking_type : String = ""
     var CounponShow  = 1
     var timeEnd : Date?
-    var DatesMutable = NSMutableArray()
-    var detailsleftSideNamesArr = NSMutableArray()
-    var detailsDescArr = NSMutableArray()
+    var DatesMutable : NSMutableArray = []
+    var detailsleftSideNamesArr : NSMutableArray = []
+    var detailsDescArr : NSMutableArray = []
     
-    var AminitiesArray = NSMutableArray()
-    var wishListId = String()
-    var wishPropertyid = Int()
+    var AminitiesArray : NSMutableArray = []
+    var wishListId : String = ""
+    var wishPropertyid : Int = 0
     
-    var clicked = String()
+    var clicked : String = ""
     
-    var AddonsArray = NSMutableArray()
-    var prop_slug = String()
+    var AddonsArray : NSMutableArray = []
+    var prop_slug : String = ""
     
     var ProperdyDetails = NSMutableDictionary()
     override func viewDidLoad() {
@@ -148,13 +148,13 @@ class NewProductDetailViewController: BaseViewController {
         showActivityIndicator(uiView: self.view)
         var params = NSMutableDictionary()
         
-        params =  ["prod_id": PropertyID!,"page_Id":"1","lang_code":"en","user_id":UserID,"prop_slug":self.prop_slug,"currency_code":"USD"]
+        params =  ["prod_id": PropertyID,"page_Id":"1","lang_code":"en","user_id":UserID,"prop_slug":self.prop_slug,"currency_code":"USD"]
        print(params)
         APIManager.apiPostWithHeaders(serviceName: SHOW_PROPERTY_DETAIL, parameters: params as! [String : Any]) { (json:NSDictionary?, error:NSError?) in
                     DispatchQueue.main.async {  }
                     if error != nil {
-                        print(error!.localizedDescription)
-                        self.showInformation(title: "Closest", message: error!.localizedDescription)
+                        print(error?.localizedDescription ?? "")
+                        self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                         return
                     }
                     let responseDict:NSDictionary = json!
@@ -181,9 +181,9 @@ class NewProductDetailViewController: BaseViewController {
                         let Dates = Singleton.sharedInstance.PropertyDetail.seasonalCalendarPrice.count
                         
                         for i in 0..<Dates{
-                            let dateString = Singleton.sharedInstance.PropertyDetail.seasonalCalendarPrice[i].date!
-                            let dateStatus = Singleton.sharedInstance.PropertyDetail.seasonalCalendarPrice[i].status!
-                            let datePrice = Singleton.sharedInstance.PropertyDetail.seasonalCalendarPrice[i].price!
+                            let dateString = Singleton.sharedInstance.PropertyDetail.seasonalCalendarPrice[i].date
+                            let dateStatus = Singleton.sharedInstance.PropertyDetail.seasonalCalendarPrice[i].status
+                            let datePrice = Singleton.sharedInstance.PropertyDetail.seasonalCalendarPrice[i].price
                             let datesArray = NSMutableDictionary()
                             datesArray.setValue(dateString, forKey: "DateString")
                             datesArray.setValue(dateStatus, forKey: "DateStatus")
@@ -296,10 +296,10 @@ class NewProductDetailViewController: BaseViewController {
         if login_session.value(forKey: "IS_USER_LOGGEDIN") as? Bool == true {
             
             let hostStatus = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "host_status") as? String ?? ""//Singleton.sharedInstance.PropertyDetail.host_status!
-            let GuestStatus = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "host_status") as? String ?? ""
+//            let GuestStatus = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "host_status") as? String ?? ""
             
             let userId = login_session.value(forKey: "UserId") as? AnyObject
-            let hostId = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "host_id") as AnyObject//Singleton.sharedInstance.PropertyDetail.hostId!
+            let hostId = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "host_id") as AnyObject//Singleton.sharedInstance.PropertyDetail.hostId
             
             if hostStatus == "Inactive"  {
                 self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_hostnotAva") as? String ?? "")
@@ -370,12 +370,12 @@ class NewProductDetailViewController: BaseViewController {
         }
         else {
             
-            if (Reachability()?.isReachable)!
+            if (Reachability()?.isReachable ?? false)
             {
                 showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
                 
-                params = ["base_id":1,"userid":login_session.value(forKey: "UserId")!,"wishlist_title":self.txf_Wishlistitle.text!,"property_id":Singleton.sharedInstance.PropertyDetail.rentalId!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? ""]
+                params = ["base_id":1,"userid":login_session.value(forKey: "UserId")!,"wishlist_title":self.txf_Wishlistitle.text!,"property_id":Singleton.sharedInstance.PropertyDetail.rentalId,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? ""]
                 
                 let manager = AFHTTPSessionManager()
                 manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -499,7 +499,7 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
             }else {
  
                 
-                if (Reachability()?.isReachable)!
+                if (Reachability()?.isReachable ?? false)
                 {
                     
                     WishListApiCall()
@@ -525,28 +525,26 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
         APIManager.apiPostWithHeaders(serviceName: ADD_WISHLIST, parameters: params as? [String : Any]) { (json:NSDictionary?, error:NSError?) in
             DispatchQueue.main.async {  }
             if error != nil {
-                print(error!.localizedDescription)
-                self.showInformation(title: "Closest", message: error!.localizedDescription)
+                print(error?.localizedDescription ?? "")
+                self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                 return
             }
             let responseDict:NSDictionary = json!
             print(responseDict)
             
             if let code = responseDict.value(forKey: "code") as? NSNumber {
-            
-            if responseDict.value(forKey: "code") as! NSNumber == 200 {
                 
-                self.PropertyDetail()
-                
-                
-            }
-            else
-            {
-                
-                self.hideActivityIndicator(uiView: self.view)
-                self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
-              
-            }
+                if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                    
+                    self.PropertyDetail()
+                }
+                else
+                {
+                    
+                    self.hideActivityIndicator(uiView: self.view)
+                    self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
+                    
+                }
             }else{
                 self.showInformation(title: "Closest", message: "something went wrong")
             }
@@ -663,12 +661,12 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
         
         if login_session.value(forKey: "IS_USER_LOGGEDIN") as? Bool == true {
             
-            let hostStatus = Singleton.sharedInstance.PropertyDetail.host_status!
-            let GuestStatus = Singleton.sharedInstance.PropertyDetail.guest_status!
-            let HostIdVerified = Singleton.sharedInstance.PropertyDetail.idVerified!
+            let hostStatus = Singleton.sharedInstance.PropertyDetail.host_status
+            let GuestStatus = Singleton.sharedInstance.PropertyDetail.guest_status
+            let HostIdVerified = Singleton.sharedInstance.PropertyDetail.idVerified
             
             let userId = login_session.value(forKey: "UserId") as? AnyObject
-            let hostId = Singleton.sharedInstance.PropertyDetail.hostId!
+            let hostId = Singleton.sharedInstance.PropertyDetail.hostId
             
             if hostStatus == "Inactive"  {
                 self.showInformation(title: "Closest", message: "Host is not available")
@@ -706,7 +704,7 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
            // let HostIdVerified = Singleton.sharedInstance.PropertyDetail.idVerified!
             
             let userId = login_session.value(forKey: "UserId") as? AnyObject
-            let hostId = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "host_id") as AnyObject//Singleton.sharedInstance.PropertyDetail.hostId!
+            let hostId = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "host_id") as AnyObject//Singleton.sharedInstance.PropertyDetail.hostId
             
             if hostStatus == "Inactive"  {
                 self.showInformation(title: "Closest", message: "Host is not available")
@@ -992,13 +990,13 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
                     let dateFormatter1 = DateFormatter()
                     dateFormatter1.dateFormat = "yyyy-MM-dd"
                     dateFormatter1.locale = Locale(identifier: "en_US_POSIX")
-                    cell.couponName.text =  String(format: " Coupon offer : %@ %@",Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponPriceValue!,"%")
-                    cell.couponCodeLbl.text =  String(format: " Coupon code : %@",Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponCode!)
+                    cell.couponName.text =  String(format: " Coupon offer : %@ %@",Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponPriceValue,"%")
+                    cell.couponCodeLbl.text =  String(format: " Coupon code : %@",Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponCode)
                     UIPasteboard.general.string = cell.couponCodeLbl.text
-                    cell.couponTimeLimit.text =  String(format: "Time Limit : %@ to %@",Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDatefrom!,Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDateto!)
+                    cell.couponTimeLimit.text =  String(format: "Time Limit : %@ to %@",Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDatefrom,Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDateto)
                     
-                    let fromdate = Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDatefrom!
-                    let todate = Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDateto!
+                    let fromdate = Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDatefrom
+                    let todate = Singleton.sharedInstance.PropertyDetail.couponDetails[0].couponDateto
                     //  let FromdateObj = dateFormatter1.date(from: fromdate)
                     let TodateObj = dateFormatter1.date(from: todate)
                     
@@ -1242,8 +1240,8 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
 
 //                    let cell = tableView.dequeueReusableCell(withIdentifier: "NewAminitiesTableViewCell") as? NewAminitiesTableViewCell
                     cell.selectionStyle = .none
-                    let Aminities = NSMutableArray()
-                     Aminities.addObjects(from: ((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "list_details") as! NSArray) as! [Any])
+                    let Aminities : NSMutableArray = []
+                     Aminities.addObjects(from: ((self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "list_details") as? NSArray) as? [Any] ?? [])
                     cell.Aminities(Name: Aminities)
  
                     return cell
@@ -1550,10 +1548,10 @@ extension NewProductDetailViewController: UICollectionViewDataSource,UICollectio
         
         if collectionView == collectnviewWishlist {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "wcell", for: indexPath as IndexPath) as! WishlistCollectionViewCell
-            cell.lbl_WishlistName.text = Singleton.sharedInstance.wishListModel.wishlist[indexPath.row].wishlistTitle!
+            cell.lbl_WishlistName.text = Singleton.sharedInstance.wishListModel.wishlist[indexPath.row].wishlistTitle
             cell.lbl_WishlistName.font = UIFont(name: SemiBoldFont, size: 13)
             cell.lbl_wishlistcount.font = UIFont(name: SemiBoldFont, size: 13)
-            let wishlistImgUrl = URL(string: Singleton.sharedInstance.wishListModel.wishlist[indexPath.row].wishlistImage!)
+            let wishlistImgUrl = URL(string: Singleton.sharedInstance.wishListModel.wishlist[indexPath.row].wishlistImage)
             if wishlistImgUrl != nil {
                 //cell.img_Wishlist.kf.setImage(with: wishlistImgUrl!)
                 cell.img_Wishlist.kf.setImage(with: wishlistImgUrl, placeholder: UIImage.init(named: "testImage.jpg"), options: nil, progressBlock: nil, completionHandler: nil)
@@ -1568,14 +1566,14 @@ extension NewProductDetailViewController: UICollectionViewDataSource,UICollectio
             
             cell.ReviewerName.textColor = AppColor
             
-            cell.ReviewMsg.text = Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].review!
+            cell.ReviewMsg.text = Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].review
             
             
             
-            cell.ReviewerName.text = Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].userName!.uppercased()
-            cell.ReviewDate.text = Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].reviewDate!
+            cell.ReviewerName.text = Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].userName.uppercased()
+            cell.ReviewDate.text = Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].reviewDate
             
-            let ImageUrl = URL(string: Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].userImage!)
+            let ImageUrl = URL(string: Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].userImage)
             
             cell.ReviewImg.setImageWith(ImageUrl!, placeholderImage: UIImage(named: "user"))
             
@@ -1587,7 +1585,7 @@ extension NewProductDetailViewController: UICollectionViewDataSource,UICollectio
     {
         if collectionView == collectnviewWishlist {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "wcell", for: indexPath as IndexPath) as! WishlistCollectionViewCell
-            self.wishListId = "\(Singleton.sharedInstance.wishListModel.wishlist[indexPath.row].wishlistId!)"
+            self.wishListId = "\(Singleton.sharedInstance.wishListModel.wishlist[indexPath.row].wishlistId)"
             AddWishList()
             self.viewBottom.isHidden = true
             self.grayView.isHidden = true

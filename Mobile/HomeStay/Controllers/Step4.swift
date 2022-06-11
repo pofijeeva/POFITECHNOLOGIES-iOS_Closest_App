@@ -8,29 +8,29 @@ import Foundation
 
 class Step4 : NSObject, NSCoding{
     
-    var baseId : String!
-    var guestAccess : String!
-    var guestAccessPh : String!
-    var houseRules : String!
-    var houseRulesPh : String!
-    var instantPay : String!
-    var pay_later : String!
+    var baseId : String = ""
+    var guestAccess : String = ""
+    var guestAccessPh : String = ""
+    var houseRules : String = ""
+    var houseRulesPh : String = ""
+    var instantPay : String = ""
+    var pay_later : String = ""
 
-    var interactGuest : String!
-    var interactGuestPh : String!
-    var neighborAround : String!
-    var neighborAroundPh : String!
-    var otherThingsToNote : String!
-    var otherThingsToNotePh : String!
-    var propertyDescription : String!
-    var propertyDescriptionPh : String!
-    var propertyTitle : String!
-    var propertyTitlePh : String!
-    var propertyid : Int!
-    var requestToBook : String!
-    var space : String!
-    var spacePh : String!
-    var stepCompleted : Bool!
+    var interactGuest : String = ""
+    var interactGuestPh : String = ""
+    var neighborAround : String = ""
+    var neighborAroundPh : String = ""
+    var otherThingsToNote : String = ""
+    var otherThingsToNotePh : String = ""
+    var propertyDescription : String = ""
+    var propertyDescriptionPh : String = ""
+    var propertyTitle : String = ""
+    var propertyTitlePh : String = ""
+    var propertyid : Int = 0
+    var requestToBook : String = ""
+    var space : String = ""
+    var spacePh : String = ""
+    var stepCompleted : Bool = false 
     var rentDetail : Language!
    
     /**
@@ -55,7 +55,7 @@ class Step4 : NSObject, NSCoding{
         propertyDescriptionPh = dictionary["property_description_ph"] as? String ?? ""
         propertyTitle = dictionary["property_title"] as? String ?? ""
         propertyTitlePh = dictionary["property_title_ph"] as? String ?? ""
-        propertyid = dictionary["propertyid"] as? Int
+        propertyid = dictionary["propertyid"] as? Int ?? 0
         requestToBook = dictionary["request_to_book"] as? String ?? ""
         space = dictionary["space"] as? String ?? ""
         spacePh = dictionary["space_ph"] as? String ?? ""
@@ -169,7 +169,7 @@ class Step4 : NSObject, NSCoding{
         propertyDescriptionPh = aDecoder.decodeObject(forKey: "property_description_ph") as? String ?? ""
         propertyTitle = aDecoder.decodeObject(forKey: "property_title") as? String ?? ""
         propertyTitlePh = aDecoder.decodeObject(forKey: "property_title_ph") as? String ?? ""
-        propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int
+        propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int ?? 0
         requestToBook = aDecoder.decodeObject(forKey: "request_to_book") as? String ?? ""
         space = aDecoder.decodeObject(forKey: "space") as? String ?? ""
         spacePh = aDecoder.decodeObject(forKey: "space_ph") as? String ?? ""

@@ -8,17 +8,17 @@ import Foundation
 
 class HostCancellation : NSObject, NSCoding{
     
-    var balanceAmount : String!
-    var bookedDate : String!
-    var bookingNo : String!
-    var cancellationAmount : String!
-    var checkin : String!
-    var checkout : String!
-    var currencycode : String!
-    var paidAmount : String!
-    var paidStatus : String!
-    var productTitle : String!
-    var userImage : String!
+    var balanceAmount : String = ""
+    var bookedDate : String = ""
+    var bookingNo : String = ""
+    var cancellationAmount : String = ""
+    var checkin : String = ""
+    var checkout : String = ""
+    var currencycode : String = ""
+    var paidAmount : String = ""
+    var paidStatus : String = ""
+    var productTitle : String = ""
+    var userImage : String = ""
     
     
     /**

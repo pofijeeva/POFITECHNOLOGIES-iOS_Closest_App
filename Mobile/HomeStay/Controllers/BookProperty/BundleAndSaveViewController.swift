@@ -29,13 +29,13 @@ class BundleAndSaveViewController: BaseViewController,UITableViewDelegate,UITabl
     private var cell: BundleTwoTableViewCell!
 
 
-    var noOfRows = Int()
-    var SelectnoOfRows = Int()
+    var noOfRows : Int = 0
+    var SelectnoOfRows : Int = 0
 
     var isFromDate = "Arrive"
     var minimumDate = Date()
-    var BundleSelectedDict = NSMutableArray()
-    var OriginalBundleSelectedDict = NSMutableArray()
+    var BundleSelectedDict : NSMutableArray = []
+    var OriginalBundleSelectedDict : NSMutableArray = []
 
 
     
@@ -185,7 +185,7 @@ class BundleAndSaveViewController: BaseViewController,UITableViewDelegate,UITabl
             self.showInformation(title: "Closest", message: "Please select to any one bundle")
         }
         else{
-            var bundleAmt = Int()
+            var bundleAmt : Int = 0
             for i in 0..<self.BundleSelectedDict.count {
                 let BundlePrice = "\((self.BundleSelectedDict.object(at: i) as? NSDictionary)?.object(forKey: "total_amount") as AnyObject)"
                 let decimal = Decimal(floatLiteral: Double(BundlePrice)!)
@@ -312,7 +312,7 @@ class BundleAndSaveViewController: BaseViewController,UITableViewDelegate,UITabl
                 
                 let BundlePrice = "\(resultdata.object(forKey: "bundle_price") as AnyObject)"
                 
-                var amount = Int()
+                var amount : Int = 0
 
                 let Data = NSMutableDictionary()
                 if BundleDescPrice == "0" {
@@ -387,7 +387,7 @@ class BundleAndSaveViewController: BaseViewController,UITableViewDelegate,UITabl
                 BUndleSelectedArray.add(BundleId)
                 let BundleDescPrice = "\(resultdata.object(forKey: "bundle_amount_after_discount") as AnyObject)"
                 let BundlePrice = "\(resultdata.object(forKey: "bundle_price") as AnyObject)"
-                var amount = Int()
+                var amount : Int = 0
                 
                 let Data = NSMutableDictionary()
                 if BundleDescPrice == "0" {
@@ -572,7 +572,7 @@ extension BundleAndSaveViewController: UICollectionViewDelegate,UICollectionView
             
             let BundlePrice = "\(resultdata.object(forKey: "bundle_price") as AnyObject)"
             
-            var amount = Int()
+            var amount : Int = 0
 
             let Data = NSMutableDictionary()
             if BundleDescPrice == "0" {

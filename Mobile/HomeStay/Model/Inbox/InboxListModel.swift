@@ -8,9 +8,9 @@ import Foundation
 
 class InboxListModel : NSObject, NSCoding{
 
-    var message : String!
+    var message : String = ""
     var messageValues : [MessageValue]!
-    var status : Int!
+    var status : Int = 0
 
 
     /**

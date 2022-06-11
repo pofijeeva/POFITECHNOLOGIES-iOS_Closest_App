@@ -10,15 +10,15 @@ class CouponDetail : NSObject, NSCoding{
 
     var couponAssignedProducts : [CouponAssignedProduct]!
     var couponAvailableCount : AnyObject!
-    var couponCode : String!
-    var couponDatefrom : String!
-    var couponDateto : String!
-    var couponLimit : String!
-    var couponName : String!
-    var couponPriceValue : String!
-    var couponPurchaseCount : String!
-    var couponStatus : String!
-    var couponType : String!
+    var couponCode : String = ""
+    var couponDatefrom : String = ""
+    var couponDateto : String = ""
+    var couponLimit : String = ""
+    var couponName : String = ""
+    var couponPriceValue : String = ""
+    var couponPurchaseCount : String = ""
+    var couponStatus : String = ""
+    var couponType : String = ""
 
 
     /**

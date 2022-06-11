@@ -14,27 +14,27 @@ class ExperienceBookingViewController: BaseViewController,UITableViewDelegate, U
     @IBOutlet weak var labelDescription: UILabel!
     @IBOutlet weak var tableViewList: UITableView!
     
-    var bookingID = String()
-    var noOfGuest = String()
-    var dateOfBooking = String()
-    var timeOfBooking = String()
-    var locationPlace = String()
-    var daycount = String()
+    var bookingID : String = ""
+    var noOfGuest : String = ""
+    var dateOfBooking : String = ""
+    var timeOfBooking : String = ""
+    var locationPlace : String = ""
+    var daycount : String = ""
 
-    var unitPrice = String()
-    var servicePrice = String()
-    var securityDeposit = String()
-    var totalAmount = String()
-    var nameOfBoat = String()
+    var unitPrice : String = ""
+    var servicePrice : String = ""
+    var securityDeposit : String = ""
+    var totalAmount : String = ""
+    var nameOfBoat : String = ""
     var arrayOfSlots = [[String:AnyObject]]()
-    var CurrencySymbol  = String()
+    var CurrencySymbol  : String = ""
     
-    var DateId = String()
-    var expId = String()
-    var exp_host_id = String()
-    var ChooseTimeArray = NSMutableArray()
-    var ImageStr = String()
-    var CurrencyCornId = String()
+    var DateId : String = ""
+    var expId : String = ""
+    var exp_host_id : String = ""
+    var ChooseTimeArray : NSMutableArray = []
+    var ImageStr : String = ""
+    var CurrencyCornId : String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,7 +82,7 @@ class ExperienceBookingViewController: BaseViewController,UITableViewDelegate, U
                     self.securityDeposit = "\(((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "security_deposit") as? String ?? "")"
                     self.totalAmount = "\(((responseDict.object(forKey: "Booking_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "total") as AnyObject)"
                     
-                    self.ChooseTimeArray.addObjects(from: (responseDict.object(forKey: "Exp_Schedules") as! NSArray) as! [Any])
+                    self.ChooseTimeArray.addObjects(from: (responseDict.object(forKey: "Exp_Schedules") as? NSArray) as? [Any] ?? [])
                     self.tableViewList.reloadData()
                     
                     
@@ -123,7 +123,7 @@ class ExperienceBookingViewController: BaseViewController,UITableViewDelegate, U
             self.hideActivityIndicator(uiView: self.view)
             if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 
-                var PaymentMethodsArr = NSMutableArray()
+                var PaymentMethodsArr : NSMutableArray = []
                 
                let BoookinId = "\(responseDict.value(forKey: "Booking_id") as? String ?? "")"
                 let TotalAMOUNT = "\(((responseDict.value(forKey: "exp_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "Total_Amount") as AnyObject)"

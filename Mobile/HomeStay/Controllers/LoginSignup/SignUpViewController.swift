@@ -39,19 +39,19 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
       @IBOutlet weak var TermsAndConditionlbl: UILabel!
     //MARK:- Variables
     
-    var isAgreeTerms: Bool!
-    var firstName : String!
-    var lastName : String!
-    var email : String!
-    var password : String!
-    var key : String!
-    var loginType : String!
-    var deviceType : String!
+    var isAgreeTerms: Bool = false 
+    var firstName : String = ""
+    var lastName : String = ""
+    var email : String = ""
+    var password : String = ""
+    var key : String = ""
+    var loginType : String = ""
+    var deviceType : String = ""
     var requestString = ""
-    var fcmTokenStr = String()
+    var fcmTokenStr : String = ""
     // Linkedin intialization helper.
     var appleID: String = ""
-    var fcmToken = String()
+    var fcmToken : String = ""
 
  
     //MARK:- Lifecycle Methods
@@ -244,9 +244,9 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
                 
                 // Create an account as per your requirement
 
-                 var userIdentifier = String()
-                 var fullName  = String()
-                 var email = String()
+                 var userIdentifier : String = ""
+                 var fullName  : String = ""
+                 var email : String = ""
                  if appleIDCredential.fullName?.givenName != nil {
                      userIdentifier = appleIDCredential.user
                      fullName = appleIDCredential.fullName?.givenName! ?? ""
@@ -338,7 +338,7 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
     }
     
     @IBAction func act_Google(_ sender: UIButton) {
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
             //GIDSignIn.sharedInstance().uiDelegate = self
             GIDSignIn.sharedInstance()?.presentingViewController = self
             GIDSignIn.sharedInstance()?.restorePreviousSignIn()
@@ -353,7 +353,7 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
     @IBAction func act_Facebook(_ sender: UIButton)
     {
 
-        if (Reachability()?.isReachable)!
+        if (Reachability()?.isReachable ?? false)
         {
             self.showActivityIndicator(uiView: self.view)
             let completion = {
@@ -471,10 +471,10 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
         } else if  self.isAgreeTerms == false{
             showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_pleaseagreetheterms") as? String ?? "")
         } else {
-            self.firstName = self.txtFldFirstName.text
-            self.lastName = self.txtFldLastName.text
-            self.email = self.txtFldEmail.text
-            self.password = self.txtFldPassword.text
+            self.firstName = self.txtFldFirstName.text ?? ""
+            self.lastName = self.txtFldLastName.text ?? ""
+            self.email = self.txtFldEmail.text ?? ""
+            self.password = self.txtFldPassword.text ?? ""
             self.key = "121"
             self.loginType = "121"
             self.deviceType = "iphone"
@@ -485,21 +485,21 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
     func signupAPI() {
         Network.shared.HTTP_POST_STRING_REQUEST_DELEGATE = self
 
-        if (Reachability()?.isReachable)!
+        if (Reachability()?.isReachable ?? false)
         {
             
             showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
    
-            params =  ["u_first_name": self.firstName!,"u_last_name":self.lastName!,"email":self.email!,"phone":self.txtFldphone.text ?? "","u_psd":self.password!,"login_type":"normal","apple_id":self.appleID,"google_id":self.key,"facebook_id": self.key!,"lang_code":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "en"]
+            params =  ["u_first_name": self.firstName,"u_last_name":self.lastName,"email":self.email,"phone":self.txtFldphone.text ?? "","u_psd":self.password,"login_type":"normal","apple_id":self.appleID,"google_id":self.key,"facebook_id": self.key,"lang_code":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "en"]
 
             print("signupAPI login params::::", params)
          
             APIManager.apiPostWithHeaders(serviceName: REQ_SIGNUP, parameters: params as? [String : Any]) { (json:NSDictionary?, error:NSError?) in
                 DispatchQueue.main.async {  }
                 if error != nil {
-                    print(error!.localizedDescription)
-                    self.showInformation(title: "Closest", message: error!.localizedDescription)
+                    print(error?.localizedDescription ?? "")
+                    self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                     return
                 }
                 let responseDict:NSDictionary = json!

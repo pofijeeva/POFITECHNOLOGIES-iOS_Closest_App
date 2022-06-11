@@ -8,20 +8,20 @@ import Foundation
 
 class HotelDetail : NSObject, NSCoding{
 
-    var bathrooms : String!
-    var bedrooms : String!
-    var hostId : Int!
-    var notesDesc : String!
-    var notesId : Int!
-    var propertyAddress : String!
-    var propertyCurrencyCode : String!
-    var propertyCurrencySymbol : String!
-    var propertyId : Int!
+    var bathrooms : String = ""
+    var bedrooms : String = ""
+    var hostId : Int = 0
+    var notesDesc : String = ""
+    var notesId : Int = 0
+    var propertyAddress : String = ""
+    var propertyCurrencyCode : String = ""
+    var propertyCurrencySymbol : String = ""
+    var propertyId : Int = 0
     var propertyImages : [PropertyImage]!
     var propertyPrice : AnyObject!
-    var propertyTitle : String!
-    var roomType : String!
-    var userImage : String!
+    var propertyTitle : String = ""
+    var roomType : String = ""
+    var userImage : String = ""
 
 
     /**

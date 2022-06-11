@@ -24,28 +24,28 @@ class AmenitiesViewController: UIViewController,UITextFieldDelegate {
     @IBOutlet weak var AmenitiesBtn: UIButton!
     
     //MARK:- Variables
-    var Addon = NSMutableArray()
+    var Addon : NSMutableArray = []
 
     var AmenitiesArr = [Attribute]()
-    var PropertyId = Int()
+    var PropertyId : Int = 0
     var selectedOptions = [Option]()
-    var VEH_ID = Int()
+    var VEH_ID : Int = 0
     var ListingActivityDelegate: listingActivityProtocol!
-    let id = Singleton.sharedInstance.selectedCategory!
-    var selectedRestIDArray = NSMutableArray()
-    //var selectedIDArray = NSMutableArray()
+    let id = Singleton.sharedInstance.selectedCategory
+    var selectedRestIDArray : NSMutableArray = []
+    //var selectedIDArray : NSMutableArray = []
     var amenityArray = NSArray()
     var amenityOptionsArray = NSArray()
-    var OptionsArray = NSMutableArray()
+    var OptionsArray : NSMutableArray = []
     
-    var amenityMutArray = NSMutableArray()
+    var amenityMutArray : NSMutableArray = []
     var SelectedRow = -1
     var SelectedSection = -1
 
-    var SelectedType = String()
+    var SelectedType : String = ""
    
-    var SavedAddonsIDS = NSMutableArray()
-    var SavedAddonsIDSPrice = NSMutableArray()
+    var SavedAddonsIDS : NSMutableArray = []
+    var SavedAddonsIDSPrice : NSMutableArray = []
 
 
     //MARK:- LifecycleMethods
@@ -90,18 +90,18 @@ class AmenitiesViewController: UIViewController,UITextFieldDelegate {
         let SelectedAddons = NSMutableDictionary()
         SelectedAddons.addEntries(from: ((commonMaintainListDataDict.object(forKey: "data") as? NSDictionary)?.object(forKey: "step6") as? NSDictionary) as? [AnyHashable: Any] ?? [:])
         let SavedAddons = SelectedAddons.object(forKey: "saved_addons") as! NSArray
-        let Add = NSMutableArray()
+        let Add : NSMutableArray = []
 
         for i in 0..<SavedAddons.count {
-            let IDS = SavedAddons.object(at: i) as! NSDictionary
+            let IDS = SavedAddons.object(at: i) as? NSDictionary ?? [:]
              Add.addObjects(from: IDS.allValues)
             print(Add)
         }
         for i in 0..<Add.count {
-            let IDS = (Add.object(at: i) as? NSArray)?.object(at: i) as? NSDictionary ?? [:]
-            for j in 0..<(Add.object(at: i) as! NSArray).count{
-             SavedAddonsIDS.add("\(((Add.object(at: i) as! NSArray).object(at: j) as? NSDictionary)?.object(forKey: "id") as AnyObject)")
-            SavedAddonsIDSPrice.add("\(((Add.object(at: i) as! NSArray).object(at: j) as? NSDictionary)?.object(forKey: "price") as AnyObject)")
+//            let IDS = (Add.object(at: i) as? NSArray)?.object(at: i) as? NSDictionary ?? [:]
+            for j in 0..<((Add.object(at: i) as? NSArray)?.count ?? 0){
+             SavedAddonsIDS.add("\(((Add.object(at: i) as? NSArray)?.object(at: j) as? NSDictionary)?.object(forKey: "id") as AnyObject)")
+            SavedAddonsIDSPrice.add("\(((Add.object(at: i) as? NSArray)?.object(at: j) as? NSDictionary)?.object(forKey: "price") as AnyObject)")
             }
           }
         
@@ -122,24 +122,24 @@ class AmenitiesViewController: UIViewController,UITextFieldDelegate {
         
         
         
-        if Singleton.sharedInstance.rentYourSpace.result[0].step6.listName != nil {
-            if let listName:String = Singleton.sharedInstance.rentYourSpace.result[0].step6.listName {
-                checkedIDArray.removeAllObjects()
-                AddonscheckedIDArray.removeAllObjects()
-
-                let listArr = listName.components(separatedBy: ",")
-                checkedIDArray.addObjects(from: listArr)
-                AddonscheckedIDArray.addObjects(from: listArr)
-
-                for i in 0..<checkedIDArray.count {
-                    if checkedIDArray.contains("") {
-                        checkedIDArray.removeObject(at: i)
-                        AddonscheckedIDArray.removeObject(at: i)
-
-                    }
+//        if Singleton.sharedInstance.rentYourSpace.result[0].step6.listName != nil {
+//         let listName = Singleton.sharedInstance.rentYourSpace.result[0].step6.listName {
+            checkedIDArray.removeAllObjects()
+            AddonscheckedIDArray.removeAllObjects()
+            
+            let listArr = Singleton.sharedInstance.rentYourSpace.result[0].step6.listName.components(separatedBy: ",")
+            checkedIDArray.addObjects(from: listArr)
+            AddonscheckedIDArray.addObjects(from: listArr)
+            
+            for i in 0..<checkedIDArray.count {
+                if checkedIDArray.contains("") {
+                    checkedIDArray.removeObject(at: i)
+                    AddonscheckedIDArray.removeObject(at: i)
+                    
                 }
             }
-        }
+//        }
+//        }
         
 //        if Singleton.sharedInstance.rentYourSpace.result[0].step6.listName != nil {
 //            if let listName:String = Singleton.sharedInstance.rentYourSpace.result[0].step6.listName {
@@ -229,7 +229,7 @@ class AmenitiesViewController: UIViewController,UITextFieldDelegate {
     //MARK:- Button Actions
     @IBAction func act_Save(_ sender: UIButton) {
         ListingActivityDelegate.showActivity()
-         var AddonString = String()
+         var AddonString : String = ""
 
         do {
             //Convert to Data
@@ -263,7 +263,7 @@ class AmenitiesViewController: UIViewController,UITextFieldDelegate {
             print(response)
             
             if error != nil {
-                self.showInformation(title: "Closest", message: error!.localizedDescription)
+                self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
             } else {
                 let mod = RentYourSpaceModel(fromDictionary: response as! [String : Any])
                 Singleton.sharedInstance.rentYourSpace = mod
@@ -271,7 +271,7 @@ class AmenitiesViewController: UIViewController,UITextFieldDelegate {
             }
         }
 /*
-        var aminitiesStr = String()
+        var aminitiesStr : String = ""
         //        for num in 0..<selectedOptions.count {
         //          aminitiesStr = aminitiesStr + selectedOptions[num].childId + ","
         //        }
@@ -299,7 +299,7 @@ class AmenitiesViewController: UIViewController,UITextFieldDelegate {
             {
                 
                 var params = NSMutableDictionary()
-                params = ["user_id":login_session.value(forKey: "UserId")!,"property_id":Singleton.sharedInstance.rentYourSpace.propertyid!,"string":aminitiesStr,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","base_id":Singleton.sharedInstance.selectedCategory!]
+                params = ["user_id":login_session.value(forKey: "UserId")!,"property_id":Singleton.sharedInstance.rentYourSpace.propertyid,"string":aminitiesStr,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","base_id":Singleton.sharedInstance.selectedCategory]
               
                 
                 let manager = AFHTTPSessionManager()
@@ -337,7 +337,7 @@ class AmenitiesViewController: UIViewController,UITextFieldDelegate {
                 
                 
     //            ListingActivityDelegate.showActivity()
-    //            let parameterStr = "user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(Singleton.sharedInstance.rentYourSpace.propertyid!)&string=\(aminitiesStr)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&base_id=\(Singleton.sharedInstance.selectedCategory!)"
+    //            let parameterStr = "user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(Singleton.sharedInstance.rentYourSpace.propertyid)&string=\(aminitiesStr)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&base_id=\(Singleton.sharedInstance.selectedCategory)"
     //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: SAVE_AMINITIES_LISTING, APIKEY: "SAVE_AMINITIES_LISTING")
     //            print(parameterStr)
             }
@@ -481,10 +481,10 @@ extension AmenitiesViewController: UITableViewDataSource,UITableViewDelegate {
         data.setValue(((((ListingAddonsArray.object(at: self.SelectedSection) as? NSDictionary)?.object(forKey: "child_values") as AnyObject).object(at: self.SelectedRow) as? NSDictionary)?.object(forKey: "amen_val_id") as AnyObject), forKey: "id")
            
         data1.setValue(data, forKey: "\((ListingAddonsArray[self.SelectedSection] as AnyObject).value(forKey: "amen_id") as AnyObject)")
-            let AddonCopy = NSMutableArray()
+            let AddonCopy : NSMutableArray = []
             AddonCopy.add(data)
         Addon.add(data)
-            let AddonsParentId = NSMutableArray()
+            let AddonsParentId : NSMutableArray = []
 
             AddonsParentId.addObjects(from:ListingAddonsDict.allKeys)
  print(AddonsParentId)

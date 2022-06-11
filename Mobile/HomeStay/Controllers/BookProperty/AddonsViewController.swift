@@ -20,11 +20,11 @@ class AddonsViewController: UIViewController,UITableViewDelegate,UITableViewData
     @IBOutlet weak var AddonsTotalViewHeight: NSLayoutConstraint!
     @IBOutlet weak var AddonsSubmitBtn: UIButton!
 
-    var AddonsArray = NSMutableArray()
-//    var AddonsSelectedDictValues = NSMutableArray()
-    var AddonsSelectedDict = NSMutableArray()
+    var AddonsArray : NSMutableArray = []
+//    var AddonsSelectedDictValues : NSMutableArray = []
+    var AddonsSelectedDict : NSMutableArray = []
 
-    var AmountStr = Int()
+    var AmountStr : Int = 0
 
 
     override func viewDidLoad() {

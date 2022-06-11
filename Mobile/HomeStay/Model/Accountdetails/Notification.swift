@@ -8,8 +8,8 @@ import Foundation
 
 class Notification : NSObject, NSCoding{
 
-    var emailNotifications : String!
-    var reservationRequest : String!
+    var emailNotifications : String = ""
+    var reservationRequest : String = ""
 
 
     /**

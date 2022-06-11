@@ -57,8 +57,8 @@ class FilterViewController: UIViewController,FSCalendarDataSource, FSCalendarDel
        private var firstDate: Date?
        private var lastDate: Date?
        private var datesRange: [Date]?
-       var fromDateStr = String()
-             var toDateStr = String()
+       var fromDateStr : String = ""
+             var toDateStr : String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
 

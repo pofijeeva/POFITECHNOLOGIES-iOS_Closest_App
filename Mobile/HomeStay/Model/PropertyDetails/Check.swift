@@ -8,8 +8,8 @@ import Foundation
 
 class Check : NSObject, NSCoding{
 
-    var checkin : String!
-    var checkout : String!
+    var checkin : String = ""
+    var checkout : String = ""
 
 
     /**

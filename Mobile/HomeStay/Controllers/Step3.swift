@@ -8,13 +8,13 @@ import Foundation
 
 class Step3 : NSObject, NSCoding{
 
-    var chk : String!
-    var currencyCode : String!
-    var price : Int!
-    var propertyid : Int!
-    var stepCompleted : Bool!
-    var daily_booking_status : Bool!
-    var hourly_booking_status : Bool!
+    var chk : String = ""
+    var currencyCode : String = ""
+    var price : Int = 0
+    var propertyid : Int = 0
+    var stepCompleted : Bool = false 
+    var daily_booking_status : Bool = false 
+    var hourly_booking_status : Bool = false 
     var min_days : AnyObject!
     
     var price_per_day : AnyObject!
@@ -34,9 +34,9 @@ class Step3 : NSObject, NSCoding{
         currencyCode = dictionary["currency_code"] as? String ?? ""
         price = dictionary["price"] as? Int ?? 0
         propertyid = dictionary["propertyid"] as? Int ?? 0
-        stepCompleted = dictionary["step_completed"] as? Bool
-        daily_booking_status = dictionary["daily_booking_status"] as? Bool
-        hourly_booking_status = dictionary["hourly_booking_status"] as? Bool
+        stepCompleted = dictionary["step_completed"] as? Bool ?? false ?? false
+        daily_booking_status = dictionary["daily_booking_status"] as? Bool ?? false
+        hourly_booking_status = dictionary["hourly_booking_status"] as? Bool ?? false
         min_days = dictionary["min_days"] as? AnyObject
         
         price_per_day = dictionary["price_per_day"] as? AnyObject
@@ -128,9 +128,9 @@ class Step3 : NSObject, NSCoding{
         currencyCode = aDecoder.decodeObject(forKey: "currency_code") as? String ?? ""
         price = aDecoder.decodeObject(forKey: "price") as? Int ?? 0
         propertyid = aDecoder.decodeObject(forKey: "propertyid") as? Int ?? 0
-        stepCompleted = aDecoder.decodeObject(forKey: "step_completed") as? Bool
-        daily_booking_status = aDecoder.decodeObject(forKey: "daily_booking_status") as? Bool
-        hourly_booking_status = aDecoder.decodeObject(forKey: "hourly_booking_status") as? Bool
+        stepCompleted = aDecoder.decodeObject(forKey: "step_completed") as? Bool ?? false
+        daily_booking_status = aDecoder.decodeObject(forKey: "daily_booking_status") as? Bool ?? false
+        hourly_booking_status = aDecoder.decodeObject(forKey: "hourly_booking_status") as? Bool ?? false
         min_days = aDecoder.decodeObject(forKey: "min_days") as? AnyObject
         price_per_day = aDecoder.decodeObject(forKey: "price_per_day") as? AnyObject
 

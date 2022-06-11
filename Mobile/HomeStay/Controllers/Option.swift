@@ -8,11 +8,11 @@ import Foundation
 
 class Option : NSObject, NSCoding{
 
-    var childId : Int!
-    var childImage : String!
-    var childName : String!
-    var parentId : String!
-    var parentName : String!
+    var childId : Int = 0
+    var childImage : String = ""
+    var childName : String = ""
+    var parentId : String = ""
+    var parentName : String = ""
 
 
     /**

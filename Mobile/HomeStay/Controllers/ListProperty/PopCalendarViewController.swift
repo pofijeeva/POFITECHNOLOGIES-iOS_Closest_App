@@ -85,23 +85,23 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
     var lastDate: Date?
     var datesRange: [Date]?
     
-    let datesMutArray = NSMutableArray()
+    let datesMutArray : NSMutableArray = []
     var isRangeSelection = false
-    var selectedDateString = String()
-    var amountString = String()
-    var isChecked = Bool()
+    var selectedDateString : String = ""
+    var amountString : String = ""
+    var isChecked : Bool = false
     
     var rentYourSpace: RentYourSpaceModel!
-    var PropertyID = Int()
-    var DateFrom = String()
-    var DateTo = String()
-    var calenderChecked = String()
+    var PropertyID : Int = 0
+    var DateFrom : String = ""
+    var DateTo : String = ""
+    var calenderChecked : String = ""
     var calenderDelegate: CalenderProtocol!
     
-    let datesFormatMutArray = NSMutableArray()
-    var dateFormatJsonString = String()
+    let datesFormatMutArray : NSMutableArray = []
+    var dateFormatJsonString : String = ""
     var storedDatesArray = NSArray()
-    var StepSaved = String()
+    var StepSaved : String = ""
     
     var DropData = ["Special","Booked","Unavailable"]
     let TypeDropdown = DropDown()
@@ -442,7 +442,7 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
     @IBAction func ViewSaveBtnTapped(_ sender: UIButton) {
         
         
-        var Status = Int()
+        var Status : Int = 0
         if txt_Booking.text == "Unavailable"{
             Status = 3
             
@@ -485,7 +485,7 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
             if Reachability()!.isReachable {
 //                self.ListingActivityDelegate.showActivity()
                 showActivityIndicator(uiView: self.view)
-                //            let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&device_type=android&user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(self.PropertyID)&calendar_checked=sometimes&base_id=\(Singleton.sharedInstance.selectedCategory!)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&seasonal_list=\(self.dateFormatJsonString)"
+                //            let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&device_type=android&user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(self.PropertyID)&calendar_checked=sometimes&base_id=\(Singleton.sharedInstance.selectedCategory)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&seasonal_list=\(self.dateFormatJsonString)"
                 //                               print(parameterStr)
                 //                Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: SAVE_CALENDER_LISTING, APIKEY: "SAVE_CALENDER_LISTING")
                 
@@ -526,7 +526,7 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
 //                    print(response)
                     print(SAVE_PRICE_LISTING)
                     if error != nil {
-                        self.showInformation(title: "Closest", message: error!.localizedDescription)
+                        self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                     } else {
                         let mod = RentYourSpaceModel(fromDictionary: response as! [String : Any])
                         print(response)
@@ -589,7 +589,7 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
                 
                 
 //                showActivityIndicator(uiView: self.view)
-                //                let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&device_type=android&user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(self.PropertyID)&calendar_checked=sometimes&base_id=\(Singleton.sharedInstance.selectedCategory!)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&seasonal_list=\(self.dateFormatJsonString)"
+                //                let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&device_type=android&user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(self.PropertyID)&calendar_checked=sometimes&base_id=\(Singleton.sharedInstance.selectedCategory)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&seasonal_list=\(self.dateFormatJsonString)"
                 //                print(parameterStr)
                 //
                 //

@@ -19,8 +19,8 @@ class LanguagesExperienceViewController: UIViewController,UITableViewDelegate,UI
    // @IBOutlet weak var buttonNext: UIButton!
     
     var arrayOfList = [String]()
-    var dictOfValues = NSMutableArray()
-    var arrayofLangId = NSMutableArray()
+    var dictOfValues : NSMutableArray = []
+    var arrayofLangId : NSMutableArray = []
     
 
     override func viewDidLoad() {
@@ -33,7 +33,7 @@ class LanguagesExperienceViewController: UIViewController,UITableViewDelegate,UI
         self.labelDescription.font = UIFont(name: RegularFont, size: 15.0)
         self.labelDescription.textColor = .darkGray
 //        self.dictOfValues = dictOfExperience["known_languages"] as! [[String:AnyObject]]
-        self.dictOfValues.addObjects(from: (dictOfExperience["known_languages"] as! NSArray) as! [Any])
+        self.dictOfValues.addObjects(from: (dictOfExperience["known_languages"] as? NSArray) as? [Any] ?? [])
         print(self.dictOfValues)
         
         if arrayOfResult.count > 0 {

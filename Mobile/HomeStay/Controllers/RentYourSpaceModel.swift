@@ -13,13 +13,13 @@ class RentYourSpaceModel : NSObject, NSCoding {
     
     var attribute : [Attribute]!
     var currency : [Currency]!
-    var message : String!
+    var message : String = ""
     var property : [Property]!
     var propertyAttributes : [PropertyAttribute]!
-    var propertyid : Int!
+    var propertyid : Int = 0
     var result : [Result]!
     var rooms : [Room]!
-    var status : Int!
+    var status : Int = 0
     var baseid: AnyObject!
     
     /**

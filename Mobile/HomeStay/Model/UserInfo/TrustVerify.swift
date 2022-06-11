@@ -8,20 +8,20 @@ import Foundation
 
 class TrustVerify : NSObject, NSCoding{
 
-    var country : Int!
-    var emailIdVerified : Bool!
-    var facebookConnect : String!
-    var googleConnect : String!
-    var linkedinConnect : String!
-    var phone : String!
-    var phoneVerified : Bool!
+    var country : Int = 0
+    var emailIdVerified : Bool = false 
+    var facebookConnect : String = ""
+    var googleConnect : String = ""
+    var linkedinConnect : String = ""
+    var phone : String = ""
+    var phoneVerified : Bool = false 
 
 
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values
      */
     init(fromDictionary dictionary: [String:Any]){
-        country = dictionary["country"] as? Int
+        country = dictionary["country"] as? Int ?? 0
         emailIdVerified = dictionary["email_id_verified"] as? Bool ?? false
         facebookConnect = dictionary["facebook_connect"] as? String ?? ""
         googleConnect = dictionary["google_connect"] as? String ?? ""
@@ -66,7 +66,7 @@ class TrustVerify : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        country = aDecoder.decodeObject(forKey: "country") as? Int
+        country = aDecoder.decodeObject(forKey: "country") as? Int ?? 0
         emailIdVerified = aDecoder.decodeObject(forKey: "email_id_verified") as? Bool ?? false
         facebookConnect = aDecoder.decodeObject(forKey: "facebook_connect") as? String ?? ""
         googleConnect = aDecoder.decodeObject(forKey: "google_connect") as? String ?? ""

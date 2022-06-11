@@ -20,7 +20,7 @@ class ExperienceProvideViewController: UIViewController,UITableViewDelegate,UITa
     
     var arrayOfImens = [String]()
     
-    var ProvideListArray = NSMutableArray()
+    var ProvideListArray : NSMutableArray = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +52,7 @@ class ExperienceProvideViewController: UIViewController,UITableViewDelegate,UITa
                     
                     ((DataDict?.object(at: 0) as? NSDictionary)?.object(forKey: "what_you_will_provide") as? NSDictionary)?.object(forKey: "kit_details") as! NSArray
                     self.ProvideListArray.removeAllObjects()
-                    self.ProvideListArray.addObjects(from: ((((DataDict?.object(at: 0) as? NSDictionary)?.object(forKey: "what_you_will_provide") as? NSDictionary)?.object(forKey: "kit_details") as! NSArray) as! [Any]))
+                    self.ProvideListArray.addObjects(from: ((((DataDict?.object(at: 0) as? NSDictionary)?.object(forKey: "what_you_will_provide") as? NSDictionary)?.object(forKey: "kit_details") as? NSArray) as? [Any] ?? []))
                     print(self.ProvideListArray)
                     self.ProvideTable.reloadData()
                 }

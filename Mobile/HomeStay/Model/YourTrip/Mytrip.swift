@@ -8,64 +8,64 @@ import Foundation
 
 class Mytrip : NSObject, NSCoding{
 
-    var approvalStatus : String!
-    var bookedon : String!
-    var bookingStatus : String!
-    var bookingno : String!
-    var cancelPercentage : String!
-    var cancelShowStatus : Bool!
-    var cancelStatus : String!
-    var cancellationPolicy : String!
-    var cancelledBy : String!
-    var checkin : String!
-    var checkout : String!
-    var city : String!
-    var country : String!
-    var couponAmount : String!
-    var creditCardStatus : String!
-    var disputeShowStatus : Bool!
-    var expiredate : String!
-    var guestEmail : String!
-    var guestId : Int!
-    var hostId : Int!
-    var hostName : String!
-    var houseRules : String!
-    var id : Int!
-    var isCanceled : Bool!
-    var isCouponUsed : String!
-    var isDispute : Bool!
-    var isPrevious : Bool!
-    var isReview : Bool!
-    var isWalletUsed : String!
+    var approvalStatus : String = ""
+    var bookedon : String = ""
+    var bookingStatus : String = ""
+    var bookingno : String = ""
+    var cancelPercentage : String = ""
+    var cancelShowStatus : Bool = false 
+    var cancelStatus : String = ""
+    var cancellationPolicy : String = ""
+    var cancelledBy : String = ""
+    var checkin : String = ""
+    var checkout : String = ""
+    var city : String = ""
+    var country : String = ""
+    var couponAmount : String = ""
+    var creditCardStatus : String = ""
+    var disputeShowStatus : Bool = false 
+    var expiredate : String = ""
+    var guestEmail : String = ""
+    var guestId : Int = 0
+    var hostId : Int = 0
+    var hostName : String = ""
+    var houseRules : String = ""
+    var id : Int = 0
+    var isCanceled : Bool = false 
+    var isCouponUsed : String = ""
+    var isDispute : Bool = false 
+    var isPrevious : Bool = false 
+    var isReview : Bool = false 
+    var isWalletUsed : String = ""
     
-    var noofGuest : Int!
-    var numofdates : Int!
-    var paidCurrencyCode : String!
-    var paidCurrencySymbol : String!
-    var payablePaypalCurrency : String!
-    var payablePaypalSymbol : String!
-    var payablePaypalTotal : String!
-    var paypalStatus : String!
-    var propertyAddress : String!
-    var propertyCurrencyCode : String!
-    var propertyCurrencySymbol : String!
-    var propertyId : Int!
-    var propertyImage : String!
+    var noofGuest : Int = 0
+    var numofdates : Int = 0
+    var paidCurrencyCode : String = ""
+    var paidCurrencySymbol : String = ""
+    var payablePaypalCurrency : String = ""
+    var payablePaypalSymbol : String = ""
+    var payablePaypalTotal : String = ""
+    var paypalStatus : String = ""
+    var propertyAddress : String = ""
+    var propertyCurrencyCode : String = ""
+    var propertyCurrencySymbol : String = ""
+    var propertyId : Int = 0
+    var propertyImage : String = ""
     var propertyPrice : Float!
-    var propertyTitle : String!
-    var reviewShowStatus : Bool!
+    var propertyTitle : String = ""
+    var reviewShowStatus : Bool = false 
     var securityDeposit : Float!
     var serviceFee : Float!
-    var showStatus : Bool!
-    var state : String!
-    var stripeStatus : String!
+    var showStatus : Bool = false 
+    var state : String = ""
+    var stripeStatus : String = ""
     var subTotal : AnyObject!
     var total : AnyObject!
-    var userCurrencyCode : String!
-    var userCurrencySymbol : String!
-    var walletAmount : String!
-    var walletBalanceAmount : String!
-     var isBookingAllowed : String!
+    var userCurrencyCode : String = ""
+    var userCurrencySymbol : String = ""
+    var walletAmount : String = ""
+    var walletBalanceAmount : String = ""
+     var isBookingAllowed : String = ""
     var pay_later_availabe : AnyObject!
     var pay_later_balance_amount : AnyObject!
 

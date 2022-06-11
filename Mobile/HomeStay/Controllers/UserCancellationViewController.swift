@@ -149,11 +149,11 @@ class UserCancellationViewController: BaseViewController {
         let Index = sender.tag
         let CancelID = Singleton.sharedInstance.userInfoModel.cancellationAboutYou[Index].cancelId
         let BookingID = Singleton.sharedInstance.userInfoModel.cancellationAboutYou[Index].bookingNo
-        if (Reachability()?.isReachable)!
+        if (Reachability()?.isReachable ?? false)
         {
             showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
-            params = ["language":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "","currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","user_id":login_session.value(forKey: "UserId")!,"device_type":"ios","booking_no":BookingID!,"cancel_id":CancelID!]
+            params = ["language":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "","currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","user_id":login_session.value(forKey: "UserId")!,"device_type":"ios","booking_no":BookingID,"cancel_id":CancelID]
             let manager = AFHTTPSessionManager()
             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
             
@@ -195,11 +195,11 @@ class UserCancellationViewController: BaseViewController {
         let Index = sender.tag
         let CancelID = Singleton.sharedInstance.userInfoModel.cancellationAboutYou[Index].cancelId
         let BookingID = Singleton.sharedInstance.userInfoModel.cancellationAboutYou[Index].bookingNo
-        if (Reachability()?.isReachable)!
+        if (Reachability()?.isReachable ?? false)
         {
             showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
-            params = ["language":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "","currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","user_id":login_session.value(forKey: "UserId")!,"device_type":"ios","booking_no":BookingID!,"cancel_id":CancelID!]
+            params = ["language":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "","currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","user_id":login_session.value(forKey: "UserId")!,"device_type":"ios","booking_no":BookingID,"cancel_id":CancelID]
             let manager = AFHTTPSessionManager()
             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
             
@@ -238,7 +238,7 @@ class UserCancellationViewController: BaseViewController {
     }
     
     func UserInformation(){
-        if (Reachability()?.isReachable)!
+        if (Reachability()?.isReachable ?? false)
         {
             
             showActivityIndicator(uiView: self.view)
@@ -357,7 +357,7 @@ extension UserCancellationViewController : UITableViewDataSource , UITableViewDe
             dateFormatterPrint3.locale = Locale(identifier: "en_US_POSIX")
             // let orderDateStringPasser = checkin
             
-            if let date = dateFormatterGet.date(from: Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].createdDate!)
+            if let date = dateFormatterGet.date(from: Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].createdDate)
             {
                 print(dateFormatterPrint3.string(from: date))
                 cell.bookingDateLabel.text = dateFormatterPrint3.string(from: date)
@@ -368,8 +368,8 @@ extension UserCancellationViewController : UITableViewDataSource , UITableViewDe
             
             // cell.bookingDateLabel.text = Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].createdDate
             cell.bookingIdLabel.text = Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].bookingNo
-            let Status =  Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].status!
-            let Email = Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].reviewEmail!
+            let Status =  Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].status
+            let Email = Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].reviewEmail
             cell.acceptBtn.isHidden = true
             cell.rejectBtn.isHidden = true
             
@@ -394,7 +394,7 @@ extension UserCancellationViewController : UITableViewDataSource , UITableViewDe
                 cell.AcceptRejectStatus.text = "Host Cancelled"
             }else{
                 cell.AcceptRejectStatus.isHidden = false
-                cell.AcceptRejectStatus.text = Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].status!
+                cell.AcceptRejectStatus.text = Singleton.sharedInstance.userInfoModel.cancellationAboutYou[indexPath.section].status
             }
             //  }
             
@@ -437,7 +437,7 @@ extension UserCancellationViewController : UITableViewDataSource , UITableViewDe
             dateFormatterPrint3.locale = Locale(identifier: "en_US_POSIX")
             // let orderDateStringPasser = checkin
             
-            if let date = dateFormatterGet.date(from: Singleton.sharedInstance.userInfoModel.cancellationByYou[indexPath.section].createdDate!)
+            if let date = dateFormatterGet.date(from: Singleton.sharedInstance.userInfoModel.cancellationByYou[indexPath.section].createdDate)
             {
                 print(dateFormatterPrint3.string(from: date))
                 cell.bookingDateLabel.text = dateFormatterPrint3.string(from: date)

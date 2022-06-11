@@ -89,20 +89,20 @@ class PropertyListingViewController: BaseViewController {
     var property_listing_ARR = NSArray()
     var my_reservation_ARR = NSArray()
     var isMyListing = true
-    var manageCalender = String()
-    var houseIn = String()
-    var houseBooking = String()
-    var housePayment = String()
-    var houseApproval = String()
-    var CarIn = String()
-    var dropDownArr = NSMutableArray()
-    var creditcard_Stat = String()
-    var cancellation = String()
-    var selectedInt = Int()
-    var selectedInvoice = Int()
-    var cancelShowStatus = Bool()
-    var Stripe_status = String()
-    var Paypal_Status = String()
+    var manageCalender : String = ""
+    var houseIn : String = ""
+    var houseBooking : String = ""
+    var housePayment : String = ""
+    var houseApproval : String = ""
+    var CarIn : String = ""
+    var dropDownArr : NSMutableArray = []
+    var creditcard_Stat : String = ""
+    var cancellation : String = ""
+    var selectedInt : Int = 0
+    var selectedInvoice : Int = 0
+    var cancelShowStatus : Bool = false
+    var Stripe_status : String = ""
+    var Paypal_Status : String = ""
     //MARK:- Lifecycle Methods
     let stateDropDowns = DropDown()
     lazy var dropDowns: [DropDown] = {
@@ -145,7 +145,7 @@ class PropertyListingViewController: BaseViewController {
         if Reachability()!.isReachable {
             self.showActivityIndicator(uiView: self.view)
             let userID = login_session.value(forKey: "UserId")!
-            let  parameterDict = "userid=\(userID)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&lang_code=\(lanuguage_selection.value(forKey: "language") as? String ?? "en")&base_id=\(Singleton.sharedInstance.selectedCategory!)"
+            let  parameterDict = "userid=\(userID)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&lang_code=\(lanuguage_selection.value(forKey: "language") as? String ?? "en")&base_id=\(Singleton.sharedInstance.selectedCategory)"
             Network.shared.POSTRequest(withParameterString: parameterDict, serviceURL: SHOW_PROPERTY_LISTING, APIKEY: "SHOW_PROPERTY_LISTING")
         } else {
             showInformation(title: "Warning", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
@@ -399,7 +399,7 @@ class PropertyListingViewController: BaseViewController {
                 showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
                 
-                 params = ["email":login_session.value(forKey: "Email") as? String ?? "","prd_id":Singleton.sharedInstance.PropertyListingModel.myReservation[selectedInt].propertyId!,"Bookingno":Singleton.sharedInstance.PropertyListingModel.myReservation[selectedInt].bookingno!,"cancellation_percentage":"0","user_id":Singleton.sharedInstance.PropertyListingModel.myReservation[selectedInt].guestId!,"disputer_id":login_session.value(forKey: "UserId")!,"message":self.cancelMsgTxtView.text!]
+                params = ["email":login_session.value(forKey: "Email") as? String ?? "","prd_id":Singleton.sharedInstance.PropertyListingModel.myReservation[selectedInt].propertyId,"Bookingno":Singleton.sharedInstance.PropertyListingModel.myReservation[selectedInt].bookingno,"cancellation_percentage":"0","user_id":Singleton.sharedInstance.PropertyListingModel.myReservation[selectedInt].guestId,"disputer_id":login_session.value(forKey: "UserId")!,"message":self.cancelMsgTxtView.text!]
                
                 
                 let manager = AFHTTPSessionManager()
@@ -462,14 +462,14 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
         }
         let nav = self.storyboard?.instantiateViewController(withIdentifier: "ListingViewControllersBundle") as?  ListingViewControllersBundle
         nav!.ListingBundleFrom = "PropertyListing"
-        nav!.PropertyId = dict.propertyId!
+        nav!.PropertyId = dict.propertyId
         self.navigationController?.pushViewController(nav!, animated: true)
     }
     @objc func HostBtnAct(_ sender: UIButton) {
         let Tag = sender.tag
         let dict = Singleton.sharedInstance.PropertyListingModel.propertyListing[Tag]
-        let hostId =  dict.propertyId!
-        let Currency =  dict.propertyCurrencySymbol!
+        let hostId =  dict.propertyId
+        let Currency =  dict.propertyCurrencySymbol
 
         let nav = self.storyboard?.instantiateViewController(withIdentifier: "NewProductDetailViewController") as? NewProductDetailViewController
        nav!.PropertyID = "\(hostId)"
@@ -485,7 +485,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
     @objc func emailIdBtnAct(_ sender: UIButton) {
         let Tag = sender.tag
         let dict = Singleton.sharedInstance.PropertyListingModel.propertyListing[Tag]
-        let hostId =  dict.hostId!
+        let hostId =  dict.hostId
         let nav = storyboard?.instantiateViewController(withIdentifier: "EditProfileViewController") as? EditProfileViewController
         nav?.hostID = "\(hostId)"
 
@@ -765,7 +765,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? PropertyListingCell else { return UITableViewCell()}
 //                let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? PropertyListingCell
                 let dict = Singleton.sharedInstance.PropertyListingModel.propertyListing[indexPath.row]
-                let url = URL(string: Singleton.sharedInstance.PropertyListingModel.propertyListing[indexPath.row].propertyImage!)
+                let url = URL(string: Singleton.sharedInstance.PropertyListingModel.propertyListing[indexPath.row].propertyImage)
     //            cell.img_Profile.kf.setImage(with: url!)
                 cell.img_Profile.kf.setImage(with: url, placeholder: UIImage.init(named: "picture-frame"), options: nil, progressBlock: nil, completionHandler: nil)
                 cell.lbl_Name.font = UIFont(name: SemiBoldFont, size: 14.0)
@@ -793,13 +793,13 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                 cell.reviewLabel.text = GlobalLanguageDictionary.object(forKey: "key_reaviewCount") as? String ?? ""
                 
                 cell.lbl_statusfield.font = UIFont(name: SemiBoldFont, size: 14.0)
-                if dict.propertyStatus! == true {
+                if dict.propertyStatus == true {
                     cell.lbl_statusfield.text = GlobalLanguageDictionary.object(forKey: "key_published") as? String ?? ""
                 }else{
                     cell.lbl_statusfield.text = GlobalLanguageDictionary.object(forKey: "key_waitingforPublish") as? String ?? ""
                 }
                 cell.lbl_statusfield.backgroundColor = UIColor(red: 232/255.0, green: 62/255.0, blue: 50/255.0, alpha: 1.0)
-                cell.lbl_Name.text = dict.propertyTitle!
+                cell.lbl_Name.text = dict.propertyTitle
                 cell.lbl_Status.text = GlobalLanguageDictionary.object(forKey: "key_manageListingCalender") as? String ?? ""
                 cell.lbl_TotalBooking.text = String(format: "%d", dict.totalBooking)
                 cell.lbl_Cancellation.text = String(format: "%d", dict.cancelBooking)
@@ -807,7 +807,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                 cell.lbl_ReviewCount.text = (String(format: "%d", dict.reviewCount))
                 cell.lbl_Status.textColor = UIColor.red
                 let isPayable = dict.payable
-                if isPayable! == true {
+                if isPayable == true {
                     cell.lbl_PayOrManage.text = " Pay "
                     cell.lbl_PayOrManage.textAlignment = .left
                     cell.lbl_PayOrManage.textColor = UIColor(red: 232/255.0, green: 62/255.0, blue: 50/255.0, alpha: 1.0)
@@ -848,7 +848,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                             
  
                 
-                if let EmaidStatus = dict.host_id_verified, EmaidStatus == "not verified" {
+                if dict.host_id_verified == "not verified" {
 //                    cell.EmailIdVerifyBtn.isHidden = false
 //                    cell.EmailIdVerifyBtn.setTitle("Verify your email id.", for: .normal)
 
@@ -867,7 +867,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
 //                let cell = tableView.dequeueReusableCell(withIdentifier: "ReservationCell") as? YourReservationCell
                 let dict = Singleton.sharedInstance.PropertyListingModel.myReservation[indexPath.row]
                 cell.imgProfile.layer.cornerRadius = cell.imgProfile.frame.size.width / 2
-                let url = URL(string: Singleton.sharedInstance.PropertyListingModel.myReservation[indexPath.row].userImage!)
+                let url = URL(string: Singleton.sharedInstance.PropertyListingModel.myReservation[indexPath.row].userImage)
                // cell.imgProfile.kf.setImage(with: url!)
                 cell.imgProfile.kf.setImage(with: url, placeholder: UIImage.init(named: "picture-frame"), options: nil, progressBlock: nil, completionHandler: nil)
                 
@@ -880,15 +880,15 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                   cell.lblBookingdate.font = UIFont(name: RegularFont, size: 12)
                 
                 
-                cell.lblPropertyTitle.text = dict.propertyTitle!
+                cell.lblPropertyTitle.text = dict.propertyTitle
                 
-                cell.lblBookingdate.text = dict.bookingDates!
-                cell.lblPropertyLocation.text = houseIn + "\(dict.propertyAddress!)"
-                cell.lblPaymentStatus.attributedText = NSAttributedString().changeColor(text1: housePayment + " : ", text2: "\(dict.paymentStatus!)", color1: UIColor.darkGray, color2: ForestGreen)
-                cell.lblHostApproval.attributedText = NSAttributedString().changeColor(text1: houseApproval + " : ", text2: "\(dict.approvalStatus!)", color1: UIColor.darkGray, color2: ForestGreen)
+                cell.lblBookingdate.text = dict.bookingDates
+                cell.lblPropertyLocation.text = houseIn + "\(dict.propertyAddress)"
+                cell.lblPaymentStatus.attributedText = NSAttributedString().changeColor(text1: housePayment + " : ", text2: "\(dict.paymentStatus)", color1: UIColor.darkGray, color2: ForestGreen)
+                cell.lblHostApproval.attributedText = NSAttributedString().changeColor(text1: houseApproval + " : ", text2: "\(dict.approvalStatus)", color1: UIColor.darkGray, color2: ForestGreen)
                 //cell.lblAmount.text = "\(dict.paidCurrencySymbol!)" + " " +   String(describing: dict.total! )
-                cell.lblAmount.text = String(format: "%@ %@", dict.paidCurrencyCode!,dict.total as! CVarArg)
-                cell.lblBookingNumber.text = houseBooking + " : " + "\(dict.bookingno!)"
+                cell.lblAmount.text = String(format: "%@ %@", dict.paidCurrencyCode,dict.total as! CVarArg)
+                cell.lblBookingNumber.text = houseBooking + " : " + "\(dict.bookingno)"
                 
                 if dict.paymentStatus == "Paid"
                 {
@@ -926,7 +926,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
         self.rentalNameCancel.text = String(format: "%@",Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].propertyTitle)
         self.bookingNoCancel.text = String(format: "%@",Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].bookingno)
         let Location = Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].city + "  " + Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].state + "  "  + Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].country
-        self.cancellation = Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].cancellationPolicy!
+        self.cancellation = Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].cancellationPolicy
         self.locationCancel.text =  String(format: "%@", Location)
         
         
@@ -994,7 +994,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                         self.showActivityIndicator(uiView: self.view)
                         var params = NSMutableDictionary()
                         
-                         params = ["booking_no":String(describing: Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].bookingno!),"currency_code":Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].paidCurrencyCode!,"device_type":"ios","user_id":login_session.value(forKey: "UserId")!]
+                         params = ["booking_no":String(describing: Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].bookingno),"currency_code":Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].paidCurrencyCode,"device_type":"ios","user_id":login_session.value(forKey: "UserId")!]
                         
                       
                         
@@ -1121,7 +1121,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                                 
                                 self.showActivityIndicator(uiView: self.view)
                                 var params = NSMutableDictionary()
-                                 params = ["product_id":Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].propertyId!,"bookingno":Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].bookingno!,"user_id":login_session.value(forKey: "UserId")!,"cancel_by":"host"]
+                                 params = ["product_id":Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].propertyId,"bookingno":Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].bookingno,"user_id":login_session.value(forKey: "UserId")!,"cancel_by":"host"]
 //                                params = ["userid":login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
 //
                                 let manager = AFHTTPSessionManager()
@@ -1192,7 +1192,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                                 self.showActivityIndicator(uiView: self.view)
                                 var params = NSMutableDictionary()
                                 
-                                 params = ["product_id":Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].propertyId!,"bookingno":Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].bookingno!,"user_id":login_session.value(forKey: "UserId")!,"cancel_by":"user"]
+                                 params = ["product_id":Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].propertyId,"bookingno":Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].bookingno,"user_id":login_session.value(forKey: "UserId")!,"cancel_by":"user"]
                                 
                             
                                 
@@ -1256,7 +1256,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                     self.showActivityIndicator(uiView: self.view)
                     var params = NSMutableDictionary()
                     
-                     params = ["booking_no":String(describing: Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].bookingno!),"currency_code":Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].paidCurrencyCode!,"device_type":"ios","user_id":login_session.value(forKey: "UserId")!]
+                     params = ["booking_no":String(describing: Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].bookingno),"currency_code":Singleton.sharedInstance.PropertyListingModel.myReservation[buttonRow].paidCurrencyCode,"device_type":"ios","user_id":login_session.value(forKey: "UserId")!]
                     
                     
                     
@@ -1396,7 +1396,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
     //            if isPayable == true {
     //                let nav = self.storyboard?.instantiateViewController(withIdentifier: "PaymentViewController") as?  PaymentViewController
     //                nav!.PaymentFor = "Listing"
-    //                nav!.property_id = String(dict.propertyId!)
+    //                nav!.property_id = String(dict.propertyId)
     //                nav!.total_price = dict.propertyPrice!
     //                nav!.enquiryid = String(dict.propertyId)
     //                self.navigationController?.pushViewController(nav!, animated: true)
@@ -1409,7 +1409,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
     //                }
     //                let nav = self.storyboard?.instantiateViewController(withIdentifier: "ListingViewControllersBundle") as?  ListingViewControllersBundle
     //                nav!.ListingBundleFrom = "PropertyListing"
-    //                nav!.PropertyId = dict.propertyId!
+    //                nav!.PropertyId = dict.propertyId
     //                self.navigationController?.pushViewController(nav!, animated: true)
     //            }
     //        }
@@ -1425,14 +1425,14 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
         }else{
             if isMyListing == true {
                 let dict = Singleton.sharedInstance.PropertyListingModel.propertyListing[indexPath.row]
-                let isPayable = dict.payable!
+                let isPayable = dict.payable
                 if isPayable == true {
                     
                     self.Stripe_status = "Enable"//Singleton.sharedInstance.PeropertyListingModel.propertyListing[indexPath.row].stripeStatus
                     self.Paypal_Status = "Enable"//Singleton.sharedInstance.PropertyListingModel.propertyListing[indexPath.row].paypalStatus
                     self.creditcard_Stat = "Enable"//Singleton.sharedInstance.PropertyListingModel.propertyListing[indexPath.row].creditCardStatus
                     
-                    var PaymentMethodsArr = NSMutableArray()
+                    var PaymentMethodsArr : NSMutableArray = []
                     
                     if self.Stripe_status == "Enable" {
                         PaymentMethodsArr.add("Stripe")
@@ -1455,14 +1455,14 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                     nav!.PaymentsArray = PaymentMethodsArr
                     nav!.paymentComingType = "RentalListing"
                     nav!.subTotal = ""
-                        nav!.TotalAmount = "\(dict.propertyPrice!)"
+                    nav!.TotalAmount = "\(dict.propertyPrice)"
                         nav!.enquiryid = String(dict.propertyId)
                     nav!.ServiceFee = ""
                     nav!.SecurityDeposit = ""
-                    nav!.PropertId = String(dict.propertyId!)
+                    nav!.PropertId = String(dict.propertyId)
                     nav!.WalletShow = 0
                     nav!.CouponShow = 0
-                    nav!.currency_cron_id = String(dict.propertyCurrencyCode!)
+                    nav!.currency_cron_id = String(dict.propertyCurrencyCode)
                     self.navigationController?.pushViewController(nav!, animated: true)
                 }
                 else {
@@ -1474,7 +1474,7 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
                     }
                     let nav = self.storyboard?.instantiateViewController(withIdentifier: "ListingViewControllersBundle") as?  ListingViewControllersBundle
                     nav!.ListingBundleFrom = "PropertyListing"
-                    nav!.PropertyId = dict.propertyId!
+                    nav!.PropertyId = dict.propertyId
                     self.navigationController?.pushViewController(nav!, animated: true)
                 }
             }

@@ -8,11 +8,11 @@ import Foundation
 
 class PropertyReview : NSObject, NSCoding{
 
-    var review : String!
-    var reviewDate : String!
+    var review : String = ""
+    var reviewDate : String = ""
     var starRating : AnyObject!
-    var userImage : String!
-    var userName : String!
+    var userImage : String = ""
+    var userName : String = ""
 
 
     /**

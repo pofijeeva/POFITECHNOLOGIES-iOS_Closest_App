@@ -32,20 +32,20 @@ class ExperienceDetailViewController: BaseViewController {
 
 
     
-    var expId = String()
-    var DateId = String()
-    var exp_host_id = String()
+    var expId : String = ""
+    var DateId : String = ""
+    var exp_host_id : String = ""
     
       let newPin = MKPointAnnotation()
-     var ExpListingSteps = NSMutableArray()
-     var ExpListingStepsImges = NSMutableArray()
-     var ExpListingStepsSlide = NSMutableArray()
+     var ExpListingSteps : NSMutableArray = []
+     var ExpListingStepsImges : NSMutableArray = []
+     var ExpListingStepsSlide : NSMutableArray = []
     
-    var ExperienceHistory = NSMutableArray()
+    var ExperienceHistory : NSMutableArray = []
      var ExperienceHistoryDict = NSMutableDictionary()
-    var KnownLanguages = NSMutableArray()
-    var ChooseTimeArray = NSMutableArray()
-    var CurrencyCornId = String()
+    var KnownLanguages : NSMutableArray = []
+    var ChooseTimeArray : NSMutableArray = []
+    var CurrencyCornId : String = ""
    
      
     override func viewDidLoad() {
@@ -85,7 +85,7 @@ class ExperienceDetailViewController: BaseViewController {
                 self.ExperienceHistoryDict.addEntries(from: responseDict as! [AnyHashable: Any])
               
                 print("ExperienceHistoryDict",self.ExperienceHistoryDict)
-                self.ExperienceHistory.addObjects(from: (responseDict.object(forKey: "experience_details") as! NSArray) as! [Any])
+                self.ExperienceHistory.addObjects(from: (responseDict.object(forKey: "experience_details") as? NSArray) as? [Any] ?? [])
                 
                 
                 self.exp_host_id = "\((self.ExperienceHistory.object(at: 0) as? NSDictionary)?.object(forKey: "exp_host_id") as AnyObject)"
@@ -97,7 +97,7 @@ class ExperienceDetailViewController: BaseViewController {
                     self.KnownLanguages.add(name)
                 }
                 
-                self.ChooseTimeArray.addObjects(from: (responseDict.object(forKey: "experience_schedules") as! NSArray) as! [Any])
+                self.ChooseTimeArray.addObjects(from: (responseDict.object(forKey: "experience_schedules") as? NSArray) as? [Any] ?? [])
                 print(self.KnownLanguages)
                 self.ExperienceDetailTable.reloadData()
                 self.ChooseTimeTable.reloadData()

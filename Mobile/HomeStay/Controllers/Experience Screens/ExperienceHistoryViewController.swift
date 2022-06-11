@@ -29,7 +29,7 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
     @IBOutlet weak var EmptyLbl: UILabel!
     
     var isFuture = true
-    var SelectedRow = Int()
+    var SelectedRow : Int = 0
     let maxLength = 320
 
     
@@ -106,13 +106,13 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
     
     
     
-    var HistoryShowArray = NSMutableArray()
+    var HistoryShowArray : NSMutableArray = []
     var HistoryDetailsDict = NSMutableDictionary()
-    var ExpScghedules = NSMutableArray()
+    var ExpScghedules : NSMutableArray = []
     
-    var selectdType = String()
+    var selectdType : String = ""
     
-    var DropDownShowStatusArray = NSMutableArray()
+    var DropDownShowStatusArray : NSMutableArray = []
 
     
     let statusAvailableDropDown = DropDown()
@@ -122,11 +122,11 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
         ]
     }()
     var moreOptionStatusButton  = UIButton()
-    var AddreviewPropertyId = String()
-    var AddreviewPropertyBookingNum = String()
+    var AddreviewPropertyId : String = ""
+    var AddreviewPropertyBookingNum : String = ""
     
-//    var AddreviewPropertyId = String()
-//    var AddreviewPropertyBookingNum = String()
+//    var AddreviewPropertyId : String = ""
+//    var AddreviewPropertyBookingNum : String = ""
     
     
     
@@ -287,7 +287,7 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
                 self.HistoryDetailsDict.removeAllObjects()
                 self.HistoryDetailsDict.addEntries(from:  responseDict as! [AnyHashable : Any])
                 self.HistoryShowArray.removeAllObjects()
-                self.HistoryShowArray.addObjects(from: (responseDict.object(forKey: "present_experience") as! NSArray) as! [Any])
+                self.HistoryShowArray.addObjects(from: (responseDict.object(forKey: "present_experience") as? NSArray) as? [Any] ?? [])
                 if self.HistoryShowArray.count == 0 {
                     self.EmptyScree.isHidden = false
                     
@@ -327,7 +327,7 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
         self.PastColorLbl.isHidden = true
         
         self.HistoryShowArray.removeAllObjects()
-        self.HistoryShowArray.addObjects(from: (self.HistoryDetailsDict.object(forKey: "present_experience") as! NSArray) as! [Any])
+        self.HistoryShowArray.addObjects(from: (self.HistoryDetailsDict.object(forKey: "present_experience") as? NSArray) as? [Any] ?? [])
         if self.HistoryShowArray.count == 0 {
             self.EmptyScree.isHidden = false
             
@@ -345,7 +345,7 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
         self.FutureColorLbl.isHidden = true
         self.PastColorLbl.isHidden = false
         self.HistoryShowArray.removeAllObjects()
-        self.HistoryShowArray.addObjects(from: (self.HistoryDetailsDict.object(forKey: "past_experience") as! NSArray) as! [Any])
+        self.HistoryShowArray.addObjects(from: (self.HistoryDetailsDict.object(forKey: "past_experience") as? NSArray) as? [Any] ?? [])
         
         if self.HistoryShowArray.count == 0 {
             self.EmptyScree.isHidden = false
@@ -359,7 +359,7 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
         
         let index = sender.tag
         self.ExpScghedules.removeAllObjects()
-        self.ExpScghedules.addObjects(from: ((((self.HistoryDetailsDict.object(forKey: self.selectdType) as! NSArray).object(at: index)) as? NSDictionary)?.object(forKey: "ExpSchedules") as! NSArray) as! [Any])
+        self.ExpScghedules.addObjects(from: ((((self.HistoryDetailsDict.object(forKey: self.selectdType) as! NSArray).object(at: index)) as? NSDictionary)?.object(forKey: "ExpSchedules") as? NSArray) as? [Any] ?? [])
         self.ExpDatesView.isHidden = false
         self.ExpDatesTableView.isHidden = false
         self.ExperienceTable.reloadData()
@@ -387,7 +387,7 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
         
         let nav = storyboard?.instantiateViewController(withIdentifier: "NewPaymentViewController") as? NewPaymentViewController
         nav!.paymentComingType = "ExperienceBooking"
-        var PaymentMethodsArr = NSMutableArray()
+        var PaymentMethodsArr : NSMutableArray = []
         PaymentMethodsArr.add("Stripe")
         PaymentMethodsArr.add("PayPal")
         PaymentMethodsArr.add("Credit Card")
@@ -505,7 +505,7 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
         {
             if Reachability()!.isReachable {
                 self.showActivityIndicator(uiView: self.view)
-                let id = Singleton.sharedInstance.selectedCategory!
+                let id = Singleton.sharedInstance.selectedCategory
                 
                 showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
@@ -1036,7 +1036,7 @@ extension ExperienceHistoryViewController: UITableViewDelegate ,UITableViewDataS
 //                 //   self.showInformation(title: "Info", message: "Already Cancelled")
 //                }else if item == "Dispute" {
 //                    self.DisputeRentalName.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_title") as? String ?? ""
-//                    self.DisputeBookingLbl.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? "" //Singleton.sharedInstance.yourTripModel.mytrips[self.tripSelectedInt].bookingno!
+//                    self.DisputeBookingLbl.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? "" //Singleton.sharedInstance.yourTripModel.mytrips[self.tripSelectedInt].bookingno
 //                    self.DisputeLocation.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_address") as? String ?? ""
 //
 //                    self.DisputePropertyId = "\((self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_id") as AnyObject)"

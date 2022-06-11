@@ -8,7 +8,7 @@ import Foundation
 
 class Service : NSObject, NSCoding{
 
-    var serviceType : String!
+    var serviceType : String = ""
     var serviceValue : Float!
 
 

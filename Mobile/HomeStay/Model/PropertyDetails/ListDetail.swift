@@ -8,8 +8,8 @@ import Foundation
 
 class ListDetail : NSObject, NSCoding{
 
-    var listImage : String!
-    var listName : String!
+    var listImage : String = ""
+    var listName : String = ""
 
 
     /**

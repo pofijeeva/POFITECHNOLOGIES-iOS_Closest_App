@@ -24,8 +24,8 @@ class MyBookingsVC: BaseViewController {
     var bookings = [ [String: Any]]()
     var isLoading:Bool = true
     var currentPage = 1
-    var AddonsArray = NSMutableArray()
-    var add_on_amount = String()
+    var AddonsArray : NSMutableArray = []
+    var add_on_amount : String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,12 +116,12 @@ class MyBookingsVC: BaseViewController {
     
     func getBookingApiResponse(params: [String:Any]){
         showActivityIndicator(uiView: self.view)
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
             APIManager.apiPostWithHeaders(serviceName: MYBOOKINGS, parameters: params) { (json:NSDictionary?, error:NSError?) in
                 self.hideActivityIndicator(uiView: self.view)
                 if error != nil {
-                    print(error!.localizedDescription)
-                    self.showInformation(title: GlobalLanguageDictionary.object(forKey: "key_info") as? String ?? "", message: error!.localizedDescription)
+                    print(error?.localizedDescription ?? "")
+                    self.showInformation(title: GlobalLanguageDictionary.object(forKey: "key_info") as? String ?? "", message: error?.localizedDescription ?? "")
                     return
                 }
                 let responseDict:NSDictionary = json!
@@ -155,7 +155,7 @@ class MyBookingsVC: BaseViewController {
         let model = self.bookings[sender.tag]
         print(model)
         
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
             showActivityIndicator(uiView: self.view)
                 
             let parameters:[String : Any] =  ["lang_code" : lanuguage_selection.value(forKey: "language") ?? "en",
@@ -209,7 +209,7 @@ class MyBookingsVC: BaseViewController {
          let Row = sender.tag
         let bookingsObj = self.bookings[Row]
         self.AddonsArray.removeAllObjects()
-        self.AddonsArray.addObjects(from: (bookingsObj["add_on_details"] as! NSArray) as! [Any])
+        self.AddonsArray.addObjects(from: (bookingsObj["add_on_details"] as? NSArray) as? [Any] ?? [])
         self.add_on_amount = "\(bookingsObj["add_on_amount"] as AnyObject)"
         if self.AddonsArray.count == 0 {
             self.showInformation(title: GlobalLanguageDictionary.object(forKey: "key_info") as? String ?? "", message: GlobalLanguageDictionary.object(forKey: "key_wedonthaveaddonstoDisplay") as? String ?? "")
@@ -225,7 +225,7 @@ class MyBookingsVC: BaseViewController {
         let model = self.bookings[sender.tag]
         print(model)
         
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
             showActivityIndicator(uiView: self.view)
                 
             let parameters:[String : Any] =  ["lang_code" : lanuguage_selection.value(forKey: "language") ?? "en",

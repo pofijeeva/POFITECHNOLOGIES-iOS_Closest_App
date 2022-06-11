@@ -60,9 +60,9 @@ class CancellationPlolicyViewController: UIViewController {
     
     //MARK:- Variables
     var ListingActivityDelegate: listingActivityProtocol?
-    var PropertyID = Int()
-    var policySelected = Bool()
-    var veh_ID = Int()
+    var PropertyID : Int = 0
+    var policySelected : Bool = false
+    var veh_ID : Int = 0
     var currencyArr = [Currency]()
 
     
@@ -242,7 +242,7 @@ class CancellationPlolicyViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         
-        self.policySelected = Singleton.sharedInstance.rentYourSpace.result[0].step9.stepCompleted!
+        self.policySelected = Singleton.sharedInstance.rentYourSpace.result[0].step9.stepCompleted
 
         if policySelected != false
         {
@@ -261,7 +261,7 @@ class CancellationPlolicyViewController: UIViewController {
         }
         else if self.txtPolicy.text == "Flexible"
         {
-            self.cancelPercentTxt.text = Singleton.sharedInstance.rentYourSpace.result[0].step9.cancelPercentage!
+            self.cancelPercentTxt.text = Singleton.sharedInstance.rentYourSpace.result[0].step9.cancelPercentage
 //            if let cancelPercentageStr:String = Singleton.sharedInstance.rentYourSpace.result[0].step9.cancelPercentage {
 //                self.cancelPercentTxt.text = cancelPercentageStr
 //            }
@@ -270,7 +270,7 @@ class CancellationPlolicyViewController: UIViewController {
         }
         
         //if self.txtPolicy.text == "Flexible"
-        //self.cancelPercentTxt.text = Singleton.sharedInstance.rentYourSpace.result[0].step9.cancelPercentage!
+        //self.cancelPercentTxt.text = Singleton.sharedInstance.rentYourSpace.result[0].step9.cancelPercentage
         /*self.lblCurrencySymbol.text = Singleton.sharedInstance.listingCurrencySymb
         self.txtPrice.text = Singleton.sharedInstance.rentYourSpace.result[0].step9.securityDeposit!
         self.txtMetaTitle.text = Singleton.sharedInstance.rentYourSpace.result[0].step9.metaTitle!
@@ -286,26 +286,26 @@ class CancellationPlolicyViewController: UIViewController {
 //            self.lblCurrencySymbol.text = listingCurrencySymbStr
 //        }
         
-        if let securityDepositStr:String = Singleton.sharedInstance.rentYourSpace.result[0].step9.securityDeposit {
+//        if let securityDepositStr:String = Singleton.sharedInstance.rentYourSpace.result[0].step9.securityDeposit {
 //            self.txtPrice.text = securityDepositStr
-            self.txtDeposit.text = securityDepositStr
-        }
+            self.txtDeposit.text = Singleton.sharedInstance.rentYourSpace.result[0].step9.securityDeposit
+//        }
         
-        if let metaTitleStr:String = Singleton.sharedInstance.rentYourSpace.result[0].step9.metaTitle {
-            self.txtMetaTitle.text = metaTitleStr
-        }
+//        if let metaTitleStr:String = Singleton.sharedInstance.rentYourSpace.result[0].step9.metaTitle {
+            self.txtMetaTitle.text = Singleton.sharedInstance.rentYourSpace.result[0].step9.metaTitle
+//        }
         
-        if let metaKeywordStr:String = Singleton.sharedInstance.rentYourSpace.result[0].step9.metaKeyword {
-            self.txtViewKeywords.text = metaKeywordStr
-        }
+//        if let metaKeywordStr:String = Singleton.sharedInstance.rentYourSpace.result[0].step9.metaKeyword {
+            self.txtViewKeywords.text = Singleton.sharedInstance.rentYourSpace.result[0].step9.metaKeyword
+//        }
+//
+//        if let metaDescriptionStr:String = Singleton.sharedInstance.rentYourSpace.result[0].step9.metaDescription {
+            self.metaDiscription.text = Singleton.sharedInstance.rentYourSpace.result[0].step9.metaDescription
+//        }
         
-        if let metaDescriptionStr:String = Singleton.sharedInstance.rentYourSpace.result[0].step9.metaDescription {
-            self.metaDiscription.text = metaDescriptionStr
-        }
-        
-        if let cancelDescriptionStr:String = Singleton.sharedInstance.rentYourSpace.result[0].step9.cancelDescription {
-            self.cencelDescriptionEnTxt.text = cancelDescriptionStr
-        }
+//        if let cancelDescriptionStr:String = Singleton.sharedInstance.rentYourSpace.result[0].step9.cancelDescription {
+            self.cencelDescriptionEnTxt.text = Singleton.sharedInstance.rentYourSpace.result[0].step9.cancelDescription
+//        }
 //        self.lblCurrencySymbol.text = Singleton.sharedInstance.rentYourSpace.result[0].step3.currencyCode!
         
     }
@@ -422,7 +422,7 @@ class CancellationPlolicyViewController: UIViewController {
 //                "ren_meta_desc":"Rental meta  desc",
 //
                 
-//                params = ["user_id":login_session.value(forKey: "UserId")!,"property_id":self.PropertyID,"cancellation_policy":self.txtPolicy.text!,"security_deposit":self.txtPrice.text!,"meta_title":self.txtMetaTitle.text!,"meta_keyword":self.txtViewKeywords.text!,"meta_description":self.metaDiscription.text!,"lang_code":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "","base_id":Singleton.sharedInstance.selectedCategory!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","cancel_percentage":self.cancelPercentTxt.text!,"cancel_description":self.cencelDescriptionEnTxt.text!]
+//                params = ["user_id":login_session.value(forKey: "UserId")!,"property_id":self.PropertyID,"cancellation_policy":self.txtPolicy.text!,"security_deposit":self.txtPrice.text!,"meta_title":self.txtMetaTitle.text!,"meta_keyword":self.txtViewKeywords.text!,"meta_description":self.metaDiscription.text!,"lang_code":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "","base_id":Singleton.sharedInstance.selectedCategory,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","cancel_percentage":self.cancelPercentTxt.text!,"cancel_description":self.cencelDescriptionEnTxt.text!]
                 
                 
                 
@@ -451,7 +451,7 @@ class CancellationPlolicyViewController: UIViewController {
                     }
 
                     if error != nil {
-                        self.showInformation(title: "Closest", message: error!.localizedDescription)
+                        self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                     } else {
                         let mod = RentYourSpaceModel(fromDictionary: response as! [String : Any])
                         Singleton.sharedInstance.rentYourSpace = mod
@@ -503,7 +503,7 @@ class CancellationPlolicyViewController: UIViewController {
                 
                 
                 
-//                let parameterStr = "user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(self.PropertyID)&cancellation_policy=\(self.txtPolicy.text!)&security_deposit=\(self.txtPrice.text!)&meta_title=\(self.txtMetaTitle.text!)&meta_keyword=\(self.txtViewKeywords.text!)&meta_description=\(self.metaDiscription.text!)&lang_code=\(login_session.value(forKey: "APP_LANGUAGE") as? String ?? "")&base_id=\(Singleton.sharedInstance.selectedCategory!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&cancel_percentage=\(self.cancelPercentTxt.text!)&cancel_description=\(self.cencelDescriptionEnTxt.text!)"
+//                let parameterStr = "user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(self.PropertyID)&cancellation_policy=\(self.txtPolicy.text!)&security_deposit=\(self.txtPrice.text!)&meta_title=\(self.txtMetaTitle.text!)&meta_keyword=\(self.txtViewKeywords.text!)&meta_description=\(self.metaDiscription.text!)&lang_code=\(login_session.value(forKey: "APP_LANGUAGE") as? String ?? "")&base_id=\(Singleton.sharedInstance.selectedCategory)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&cancel_percentage=\(self.cancelPercentTxt.text!)&cancel_description=\(self.cencelDescriptionEnTxt.text!)"
 //                Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: SAVE_CANCELLATION_LISTING, APIKEY: "SAVE_CANCELLATION_LISTING")
 //                print(parameterStr)
             } else {

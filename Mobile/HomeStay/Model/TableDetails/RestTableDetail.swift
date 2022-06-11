@@ -8,13 +8,13 @@ import Foundation
 
 class RestTableDetail : NSObject, NSCoding{
 
-    var bookedStatus : String!
-    var currencyCd : String!
-    var endTime : String!
-    var price : String!
-    var startTime : String!
-    var tableName : String!
-    var timeId : String!
+    var bookedStatus : String = ""
+    var currencyCd : String = ""
+    var endTime : String = ""
+    var price : String = ""
+    var startTime : String = ""
+    var tableName : String = ""
+    var timeId : String = ""
     
     
     /**

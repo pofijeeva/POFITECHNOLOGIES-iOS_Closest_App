@@ -9,14 +9,14 @@ import Foundation
 class FutureTransaction : NSObject, NSCoding{
 
     var bookingno : AnyObject!
-    var currencyCode : String!
-    var currencySymbol : String!
-    var dateadded : String!
-    var firstname : String!
-    var hostFee : Int!
+    var currencyCode : String = ""
+    var currencySymbol : String = ""
+    var dateadded : String = ""
+    var firstname : String = ""
+    var hostFee : Int = 0
     var payableAmount : AnyObject!
-    var propertyPrice : Int!
-    var propertyTitle : String!
+    var propertyPrice : Int = 0
+    var propertyTitle : String = ""
     var securityDeposit : AnyObject!
     var serviceFee : AnyObject!
     var subTotal : AnyObject!
@@ -32,9 +32,9 @@ class FutureTransaction : NSObject, NSCoding{
         currencySymbol = dictionary["currency_symbol"] as? String ?? ""
         dateadded = dictionary["dateadded"] as? String ?? ""
         firstname = dictionary["firstname"] as? String ?? ""
-        hostFee = dictionary["host_fee"] as? Int
+        hostFee = dictionary["host_fee"] as? Int ?? 0
         payableAmount = dictionary["payable_amount"] as? AnyObject
-        propertyPrice = dictionary["property_price"] as? Int
+        propertyPrice = dictionary["property_price"] as? Int ?? 0
         propertyTitle = dictionary["property_title"] as? String ?? ""
         securityDeposit = dictionary["security_deposit"] as? AnyObject
         serviceFee = dictionary["service_fee"] as? AnyObject
@@ -101,9 +101,9 @@ class FutureTransaction : NSObject, NSCoding{
         currencySymbol = aDecoder.decodeObject(forKey: "currency_symbol") as? String ?? ""
         dateadded = aDecoder.decodeObject(forKey: "dateadded") as? String ?? ""
         firstname = aDecoder.decodeObject(forKey: "firstname") as? String ?? ""
-        hostFee = aDecoder.decodeObject(forKey: "host_fee") as? Int
+        hostFee = aDecoder.decodeObject(forKey: "host_fee") as? Int ?? 0
         payableAmount = aDecoder.decodeObject(forKey: "payable_amount") as? AnyObject
-        propertyPrice = aDecoder.decodeObject(forKey: "property_price") as? Int
+        propertyPrice = aDecoder.decodeObject(forKey: "property_price") as? Int ?? 0
         propertyTitle = aDecoder.decodeObject(forKey: "property_title") as? String ?? ""
         securityDeposit = aDecoder.decodeObject(forKey: "security_deposit") as? AnyObject
         serviceFee = aDecoder.decodeObject(forKey: "service_fee") as? AnyObject

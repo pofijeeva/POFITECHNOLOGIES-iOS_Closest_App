@@ -40,7 +40,7 @@ class Network {
     //MARK:- Post request with parameter String.
     func POSTRequest(withParameterString: String , serviceURL: String , APIKEY: String)
     {
-        var RESPONSE_ERROR = String()
+        var RESPONSE_ERROR : String = ""
         var RESPONSE_DATA = NSDictionary()
         let Url = String(format: serviceURL)
         guard let serviceUrl = URL(string: Url) else { return }
@@ -104,7 +104,7 @@ class Network {
     //Post request with parameter dict.
     func POSTRequest(withParameterDict: NSDictionary , serviceURL: String , APIKEY: String)
     {
-        var RESPONSE_ERROR = String()
+        var RESPONSE_ERROR : String = ""
         var RESPONSE_DATA = NSDictionary()
         let Url = String(format: serviceURL)
         guard let serviceUrl = URL(string: Url) else { return }
@@ -163,7 +163,7 @@ class Network {
     
     func GetRequest(withParameterString: String , serviceURL: String , APIKEY: String)
     {
-        var RESPONSE_ERROR = String()
+        var RESPONSE_ERROR : String = ""
         var RESPONSE_DATA = NSDictionary()
         let Url = String(format: serviceURL)
         guard let serviceUrl = URL(string: Url) else { return }
@@ -218,7 +218,7 @@ class Network {
     
     func GetRequest(withParameterDict: NSDictionary , serviceURL: String , APIKEY: String)
     {
-        var RESPONSE_ERROR = String()
+        var RESPONSE_ERROR : String = ""
         var RESPONSE_DATA = NSDictionary()
         let Url = String(format: serviceURL)
         guard let serviceUrl = URL(string: Url) else { return }

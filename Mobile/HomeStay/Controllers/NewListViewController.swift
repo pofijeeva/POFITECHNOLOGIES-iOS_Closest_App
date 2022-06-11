@@ -20,21 +20,21 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
     @IBOutlet weak var searchImg: UIImageView!
 
     @IBOutlet weak var collectionViewList: UICollectionView!
-    var arrayList = NSMutableArray()
-    var Location = String()
-    var locationId = String()
-    var isDropDown = Bool()
+    var arrayList : NSMutableArray = []
+    var Location : String = ""
+    var locationId : String = ""
+    var isDropDown : Bool = false
     var Dropmenu = NSArray()
     let listDropDown = DropDown()
-    var tempArray = NSMutableArray()
+    var tempArray : NSMutableArray = []
     var window: UIWindow?
-    var PropertyId = String()
-    var PropertyType = String()
+    var PropertyId : String = ""
+    var PropertyType : String = ""
 
     
     
-    var CheckInDate = String()
-    var CheckOutDate = String()
+    var CheckInDate : String = ""
+    var CheckOutDate : String = ""
     
 
      override func viewDidLoad() {
@@ -123,7 +123,7 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
         
              if result.object(forKey: "code") as? Int ?? 0 == 200{
 //                self.searchResultsArray.removeAllObjects()
-//                self.searchResultsArray.addObjects(from: ((result.object(forKey: "data")as? NSDictionary)?.object(forKey: "search_list")as! NSArray) as! [Any])
+//                self.searchResultsArray.addObjects(from: ((result.object(forKey: "data")as? NSDictionary)?.object(forKey: "search_list")as? NSArray) as? [Any] ?? [])
 //                self.categorySearchTbl.reloadData()
                var arr =  (result.value(forKey: "data")as? NSDictionary)?.value(forKey: "location_list") as! NSArray
                 for item in arr {
@@ -200,8 +200,8 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
         APIManager.apiPostWithHeaders(serviceName: REQ_PROPERTY_DETAIL_PAGE, parameters: params as! [String : Any]) { (json:NSDictionary?, error:NSError?) in
             DispatchQueue.main.async {  }
             if error != nil {
-                print(error!.localizedDescription)
-                self.showInformation(title: "Closest", message: error!.localizedDescription)
+                print(error?.localizedDescription ?? "")
+                self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                 return
             }
             let responseDict:NSDictionary = json!
@@ -213,7 +213,7 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
                 self.hideActivityIndicator(uiView: self.view)
 
                 self.arrayList.removeAllObjects()
-                self.arrayList.addObjects(from:(((responseDict.object(forKey: "data") as? NSDictionary)?.object(forKey: "rentalList") as! NSArray) as! [Any]))
+                self.arrayList.addObjects(from:(((responseDict.object(forKey: "data") as? NSDictionary)?.object(forKey: "rentalList") as? NSArray) as? [Any] ?? []))
                 print(self.arrayList)
                 self.ProductListTable.reloadData()
                 
@@ -402,7 +402,7 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
         }else {
 
             
-            if (Reachability()?.isReachable)!
+            if (Reachability()?.isReachable ?? false)
             {
                  WishListApiCall()
  
@@ -430,8 +430,8 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
         APIManager.apiPostWithHeaders(serviceName: ADD_WISHLIST, parameters: params as? [String : Any]) { (json:NSDictionary?, error:NSError?) in
             DispatchQueue.main.async {  }
             if error != nil {
-                print(error!.localizedDescription)
-                self.showInformation(title: "Closest", message: error!.localizedDescription)
+                print(error?.localizedDescription ?? "")
+                self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                 return
             }
             let responseDict:NSDictionary = json!
@@ -468,8 +468,8 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
         APIManager.apiPostWithHeaders(serviceName: ADD_WISHLIST, parameters: params as? [String : Any]) { (json:NSDictionary?, error:NSError?) in
             DispatchQueue.main.async {  }
             if error != nil {
-                print(error!.localizedDescription)
-                self.showInformation(title: "Closest", message: error!.localizedDescription)
+                print(error?.localizedDescription ?? "")
+                self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                 return
             }
             let responseDict:NSDictionary = json!

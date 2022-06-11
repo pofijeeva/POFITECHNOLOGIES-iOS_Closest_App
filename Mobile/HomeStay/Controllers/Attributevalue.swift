@@ -8,12 +8,12 @@ import Foundation
 
 class Attributevalue : NSObject, NSCoding{
 
-    var attributeChildId : Int!
-    var attributeChildValue : String!
-    var attributeParentName : String!
-    var list_id : Int!
-    var list_val_id : Int!
-    var list_val_name : String!
+    var attributeChildId : Int = 0
+    var attributeChildValue : String = ""
+    var attributeParentName : String = ""
+    var list_id : Int = 0
+    var list_val_id : Int = 0
+    var list_val_name : String = ""
 
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values

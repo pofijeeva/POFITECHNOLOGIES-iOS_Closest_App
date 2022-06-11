@@ -8,15 +8,15 @@ import Foundation
 
 class CancellationAboutYou : NSObject, NSCoding{
     
-    var bookingNo : String!
-    var cancelId : String!
-    var createdDate : String!
-    var message : String!
-    var propertyName : String!
-    var reviewEmail : String!
-    var status : String!
-    var userImage : String!
-    var userName : String!
+    var bookingNo : String = ""
+    var cancelId : String = ""
+    var createdDate : String = ""
+    var message : String = ""
+    var propertyName : String = ""
+    var reviewEmail : String = ""
+    var status : String = ""
+    var userImage : String = ""
+    var userName : String = ""
     
     
     /**

@@ -9,12 +9,12 @@ import Foundation
 class CompletedTransaction : NSObject, NSCoding{
 
     var amount : AnyObject!
-    var currencyCode : String!
-    var currencySymbol : String!
-    var dateadded : String!
-    var transactionId : String!
-    var transactionMethod : String!
-    var bookingno : String!
+    var currencyCode : String = ""
+    var currencySymbol : String = ""
+    var dateadded : String = ""
+    var transactionId : String = ""
+    var transactionMethod : String = ""
+    var bookingno : String = ""
 
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values

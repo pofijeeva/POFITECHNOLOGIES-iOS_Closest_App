@@ -23,9 +23,9 @@ class ListingViewControllersBundle: UIViewController,HTTP_POST_STRING_REQUEST_PR
     var settingImgArr = NSArray()
     var canHideTable = false
     var currentIndexPath = IndexPath()
-    var PropertyId = Int()
+    var PropertyId : Int = 0
     var ListingBundleFrom = ""
-    var backAct = String()
+    var backAct : String = ""
     
     //MARK:- Outlets
     @IBOutlet weak var lblHeader: UILabel!
@@ -91,9 +91,9 @@ class ListingViewControllersBundle: UIViewController,HTTP_POST_STRING_REQUEST_PR
     
     
     func RentYourSpaceApi(){
-        if (Reachability()?.isReachable)!
+        if (Reachability()?.isReachable ?? false)
         {
-            let id = Singleton.sharedInstance.selectedCategory!
+            let id = Singleton.sharedInstance.selectedCategory
             
             let parameters:[String : Any] =
                 ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en", "currency_code":(login_session.value(forKey: "APP_CURRENCY") ?? "USD"),
@@ -104,8 +104,8 @@ class ListingViewControllersBundle: UIViewController,HTTP_POST_STRING_REQUEST_PR
             APIManager.apiPostWithHeaders(serviceName: REQ_RENT_YOUR_SPACE, parameters: parameters) { (json:NSDictionary?, error:NSError?) in
                 DispatchQueue.main.async {  }
                 if error != nil {
-                    print(error!.localizedDescription)
-                    self.showInformation(title: "Closest", message: error!.localizedDescription)
+                    print(error?.localizedDescription ?? "")
+                    self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                     return
                 }
                 let responseDict:NSDictionary = json!
@@ -235,7 +235,7 @@ class ListingViewControllersBundle: UIViewController,HTTP_POST_STRING_REQUEST_PR
         self.isCalenderSelected = true
         childViewController?.ListingActivityDelegate = self
         
-        childViewController?.PropertyID = Singleton.sharedInstance.rentYourSpace.propertyid!
+        childViewController?.PropertyID = Singleton.sharedInstance.rentYourSpace.propertyid
         self.PropertyId  = Singleton.sharedInstance.rentYourSpace.propertyid
         childViewController?.view.frame = self.parentView.bounds
         add(childViewController!, parent: self)
@@ -370,7 +370,7 @@ class ListingViewControllersBundle: UIViewController,HTTP_POST_STRING_REQUEST_PR
     
     
     func getCategory() -> String {
-        switch Int(Singleton.sharedInstance.selectedCategory!) {
+        switch Int(Singleton.sharedInstance.selectedCategory) {
         case 1:
             return "HOTEL"
         case 2:

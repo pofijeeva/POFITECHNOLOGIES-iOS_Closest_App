@@ -32,33 +32,33 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
     
    
 
-    var booking_type = String()
-    var balenceWalletPrice = String()
-    var PaymentsArray = NSMutableArray()
+    var booking_type : String = ""
+    var balenceWalletPrice : String = ""
+    var PaymentsArray : NSMutableArray = []
     var CouponShow = 1
     var WalletShow = 1
-    var choosePaymentType = String()
-    var ChoosePaymentInt = Int()
-    var PaymentFor = String()
+    var choosePaymentType : String = ""
+    var ChoosePaymentInt : Int = 0
+    var PaymentFor : String = ""
     var clientToken:String = ""
-    var cardtype = String()
-    var cardnumber = String()
-    var cc_exp_day = String()
-    var cc_exp_year = String()
-    var credit_card_identifier = String()
-    var iscoupon = Bool()
-    var iswalletPayment = Bool()
+    var cardtype : String = ""
+    var cardnumber : String = ""
+    var cc_exp_day : String = ""
+    var cc_exp_year : String = ""
+    var credit_card_identifier : String = ""
+    var iscoupon : Bool = false
+    var iswalletPayment : Bool = false
     
-    var enquiryid = String()
-    var subTotal = String()
-    var TotalAmount = String()
-    var StartDate = String()
-    var EndDate = String()
-    var GuestCount = Int()
-    var Message = String()
-    var ServiceFee = String()
-    var SecurityDeposit = String()
-    var CurrentTotal = String()
+    var enquiryid : String = ""
+    var subTotal : String = ""
+    var TotalAmount : String = ""
+    var StartDate : String = ""
+    var EndDate : String = ""
+    var GuestCount : Int = 0
+    var Message : String = ""
+    var ServiceFee : String = ""
+    var SecurityDeposit : String = ""
+    var CurrentTotal : String = ""
     var cardsArr = ["Visa","American Express","Master Card","Discover"]
     var cardsImgArr = NSArray()
     let cardTypedropdowns = DropDown()
@@ -66,39 +66,39 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
 
     let MonthDropDown = DropDown()
     var window: UIWindow?
-    var book_id = String()
+    var book_id : String = ""
 
 
-    var isCheck = Bool()
-    var paymentComingType = String()
+    var isCheck : Bool = false
+    var paymentComingType : String = ""
     
-    var Commission = String()
-    var CommissionType = String()
-    var HostId = String()
-    var HostingPrice = String()
-    var TotalPrice = String()
-    var currency_cron_id = String()
+    var Commission : String = ""
+    var CommissionType : String = ""
+    var HostId : String = ""
+    var HostingPrice : String = ""
+    var TotalPrice : String = ""
+    var currency_cron_id : String = ""
     var AgentShow:Bool = false
     
-    var agent_id = String()
-    var Agent_Commission = String()
-    var agent_Code = String()
-    var agent_status = String()
-    var agent_percentage = String()
-    var CouponTotAmount = String()
-    var CouponDiscountAmount = String()
-    var AmounttobePaid = String()
+    var agent_id : String = ""
+    var Agent_Commission : String = ""
+    var agent_Code : String = ""
+    var agent_status : String = ""
+    var agent_percentage : String = ""
+    var CouponTotAmount : String = ""
+    var CouponDiscountAmount : String = ""
+    var AmounttobePaid : String = ""
     var CouponCode:String = ""
     
     var MonthsArray = ["1","2","3","4","5","6","7","8","9","10","11","12"]
     let year = Calendar.current.component(.year, from: Date())
-    var YearsArray = NSMutableArray()
-    var PropertId = String()
+    var YearsArray : NSMutableArray = []
+    var PropertId : String = ""
     
-    var choosed_option = String()
-    var pay_balance = Int()
+    var choosed_option : String = ""
+    var pay_balance : Int = 0
     
-    var ApplePayToken = String()
+    var ApplePayToken : String = ""
     var AppleData = Data()
     
     
@@ -474,8 +474,8 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
             
             params = ["exp_currencycode":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","creditvalue":"authorize","cardtype":"Visa","cardNumber":self.cardnumber,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","CCExpMonth":self.cc_exp_day,"CCExpYear":self.cc_exp_year,"exp_id":self.PropertId,"total_price":self.TotalAmount,"base_id":"1","subtotal":self.subTotal,"enquiry_id":self.enquiryid,"user_id":login_session.value(forKey: "UserId")!,"wallet_amount":"","coupon_code":"","currency_cron_id":self.currency_cron_id,"coupon_discount_amt":"","serviceFee":self.ServiceFee,"creditCardIdentifier":self.credit_card_identifier,"exp_price":self.TotalAmount,"email":login_session.value(forKey: "Email") as? String ?? "","device_type": "IOS","user_currencycode":login_session.value(forKey: "UserId")!]
             
-////           var choosed_option = String()
-//            var pay_balance = Int()
+////           var choosed_option : String = ""
+//            var pay_balance : Int = 0
 //
 //            exp_currencycode=USD&total_price=683.9&exp_price=683.9&CCExpYear=2021&currency_cron_id=&creditCardIdentifier=123&device_type=android&CCExpMonth=8&currency_code=USD&user_id=126&exp_id=373&enquiry_id=214&user_currencycode=USD&cardNumber=4242424242424242&email=mani%40yopmail.com
            print(params)
@@ -569,7 +569,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
         
         else if paymentComingType == "RentalBooking"
         {
-            if (Reachability()?.isReachable)!
+            if (Reachability()?.isReachable ?? false)
             {
                 
                 
@@ -589,8 +589,8 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                 APIManager.apiPostWithHeaders(serviceName: PAY_BY_STRIPE, parameters: params as! [String : Any]) { (json:NSDictionary?, error:NSError?) in
                        DispatchQueue.main.async {  }
                        if error != nil {
-                           print(error!.localizedDescription)
-                           self.showInformation(title: "Closest", message: error!.localizedDescription)
+                           print(error?.localizedDescription ?? "")
+                           self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                            return
                        }
                        let responseDict:NSDictionary = json!
@@ -743,8 +743,8 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                     APIManager.apiPostWithHeaders(serviceName: PAY_BY_STRIPE, parameters: params as! [String : Any]) { (json:NSDictionary?, error:NSError?) in
                                DispatchQueue.main.async {  }
                                if error != nil {
-                                   print(error!.localizedDescription)
-                                   self.showInformation(title: "Closest", message: error!.localizedDescription)
+                                   print(error?.localizedDescription ?? "")
+                                   self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                                    return
                                }
                                let responseDict:NSDictionary = json!
@@ -821,7 +821,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                 self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
             }
         } else {
-            if (Reachability()?.isReachable)!
+            if (Reachability()?.isReachable ?? false)
             {
                 
                 showActivityIndicator(uiView: self.view)
@@ -969,7 +969,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
             
             showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
-            let PropertyId = Singleton.sharedInstance.PropertyDetail.rentalId!
+            let PropertyId = Singleton.sharedInstance.PropertyDetail.rentalId
             params = [ "coupon_code":tempCard!.text!,"product_id": PropertyId,"sub_total" : subTotal,"service_fee":self.ServiceFee,"deposit_fee":self.SecurityDeposit,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type":"ios","agent_code":tempCard?.text!]
             
             print(params)
@@ -1031,7 +1031,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
             
             showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
-          //  let PropertyId = Singleton.sharedInstance.PropertyDetail.rentalId!
+          //  let PropertyId = Singleton.sharedInstance.PropertyDetail.rentalId
             params = [ "coupon_code":tempCard!.text!,"product_id": self.PropertId,"sub_total" : subTotal,"service_fee":self.ServiceFee,"deposit_fee":self.SecurityDeposit,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","lang_code":"en","book_id":self.enquiryid]
             
             
@@ -1039,8 +1039,8 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
             APIManager.apiPostWithHeaders(serviceName: COPON_APPLY_API, parameters: params as! [String : Any]) { (json:NSDictionary?, error:NSError?) in
                        DispatchQueue.main.async {  }
                        if error != nil {
-                           print(error!.localizedDescription)
-                           self.showInformation(title: "Closest", message: error!.localizedDescription)
+                           print(error?.localizedDescription ?? "")
+                           self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                            return
                        }
                        let responseDict:NSDictionary = json!
@@ -1181,12 +1181,12 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
         if isCheck == true
         {
             
-            if (Reachability()?.isReachable)!
+            if (Reachability()?.isReachable ?? false)
             {
                 
                 showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
-                let PropertyId = Singleton.sharedInstance.PropertyDetail.rentalId!
+                let PropertyId = Singleton.sharedInstance.PropertyDetail.rentalId
                 params = ["sub_total":subTotal,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","user_id":login_session.value(forKey: "UserId")!,"deposit_fee":self.SecurityDeposit,"product_id":PropertyId,"wallet_amount":self.balenceWalletPrice,"service_fee":self.ServiceFee]
                 
                 
@@ -1432,7 +1432,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
             
             else if self.PaymentFor == "RentalBooking" {
                 
-                    if (Reachability()?.isReachable)!
+                    if (Reachability()?.isReachable ?? false)
                     {
                         
                         
@@ -1580,8 +1580,8 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                             APIManager.apiPostWithHeaders(serviceName: PAY_BY_PAYPAL, parameters: params as! [String : Any]) { (json:NSDictionary?, error:NSError?) in
                                        DispatchQueue.main.async {  }
                                        if error != nil {
-                                           print(error!.localizedDescription)
-                                           self.showInformation(title: "Closest", message: error!.localizedDescription)
+                                           print(error?.localizedDescription ?? "")
+                                           self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                                            return
                                        }
                                        let responseDict:NSDictionary = json!
@@ -1825,8 +1825,8 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
     
     // MARK: payByCredircard
     func payByCredircard() {
-        if (Reachability()?.isReachable)! {
-            let id = Singleton.sharedInstance.selectedCategory!
+        if (Reachability()?.isReachable ?? false) {
+            let id = Singleton.sharedInstance.selectedCategory
             
             if self.paymentComingType == "ExperienceBooking" {
                 showActivityIndicator(uiView: self.view)
@@ -2073,7 +2073,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
         let mutDict = NSMutableDictionary()
         mutDict.setValue("applepay", forKey: "type")
         mutDict.setValue(A, forKey: "token")
-        var dateFormatJsonString = String()
+        var dateFormatJsonString : String = ""
  
         do {
                let arrJson = try JSONSerialization.data(withJSONObject: mutDict, options: JSONSerialization.WritingOptions.prettyPrinted)
@@ -2121,8 +2121,8 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
         APIManager.apiPostWithHeaders(serviceName: APPLE_PAY, parameters: params as! [String : Any]) { (json:NSDictionary?, error:NSError?) in
                    DispatchQueue.main.async {  }
                    if error != nil {
-                       print(error!.localizedDescription)
-                       self.showInformation(title: "Closest", message: error!.localizedDescription)
+                       print(error?.localizedDescription ?? "")
+                       self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                        return
                    }
                    let responseDict:NSDictionary = json!

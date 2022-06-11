@@ -66,8 +66,8 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
     }
 
     let listDropDown = DropDown()
-    var tempArray = NSMutableArray()
-    var BannerArray = NSMutableArray()
+    var tempArray : NSMutableArray = []
+    var BannerArray : NSMutableArray = []
 
     
     @IBOutlet weak var checkInCalenderView: FSCalendar!
@@ -85,16 +85,16 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
     //MARK:- Variables
     var Home_Arr = [HomeModel]()
     var current_menu = Menu.MYPROFILE
-    var selected_Currency = String()
+    var selected_Currency : String = ""
     var menu = NSArray()
-    let id = Singleton.sharedInstance.selectedCategory!
+    let id = Singleton.sharedInstance.selectedCategory
     var activeRentalsArr = NSArray()
     var itemdetailArr = [String]()
-    var isDropDown = Bool()
+    var isDropDown : Bool = false
     var Dropmenu = NSArray()
-    var selectedRow = Int()
+    var selectedRow : Int = 0
     var Homepagedata = NSMutableDictionary()
-    var Fcm_Token = String()
+    var Fcm_Token : String = ""
     var menuArray = NSArray()
     var menuImageArray = NSArray()
     var ListingActivityDelegate: listingActivityProtocol!
@@ -112,10 +112,10 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
     var fromDate = Date()
     var toDate = Date()
     var minimumDate = Date()
-    var PropertyTypes = NSMutableArray()
-    var PropertyTypeIds = NSMutableArray()
-    var PropertyTypeName = String()
-    var PropertyTypeId = String()
+    var PropertyTypes : NSMutableArray = []
+    var PropertyTypeIds : NSMutableArray = []
+    var PropertyTypeName : String = ""
+    var PropertyTypeId : String = ""
 
     fileprivate let gregorian = Calendar(identifier: .gregorian)
     fileprivate let formatter: DateFormatter = {
@@ -156,9 +156,9 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
     //    fileprivate weak var eventLabel: UILabel!
     private var firstDate: Date?
     private var lastDate: Date?
-    var dateSingleSelection = Bool()
-    var fromDateStr = String()
-    var toDateStr = String()
+    var dateSingleSelection : Bool = false
+    var fromDateStr : String = ""
+    var toDateStr : String = ""
     
     //MARK:- Lifecycle Methods
     override func viewDidLoad()
@@ -282,8 +282,8 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
         APIManager.apiPostWithHeaders(serviceName: ADD_WISHLIST, parameters: params as? [String : Any]) { (json:NSDictionary?, error:NSError?) in
             DispatchQueue.main.async {  }
             if error != nil {
-                print(error!.localizedDescription)
-                self.showInformation(title: "Closest", message: error!.localizedDescription)
+                print(error?.localizedDescription ?? "")
+                self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                 return
             }
             let responseDict:NSDictionary = json!
@@ -337,7 +337,7 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
             // DispatchQueue.main.async { self.dismiss(animated: true) }
             if error != nil
             {
-                print(error!.localizedDescription)
+                print(error?.localizedDescription ?? "")
                 return
             }
             print(json!)
@@ -369,8 +369,8 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
             APIManager.apiPostWithHeaders(serviceName: REQ_HOMEPAGE, parameters: parameters) { (json:NSDictionary?, error:NSError?) in
                 DispatchQueue.main.async {  }
                 if error != nil {
-                    print(error!.localizedDescription)
-                    self.showInformation(title: "Closest", message: error!.localizedDescription)
+                    print(error?.localizedDescription ?? "")
+                    self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                     return
                 }
                 let responseDict:NSDictionary = json!
@@ -385,7 +385,7 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
                     self.PropertyTypes.removeAllObjects()
                     self.PropertyTypeIds.removeAllObjects()
                     self.BannerArray.removeAllObjects()
-                    self.BannerArray.addObjects(from: ((responseDict.object(forKey: "data") as? NSDictionary)?.object(forKey: "banner_list") as! NSArray) as! [Any])
+                    self.BannerArray.addObjects(from: ((responseDict.object(forKey: "data") as? NSDictionary)?.object(forKey: "banner_list") as? NSArray) as? [Any] ?? [])
                     for i in 0..<(resData["property_types"] as! NSArray).count {
                         let name = ((resData["property_types"] as! NSArray).object(at: i) as? NSDictionary)?.object(forKey: "type_name") as? String ?? ""
                         let Id = "\(((resData["property_types"] as! NSArray).object(at: i) as? NSDictionary)?.object(forKey: "type_master_id") as AnyObject)"
@@ -537,8 +537,8 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
             APIManager.apiPostWithHeaders(serviceName: REQ_LOGOUT, parameters: parameters) { (json:NSDictionary?, error:NSError?) in
                 DispatchQueue.main.async {  }
                 if error != nil {
-                    print(error!.localizedDescription)
-                    self.showInformation(title: "Closest", message: error!.localizedDescription)
+                    print(error?.localizedDescription ?? "")
+                    self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                     return
                 }
                 let responseDict:NSDictionary = json!
@@ -605,9 +605,9 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
     
     func HomePageApi(){
           showActivityIndicator(uiView: self.view)
-        if (Reachability()?.isReachable)!
+        if (Reachability()?.isReachable ?? false)
         {
-            let id = Singleton.sharedInstance.selectedCategory!
+            let id = Singleton.sharedInstance.selectedCategory
           
             
             
@@ -865,7 +865,7 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
     //                if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     dictOfExperience = responseDict
                     arrayOfCurrency.removeAllObjects()
-                    arrayOfCurrency.addObjects(from: (dictOfExperience["Currency"] as! NSArray) as! [Any])
+                    arrayOfCurrency.addObjects(from: (dictOfExperience["Currency"] as? NSArray) as? [Any] ?? [])
                     arrayOfBoolValues.removeAllObjects()
                     isFromManage = false
                         let VC = storyBoardExperience.instantiateViewController(withIdentifier: "ExperienceBaseViewController") as! ExperienceBaseViewController

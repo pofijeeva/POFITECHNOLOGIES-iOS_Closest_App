@@ -22,13 +22,13 @@ class InboxViewController: BaseViewController,filterDelegate {
       @IBOutlet weak var searchBtn: UIButton!
     
     //MARK:- Variables
-    var filterBookingId  = String()
-    var BookingId  = String()
-    var selected = Bool()
-    var SelectedId = Int()
-    var SelectedIds = Int()
-    var starChangeStaus  = String()
-    var messages = NSMutableArray()
+    var filterBookingId  : String = ""
+    var BookingId  : String = ""
+    var selected : Bool = false
+    var SelectedId : Int = 0
+    var SelectedIds : Int = 0
+    var starChangeStaus  : String = ""
+    var messages : NSMutableArray = []
     
     
     //MARK:- LifeCycle Methods
@@ -46,7 +46,7 @@ class InboxViewController: BaseViewController,filterDelegate {
         //            print(parameters)
         //
         //
-        //      //      let id = Singleton.sharedInstance.selectedCategory!
+        //      //      let id = Singleton.sharedInstance.selectedCategory
         ////            self.showActivityIndicator(uiView: self.view)
         ////            let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&base_id=\(id)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
         ////            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: INBOX_API, APIKEY: "INBOX_API")
@@ -79,7 +79,7 @@ class InboxViewController: BaseViewController,filterDelegate {
         if Reachability()!.isReachable
         {
             
-            let id = Singleton.sharedInstance.selectedCategory!
+            let id = Singleton.sharedInstance.selectedCategory
             self.showActivityIndicator(uiView: self.view)
             
             if SelectedId == 1
@@ -1141,10 +1141,10 @@ extension InboxViewController: UITableViewDelegate,UITableViewDataSource {
         
         Network.shared.HTTP_POST_STRING_REQUEST_DELEGATE = self
         
-        if (Reachability()?.isReachable)!
+        if (Reachability()?.isReachable ?? false)
         {
             
-            let starStatus = Singleton.sharedInstance.inboxList.messageValues[buttonRow].starStatus!
+            let starStatus = Singleton.sharedInstance.inboxList.messageValues[buttonRow].starStatus
             if starStatus == "1"
             {
                 starChangeStaus = "No"
@@ -1157,7 +1157,7 @@ extension InboxViewController: UITableViewDelegate,UITableViewDataSource {
             
             showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
-            params = ["message_id":Singleton.sharedInstance.inboxList.messageValues[buttonRow].id!,"bookingNo":Singleton.sharedInstance.inboxList.messageValues[buttonRow].bookingno!,"star_change_status":starChangeStaus]
+            params = ["message_id":Singleton.sharedInstance.inboxList.messageValues[buttonRow].id,"bookingNo":Singleton.sharedInstance.inboxList.messageValues[buttonRow].bookingno,"star_change_status":starChangeStaus]
             
             let manager = AFHTTPSessionManager()
             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -1186,7 +1186,7 @@ extension InboxViewController: UITableViewDelegate,UITableViewDataSource {
             })
             
             
-            //            let parameterStr = "message_id=\(Singleton.sharedInstance.inboxList.messageValues[buttonRow].id!)&bookingNo=\(Singleton.sharedInstance.inboxList.messageValues[buttonRow].bookingno!)&star_change_status=\(starChangeStaus)"
+            //            let parameterStr = "message_id=\(Singleton.sharedInstance.inboxList.messageValues[buttonRow].id!)&bookingNo=\(Singleton.sharedInstance.inboxList.messageValues[buttonRow].bookingno)&star_change_status=\(starChangeStaus)"
             //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: MOBILE_INBOX_STAR_STATUS, APIKEY: "MOBILE_INBOX_STAR_STATUS")
             //            print(parameterStr)
             
@@ -1202,12 +1202,12 @@ extension InboxViewController: UITableViewDelegate,UITableViewDataSource {
         print(buttonRow)
         Network.shared.HTTP_POST_STRING_REQUEST_DELEGATE = self
         
-        if (Reachability()?.isReachable)!
+        if (Reachability()?.isReachable ?? false)
         {
             
             showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
-            params = ["message_id":Singleton.sharedInstance.inboxList.messageValues[buttonRow].id!]
+            params = ["message_id":Singleton.sharedInstance.inboxList.messageValues[buttonRow].id]
             
             let manager = AFHTTPSessionManager()
             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -1253,7 +1253,7 @@ extension InboxViewController: UITableViewDelegate,UITableViewDataSource {
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? InboxCell
         cell.imgUser.layer.cornerRadius = cell.imgUser.frame.size.width / 2
         cell.imgUser.clipsToBounds = true
-        let url = URL(string: Singleton.sharedInstance.inboxList.messageValues[indexPath.row].userImage!)
+        let url = URL(string: Singleton.sharedInstance.inboxList.messageValues[indexPath.row].userImage)
         cell.imgUser.setImageWith(url!, placeholderImage: UIImage(named: "user"))
 //        cell.imgUser.kf.setImage(with: url)
         
@@ -1273,7 +1273,7 @@ extension InboxViewController: UITableViewDelegate,UITableViewDataSource {
         cell.starredBtn.addTarget(self, action: #selector(starredbtnClick), for: .touchUpInside)
         cell.archiveBtn.addTarget(self, action: #selector(archiveBtnClick), for: .touchUpInside)
         
-        if Singleton.sharedInstance.inboxList.messageValues[indexPath.row].msgRead!  != "Yes" {
+        if Singleton.sharedInstance.inboxList.messageValues[indexPath.row].msgRead  != "Yes" {
             cell.lblDate.textColor = UIColor.black
             cell.lblMessage.textColor = UIColor.black
             cell.lblBooking.textColor = UIColor.black
@@ -1313,31 +1313,31 @@ extension InboxViewController: UITableViewDelegate,UITableViewDataSource {
         cell.UnreadMsgCount.layer.cornerRadius = 12.5
         cell.UnreadMsgCount.layer.borderWidth = 1
         cell.UnreadMsgCount.layer.borderColor = hexStringToUIColor(hex: "#F8BC05").cgColor
-        cell.lblBooking.text =  Singleton.sharedInstance.inboxList.messageValues[indexPath.row].subject!
+        cell.lblBooking.text =  Singleton.sharedInstance.inboxList.messageValues[indexPath.row].subject
         //Singleton.sharedInstance.inboxList.messageValues[indexPath.row].subject!
-        cell.lblMessage.text = (Singleton.sharedInstance.inboxList.messageValues[indexPath.row].message!).uppercased()
+        cell.lblMessage.text = (Singleton.sharedInstance.inboxList.messageValues[indexPath.row].message).uppercased()
         cell.lblMessage.font = UIFont(name: RegularFont, size: 15)
           cell.lblDate.font = UIFont(name: RegularFont, size: 12)
            cell.UnreadMsgCount.font = UIFont(name: RegularFont, size: 14.0)
-        if Singleton.sharedInstance.inboxList.messageValues[indexPath.row].msgUnreadCount! == "0"{
+        if Singleton.sharedInstance.inboxList.messageValues[indexPath.row].msgUnreadCount == "0"{
             cell.UnreadMsgCount.isHidden = true
         }else {
             cell.UnreadMsgCount.isHidden = false
         }
         
-        if Singleton.sharedInstance.inboxList.messageValues[indexPath.row].message!.uppercased() == "ACCEPTED" {
+        if Singleton.sharedInstance.inboxList.messageValues[indexPath.row].message.uppercased() == "ACCEPTED" {
                       cell.lblMessage.textColor = hexStringToUIColor(hex: "00CE22")
-                  }else if Singleton.sharedInstance.inboxList.messageValues[indexPath.row].message!.uppercased() == "REJECTED"{
+                  }else if Singleton.sharedInstance.inboxList.messageValues[indexPath.row].message.uppercased() == "REJECTED"{
                        cell.lblMessage.textColor = hexStringToUIColor(hex: "DE1E00")
                   }else {
                     cell.lblMessage.textColor = .darkGray
                   }
-        cell.UnreadMsgCount.text = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].msgUnreadCount!
+        cell.UnreadMsgCount.text = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].msgUnreadCount
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        let startingDate = dateFormatter.date(from: Singleton.sharedInstance.inboxList.messageValues[indexPath.row].dateAdded!)
+        let startingDate = dateFormatter.date(from: Singleton.sharedInstance.inboxList.messageValues[indexPath.row].dateAdded)
         let newformat = DateFormatter()
         newformat.dateFormat =  "d MMM yy, h:mm a"
         newformat.locale = Locale(identifier: "en_US_POSIX")
@@ -1347,7 +1347,7 @@ extension InboxViewController: UITableViewDelegate,UITableViewDataSource {
         
         
         
-        let date = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].dateAdded!.components(separatedBy: " ")
+        let date = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].dateAdded.components(separatedBy: " ")
         cell.lblDate.text = newformat.string(from: startingDate!)
         
         
@@ -1359,7 +1359,7 @@ extension InboxViewController: UITableViewDelegate,UITableViewDataSource {
         //        let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? InboxCell
         //        cell.imgUser.layer.cornerRadius = cell.imgUser.frame.size.width / 2
         //        cell.imgUser.clipsToBounds = true
-        //        let url = URL(string: Singleton.sharedInstance.inboxList.messageValues[indexPath.row].userImage!)
+        //        let url = URL(string: Singleton.sharedInstance.inboxList.messageValues[indexPath.row].userImage)
         //        //cell.imgUser.kf.setImage(with: url)
         //        cell.imgUser.kf.setImage(with: url, placeholder: UIImage.init(named: "user"), options: nil, progressBlock: nil, completionHandler: nil)
         //
@@ -1398,7 +1398,7 @@ extension InboxViewController: UITableViewDelegate,UITableViewDataSource {
         //        }
         //
         //        cell.lblBooking.text = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].subject!
-        //        cell.lblMessage.text = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].message!
+        //        cell.lblMessage.text = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].message
         //
         //        let date = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].dateAdded!.components(separatedBy: " ")
         //        cell.lblDate.text = date[0]
@@ -1412,8 +1412,8 @@ extension InboxViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let nav = self.storyboard?.instantiateViewController(withIdentifier: "InboxConversationViewController") as? InboxConversationViewController
         selected = true
-        nav!.BookingId = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].bookingno!
-        nav!.AcceptStatus = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].status!
+        nav!.BookingId = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].bookingno
+        nav!.AcceptStatus = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].status
         self.navigationController?.pushViewController(nav!, animated: true)
     }
 }

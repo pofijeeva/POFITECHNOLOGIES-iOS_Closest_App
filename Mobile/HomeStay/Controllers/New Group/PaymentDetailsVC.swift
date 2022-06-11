@@ -62,7 +62,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
 
     var decryptDataDict = NSMutableDictionary()
     let dropDown = DropDown()
-    var BankTypesInt = Int()
+    var BankTypesInt : Int = 0
 
     lazy var dropDowns: [DropDown] = {
         return [
@@ -191,7 +191,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
 
            let cryptLib = CryptLib()
            //let newStr =
-           var newStr = String()
+           var newStr : String = ""
            newStr = plainText as String
            let encryStr = cryptLib.encryptPlainText(newStr, key: key, iv: iv)
            let jsonData = try! JSONSerialization.data(withJSONObject: [encryStr!] as Any, options: [])
@@ -292,7 +292,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
 
        let cryptLib = CryptLib()
        //let newStr =
-       var newStr = String()
+       var newStr : String = ""
        newStr = plainText as String
        let encryStr = cryptLib.encryptPlainText(newStr, key: key, iv: iv)
        let jsonData = try! JSONSerialization.data(withJSONObject: [encryStr!] as Any, options: [])
@@ -434,7 +434,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
     func getBookingPaymentApiResponse(pageno: Int = 1, dateSerach: String = "") {
        
         
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
             showActivityIndicator(uiView: self.view, isFulLoader: true)
             let parameters:[String : Any] =
                 ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
@@ -517,7 +517,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
     func getBookingListingPaymentApiResponse(pageno: Int = 1, dateSerach: String = "") {
        
         
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
             showActivityIndicator(uiView: self.view)
             let parameters:[String : Any] =
                 ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
@@ -598,7 +598,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
     func getHostingPaymentApiResponse(pageno: Int = 1, dateSerach: String = "") {
       
         
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
             showActivityIndicator(uiView: self.view)
             let parameters:[String : Any] =
                 ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
@@ -718,7 +718,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
 
         let cryptLib = CryptLib()
         //let newStr =
-        var newStr = String()
+        var newStr : String = ""
         newStr = plainText as String
         let encryStr = cryptLib.encryptPlainText(newStr, key: key, iv: iv)
         let jsonData = try! JSONSerialization.data(withJSONObject: [encryStr!] as Any, options: [])
@@ -789,7 +789,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
    @objc func  getPayoutMethodApiResponse() {
         //showActivityIndicator(uiView: self.view)
         
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
             showActivityIndicator(uiView: self.view)
           
             let parameters:[String : Any] =
@@ -849,7 +849,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
     func UserAccountApi() {
      
         
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
 //            showActivityIndicator(uiView: self.view)
             let parameters:[String : Any] =
                 ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",

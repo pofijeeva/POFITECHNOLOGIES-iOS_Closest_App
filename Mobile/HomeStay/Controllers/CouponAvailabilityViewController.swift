@@ -21,13 +21,13 @@ class CouponAvailabilityViewController: BaseViewController {
     
    
     @IBOutlet weak var view_indicator: UILabel!
-    var productId = String()
-      var totalwallet = String()
-      var balenceWallet = String()
-      var usedWallet = String()
+    var productId : String = ""
+      var totalwallet : String = ""
+      var balenceWallet : String = ""
+      var usedWallet : String = ""
     var iswallet = true
-  var iswalletvalue = Bool()
-    var iscouponvalue = Bool()
+  var iswalletvalue : Bool = false
+    var iscouponvalue : Bool = false
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,7 +47,7 @@ class CouponAvailabilityViewController: BaseViewController {
        
         
 //
-//        if (Reachability()?.isReachable)!
+//        if (Reachability()?.isReachable ?? false)
 //        {
 //
 //            showActivityIndicator(uiView: self.view)
@@ -72,7 +72,7 @@ class CouponAvailabilityViewController: BaseViewController {
     }
     func WalletApi(){
         
-        if (Reachability()?.isReachable)!
+        if (Reachability()?.isReachable ?? false)
         {
            showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
@@ -150,7 +150,7 @@ class CouponAvailabilityViewController: BaseViewController {
     
     func CouponApi(){
         
-        if (Reachability()?.isReachable)!
+        if (Reachability()?.isReachable ?? false)
         {
            showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
@@ -370,7 +370,7 @@ else{
             
             
             
-    cell.CouponCodeLbl.text = "CODE :" + dict.couponCode!
+            cell.CouponCodeLbl.text = "CODE :" + dict.couponCode
             let dataArray = dict.couponAssignedProducts!
             
             if dataArray.count == 1{
@@ -380,16 +380,16 @@ else{
                 cell.BaseView.layer.cornerRadius = 0
                     //(dataArray![0] as? NSDictionary)?.object(forKey: "product_title")as? String
             }else{
-                var tempStr = String()
+                var tempStr : String = ""
                 for i in 0..<dataArray.count{
                     if i == 0{
                         tempStr = dataArray[i].productTitle
                     }else if i == dataArray.count{
                         let str = dataArray[i].productTitle
-                        tempStr = tempStr + str!
+                        tempStr = tempStr + str
                     }else{
                         let str = dataArray[i].productTitle
-                        tempStr = tempStr + "\n" + str!
+                        tempStr = tempStr + "\n" + str
                     }
                     cell.bgImgView.isHidden = true
                 }

@@ -30,12 +30,12 @@ class ProvideAddItemSheetViewController: UIViewController, UITextViewDelegate {
     
     
     
-    var ItemTitle = String()
-    var AboutItem = String()
-    var QuantityItem = String()
-    var DescItem = String()
-    var ComingType = String()
-    var KitID = String()
+    var ItemTitle : String = ""
+    var AboutItem : String = ""
+    var QuantityItem : String = ""
+    var DescItem : String = ""
+    var ComingType : String = ""
+    var KitID : String = ""
     
     
     override func viewDidLoad() {

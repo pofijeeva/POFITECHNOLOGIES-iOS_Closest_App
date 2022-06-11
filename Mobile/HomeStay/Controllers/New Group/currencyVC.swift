@@ -18,7 +18,7 @@ class currencyVC: BaseViewController {
     var type: PopUpType = .currency
     var languageArray = [LanguageList]()
     var currenceArray = [CurrencyNameList]()
-    var languageArrayList = NSMutableArray()
+    var languageArrayList : NSMutableArray = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +40,7 @@ class currencyVC: BaseViewController {
     }
     
     func crruencyList() {
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
             showActivityIndicator(uiView: self.view)
             let parameters:[String : Any] =
                 ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
@@ -86,7 +86,7 @@ class currencyVC: BaseViewController {
         }
     }
     func languageList() {
-        if (Reachability()?.isReachable)! {
+        if (Reachability()?.isReachable ?? false) {
             showActivityIndicator(uiView: self.view)
             let parameters:[String : Any] =
                 ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
@@ -161,7 +161,7 @@ extension currencyVC: UITableViewDelegate, UITableViewDataSource {
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if type == .language {
-            var langCode = String()
+            var langCode : String = ""
             if indexPath.row == 0 {
                 langCode = "en"
             }else{

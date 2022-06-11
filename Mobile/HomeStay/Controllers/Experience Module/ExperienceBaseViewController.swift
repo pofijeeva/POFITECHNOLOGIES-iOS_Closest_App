@@ -365,7 +365,7 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
                 if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                     dictOfExperience = responseDict
                     arrayOfCurrency.removeAllObjects()
-                    arrayOfCurrency.addObjects(from: (dictOfExperience["Currency"] as! NSArray) as! [Any])
+                    arrayOfCurrency.addObjects(from: (dictOfExperience["Currency"] as? NSArray) as? [Any] ?? [])
                     Helper.sharedInstance.hideActivityIndicator(view: self.view)
                     arrayOfResult = dictOfExperience["result"] as! NSArray
                     arrayOfBoolValues.removeAllObjects()
@@ -409,7 +409,7 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
                     dictOfExperience = responseDict
                     arrayOfResult = dictOfExperience["result"] as! NSArray
                     arrayOfCurrency.removeAllObjects()
-                    arrayOfCurrency.addObjects(from: (dictOfExperience["Currency"] as! NSArray) as! [Any])
+                    arrayOfCurrency.addObjects(from: (dictOfExperience["Currency"] as? NSArray) as? [Any] ?? [])
                     arrayOfBoolValues.removeAllObjects()
                     for i in 0..<arrayOfHeadings.count {
                         let str = ((arrayOfResult[0] as? NSDictionary)?.value(forKey:  arrayOfHeadings[i] as? String ?? "") as? NSDictionary)?.object(forKey: "step_completed") as AnyObject

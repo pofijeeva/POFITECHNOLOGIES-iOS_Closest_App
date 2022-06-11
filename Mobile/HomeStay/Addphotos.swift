@@ -13,10 +13,10 @@ class Addphotos : NSObject, NSCoding{
    
     
    
-    var doc_verified_status : Int!
-    var document : String!
-    var imagePath : String!
-    var propertyImageId : Int!
+    var doc_verified_status : Int = 0
+    var document : String = ""
+    var imagePath : String = ""
+    var propertyImageId : Int = 0
     
     
     
@@ -29,10 +29,10 @@ class Addphotos : NSObject, NSCoding{
      */
     init(fromDictionary dictionary: [String:Any]){
        
-        doc_verified_status = dictionary["doc_verified_status"] as? Int
-        document = dictionary["document"] as? String
-        imagePath = dictionary["imagePath"] as? String
-        propertyImageId = dictionary["propertyImageId"] as? Int
+        doc_verified_status = dictionary["doc_verified_status"] as? Int ?? 0
+        document = dictionary["document"] as? String ?? ""
+        imagePath = dictionary["imagePath"] as? String ?? ""
+        propertyImageId = dictionary["propertyImageId"] as? Int ?? 0
         
     }
 
@@ -66,10 +66,10 @@ class Addphotos : NSObject, NSCoding{
      */
     @objc required init(coder aDecoder: NSCoder)
     {
-        doc_verified_status = aDecoder.decodeObject(forKey: "doc_verified_status") as? Int
-        document = aDecoder.decodeObject(forKey: "document") as? String
-        imagePath = aDecoder.decodeObject(forKey: "imagePath") as? String
-        propertyImageId = aDecoder.decodeObject(forKey: "propertyImageId") as? Int
+        doc_verified_status = aDecoder.decodeObject(forKey: "doc_verified_status") as? Int ?? 0
+        document = aDecoder.decodeObject(forKey: "document") as? String ?? ""
+        imagePath = aDecoder.decodeObject(forKey: "imagePath") as? String ?? ""
+        propertyImageId = aDecoder.decodeObject(forKey: "propertyImageId") as? Int ?? 0
         
     }
 

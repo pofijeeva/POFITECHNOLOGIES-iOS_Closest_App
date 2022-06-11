@@ -25,24 +25,24 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
     //MARK:- Variables
     var imagePicker = UIImagePickerController()
     //var imageARR = [UIImage]()
-    var imageARR = NSMutableArray()
-    var imARR = NSMutableArray()
+    var imageARR : NSMutableArray = []
+    var imARR : NSMutableArray = []
     
 
-    var selectedImagesArray = NSMutableArray()
+    var selectedImagesArray : NSMutableArray = []
     var imageDataARR = NSData()
     var ListingActivityDelegate: listingActivityProtocol!
-    var PropertyID = Int()
-    var imageCount = Int()
+    var PropertyID : Int = 0
+    var imageCount : Int = 0
     var imageUrlARR = [String]()
     var imageFromResponse = ""
-    var camera = String()
-    var Gallery = String()
-    var decodedString = String()
-    var addPhotoBool = Bool()
+    var camera : String = ""
+    var Gallery : String = ""
+    var decodedString : String = ""
+    var addPhotoBool : Bool = false
     var nCount:Int = 0
     var selectedImageID:Int = 0
-    let id = Singleton.sharedInstance.selectedCategory!
+    let id = Singleton.sharedInstance.selectedCategory
     
     //MARK:- Lifecycle Methods
     override func viewDidLoad() {
@@ -231,10 +231,10 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
             forAddPhotoDict.addEntries(from: result[0] as! [AnyHashable : Any])
             print("forAddPhotoDict:::::",forAddPhotoDict)
             self.imageARR.removeAllObjects()
-            self.imageARR.addObjects(from:((forAddPhotoDict.object(forKey: "step5")as? NSDictionary)?.object(forKey: "product_image")as! NSArray) as! [Any])
+            self.imageARR.addObjects(from:((forAddPhotoDict.object(forKey: "step5")as? NSDictionary)?.object(forKey: "product_image")as? NSArray) as? [Any] ?? [])
            
 
-            if mod.status! != 0
+            if mod.status != 0
             {
                 self.nCount = self.nCount + 1
             }
@@ -351,7 +351,7 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
         else
         {
              ListingActivityDelegate.showActivity()
-            let imageID:Int = Singleton.sharedInstance.rentYourSpace.result[0].step5.productImage[sender.tag].productImageId!
+            let imageID:Int = Singleton.sharedInstance.rentYourSpace.result[0].step5.productImage[sender.tag].productImageId
             print("imageID is:",imageID)
             selectedImageID = imageID
             print("selectedImageID is:",selectedImageID)
@@ -473,7 +473,7 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
             
             showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
-              params = ["lang_code":lanuguage_selection.value(forKey: "language") ?? "en","property_id":self.PropertyID,"base_id":Singleton.sharedInstance.selectedCategory!]
+              params = ["lang_code":lanuguage_selection.value(forKey: "language") ?? "en","property_id":self.PropertyID,"base_id":Singleton.sharedInstance.selectedCategory]
           
             
             let manager = AFHTTPSessionManager()
@@ -497,7 +497,7 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
                     forAddPhotoDict.addEntries(from: result[0] as! [AnyHashable : Any])
                     print("CREATED_PROPERTY_STATUS forAddPhotoDict:::::",forAddPhotoDict)
                     self.imageARR.removeAllObjects()
-                    self.imageARR.addObjects(from:((forAddPhotoDict.object(forKey: "step5")as? NSDictionary)?.object(forKey: "product_image")as! NSArray) as! [Any])
+                    self.imageARR.addObjects(from:((forAddPhotoDict.object(forKey: "step5")as? NSDictionary)?.object(forKey: "product_image")as? NSArray) as? [Any] ?? [])
                     self.nCount = self.imageARR.count
                     self.collPhotos.reloadData()
 
@@ -529,7 +529,7 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
         
   
 
-        let id = Singleton.sharedInstance.selectedCategory!
+        let id = Singleton.sharedInstance.selectedCategory
         //let url = URL(string: "http://flight.mytaxisoft.com/json/mobile_add_property_step5")!
         let url = URL(string: SAVE_PHOTO_LISTING)!
         var request = URLRequest(url: url)
@@ -553,7 +553,7 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
             {
                 print("getImagesApiCall.....", responseDictionary)
                 let mod = RentYourSpaceModel(fromDictionary: responseDictionary as! [String : Any])
-                if mod.status! != 0 {
+                if mod.status != 0 {
                     Singleton.sharedInstance.rentYourSpace = mod
                     
                     DispatchQueue.main.async {
@@ -562,7 +562,7 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
                         forAddPhotoDict.addEntries(from: result[0] as! [AnyHashable : Any])
                         print("forAddPhotoDict:::::",forAddPhotoDict)
                         self.imageARR.removeAllObjects()
-                        self.imageARR.addObjects(from:((forAddPhotoDict.object(forKey: "step5")as? NSDictionary)?.object(forKey: "product_image")as! NSArray) as! [Any])
+                        self.imageARR.addObjects(from:((forAddPhotoDict.object(forKey: "step5")as? NSDictionary)?.object(forKey: "product_image")as? NSArray) as? [Any] ?? [])
                       
                         self.collPhotos.reloadData()
                     }
@@ -590,7 +590,7 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
     func uploadPhotos(base64: String) {
         print("charCount",base64.count)
         if Reachability()!.isReachable {
-            let id = Singleton.sharedInstance.selectedCategory!
+            let id = Singleton.sharedInstance.selectedCategory
              let parameterStr = "property_id=\(self.PropertyID)&photos=\(base64)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&base_id=\(id)&user_id=\(login_session.value(forKey: "UserId")!)"
             Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: SAVE_PHOTO_LISTING, APIKEY: "SAVE_PHOTO_LISTING")
          } else {
@@ -629,7 +629,7 @@ extension AddPhotoViewController: UICollectionViewDelegate ,UICollectionViewData
         }
         else
         {
-            let url = URL(string: Singleton.sharedInstance.rentYourSpace.result[0].step5.photo_list[indexPath.row].imagePath!)
+            let url = URL(string: Singleton.sharedInstance.rentYourSpace.result[0].step5.photo_list[indexPath.row].imagePath)
             cell.imgOne.kf.setImage(with: url)
         
         }
@@ -659,7 +659,7 @@ extension AddPhotoViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
                 let mod = RentYourSpaceModel(fromDictionary: responseDict as! [String : Any])
                 mod.result.first?.step6
                 UserDefaults.standard.set(responseDict.value(forKey: "attribute"), forKey: "AmenitiesArray")
-                if mod.status! != 0 {
+                if mod.status != 0 {
                     Singleton.sharedInstance.rentYourSpace = mod
                     if Singleton.sharedInstance.rentYourSpace.result[0].step5.productImage.count == 0{
                         imageFromResponse = "NO"
@@ -692,7 +692,7 @@ extension AddPhotoViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
             forAddPhotoDict.addEntries(from: result[0] as! [AnyHashable : Any])
             print("CREATED_PROPERTY_STATUS forAddPhotoDict:::::",forAddPhotoDict)
                 self.imageARR.removeAllObjects()
-                self.imageARR.addObjects(from:((forAddPhotoDict.object(forKey: "step5")as? NSDictionary)?.object(forKey: "product_image")as! NSArray) as! [Any])
+                self.imageARR.addObjects(from:((forAddPhotoDict.object(forKey: "step5")as? NSDictionary)?.object(forKey: "product_image")as? NSArray) as? [Any] ?? [])
                   self.nCount = self.imageARR.count
                 self.collPhotos.reloadData()
 

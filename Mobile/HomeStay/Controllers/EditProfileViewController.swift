@@ -37,18 +37,18 @@ class EditProfileViewController: BaseViewController {
     
     
     
-    var emailVerificationSuccess = String()
-    var emailVerficationFailure = String()
-    var mobileNumberVerified = String()
-    var mobileNumberNotVerified = String()
+    var emailVerificationSuccess : String = ""
+    var emailVerficationFailure : String = ""
+    var mobileNumberVerified : String = ""
+    var mobileNumberNotVerified : String = ""
     var hostProps = NSArray()
-    var propImg = String()
-    var propName = String()
-    var proplocation = String()
-    var particularuser = String()
-    var mailidverify = Int()
-    var hostID = String()
-    var prop_id = Int()
+    var propImg : String = ""
+    var propName : String = ""
+    var proplocation : String = ""
+    var particularuser : String = ""
+    var mailidverify : Int = 0
+    var hostID : String = ""
+    var prop_id : Int = 0
     
     override func viewDidLoad(){
     super.viewDidLoad()
@@ -91,8 +91,8 @@ class EditProfileViewController: BaseViewController {
 //                self.verifications.text = LocalizeHelper().localizedStringForKey("verifications")
             }
             Network.shared.HTTP_POST_STRING_REQUEST_DELEGATE = self
-            let id = Singleton.sharedInstance.selectedCategory!
-            if (Reachability()?.isReachable)!
+            let id = Singleton.sharedInstance.selectedCategory
+            if (Reachability()?.isReachable ?? false)
             {
                 self.showActivityIndicator(uiView: self.view)
                 
@@ -192,7 +192,7 @@ class EditProfileViewController: BaseViewController {
 
         } else{
             print("email verify tapped")
-            if (Reachability()?.isReachable)!
+            if (Reachability()?.isReachable ?? false)
             {
                 
                 showActivityIndicator(uiView: self.view)
@@ -251,7 +251,7 @@ class EditProfileViewController: BaseViewController {
              self.showInformation(title: "Closest", message: "Email already verified")
         }else{
             print("email verify tapped")
-            if (Reachability()?.isReachable)!
+            if (Reachability()?.isReachable ?? false)
             {
                 
                 showActivityIndicator(uiView: self.view)
@@ -334,7 +334,7 @@ extension EditProfileViewController : UITableViewDelegate,UITableViewDataSource 
         
              cell.lbl_PropName.text = Singleton.sharedInstance.userInfoModel.propertyListing[indexPath.row].propertyTitle
              cell.lbl_LocationProp.text = Singleton.sharedInstance.userInfoModel.propertyListing[indexPath.row].propertyAddress
-            let imgurl = URL(string: Singleton.sharedInstance.userInfoModel.propertyListing[indexPath.row].propertyImage!)
+            let imgurl = URL(string: Singleton.sharedInstance.userInfoModel.propertyListing[indexPath.row].propertyImage)
              cell.img_Property.kf.setImage(with: imgurl)
             return cell
         }
@@ -346,7 +346,7 @@ extension EditProfileViewController : UITableViewDelegate,UITableViewDataSource 
 //        nav!.headerTxt =  Singleton.sharedInstance.userInfoModel.propertyListing[indexPath.row].propertyAddress!.uppercased()
 //            nav!.base_ID = Singleton.sharedInstance.selectedCategory
 //           // nav!.PROP_ID = self.prop_id
-//        nav!.PROP_ID = Singleton.sharedInstance.userInfoModel.propertyListing[indexPath.row].propertyId!
+//        nav!.PROP_ID = Singleton.sharedInstance.userInfoModel.propertyListing[indexPath.row].propertyId
 //
 //        self.navigationController?.pushViewController(nav!, animated: true)
 }

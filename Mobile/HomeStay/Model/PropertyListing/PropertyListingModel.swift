@@ -8,10 +8,10 @@ import Foundation
 
 class PropertyListingModel : NSObject, NSCoding{
 
-    var message : String!
+    var message : String = ""
     var myReservation : [MyReservation]!
     var propertyListing : [PropertyListing]!
-    var status : Int!
+    var status : Int = 0
 
 
     /**

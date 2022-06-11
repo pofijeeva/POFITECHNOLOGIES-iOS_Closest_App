@@ -16,7 +16,7 @@ class TermsOfServiceViewController: BaseViewController,WKNavigationDelegate ,WKU
 
     @IBOutlet weak var webView: WKWebView!
 
-    var ComingType = String()
+    var ComingType : String = ""
     override func viewDidLoad() {
         super.viewDidLoad()
         displayWebPage()

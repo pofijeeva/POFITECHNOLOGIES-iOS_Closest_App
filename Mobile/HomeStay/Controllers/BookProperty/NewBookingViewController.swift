@@ -46,18 +46,18 @@ class NewBookingViewController: BaseViewController,DateTimePickerDelegate,Sambag
     var ProperdyDetails = NSMutableDictionary()
     
     var isFromDate = "Arrive"
-    var currencySymbol = String()
+    var currencySymbol : String = ""
     var PriceShow = 0
     var TableCount = 0
-    var hourPick = String()
+    var hourPick : String = ""
     var isSelectTime = "PickUpTime"
     
-    var avaliableDates = NSMutableArray()
-    var BookindDates = NSMutableArray()
-    var UnavaliableDates = NSMutableArray()
+    var avaliableDates : NSMutableArray = []
+    var BookindDates : NSMutableArray = []
+    var UnavaliableDates : NSMutableArray = []
     var bookedDates : [String] = []
     
-    var DatesMutable = NSMutableArray()
+    var DatesMutable : NSMutableArray = []
     fileprivate let gregorian = Calendar(identifier: .gregorian)
     fileprivate let formatter: DateFormatter = {
         
@@ -97,88 +97,88 @@ class NewBookingViewController: BaseViewController,DateTimePickerDelegate,Sambag
     //    fileprivate weak var eventLabel: UILabel!
     private var firstDate: Date?
     private var lastDate: Date?
-    var dateSingleSelection = Bool()
-    var fromDateStr = String()
-    var toDateStr = String()
+    var dateSingleSelection : Bool = false
+    var fromDateStr : String = ""
+    var toDateStr : String = ""
     var GuestCnt = 1
     
     var unavailableDatesArr = NSArray()
     
-    var hPickDate = String()
-    var hDropDate = String()
-    var checkinDate = String()
-    var checkoutDate = String()
+    var hPickDate : String = ""
+    var hDropDate : String = ""
+    var checkinDate : String = ""
+    var checkoutDate : String = ""
     var fromDate = Date()
     var toDate = Date()
     var minimumDate = Date()
     var datesRange: [Date]?
     var isRangeSelection = false
-    let datesMutArray = NSMutableArray()
-    let datesFormatMutArray = NSMutableArray()
-    var selectedDateStr = String()
-    var startDate = String()
-    var startTime = String()
-    var endTime = String()
-    var endDate = String()
-    var firstTimeNotAllowed = Bool()
+    let datesMutArray : NSMutableArray = []
+    let datesFormatMutArray : NSMutableArray = []
+    var selectedDateStr : String = ""
+    var startDate : String = ""
+    var startTime : String = ""
+    var endTime : String = ""
+    var endDate : String = ""
+    var firstTimeNotAllowed : Bool = false
     var hpickUpDate = Date()
     var hdropDate = Date()
-    var SelectedDate = String()
-    var diffDates = Int()
-    var startArr = NSMutableArray()
-    var endArr = NSMutableArray()
-    var DayStr = String()
-    var DateStr = String()
-    var arriveDate = String()
-    var MonthStr = String()
-    var pickup = String()
-    var dropoff = String()
-    var pricetype = String()
+    var SelectedDate : String = ""
+    var diffDates : Int = 0
+    var startArr : NSMutableArray = []
+    var endArr : NSMutableArray = []
+    var DayStr : String = ""
+    var DateStr : String = ""
+    var arriveDate : String = ""
+    var MonthStr : String = ""
+    var pickup : String = ""
+    var dropoff : String = ""
+    var pricetype : String = ""
     var hourlyStart:String = "00:00"
     var hourlyEnd:String = "00:00"
-    var PropertyId = String()
-    var showimgPriceStatus = String()
-    var minStay = Int()
-    var vehBookstatus = String()
+    var PropertyId : String = ""
+    var showimgPriceStatus : String = ""
+    var minStay : Int = 0
+    var vehBookstatus : String = ""
     var message = ""
     var TimeARR = ["am","pm"]
     var TimingsArr = ["1","2","3","4","5","6","7","8","9","10","11","12"]
-    var hourStr = String()
-    var Timeformat = String()
-    var hourDrop = String()
-    var diffHrs = String()
-    var pickUpTime = String()
-    var PickUPTime = Int()
-    var BookingDays = String()
-    var ServiceFee = String()
-    var SecurityDeposit = String()
-    var TotalAmount = String()
-    var SubTotal = String()
-    var ProPrice = String()
+    var hourStr : String = ""
+    var Timeformat : String = ""
+    var hourDrop : String = ""
+    var diffHrs : String = ""
+    var pickUpTime : String = ""
+    var PickUPTime : Int = 0
+    var BookingDays : String = ""
+    var ServiceFee : String = ""
+    var SecurityDeposit : String = ""
+    var TotalAmount : String = ""
+    var SubTotal : String = ""
+    var ProPrice : String = ""
     
-    var BookingPrice = String()
-    var numDates = String()
-    var DateShow = String()
-    var cancel_percentage = String()
-    var bookedDays = Int()
-    var no_of_weeks = String()
-    var no_of_hours = String()
-    var no_of_days = String()
-    var no_of_months = String()
-    var CurrencySym = String()
+    var BookingPrice : String = ""
+    var numDates : String = ""
+    var DateShow : String = ""
+    var cancel_percentage : String = ""
+    var bookedDays : Int = 0
+    var no_of_weeks : String = ""
+    var no_of_hours : String = ""
+    var no_of_days : String = ""
+    var no_of_months : String = ""
+    var CurrencySym : String = ""
     
     
-    var PaymentType = String()
+    var PaymentType : String = ""
     
-    var BundleAmount = String()
-    var AddonsAmount = String()
-    var TaxName = String()
-    var TaxPercentage = String()
-    var TaxAmount = String()
-    var InfoMessageStr = String()
+    var BundleAmount : String = ""
+    var AddonsAmount : String = ""
+    var TaxName : String = ""
+    var TaxPercentage : String = ""
+    var TaxAmount : String = ""
+    var InfoMessageStr : String = ""
     
-    var payLaterAmount = String()
-    var PayBalanceAMount = String()
+    var payLaterAmount : String = ""
+    var PayBalanceAMount : String = ""
     
     var pay_balance = 0
     
@@ -351,7 +351,7 @@ class NewBookingViewController: BaseViewController,DateTimePickerDelegate,Sambag
     func requestToBookAPICall() {
         if Reachability()!.isReachable {
             self.showActivityIndicator(uiView: self.view)
-            let id = Singleton.sharedInstance.selectedCategory!
+            let id = Singleton.sharedInstance.selectedCategory
             print(GuestCnt)
             let user = "\(login_session.value(forKey: "UserId") as AnyObject)"
             print(user)
@@ -363,8 +363,8 @@ class NewBookingViewController: BaseViewController,DateTimePickerDelegate,Sambag
                 hideActivityIndicator(uiView: self.view)
             }
             else{
-                var BundleString = String()
-                var AddonString = String()
+                var BundleString : String = ""
+                var AddonString : String = ""
                 
                 do {
                     //Convert to Data
@@ -387,7 +387,7 @@ class NewBookingViewController: BaseViewController,DateTimePickerDelegate,Sambag
                 
                 showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
-                params = ["email":login_session.value(forKey: "Email") as? String ?? "","P_Id":Singleton.sharedInstance.PropertyDetail.rentalId!,"guests":GuestCnt,"s_date":self.checkinDate,"e_date":self.checkoutDate,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","message":self.message,"base_id":id,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","no_of_weeks" : self.no_of_weeks,"no_of_hours" : self.no_of_hours,"no_of_days" : self.no_of_days,"no_of_months" : self.no_of_months,"numofdates"  : self.no_of_days,"device_type":"ios","bundle_checkindate":bundle_checkindate,"bundle_checkoutdate":bundle_checkoutdate,"bundle_amount":Bundle_amount ,"choosed_option":"","bundle_details":BundleString,"add_on_amount":add_on_amount,"add_on_details":AddonString,"serviceFee":self.ServiceFee,"subTotal":self.SubTotal,"price" : Singleton.sharedInstance.PropertyDetail.productprice!,"booking_type" : self.pricetype]
+                params = ["email":login_session.value(forKey: "Email") as? String ?? "","P_Id":Singleton.sharedInstance.PropertyDetail.rentalId,"guests":GuestCnt,"s_date":self.checkinDate,"e_date":self.checkoutDate,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","message":self.message,"base_id":id,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","no_of_weeks" : self.no_of_weeks,"no_of_hours" : self.no_of_hours,"no_of_days" : self.no_of_days,"no_of_months" : self.no_of_months,"numofdates"  : self.no_of_days,"device_type":"ios","bundle_checkindate":bundle_checkindate,"bundle_checkoutdate":bundle_checkoutdate,"bundle_amount":Bundle_amount ,"choosed_option":"","bundle_details":BundleString,"add_on_amount":add_on_amount,"add_on_details":AddonString,"serviceFee":self.ServiceFee,"subTotal":self.SubTotal,"price" : Singleton.sharedInstance.PropertyDetail.productprice!,"booking_type" : self.pricetype]
                 
                 
                 
@@ -449,8 +449,8 @@ class NewBookingViewController: BaseViewController,DateTimePickerDelegate,Sambag
             else
             {
                 
-                var BundleString = String()
-                var AddonString = String()
+                var BundleString : String = ""
+                var AddonString : String = ""
                 
                 do {
                     //Convert to Data
@@ -471,14 +471,14 @@ class NewBookingViewController: BaseViewController,DateTimePickerDelegate,Sambag
                 print(BundleString)
                 print(AddonString)
                 
-                let id = Singleton.sharedInstance.selectedCategory!
+                let id = Singleton.sharedInstance.selectedCategory
                 self.showActivityIndicator(uiView: self.view)
                 showActivityIndicator(uiView: self.view)
                 
-                var GetIn = String()
-                var GetOut = String()
-                var Types = String()
-                var URL = String()
+                var GetIn : String = ""
+                var GetOut : String = ""
+                var Types : String = ""
+                var URL : String = ""
                 
                 if self.pricetype == "hourly" {
                     Types = "2"
@@ -499,8 +499,8 @@ class NewBookingViewController: BaseViewController,DateTimePickerDelegate,Sambag
                 APIManager.apiPostWithHeaders(serviceName: URL, parameters: params) { (json:NSDictionary?, error:NSError?) in
                     DispatchQueue.main.async {  }
                     if error != nil {
-                        print(error!.localizedDescription)
-                        self.showInformation(title: "Closest", message: error!.localizedDescription)
+                        print(error?.localizedDescription ?? "")
+                        self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                         return
                     }
                     let responseDict:NSDictionary = json!
@@ -508,7 +508,7 @@ class NewBookingViewController: BaseViewController,DateTimePickerDelegate,Sambag
                     if responseDict.value(forKey: "code") as! NSNumber == 200 {
                         print(responseDict)
                         
-                        var PaymentMethodsArr = NSMutableArray()
+                        var PaymentMethodsArr : NSMutableArray = []
                         //
                         //                            let StripeStatus = responseDict.value(forKey: "Stripe_status") as? String ?? ""
                         //                             let PaypalStatus = responseDict.value(forKey: "paypal_status") as? String ?? ""
@@ -723,8 +723,8 @@ class NewBookingViewController: BaseViewController,DateTimePickerDelegate,Sambag
     func HourCalcAPI()
     {
         self.showActivityIndicator(uiView: self.view)
-        var BundleString = String()
-        var AddonString = String()
+        var BundleString : String = ""
+        var AddonString : String = ""
         
         do {
             //Convert to Data
@@ -750,8 +750,8 @@ class NewBookingViewController: BaseViewController,DateTimePickerDelegate,Sambag
         APIManager.apiPostWithHeaders(serviceName: HOUR_CALC_API, parameters: params) { (json:NSDictionary?, error:NSError?) in
             DispatchQueue.main.async {  }
             if error != nil {
-                print(error!.localizedDescription)
-                self.showInformation(title: "Closest", message: error!.localizedDescription)
+                print(error?.localizedDescription ?? "")
+                self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                 return
             }
             let responseDict:NSDictionary = json!
@@ -897,8 +897,8 @@ class NewBookingViewController: BaseViewController,DateTimePickerDelegate,Sambag
     func DayCalcAPI()
     {
         self.showActivityIndicator(uiView: self.view)
-        var BundleString = String()
-        var AddonString = String()
+        var BundleString : String = ""
+        var AddonString : String = ""
         
         do {
             //Convert to Data
@@ -926,8 +926,8 @@ class NewBookingViewController: BaseViewController,DateTimePickerDelegate,Sambag
         APIManager.apiPostWithHeaders(serviceName: DAY_CALC_API, parameters: params) { (json:NSDictionary?, error:NSError?) in
             DispatchQueue.main.async {  }
             if error != nil {
-                print(error!.localizedDescription)
-                self.showInformation(title: "Closest", message: error!.localizedDescription)
+                print(error?.localizedDescription ?? "")
+                self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
                 return
             }
             let responseDict:NSDictionary = json!
@@ -1578,7 +1578,7 @@ extension NewBookingViewController: UITableViewDelegate,UITableViewDataSource {
         showimgPriceStatus = "hour"
         pricetype = "hourly"
         //   unavailableDatesArr = unAvailableDatesForDayBooking
-        let dummyArray = NSMutableArray()
+        let dummyArray : NSMutableArray = []
         dummyArray.addObjects(from: unavailableDatesArr as! [Any])
         //            for i in 0..<unavailableDatesArr.count{
         //                let dateStr = (SomeOfHoursAvailbleArray.object(at: i)as? NSDictionary)?.object(forKey: "date")as? String ?? ""

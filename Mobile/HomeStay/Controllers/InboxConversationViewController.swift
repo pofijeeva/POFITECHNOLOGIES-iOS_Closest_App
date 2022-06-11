@@ -41,14 +41,14 @@ class InboxConversationViewController: BaseViewController {
      
     
     // MARK:- variables
-    var BookingId  = String()
-    var AcceptStatus = String()
-    var memberSince = String()
-    var enquiryAbout = String()
-    var guest = String()
-    var memberSinceString = String()
-    var fromDateString = String()
-    var toDateString = String()
+    var BookingId  : String = ""
+    var AcceptStatus : String = ""
+    var memberSince : String = ""
+    var enquiryAbout : String = ""
+    var guest : String = ""
+    var memberSinceString : String = ""
+    var fromDateString : String = ""
+    var toDateString : String = ""
     var params = NSMutableDictionary()
     
    
@@ -66,7 +66,7 @@ class InboxConversationViewController: BaseViewController {
         if Reachability()!.isReachable
         {
             InboxConversationApiCall()
-//            let id = Singleton.sharedInstance.selectedCategory!
+//            let id = Singleton.sharedInstance.selectedCategory
 //            self.showActivityIndicator(uiView: self.view)
 //            let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&bookingid=\(BookingId)&base_id=\(id)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
 //            print(parameterStr)
@@ -187,10 +187,10 @@ class InboxConversationViewController: BaseViewController {
         self.txtMessage.resignFirstResponder()
         if Reachability()!.isReachable {
             self.showActivityIndicator(uiView: self.view)
-            let id = Singleton.sharedInstance.selectedCategory!
-           // let parameterStr = "sender_id=\(login_session.value(forKey: "UserId")!)&subject=\(BookingId)&message=\(self.txtMessage.text!)&property_id=\(Singleton.sharedInstance.inboxConversationModel.propertyId!)&receiver_id=\(Singleton.sharedInstance.inboxConversationModel.requesterId!)&bookingno=\(Singleton.sharedInstance.inboxConversationModel.bookingId!)&base_id=\(id)"
+            let id = Singleton.sharedInstance.selectedCategory
+           // let parameterStr = "sender_id=\(login_session.value(forKey: "UserId")!)&subject=\(BookingId)&message=\(self.txtMessage.text!)&property_id=\(Singleton.sharedInstance.inboxConversationModel.propertyId)&receiver_id=\(Singleton.sharedInstance.inboxConversationModel.requesterId)&bookingno=\(Singleton.sharedInstance.inboxConversationModel.bookingId)&base_id=\(id)"
             
-            params = ["sender_id":login_session.value(forKey: "UserId")!,"subject":BookingId,"message":self.txtMessage.text!,"property_id":Singleton.sharedInstance.inboxConversationModel.propertyId!,"receiver_id":Singleton.sharedInstance.inboxConversationModel.requesterId!,"bookingno":Singleton.sharedInstance.inboxConversationModel.bookingId!,"base_id":1]
+            params = ["sender_id":login_session.value(forKey: "UserId")!,"subject":BookingId,"message":self.txtMessage.text!,"property_id":Singleton.sharedInstance.inboxConversationModel.propertyId,"receiver_id":Singleton.sharedInstance.inboxConversationModel.requesterId,"bookingno":Singleton.sharedInstance.inboxConversationModel.bookingId,"base_id":1]
             
             SendMessageApi()
 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: SEND_MESSAGE, APIKEY: "SEND_MESSAGE")
@@ -210,17 +210,17 @@ class InboxConversationViewController: BaseViewController {
             
             if Reachability()!.isReachable {
                 
-                let id = Singleton.sharedInstance.selectedCategory!
+                let id = Singleton.sharedInstance.selectedCategory
                 //            showActivityIndicator(uiView: self.view)
                 //            var params = NSMutableDictionary()
-                params = ["sender_id":login_session.value(forKey: "UserId")!,"subject":BookingId,"message":self.txtMessage.text!,"property_id":Singleton.sharedInstance.inboxConversationModel.propertyId!,"receiver_id":Singleton.sharedInstance.inboxConversationModel.requesterId!,"bookingno":Singleton.sharedInstance.inboxConversationModel.bookingId!,"status":"Accept","currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","base_id":id]
+                params = ["sender_id":login_session.value(forKey: "UserId")!,"subject":BookingId,"message":self.txtMessage.text!,"property_id":Singleton.sharedInstance.inboxConversationModel.propertyId,"receiver_id":Singleton.sharedInstance.inboxConversationModel.requesterId,"bookingno":Singleton.sharedInstance.inboxConversationModel.bookingId,"status":"Accept","currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","base_id":id]
                 
                 
                 //            APIManager.apiPost(serviceName: HOST_ACCEPT, parameters: params as? [String : Any]) { (json:NSDictionary?, error:NSError?) in
                 //                // DispatchQueue.main.async { self.dismiss(animated: true) }
                 //                if error != nil
                 //                {
-                //                    print(error!.localizedDescription)
+                //                    print(error?.localizedDescription ?? "")
                 //                    return
                 //                }
                 //                print(json!)
@@ -296,7 +296,7 @@ class InboxConversationViewController: BaseViewController {
                 
                 
                 //            self.showActivityIndicator(uiView: self.view)
-                //            let parameterStr = "sender_id=\(login_session.value(forKey: "UserId")!)&subject=\(BookingId)&message=\(self.txtMessage.text!)&property_id=\(Singleton.sharedInstance.inboxConversationModel.propertyId!)&receiver_id=\(Singleton.sharedInstance.inboxConversationModel.requesterId!)&bookingno=\(Singleton.sharedInstance.inboxConversationModel.bookingId!)&status=Accept&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&base_id=\(id)"
+                //            let parameterStr = "sender_id=\(login_session.value(forKey: "UserId")!)&subject=\(BookingId)&message=\(self.txtMessage.text!)&property_id=\(Singleton.sharedInstance.inboxConversationModel.propertyId)&receiver_id=\(Singleton.sharedInstance.inboxConversationModel.requesterId)&bookingno=\(Singleton.sharedInstance.inboxConversationModel.bookingId)&status=Accept&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&base_id=\(id)"
                 //            print(parameterStr)
                 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: HOST_ACCEPT, APIKEY: "HOST_ACCEPT")
                 //            self.txtMessage.text = ""
@@ -319,10 +319,10 @@ class InboxConversationViewController: BaseViewController {
                    
                    if Reachability()!.isReachable {
                        
-                       let id = Singleton.sharedInstance.selectedCategory!
+                       let id = Singleton.sharedInstance.selectedCategory
                        //            showActivityIndicator(uiView: self.view)
                        //            var params = NSMutableDictionary()
-                       params = ["sender_id":login_session.value(forKey: "UserId")!,"subject":BookingId,"message":self.txtMessage.text!,"property_id":Singleton.sharedInstance.inboxConversationModel.propertyId!,"receiver_id":Singleton.sharedInstance.inboxConversationModel.requesterId!,"bookingno":Singleton.sharedInstance.inboxConversationModel.bookingId!,"status":"Accept","currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","base_id":id]
+                       params = ["sender_id":login_session.value(forKey: "UserId")!,"subject":BookingId,"message":self.txtMessage.text!,"property_id":Singleton.sharedInstance.inboxConversationModel.propertyId,"receiver_id":Singleton.sharedInstance.inboxConversationModel.requesterId,"bookingno":Singleton.sharedInstance.inboxConversationModel.bookingId,"status":"Accept","currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","base_id":id]
             
                        
                        let manager = AFHTTPSessionManager()
@@ -384,7 +384,7 @@ class InboxConversationViewController: BaseViewController {
                     showActivityIndicator(uiView: self.view)
                     var params = NSMutableDictionary()
                    
-                     params = ["sender_id":login_session.value(forKey: "UserId")!,"subject":BookingId,"message":self.txtMessage.text!,"property_id":Singleton.sharedInstance.inboxConversationModel.propertyId!,"receiver_id":Singleton.sharedInstance.inboxConversationModel.requesterId!,"bookingno":Singleton.sharedInstance.inboxConversationModel.bookingId!,"status":"Decline"]
+                     params = ["sender_id":login_session.value(forKey: "UserId")!,"subject":BookingId,"message":self.txtMessage.text!,"property_id":Singleton.sharedInstance.inboxConversationModel.propertyId,"receiver_id":Singleton.sharedInstance.inboxConversationModel.requesterId,"bookingno":Singleton.sharedInstance.inboxConversationModel.bookingId,"status":"Decline"]
                     
                     let manager = AFHTTPSessionManager()
                     manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -416,7 +416,7 @@ class InboxConversationViewController: BaseViewController {
                     
                     
         //            self.showActivityIndicator(uiView: self.view)
-        //            let parameterStr = "sender_id=\(login_session.value(forKey: "UserId") as? String ?? "")&subject=\(BookingId)&message=\(self.txtMessage.text!)&property_id=\(Singleton.sharedInstance.inboxConversationModel.propertyId!)&receiver_id=\(Singleton.sharedInstance.inboxConversationModel.requesterId!)&bookingno=\(Singleton.sharedInstance.inboxConversationModel.bookingId!)&status=Decline"
+        //            let parameterStr = "sender_id=\(login_session.value(forKey: "UserId") as? String ?? "")&subject=\(BookingId)&message=\(self.txtMessage.text!)&property_id=\(Singleton.sharedInstance.inboxConversationModel.propertyId)&receiver_id=\(Singleton.sharedInstance.inboxConversationModel.requesterId)&bookingno=\(Singleton.sharedInstance.inboxConversationModel.bookingId)&status=Decline"
         //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: HOST_DECLINE, APIKEY: "HOST_DECLINE")
                     self.txtMessage.text = ""
                 } else {
@@ -459,7 +459,7 @@ class InboxConversationViewController: BaseViewController {
             showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
            
-             params = ["sender_id":login_session.value(forKey: "UserId")!,"subject":BookingId,"message":self.txtMessage.text!,"property_id":Singleton.sharedInstance.inboxConversationModel.propertyId!,"receiver_id":Singleton.sharedInstance.inboxConversationModel.requesterId!,"bookingno":Singleton.sharedInstance.inboxConversationModel.bookingId!,"status":"Decline"]
+             params = ["sender_id":login_session.value(forKey: "UserId")!,"subject":BookingId,"message":self.txtMessage.text!,"property_id":Singleton.sharedInstance.inboxConversationModel.propertyId,"receiver_id":Singleton.sharedInstance.inboxConversationModel.requesterId,"bookingno":Singleton.sharedInstance.inboxConversationModel.bookingId,"status":"Decline"]
             
             let manager = AFHTTPSessionManager()
             manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -491,7 +491,7 @@ class InboxConversationViewController: BaseViewController {
             
             
 //            self.showActivityIndicator(uiView: self.view)
-//            let parameterStr = "sender_id=\(login_session.value(forKey: "UserId") as? String ?? "")&subject=\(BookingId)&message=\(self.txtMessage.text!)&property_id=\(Singleton.sharedInstance.inboxConversationModel.propertyId!)&receiver_id=\(Singleton.sharedInstance.inboxConversationModel.requesterId!)&bookingno=\(Singleton.sharedInstance.inboxConversationModel.bookingId!)&status=Decline"
+//            let parameterStr = "sender_id=\(login_session.value(forKey: "UserId") as? String ?? "")&subject=\(BookingId)&message=\(self.txtMessage.text!)&property_id=\(Singleton.sharedInstance.inboxConversationModel.propertyId)&receiver_id=\(Singleton.sharedInstance.inboxConversationModel.requesterId)&bookingno=\(Singleton.sharedInstance.inboxConversationModel.bookingId)&status=Decline"
 //            Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: HOST_DECLINE, APIKEY: "HOST_DECLINE")
             self.txtMessage.text = ""
         } else {
@@ -512,7 +512,7 @@ class InboxConversationViewController: BaseViewController {
         dateFormatterPrint3.locale = Locale(identifier: "en_US_POSIX")
         // let orderDateStringPasser = checkin
         
-        if let date = dateFormatterGet.date(from: Singleton.sharedInstance.inboxConversationModel.memberFrom!)
+        if let date = dateFormatterGet.date(from: Singleton.sharedInstance.inboxConversationModel.memberFrom)
         {
             print(dateFormatterPrint3.string(from: date))
             memberSinceString = dateFormatterPrint3.string(from: date)
@@ -525,17 +525,17 @@ class InboxConversationViewController: BaseViewController {
 
         
         self.lblName.text = Singleton.sharedInstance.inboxConversationModel.requesterName
-        let date = Singleton.sharedInstance.inboxConversationModel.memberFrom!.components(separatedBy: " ")
+        let date = Singleton.sharedInstance.inboxConversationModel.memberFrom.components(separatedBy: " ")
         self.lblMemberSince.text = memberSince + ", " + memberSinceString
-        let url = URL(string: Singleton.sharedInstance.inboxConversationModel.requesterImage!)
+        let url = URL(string: Singleton.sharedInstance.inboxConversationModel.requesterImage)
         self.lblEnquiryID.text = Singleton.sharedInstance.inboxConversationModel.bookingId
         self.lblImgUser.kf.setImage(with: url, placeholder: UIImage.init(named: "user"), options: nil, progressBlock: nil, completionHandler: nil)
 
-        self.lblChatTitle.text =  enquiryAbout + " " + Singleton.sharedInstance.inboxConversationModel.propertyName!
+        self.lblChatTitle.text =  enquiryAbout + " " + Singleton.sharedInstance.inboxConversationModel.propertyName
         
-        let checkin = Singleton.sharedInstance.inboxConversationModel.checkin!.components(separatedBy: " ")
+        let checkin = Singleton.sharedInstance.inboxConversationModel.checkin.components(separatedBy: " ")
         
-        let checkout = Singleton.sharedInstance.inboxConversationModel.checkout!.components(separatedBy: " ")
+        let checkout = Singleton.sharedInstance.inboxConversationModel.checkout.components(separatedBy: " ")
         
         
         
@@ -544,7 +544,7 @@ class InboxConversationViewController: BaseViewController {
         dateFormatterPrint.locale = Locale(identifier: "en_US_POSIX")
        // let orderDateStringPasser = checkin
         
-        if let date = dateFormatterGet.date(from: Singleton.sharedInstance.inboxConversationModel.checkin!)
+        if let date = dateFormatterGet.date(from: Singleton.sharedInstance.inboxConversationModel.checkin)
         {
             print(dateFormatterPrint.string(from: date))
             fromDateString = dateFormatterPrint.string(from: date)
@@ -561,9 +561,9 @@ class InboxConversationViewController: BaseViewController {
         dateFormatterPrint1.dateFormat = "MMM dd yyyy"
         dateFormatterPrint1.locale = Locale(identifier: "en_US_POSIX")
         
-       // let deliveryDateStringPasser = mytrip.checkout!
+       // let deliveryDateStringPasser = mytrip.checkout
         
-        if let date = dateFormatterGet.date(from: Singleton.sharedInstance.inboxConversationModel.checkout!)
+        if let date = dateFormatterGet.date(from: Singleton.sharedInstance.inboxConversationModel.checkout)
         {
             print(dateFormatterPrint1.string(from: date))
             toDateString = dateFormatterPrint1.string(from: date)
@@ -577,7 +577,7 @@ class InboxConversationViewController: BaseViewController {
         
         self.lblDate.text = fromDateString + " - " + toDateString
         
-        self.lblGuestnumber.text = Singleton.sharedInstance.inboxConversationModel.noOfGuest!
+        self.lblGuestnumber.text = Singleton.sharedInstance.inboxConversationModel.noOfGuest
         
         if AcceptStatus == "Pending"{
             self.btnPreApproval.isHidden = false
@@ -619,7 +619,7 @@ extension InboxConversationViewController: UITableViewDelegate, UITableViewDataS
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        if login_session.value(forKey: "UserId")as? String == Singleton.sharedInstance.inboxConversationModel.messages[indexPath.row].messageBy!
+//        if login_session.value(forKey: "UserId")as? String == Singleton.sharedInstance.inboxConversationModel.messages[indexPath.row].messageBy
         
         
         if indexPath.section == 0 {
@@ -656,7 +656,7 @@ extension InboxConversationViewController: UITableViewDelegate, UITableViewDataS
                    dateFormatterPrint3.locale = Locale(identifier: "en_US_POSIX")
                    // let orderDateStringPasser = checkin
                    
-                   if let date = dateFormatterGet.date(from: Singleton.sharedInstance.inboxConversationModel.memberFrom!)
+                   if let date = dateFormatterGet.date(from: Singleton.sharedInstance.inboxConversationModel.memberFrom)
                    {
                        print(dateFormatterPrint3.string(from: date))
                        memberSinceString = dateFormatterPrint3.string(from: date)
@@ -670,17 +670,17 @@ extension InboxConversationViewController: UITableViewDelegate, UITableViewDataS
                    
             
             cell!.lblName.text = Singleton.sharedInstance.inboxConversationModel.requesterName
-                   let date = Singleton.sharedInstance.inboxConversationModel.memberFrom!.components(separatedBy: " ")
+                   let date = Singleton.sharedInstance.inboxConversationModel.memberFrom.components(separatedBy: " ")
                    cell!.lblMemberSince.text = memberSince + ", " + memberSinceString
-                   let url = URL(string: Singleton.sharedInstance.inboxConversationModel.requesterImage!)
+                   let url = URL(string: Singleton.sharedInstance.inboxConversationModel.requesterImage)
                    cell!.lblEnquiryID.text = Singleton.sharedInstance.inboxConversationModel.bookingId
                    cell!.lblImgUser.kf.setImage(with: url, placeholder: UIImage.init(named: "user"), options: nil, progressBlock: nil, completionHandler: nil)
 
-                   cell!.lblChatTitle.text =  enquiryAbout + " " + Singleton.sharedInstance.inboxConversationModel.propertyName!
+                   cell!.lblChatTitle.text =  enquiryAbout + " " + Singleton.sharedInstance.inboxConversationModel.propertyName
                    
-                   let checkin = Singleton.sharedInstance.inboxConversationModel.checkin!.components(separatedBy: " ")
+                   let checkin = Singleton.sharedInstance.inboxConversationModel.checkin.components(separatedBy: " ")
                    
-                   let checkout = Singleton.sharedInstance.inboxConversationModel.checkout!.components(separatedBy: " ")
+                   let checkout = Singleton.sharedInstance.inboxConversationModel.checkout.components(separatedBy: " ")
                    
                    
                    
@@ -689,7 +689,7 @@ extension InboxConversationViewController: UITableViewDelegate, UITableViewDataS
                    dateFormatterPrint.locale = Locale(identifier: "en_US_POSIX")
                   // let orderDateStringPasser = checkin
                    
-                   if let date = dateFormatterGet.date(from: Singleton.sharedInstance.inboxConversationModel.checkin!)
+                   if let date = dateFormatterGet.date(from: Singleton.sharedInstance.inboxConversationModel.checkin)
                    {
                        print(dateFormatterPrint.string(from: date))
                        fromDateString = dateFormatterPrint.string(from: date)
@@ -706,9 +706,9 @@ extension InboxConversationViewController: UITableViewDelegate, UITableViewDataS
                    dateFormatterPrint1.dateFormat = "MMM dd yyyy"
                    dateFormatterPrint1.locale = Locale(identifier: "en_US_POSIX")
                    
-                  // let deliveryDateStringPasser = mytrip.checkout!
+                  // let deliveryDateStringPasser = mytrip.checkout
                    
-                   if let date = dateFormatterGet.date(from: Singleton.sharedInstance.inboxConversationModel.checkout!)
+                   if let date = dateFormatterGet.date(from: Singleton.sharedInstance.inboxConversationModel.checkout)
                    {
                        print(dateFormatterPrint1.string(from: date))
                        toDateString = dateFormatterPrint1.string(from: date)
@@ -722,7 +722,7 @@ extension InboxConversationViewController: UITableViewDelegate, UITableViewDataS
                    
                    cell!.lblDate.text = fromDateString + " - " + toDateString
                    
-                   cell!.lblGuestnumber.text = Singleton.sharedInstance.inboxConversationModel.noOfGuest!
+                   cell!.lblGuestnumber.text = Singleton.sharedInstance.inboxConversationModel.noOfGuest
             
             
             
@@ -745,7 +745,7 @@ extension InboxConversationViewController: UITableViewDelegate, UITableViewDataS
             return cell!
         }else {
         
-        if Singleton.sharedInstance.inboxConversationModel.hostId != Singleton.sharedInstance.inboxConversationModel.messages[indexPath.row].messageBy!
+        if Singleton.sharedInstance.inboxConversationModel.hostId != Singleton.sharedInstance.inboxConversationModel.messages[indexPath.row].messageBy
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as? MessageSenderCell
             cell!.selectionStyle = .none
@@ -762,26 +762,26 @@ extension InboxConversationViewController: UITableViewDelegate, UITableViewDataS
             cell!.imgBubbleSender.tintColor = hexStringToUIColor(hex: "#F1F1F1")
 
             
-            let url = URL(string: Singleton.sharedInstance.inboxConversationModel.messages[indexPath.row].userImage!)
+            let url = URL(string: Singleton.sharedInstance.inboxConversationModel.messages[indexPath.row].userImage)
             //cell!.imgSender.kf.setImage(with:url!)
             cell!.imgSender.kf.setImage(with: url, placeholder: UIImage.init(named: "user"), options: nil, progressBlock: nil, completionHandler: nil)
  cell!.lblMessage.font = UIFont(name: RegularFont, size: 14)
             cell!.lblTime.font = UIFont(name: SemiBoldFont, size: 13)
-            cell!.lblMessage.text = Singleton.sharedInstance.inboxConversationModel.messages[indexPath.row].message!
+            cell!.lblMessage.text = Singleton.sharedInstance.inboxConversationModel.messages[indexPath.row].message
             
           
             //cell!.lblMessage.textColor = UIColor.white
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
              dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-            let startingDate = dateFormatter.date(from: Singleton.sharedInstance.inboxConversationModel.messages[indexPath.row].serverTime!)
+            let startingDate = dateFormatter.date(from: Singleton.sharedInstance.inboxConversationModel.messages[indexPath.row].serverTime)
             let newformat = DateFormatter()
             newformat.dateFormat =  "MMM d, h:mm a"
             newformat.locale = Locale(identifier: "en_US_POSIX")
             newformat.string(from: startingDate!)
             print(startingDate!)
             print("Changed Date \(newformat.string(from: startingDate!))")
-            let date = Singleton.sharedInstance.inboxConversationModel.messages[indexPath.row].serverTime!.components(separatedBy: " ")
+            let date = Singleton.sharedInstance.inboxConversationModel.messages[indexPath.row].serverTime.components(separatedBy: " ")
             cell!.lblTime.text = newformat.string(from: startingDate!)//date[0]
            // cell!.lblTime.textColor = UIColor.white
             return cell!
@@ -802,22 +802,22 @@ extension InboxConversationViewController: UITableViewDelegate, UITableViewDataS
            // cell!.imgBubbleReceiver.tintColor = UIColor(named: "chat_bubble_color_received")
        cell!.imgBubbleReceiver.tintColor = hexStringToUIColor(hex: "#F1F1F1")
 
-            let url = URL(string: Singleton.sharedInstance.inboxConversationModel.messages[indexPath.row].userImage!)
+            let url = URL(string: Singleton.sharedInstance.inboxConversationModel.messages[indexPath.row].userImage)
           //  cell!.imgReceiver.kf.setImage(with:url!)
             cell!.imgReceiver.kf.setImage(with: url, placeholder: UIImage.init(named: "user"), options: nil, progressBlock: nil, completionHandler: nil)
 
-            cell!.lblName.text = Singleton.sharedInstance.inboxConversationModel.messages[indexPath.row].message!
+            cell!.lblName.text = Singleton.sharedInstance.inboxConversationModel.messages[indexPath.row].message
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
              dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-            let startingDate = dateFormatter.date(from: Singleton.sharedInstance.inboxConversationModel.messages[indexPath.row].serverTime!)
+            let startingDate = dateFormatter.date(from: Singleton.sharedInstance.inboxConversationModel.messages[indexPath.row].serverTime)
             let newformat = DateFormatter()
             newformat.dateFormat =  "d MMM yy, h:mm a"
             newformat.locale = Locale(identifier: "en_US_POSIX")
             newformat.string(from: startingDate!)
             print(startingDate!)
             print("Changed Date \(newformat.string(from: startingDate!))")
-            let date = Singleton.sharedInstance.inboxConversationModel.messages[indexPath.row].serverTime!.components(separatedBy: " ")
+            let date = Singleton.sharedInstance.inboxConversationModel.messages[indexPath.row].serverTime.components(separatedBy: " ")
             cell!.lblDate.text = newformat.string(from: startingDate!) //date[0]
             return cell!
         }
@@ -853,7 +853,7 @@ extension InboxConversationViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
                     self.showActivityIndicator(uiView: self.view)
                   
                     
-//                    let id = Singleton.sharedInstance.selectedCategory!
+//                    let id = Singleton.sharedInstance.selectedCategory
 //                    let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&bookingid=\(BookingId)&base_id=\(id)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
 //                    Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: INBOX_HISTORY, APIKEY: "INBOX_HISTORY")
                 }
@@ -866,7 +866,7 @@ extension InboxConversationViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
             if errorDict.count == 0 {
                 if responseDict.value(forKey: "status") as? Int ?? 0 == 1{
                     self.showActivityIndicator(uiView: self.view)
-                    let id = Singleton.sharedInstance.selectedCategory!
+                    let id = Singleton.sharedInstance.selectedCategory
                     let mod = InboxConversationModel(fromDictionary: responseDict as! [String : Any])
                     Singleton.sharedInstance.inboxConversationModel = mod
                     let parameterStr = "userid=\(login_session.value(forKey: "UserId")!)&bookingid=\(BookingId)&currency_code=\(login_session.value(forKey: "APP_CURRENCY") as? String ?? "")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"

@@ -14,7 +14,7 @@ protocol CommonListingSaveDelegate
 class ExperienceListingBundleViewController: UIViewController {
 
        var window: UIWindow?
-      var backAct = String()
+      var backAct : String = ""
     var currentIndexPath = IndexPath()
      var ListingActivityDelegate: listingActivityProtocol?
     @IBOutlet weak var lblHeader: UILabel!

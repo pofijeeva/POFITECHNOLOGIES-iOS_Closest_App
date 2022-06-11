@@ -40,14 +40,14 @@ class UserProfileViewController: BaseViewController {
     
 
     
-    var userName = String()
-    var usermail = String()
-    var userPhonenum = String()
+    var userName : String = ""
+    var usermail : String = ""
+    var userPhonenum : String = ""
     var Profile_Arr = [UserInfo]()
-    var userAbt = String()
-    var Work = String()
-    var aboutMe = String()
-    var ImgStr = String()
+    var userAbt : String = ""
+    var Work : String = ""
+    var aboutMe : String = ""
+    var ImgStr : String = ""
     var selectedRow = 0
     
     //MARK:- Variables
@@ -88,7 +88,7 @@ class UserProfileViewController: BaseViewController {
         
         self.tblProfile.isHidden = true
         Network.shared.HTTP_POST_STRING_REQUEST_DELEGATE = self
-        if (Reachability()?.isReachable)!
+        if (Reachability()?.isReachable ?? false)
         {
             
             showActivityIndicator(uiView: self.view)
@@ -261,7 +261,7 @@ class UserProfileViewController: BaseViewController {
 
         } else{
             print("email verify tapped")
-            if (Reachability()?.isReachable)!
+            if (Reachability()?.isReachable ?? false)
             {
                 
                 showActivityIndicator(uiView: self.view)
@@ -333,7 +333,7 @@ class UserProfileViewController: BaseViewController {
              self.showInformation(title: "Closest", message: "Email already verified")
         }else{
             print("email verify tapped")
-            if (Reachability()?.isReachable)!
+            if (Reachability()?.isReachable ?? false)
             {
                 
                 showActivityIndicator(uiView: self.view)

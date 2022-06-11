@@ -29,10 +29,10 @@ class CalenderViewController: UIViewController {
     
     //MARK:- Variables
     var rentYourSpace: RentYourSpaceModel!
-    var PropertyID = Int()
-    var DateFrom = String()
-    var DateTo = String()
-    var calenderChecked = String()
+    var PropertyID : Int = 0
+    var DateFrom : String = ""
+    var DateTo : String = ""
+    var calenderChecked : String = ""
     var ListingActivityDelegate: listingActivityProtocol!
     var calenderDelegate: CalenderProtocol!
     
@@ -105,11 +105,11 @@ class CalenderViewController: UIViewController {
             
             var params = NSMutableDictionary()
             
-            params = ["lang_code":lanuguage_selection.value(forKey: "language") ?? "en","prop_status":"","check_in":"","check_out":"","price":"","property_id":Singleton.sharedInstance.rentYourSpace.propertyid!]
+            params = ["lang_code":lanuguage_selection.value(forKey: "language") ?? "en","prop_status":"","check_in":"","check_out":"","price":"","property_id":Singleton.sharedInstance.rentYourSpace.propertyid]
             
 //
 //
-//            params = ["user_id":login_session.value(forKey: "UserId")!,"property_id":Singleton.sharedInstance.rentYourSpace.propertyid!,"datefrom":DateFrom,"dateto":DateTo,"calendar_checked":calenderChecked,"base_id":Singleton.sharedInstance.selectedCategory!,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
+//            params = ["user_id":login_session.value(forKey: "UserId")!,"property_id":Singleton.sharedInstance.rentYourSpace.propertyid,"datefrom":DateFrom,"dateto":DateTo,"calendar_checked":calenderChecked,"base_id":Singleton.sharedInstance.selectedCategory,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en"]
             
 //            "lang_code":"en",
 //            "property_id":"41884",
@@ -124,8 +124,8 @@ class CalenderViewController: UIViewController {
 //            APIManager.apiPostWithHeaders(serviceName: SAVE_CALENDER_LISTING, parameters: params as? [String : Any]) { (json:NSDictionary?, error:NSError?) in
 //                DispatchQueue.main.async {  }
 //                if error != nil {
-//                    print(error!.localizedDescription)
-//                    self.showInformation(title: "Closest", message: error!.localizedDescription)
+//                    print(error?.localizedDescription ?? "")
+//                    self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
 //                    return
 //                }
 //                let responseDict:NSDictionary = json!

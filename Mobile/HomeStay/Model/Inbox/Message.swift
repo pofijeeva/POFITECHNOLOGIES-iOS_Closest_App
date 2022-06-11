@@ -8,14 +8,14 @@ import Foundation
 
 class Message : NSObject, NSCoding{
 
-    var id : String!
-    var isHostRead : Bool!
-    var isReceiverRead : Bool!
-    var isSubject : Bool!
-    var message : String!
-    var messageBy : String!
-    var serverTime : String!
-    var userImage : String!
+    var id : String = ""
+    var isHostRead : Bool = false 
+    var isReceiverRead : Bool = false 
+    var isSubject : Bool = false 
+    var message : String = ""
+    var messageBy : String = ""
+    var serverTime : String = ""
+    var userImage : String = ""
 
 
     /**

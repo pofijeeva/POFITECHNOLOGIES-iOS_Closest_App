@@ -113,7 +113,7 @@ class BaseViewController: UIViewController {
     
     /*
     func getCategory() -> String {
-        switch Int(Singleton.sharedInstance.selectedCategory!) {
+        switch Int(Singleton.sharedInstance.selectedCategory) {
         case 1:
             return "FLIGHT"
         case 2:
@@ -136,7 +136,7 @@ class BaseViewController: UIViewController {
     }*/
     
     func getCategory() -> String {
-       switch Int(Singleton.sharedInstance.selectedCategory!) {
+       switch Int(Singleton.sharedInstance.selectedCategory) {
         case 1:
             return "HOTEL"
         case 2:

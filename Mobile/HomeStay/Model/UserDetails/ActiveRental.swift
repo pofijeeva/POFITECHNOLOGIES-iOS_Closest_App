@@ -8,9 +8,9 @@ import Foundation
 
 class ActiveRental : NSObject, NSCoding{
 
-    var baseId : String!
-    var isEnabled : Bool!
-    var rentalName : String!
+    var baseId : String = ""
+    var isEnabled : Bool = false 
+    var rentalName : String = ""
 
 
     /**

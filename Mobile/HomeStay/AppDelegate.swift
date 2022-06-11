@@ -197,9 +197,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         }
     func VersionUpdateApi(){
        //   showActivityIndicator(uiView: self.view)
-        if (Reachability()?.isReachable)!
+        if (Reachability()?.isReachable ?? false)
         {
-            let id = Singleton.sharedInstance.selectedCategory!
+            let id = Singleton.sharedInstance.selectedCategory
           
             var params = NSMutableDictionary()
             params = ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en", "type":["android","ios"],"size":["L","M","S"]]
@@ -259,7 +259,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     }
     
     func LanguageUpdate(){
-         if (Reachability()?.isReachable)!
+         if (Reachability()?.isReachable ?? false)
         {
  
             var params = NSMutableDictionary()
@@ -295,7 +295,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     }
     
     func CurrencyUpdate(){
-         if (Reachability()?.isReachable)!
+         if (Reachability()?.isReachable ?? false)
         {
  
             var params = NSMutableDictionary()
