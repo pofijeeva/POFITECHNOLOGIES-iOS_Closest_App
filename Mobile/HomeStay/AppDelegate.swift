@@ -18,7 +18,7 @@ import IQKeyboardManagerSwift
 import Firebase
 import FirebaseCore
 import FirebaseMessaging
-import FirebaseInstanceID
+//import FirebaseInstanceID
 import UserNotifications
 import GoogleMaps
 import SWRevealViewController
@@ -33,14 +33,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     let gcmMessageIDKey = "gcm.message_id"
     
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 //        print(UIFont.familyNames)
 //        print(UIFont.fontNames(forFamilyName: "Sofia Pro"))
         FirebaseApp.configure()
-        Fabric.sharedSDK().debug = true
+//        Fabric.sharedSDK().debug = true
         // [START set_messaging_delegate]
         Messaging.messaging().delegate = self
-        Messaging.messaging().shouldEstablishDirectChannel = true
+//        Messaging.messaging().shouldEstablishDirectChannel = true
         // [END set_messaging_delegate]
         if let token = Messaging.messaging().fcmToken {
             print("FCM token: \(token )")
@@ -73,8 +73,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         // FirebaseApp.configure()
         
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.tokenRefreshNotificaiton),
-                                               name: NSNotification.Name.InstanceIDTokenRefresh, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(self.tokenRefreshNotificaiton),
+//                                               name: NSNotification.Name.InstanceIDTokenRefresh, object: nil)
         
         ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         IQKeyboardManager.shared.enable = true
@@ -85,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         //PayPalMobile.initializeWithClientIds(forEnvironments: [PayPalEnvironmentSandbox: "AVomx52Gh-UDWy2BSntGqIVSwi5dnc9t6vCdMRyohM_C2Llk6xep2L22sRm9nLAVt-zG5i9zwF8NC1ft"])
         
         BTAppSwitch.setReturnURLScheme("com.closest.payments")
-        GIDSignIn.sharedInstance().clientID = googleClientID
+//        GIDSignIn.sharedInstance().clientID = googleClientID
         GMSPlacesClient.provideAPIKey("AIzaSyBPHvUw246-b8m--2jfzLdxoPy5-oBH7z8")
         GMSServices.provideAPIKey("AIzaSyDu8h4AFHn_dkKiNHYaXwZHz6YNemNI_aU")
         
@@ -378,7 +378,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         self.window?.makeKeyAndVisible()
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool
     {
         if UserDefaults.standard.value(forKey: "TranslationDocumentName") != nil {
             let checkLang:String = UserDefaults.standard.value(forKey: "TranslationDocumentName") as? String ?? ""
@@ -411,9 +411,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         if (ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation))
         {
             return true
-        }
-        else if (GIDSignIn.sharedInstance()?.handle(url as URL?))!
-        {
+        }else if (GIDSignIn.sharedInstance.handle((url as URL?)!)){
             return true
         }
         else if url.scheme?.localizedCaseInsensitiveCompare("com.closest.payments") == .orderedSame {
@@ -458,14 +456,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
         strDeviceToken = token
         
         Messaging.messaging().setAPNSToken(deviceToken, type: .prod)
-        InstanceID.instanceID().instanceID { (result, error) in
-            if let error = error {
-                print("Error fetching remote instance ID: \(error)")
-            } else if let result = result {
-                print("Remote instance ID token: \(result.token)")
-                print("InstanceID token: \(result.token)")
-            }
-        }
+//        InstanceID.instanceID().instanceID { (result, error) in
+//            if let error = error {
+//                print("Error fetching remote instance ID: \(error)")
+//            } else if let result = result {
+//                print("Remote instance ID token: \(result.token)")
+//                print("InstanceID token: \(result.token)")
+//            }
+//        }
         if let token = Messaging.messaging().fcmToken {
             print("FCM token: \(token )")
             UserDefaults.standard.set(token, forKey: "pushdevicetoken")
@@ -480,66 +478,79 @@ class AppDelegate: UIResponder, UIApplicationDelegate,UNUserNotificationCenterDe
     }
     
     func ConnectToFCM() {
-        InstanceID.instanceID().instanceID { (result, error) in
-            if let error = error {
-                print("Error fetching remote instance ID: \(error)")
-            } else if let result = result {
-                print("Remote instance ID token: \(result.token)")
-                let token = "\(result.token)"
-                print("DCS: " + token)
-                UserDefaults.standard.set(token, forKey: "fcmToken")
-            }
-        }
+//        InstanceID.instanceID().instanceID { (result, error) in
+//            if let error = error {
+//                print("Error fetching remote instance ID: \(error)")
+//            } else if let result = result {
+//                print("Remote instance ID token: \(result.token)")
+//                let token = "\(result.token)"
+//                print("DCS: " + token)
+//                UserDefaults.standard.set(token, forKey: "fcmToken")
+//            }
+//        }
         if let token = Messaging.messaging().fcmToken {
             print("FCM token: \(token )")
             UserDefaults.standard.set(token, forKey: "pushdevicetoken")
         }
-        Messaging.messaging().shouldEstablishDirectChannel = true
-    }
-    @objc func tokenRefreshNotificaiton(_ notification: Foundation.Notification) {
-        InstanceID.instanceID().instanceID { (result, error) in
+        Messaging.messaging().token { token, error in
+ 
             if let error = error {
                 print("Error fetching remote instance ID: \(error)")
-            } else if let result = result {
-                print("Remote instance ID token: \(result.token)")
-                let refreshedToken  = "\(result.token)"
-                UserDefaults.standard.set(refreshedToken, forKey: "fcmToken")
+            } else if let resultToken = token {
+                print("Remote instance ID token: \(resultToken)")
+                let token = "\(resultToken)"
+                print("DCS: " + token)
+                UserDefaults.standard.set(token, forKey: "fcmToken")
+                login_session.setValue(token, forKey: "fcmToken")
+                login_session.synchronize()
             }
         }
-        ConnectToFCM()
+//        Messaging.messaging().shouldEstablishDirectChannel = true
     }
+//    @objc func tokenRefreshNotificaiton(_ notification: Foundation.Notification) {
+//        InstanceID.instanceID().instanceID { (result, error) in
+//            if let error = error {
+//                print("Error fetching remote instance ID: \(error)")
+//            } else if let result = result {
+//                print("Remote instance ID token: \(result.token)")
+//                let refreshedToken  = "\(result.token)"
+//                UserDefaults.standard.set(refreshedToken, forKey: "fcmToken")
+//            }
+//        }
+//        ConnectToFCM()
+//    }
     
     //MARK: FCM Token Refreshed
     func messaging(_ messaging: Messaging, didRefreshRegistrationToken fcmToken: String) {
         // FCM token updated, update it on Backend Server
     }
-    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
-        print("remoteMessage: \(remoteMessage)")
-        print("remoteMessage: \(remoteMessage.appData)")
-        print("remoteMessage: \(remoteMessage)")
-        
-        let pushDict:NSDictionary = remoteMessage.appData as NSDictionary
-        print(pushDict)
-        //let titleStr : String = pushDict.value(forKey: "title") as? String ?? ""
-        //let bodyStr : String = pushDict.value(forKey: "body") as? String ?? ""
-        let titleStr : String = (pushDict.value(forKey: "notification") as AnyObject).value(forKey: "title") as? String ?? ""
-        let bodyStr : String = (pushDict.value(forKey: "notification") as AnyObject).value(forKey: "body") as? String ?? ""
-        print(titleStr)
-        print(bodyStr)
-    }
-    func application(received remoteMessage: MessagingRemoteMessage) {
-        print("remoteMessage: \(remoteMessage)")
-        print("remoteMessage: \(remoteMessage.appData)")
-    }
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-        print("Firebase registration token: \(fcmToken)")
-        print(fcmToken)
-        let dataDict:[String: String] = ["token": fcmToken]
-        print(dataDict)
-        //NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
-        // TODO: If necessary send token to application server.
-        // Note: This callback is fired at each app startup and whenever a new token is generated.
-    }
+//    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+//        print("remoteMessage: \(remoteMessage)")
+//        print("remoteMessage: \(remoteMessage.appData)")
+//        print("remoteMessage: \(remoteMessage)")
+//
+//        let pushDict:NSDictionary = remoteMessage.appData as NSDictionary
+//        print(pushDict)
+//        //let titleStr : String = pushDict.value(forKey: "title") as? String ?? ""
+//        //let bodyStr : String = pushDict.value(forKey: "body") as? String ?? ""
+//        let titleStr : String = (pushDict.value(forKey: "notification") as AnyObject).value(forKey: "title") as? String ?? ""
+//        let bodyStr : String = (pushDict.value(forKey: "notification") as AnyObject).value(forKey: "body") as? String ?? ""
+//        print(titleStr)
+//        print(bodyStr)
+//    }
+//    func application(received remoteMessage: MessagingRemoteMessage) {
+//        print("remoteMessage: \(remoteMessage)")
+//        print("remoteMessage: \(remoteMessage.appData)")
+//    }
+//    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+//        print("Firebase registration token: \(fcmToken)")
+//        print(fcmToken)
+//        let dataDict:[String: String] = ["token": fcmToken]
+//        print(dataDict)
+//        //NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
+//        // TODO: If necessary send token to application server.
+//        // Note: This callback is fired at each app startup and whenever a new token is generated.
+//    }
     //MARK: UNUserNotificationCenterDelegate Method
     //Called when a notification is delivered to a foreground app.
     @available(iOS 10.0, *)

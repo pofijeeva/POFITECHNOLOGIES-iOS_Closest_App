@@ -17,10 +17,7 @@ class HeaderManager {
             "Content-Type": "application/json",
             "Accept": "application/json"
         ]
-        
-        
-        
-        
+                
         var fcmToken : String = ""
         if UserDefaults.standard.object(forKey: "fcmToken") != nil{
             fcmToken = UserDefaults.standard.object(forKey: "fcmToken") as? String ?? ""
@@ -128,16 +125,16 @@ class HeaderManager {
 class APIManager: NSObject {
 
     class func apiGet(serviceName:String,parameters: [String:Any]?, completionHandler: @escaping (NSDictionary?, NSError?) -> ()) {
-        Alamofire.request(serviceName, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response:DataResponse<Any>) in
+        AF.request(serviceName, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { response in
             switch(response.result) {
             case .success(_):
-                if let data = response.result.value{
+                if let data = response.value{
                     let json = data as? NSDictionary
                     completionHandler(json,nil)
                 }
                 break
             case .failure(_):
-                completionHandler(nil,response.result.error as NSError?)
+                completionHandler(nil,response.error as NSError?)
                 break
                 
             }
@@ -190,7 +187,7 @@ print(jsonData)
             request.httpBody = jsonData
     print(request)
 
-        Alamofire.request(request).response { (response) in
+        AF.request(request).response { (response) in
             print(response)
 
             if let data = response.data {
@@ -224,7 +221,7 @@ print(jsonData)
         print("************ Parameters Start ************")
         print(parameters)
         print("************ Parameters Start ************")
-        Alamofire.request(serviceName, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: HeaderManager.headers()).responseJSON { (response:DataResponse<Any>) in
+        AF.request(serviceName, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: HeaderManager.headers()).responseJSON { response in
             switch(response.result) {
             case .success(_):
                 if let data = response.value{
@@ -254,7 +251,7 @@ print(jsonData)
         print("************ Parameters Start ************")
         print(parameters)
         print("************ Parameters Start ************")
-        Alamofire.request(serviceName, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: HeaderManager.headers()).responseJSON { (response) in
+        AF.request(serviceName, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: HeaderManager.headers()).responseJSON { (response) in
             print(response)
             switch (response.result) {
             case .success:
@@ -271,23 +268,23 @@ print(jsonData)
     }
     
     class func apiPost(serviceName:String,parameters: [String:Any]?, completionHandler: @escaping (NSDictionary?, NSError?) -> ()) {
-        Alamofire.request(serviceName, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response:DataResponse<Any>) in
+        AF.request(serviceName, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { response in
             switch(response.result) {
             case .success(_):
-                if let data = response.result.value{
+                if let data = response.value{
                     let json = data as? NSDictionary
                     completionHandler(json,nil)
                 }
                 break
             case .failure(_):
-                completionHandler(nil,response.result.error as NSError?)
+                completionHandler(nil,response.error as NSError?)
                 break
                 
             }
         }
     }
     class func apiPostCodable(serviceName:String,parameters: [String:Any]?, completionHandler: @escaping (_ responseData: Data?,_ error: Error?) -> ()) {
-        Alamofire.request(serviceName, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
+        AF.request(serviceName, method: .post, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseJSON { (response) in
             print(response)
             switch (response.result) {
             case .success:

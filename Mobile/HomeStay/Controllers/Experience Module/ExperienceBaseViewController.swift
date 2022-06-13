@@ -60,10 +60,10 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
         
         self.buttonBack.addTarget(self, action: #selector(updateBackNavigation), for: .touchUpInside)
         let VC = storyBoardExperience.instantiateViewController(withIdentifier: "BasicExperienceViewController") as! BasicExperienceViewController
-        self.addChildViewController(VC)
+        self.addChild(VC)
         VC.view.frame = self.parentView.bounds
         self.parentView.addSubview(VC.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
         // Do any additional setup after loading the view.
     }
     
@@ -207,125 +207,125 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
                 switch indexPath.row {
                 case 0:
                     let VC = storyBoardExperience.instantiateViewController(withIdentifier: "BasicExperienceViewController") as! BasicExperienceViewController
-                    self.addChildViewController(VC)
+                    self.addChild(VC)
                     VC.view.frame = self.parentView.bounds
                     self.parentView.addSubview(VC.view)
-                    self.didMove(toParentViewController: self)
+                    self.didMove(toParent: self)
                     break;
                 case 1:
                     let VC = storyBoardExperience.instantiateViewController(withIdentifier: "LanguagesExperienceViewController") as! LanguagesExperienceViewController
-                    self.addChildViewController(VC)
+                    self.addChild(VC)
                     VC.view.frame = self.parentView.bounds
                     self.parentView.addSubview(VC.view)
-                    self.didMove(toParentViewController: self)
+                    self.didMove(toParent: self)
                     break;
                 case 2:
                     let VC = storyBoardExperience.instantiateViewController(withIdentifier: "OrganizationExperienceViewController") as! OrganizationExperienceViewController
-                    self.addChildViewController(VC)
+                    self.addChild(VC)
                     VC.view.frame = self.parentView.bounds
                     self.parentView.addSubview(VC.view)
-                    self.didMove(toParentViewController: self)
+                    self.didMove(toParent: self)
                     break;
                 case 3:
                     let VC = storyBoardExperience.instantiateViewController(withIdentifier: "TitleExperienceViewController") as! TitleExperienceViewController
-                    self.addChildViewController(VC)
+                    self.addChild(VC)
                     VC.view.frame = self.parentView.bounds
                     self.parentView.addSubview(VC.view)
-                    self.didMove(toParentViewController: self)
+                    self.didMove(toParent: self)
                     break;
                 case 4:
                     let VC = storyBoardExperience.instantiateViewController(withIdentifier: "AddScheduleExperienceViewController") as! AddScheduleExperienceViewController
-                    self.addChildViewController(VC)
+                    self.addChild(VC)
                     VC.view.frame = self.parentView.bounds
                     self.parentView.addSubview(VC.view)
-                    self.didMove(toParentViewController: self)
+                    self.didMove(toParent: self)
                     break;
                 case 5:
                     let VC = storyBoardExperience.instantiateViewController(withIdentifier: "TagLineExperienceViewController") as! TagLineExperienceViewController
-                    self.addChildViewController(VC)
+                    self.addChild(VC)
                     VC.view.frame = self.parentView.bounds
                     self.parentView.addSubview(VC.view)
-                    self.didMove(toParentViewController: self)
+                    self.didMove(toParent: self)
                     break;
                 case 6:
                     let VC = storyBoardExperience.instantiateViewController(withIdentifier: "AddPhotosExperienceViewController") as! AddPhotosExperienceViewController
-                    self.addChildViewController(VC)
+                    self.addChild(VC)
                     VC.view.frame = self.parentView.bounds
                     self.parentView.addSubview(VC.view)
-                    self.didMove(toParentViewController: self)
+                    self.didMove(toParent: self)
                     break;
                     
                 case 7:
                     let VC = storyBoardExperience.instantiateViewController(withIdentifier: "WhatAndWhereViewController") as! WhatAndWhereViewController
                     VC.isWhatOrWhere = "what"
-                    self.addChildViewController(VC)
+                    self.addChild(VC)
                     VC.view.frame = self.parentView.bounds
                     self.parentView.addSubview(VC.view)
-                    self.didMove(toParentViewController: self)
+                    self.didMove(toParent: self)
                     break;
                 case 8:
                     let VC = storyBoardExperience.instantiateViewController(withIdentifier: "WhatAndWhereViewController") as! WhatAndWhereViewController
                     VC.isWhatOrWhere = "where"
-                    self.addChildViewController(VC)
+                    self.addChild(VC)
                     VC.view.frame = self.parentView.bounds
                     self.parentView.addSubview(VC.view)
-                    self.didMove(toParentViewController: self)
+                    self.didMove(toParent: self)
                     break;
                 case 9:
                     let VC = storyBoardExperience.instantiateViewController(withIdentifier: "AddAddressExperienceViewController") as! AddAddressExperienceViewController
-                    self.addChildViewController(VC)
+                    self.addChild(VC)
                     VC.view.frame = self.parentView.bounds
                     self.parentView.addSubview(VC.view)
-                    self.didMove(toParentViewController: self)
+                    self.didMove(toParent: self)
                     break;
                 case 10:
                     let VC = storyBoardExperience.instantiateViewController(withIdentifier: "ExperienceProvideViewController") as! ExperienceProvideViewController
-                    self.addChildViewController(VC)
+                    self.addChild(VC)
                     VC.view.frame = self.parentView.bounds
                     self.parentView.addSubview(VC.view)
-                    self.didMove(toParentViewController: self)
+                    self.didMove(toParent: self)
                     break;
                 case 11:
                     let VC = storyBoardExperience.instantiateViewController(withIdentifier: "ExperienceAddNotesViewController") as! ExperienceAddNotesViewController
-                    self.addChildViewController(VC)
+                    self.addChild(VC)
                     VC.view.frame = self.parentView.bounds
                     self.parentView.addSubview(VC.view)
-                    self.didMove(toParentViewController: self)
+                    self.didMove(toParent: self)
                     break;
                 case 12:
                     let VC = storyBoardExperience.instantiateViewController(withIdentifier: "ExperienceAddBioViewController") as! ExperienceAddBioViewController
-                    self.addChildViewController(VC)
+                    self.addChild(VC)
                     VC.view.frame = self.parentView.bounds
                     self.parentView.addSubview(VC.view)
-                    self.didMove(toParentViewController: self)
+                    self.didMove(toParent: self)
                     break;
                 case 13:
                     let VC = storyBoardExperience.instantiateViewController(withIdentifier: "ExperienceRequirementsViewController") as! ExperienceRequirementsViewController
-                    self.addChildViewController(VC)
+                    self.addChild(VC)
                     VC.view.frame = self.parentView.bounds
                     self.parentView.addSubview(VC.view)
-                    self.didMove(toParentViewController: self)
+                    self.didMove(toParent: self)
                     break;
                 case 14:
                     let VC = storyBoardExperience.instantiateViewController(withIdentifier: "ExperienceGroupSizeViewController") as! ExperienceGroupSizeViewController
-                    self.addChildViewController(VC)
+                    self.addChild(VC)
                     VC.view.frame = self.parentView.bounds
                     self.parentView.addSubview(VC.view)
-                    self.didMove(toParentViewController: self)
+                    self.didMove(toParent: self)
                     break;
                 case 15:
                     let VC = storyBoardExperience.instantiateViewController(withIdentifier: "ExperienceAddPriceViewController") as! ExperienceAddPriceViewController
-                    self.addChildViewController(VC)
+                    self.addChild(VC)
                     VC.view.frame = self.parentView.bounds
                     self.parentView.addSubview(VC.view)
-                    self.didMove(toParentViewController: self)
+                    self.didMove(toParent: self)
                     break;
                 case 16:
                     let VC = storyBoardExperience.instantiateViewController(withIdentifier: "ExperienceCancellationViewController") as! ExperienceCancellationViewController
-                    self.addChildViewController(VC)
+                    self.addChild(VC)
                     VC.view.frame = self.parentView.bounds
                     self.parentView.addSubview(VC.view)
-                    self.didMove(toParentViewController: self)
+                    self.didMove(toParent: self)
                     break;
                 default:
                     print("default case in didselect")
@@ -434,16 +434,16 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
     public func gotoStepOne() {
         let childViewController = storyBoardExperience.instantiateViewController(withIdentifier: "OrganizationExperienceViewController") as? OrganizationExperienceViewController
         childViewController?.view.frame = self.parentView.bounds
-        addChildViewController(childViewController!)
+        addChild(childViewController!)
     }
     
     public func gotoStepTwo() {
         self.getBaseDetailsWithoutLoader()
         let childViewController = storyBoardExperience.instantiateViewController(withIdentifier: "LanguagesExperienceViewController") as! LanguagesExperienceViewController
-        self.addChildViewController(childViewController)
+        self.addChild(childViewController)
         childViewController.view.frame = self.parentView.bounds
         self.parentView.addSubview(childViewController.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
 //        var dict = self.arrayOfMenus[0]
 //        dict["selected"] = "1" as AnyObject
 //        self.arrayOfMenus[0] = dict
@@ -455,10 +455,10 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
     public func gotoStepThree() {
         self.getBaseDetailsWithoutLoader()
         let childViewController = storyBoardExperience.instantiateViewController(withIdentifier: "OrganizationExperienceViewController") as! OrganizationExperienceViewController
-        addChildViewController(childViewController)
+        addChild(childViewController)
         childViewController.view.frame = self.parentView.bounds
         self.parentView.addSubview(childViewController.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
 //        var dict = self.arrayOfMenus[1]
 //        dict["selected"] = "1" as AnyObject
 //        self.arrayOfMenus[1] = dict
@@ -470,10 +470,10 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
     public func gotoStepfour() {
         self.getBaseDetailsWithoutLoader()
         let childViewController = storyBoardExperience.instantiateViewController(withIdentifier: "TitleExperienceViewController") as! TitleExperienceViewController
-        addChildViewController(childViewController)
+        addChild(childViewController)
         childViewController.view.frame = self.parentView.bounds
         self.parentView.addSubview(childViewController.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
 //        var dict = self.arrayOfMenus[2]
 //        dict["selected"] = "1" as AnyObject
 //        self.arrayOfMenus[2] = dict
@@ -485,10 +485,10 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
     public func gotoStepfive() {
         self.getBaseDetailsWithoutLoader()
         let childViewController = storyBoardExperience.instantiateViewController(withIdentifier: "AddScheduleExperienceViewController") as! AddScheduleExperienceViewController
-        addChildViewController(childViewController)
+        addChild(childViewController)
         childViewController.view.frame = self.parentView.bounds
         self.parentView.addSubview(childViewController.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
 //        var dict = self.arrayOfMenus[3]
 //        dict["selected"] = "1" as AnyObject
 //        self.arrayOfMenus[3] = dict
@@ -500,10 +500,10 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
     public func gotoStepSix() {
         self.getBaseDetailsWithoutLoader()
         let childViewController = storyBoardExperience.instantiateViewController(withIdentifier: "TagLineExperienceViewController") as! TagLineExperienceViewController
-        addChildViewController(childViewController)
+        addChild(childViewController)
         childViewController.view.frame = self.parentView.bounds
         self.parentView.addSubview(childViewController.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
         BaseSelectedIndex = 5
         self.collectionViewTop.scrollToItem(at: IndexPath(row: 5, section: 0), at: .centeredHorizontally, animated: true)
         self.collectionViewTop.reloadData()
@@ -513,10 +513,10 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
     public func gotoStepSeven() {
         self.getBaseDetailsWithoutLoader()
         let childViewController = storyBoardExperience.instantiateViewController(withIdentifier: "AddPhotosExperienceViewController") as! AddPhotosExperienceViewController
-        addChildViewController(childViewController)
+        addChild(childViewController)
         childViewController.view.frame = self.parentView.bounds
         self.parentView.addSubview(childViewController.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
         BaseSelectedIndex = 6
         self.collectionViewTop.scrollToItem(at: IndexPath(row: 6, section: 0), at: .centeredHorizontally, animated: true)
         self.collectionViewTop.reloadData()
@@ -526,10 +526,10 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
         self.getBaseDetailsWithoutLoader()
         let childViewController = storyBoardExperience.instantiateViewController(withIdentifier: "WhatAndWhereViewController") as! WhatAndWhereViewController
         childViewController.isWhatOrWhere = "what"
-        addChildViewController(childViewController)
+        addChild(childViewController)
         childViewController.view.frame = self.parentView.bounds
         self.parentView.addSubview(childViewController.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
         BaseSelectedIndex = 7
         self.collectionViewTop.scrollToItem(at: IndexPath(row: 7, section: 0), at: .centeredHorizontally, animated: true)
         self.collectionViewTop.reloadData()
@@ -540,7 +540,7 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
         let childViewController = storyBoardExperience.instantiateViewController(withIdentifier: "WhatAndWhereViewController") as! WhatAndWhereViewController
         childViewController.isWhatOrWhere = "where"
         childViewController.view.frame = self.parentView.bounds
-        addChildViewController(childViewController)
+        addChild(childViewController)
         BaseSelectedIndex = 8
         self.collectionViewTop.scrollToItem(at: IndexPath(row: 8, section: 0), at: .centeredHorizontally, animated: true)
         self.collectionViewTop.reloadData()
@@ -549,10 +549,10 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
     public func gotoStepTen() {
         self.getBaseDetailsWithoutLoader()
         let childViewController = storyBoardExperience.instantiateViewController(withIdentifier: "AddAddressExperienceViewController") as! AddAddressExperienceViewController
-        addChildViewController(childViewController)
+        addChild(childViewController)
         childViewController.view.frame = self.parentView.bounds
         self.parentView.addSubview(childViewController.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
         BaseSelectedIndex = 9
         self.collectionViewTop.scrollToItem(at: IndexPath(row: 9, section: 0), at: .centeredHorizontally, animated: true)
         self.collectionViewTop.reloadData()
@@ -561,10 +561,10 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
     public func gotoStepEleven() {
         self.getBaseDetailsWithoutLoader()
         let childViewController = storyBoardExperience.instantiateViewController(withIdentifier: "ExperienceProvideViewController") as! ExperienceProvideViewController
-        addChildViewController(childViewController)
+        addChild(childViewController)
         childViewController.view.frame = self.parentView.bounds
         self.parentView.addSubview(childViewController.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
         BaseSelectedIndex = 10
         self.collectionViewTop.scrollToItem(at: IndexPath(row: 10, section: 0), at: .centeredHorizontally, animated: true)
         self.collectionViewTop.reloadData()
@@ -573,10 +573,10 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
     public func gotoStepTwelve() {
         self.getBaseDetailsWithoutLoader()
         let childViewController = storyBoardExperience.instantiateViewController(withIdentifier: "ExperienceAddNotesViewController") as! ExperienceAddNotesViewController
-        addChildViewController(childViewController)
+        addChild(childViewController)
         childViewController.view.frame = self.parentView.bounds
         self.parentView.addSubview(childViewController.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
         BaseSelectedIndex = 11
         self.collectionViewTop.scrollToItem(at: IndexPath(row: 11, section: 0), at: .centeredHorizontally, animated: true)
         self.collectionViewTop.reloadData()
@@ -585,10 +585,10 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
     public func gotoStepThirteen() {
         self.getBaseDetailsWithoutLoader()
         let childViewController = storyBoardExperience.instantiateViewController(withIdentifier: "ExperienceAddBioViewController") as! ExperienceAddBioViewController
-        addChildViewController(childViewController)
+        addChild(childViewController)
         childViewController.view.frame = self.parentView.bounds
         self.parentView.addSubview(childViewController.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
         BaseSelectedIndex = 12
         self.collectionViewTop.scrollToItem(at: IndexPath(row: 12, section: 0), at: .centeredHorizontally, animated: true)
         self.collectionViewTop.reloadData()
@@ -597,10 +597,10 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
     public func gotoStepFourteen() {
         self.getBaseDetailsWithoutLoader()
         let childViewController = storyBoardExperience.instantiateViewController(withIdentifier: "ExperienceRequirementsViewController") as! ExperienceRequirementsViewController
-        addChildViewController(childViewController)
+        addChild(childViewController)
         childViewController.view.frame = self.parentView.bounds
         self.parentView.addSubview(childViewController.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
         BaseSelectedIndex = 13
         self.collectionViewTop.scrollToItem(at: IndexPath(row: 13, section: 0), at: .centeredHorizontally, animated: true)
         self.collectionViewTop.reloadData()
@@ -609,10 +609,10 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
     public func gotoStepFifteen() {
         self.getBaseDetailsWithoutLoader()
         let childViewController = storyBoardExperience.instantiateViewController(withIdentifier: "ExperienceGroupSizeViewController") as! ExperienceGroupSizeViewController
-        addChildViewController(childViewController)
+        addChild(childViewController)
         childViewController.view.frame = self.parentView.bounds
         self.parentView.addSubview(childViewController.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
         BaseSelectedIndex = 14
         self.collectionViewTop.scrollToItem(at: IndexPath(row: 14, section: 0), at: .centeredHorizontally, animated: true)
         self.collectionViewTop.reloadData()
@@ -621,10 +621,10 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
     public func gotoStepSixteen() {
         self.getBaseDetailsWithoutLoader()
         let childViewController = storyBoardExperience.instantiateViewController(withIdentifier: "ExperienceAddPriceViewController") as! ExperienceAddPriceViewController
-        addChildViewController(childViewController)
+        addChild(childViewController)
         childViewController.view.frame = self.parentView.bounds
         self.parentView.addSubview(childViewController.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
         BaseSelectedIndex = 15
         self.collectionViewTop.scrollToItem(at: IndexPath(row: 15, section: 0), at: .centeredHorizontally, animated: true)
         self.collectionViewTop.reloadData()
@@ -633,10 +633,10 @@ class ExperienceBaseViewController: UIViewController,UICollectionViewDelegate,UI
     public func gotoStepSeventeen() {
         self.getBaseDetailsWithoutLoader()
         let childViewController = storyBoardExperience.instantiateViewController(withIdentifier: "ExperienceCancellationViewController") as! ExperienceCancellationViewController
-        addChildViewController(childViewController)
+        addChild(childViewController)
         childViewController.view.frame = self.parentView.bounds
         self.parentView.addSubview(childViewController.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
         BaseSelectedIndex = 16
         self.collectionViewTop.scrollToItem(at: IndexPath(row: 16, section: 0), at: .centeredHorizontally, animated: true)
         self.collectionViewTop.reloadData()
@@ -674,7 +674,7 @@ extension String {
 
 //extension UIViewController {
 //    func add(_ child: UIViewController,parent: BasicExperienceViewController) {
-//        addChildViewController(child)
+//        addChild(child)
 //        parent.ParentView.addSubview(child.view)
 //        child.didMove(toParentViewController: self)
 //    }

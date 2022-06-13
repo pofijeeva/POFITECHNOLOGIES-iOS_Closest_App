@@ -195,7 +195,7 @@ extension ExperienceListingBundleViewController: listingActivityProtocol {
         loadingView.clipsToBounds = true
         loadingView.layer.cornerRadius = 10
         activityIndicator.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
         activityIndicator.center = CGPoint(x: loadingView.frame.size.width / 2,y: loadingView.frame.size.height / 2);
         loadingView.addSubview(activityIndicator)
         container.addSubview(loadingView)
@@ -217,17 +217,17 @@ extension ExperienceListingBundleViewController: listingActivityProtocol {
 }
 extension UIViewController {
     func add(_ child: UIViewController,parent: ExperienceListingBundleViewController) {
-        addChildViewController(child)
+        addChild(child)
         parent.ParentView.addSubview(child.view)
-        child.didMove(toParentViewController: self)
+        child.didMove(toParent: self)
     }
     
     func removeChild(parentCon: ExperienceListingBundleViewController) {
         guard parent != nil else {
             return
         }
-        willMove(toParentViewController: nil)
-        removeFromParentViewController()
+        willMove(toParent: nil)
+        removeFromParent()
         parentCon.ParentView.removeFromSuperview()
     }
 }

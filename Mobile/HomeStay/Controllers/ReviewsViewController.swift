@@ -94,7 +94,7 @@ class ReviewsViewController: BaseViewController
         disByLbl.layer.masksToBounds = true
         
         self.lbl_header.text = "All Disputes"
-        let id = Singleton.sharedInstance.selectedCategory
+//        let id = Singleton.sharedInstance.selectedCategory
         
         isReviewabtYou = true
         
@@ -1611,7 +1611,7 @@ extension ReviewsViewController : UITableViewDataSource,UITableViewDelegate {
         return 180
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return  UITableViewAutomaticDimension
+        return  UITableView.automaticDimension
     }
     
 }

@@ -209,7 +209,7 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
             
             if let code = responseDict.value(forKey: "code") as? NSNumber {
             
-            if responseDict.value(forKey: "code") as! NSNumber == 200 {
+            if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                 self.hideActivityIndicator(uiView: self.view)
 
                 self.arrayList.removeAllObjects()
@@ -439,7 +439,7 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
             
             if let code = responseDict.value(forKey: "code") as? NSNumber {
             
-            if responseDict.value(forKey: "code") as! NSNumber == 200 {
+            if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                 
                 self.updateList()
                 
@@ -477,7 +477,7 @@ class NewListViewController:BaseViewController,UICollectionViewDelegate,UICollec
             
             if let code = responseDict.value(forKey: "code") as? NSNumber {
             
-            if responseDict.value(forKey: "code") as! NSNumber == 200 {
+            if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                 
                 self.updateList()
                 

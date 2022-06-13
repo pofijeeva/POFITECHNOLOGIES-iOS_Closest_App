@@ -1378,13 +1378,13 @@ extension PropertyListingViewController: UITableViewDelegate ,UITableViewDataSou
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if tableView == InvoiceDetails {
-            return  UITableViewAutomaticDimension
+            return  UITableView.automaticDimension
         }else{
             if isMyListing == true {
                 return  175
             }
             else {
-                return  UITableViewAutomaticDimension
+                return  UITableView.automaticDimension
             }
         }
     }
@@ -1632,8 +1632,8 @@ extension PropertyListingViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
 
 extension NSAttributedString {
     func changeColor(text1: String, text2:String, color1: UIColor, color2: UIColor) -> NSMutableAttributedString {
-        let textAttributesOne = [NSAttributedStringKey.foregroundColor: color1]
-        let textAttributesTwo = [NSAttributedStringKey.foregroundColor: color2]
+        let textAttributesOne = [NSAttributedString.Key.foregroundColor: color1]
+        let textAttributesTwo = [NSAttributedString.Key.foregroundColor: color2]
         let textPartOne = NSMutableAttributedString(string: text1, attributes: textAttributesOne)
         let textPartTwo = NSMutableAttributedString(string: text2, attributes: textAttributesTwo)
         let textCombination = NSMutableAttributedString()

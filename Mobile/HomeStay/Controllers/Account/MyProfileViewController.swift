@@ -81,7 +81,7 @@ class MyProfileViewController: UIViewController {
                     }
                     let responseDict:NSDictionary = json!
                     print(responseDict)
-                    if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                    if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                     //    self.Homepagedata.addEntries(from: responseDict as! [AnyHashable : Any])
                         
                         let resData = responseDict["data"] as! [String:Any]
@@ -150,7 +150,7 @@ class MyProfileViewController: UIViewController {
                     }
                     let responseDict:NSDictionary = json!
                     print(responseDict)
-                    if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                    if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                     //    self.Homepagedata.addEntries(from: responseDict as! [AnyHashable : Any])
                         
                         let resData = responseDict["data"] as! [String:Any]

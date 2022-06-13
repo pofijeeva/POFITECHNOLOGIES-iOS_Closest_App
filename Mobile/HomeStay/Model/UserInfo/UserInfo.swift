@@ -10,7 +10,7 @@ class UserInfo : NSObject, NSCoding{
     
     var cancellationAboutYou : [CancellationAboutYou]!
     var cancellationByYou : [CancellationByYou]!
-    var countryList : [CountryList]!
+    var countryList : [CountryListModel]!
     var disputeAboutYou : [DisputeAboutYou]!
     var disputeByYou : [DisputeByYou]!
     var hostCancellation : [HostCancellation]!
@@ -43,10 +43,10 @@ class UserInfo : NSObject, NSCoding{
                 cancellationByYou.append(value)
             }
         }
-        countryList = [CountryList]()
+        countryList = [CountryListModel]()
         if let countryListArray = dictionary["country_list"] as? [[String:Any]]{
             for dic in countryListArray{
-                let value = CountryList(fromDictionary: dic)
+                let value = CountryListModel(fromDictionary: dic)
                 countryList.append(value)
             }
         }
@@ -208,7 +208,7 @@ class UserInfo : NSObject, NSCoding{
     {
         cancellationAboutYou = aDecoder.decodeObject(forKey: "cancellation_about_you") as? [CancellationAboutYou]
         cancellationByYou = aDecoder.decodeObject(forKey: "cancellation_by_you") as? [CancellationByYou]
-        countryList = aDecoder.decodeObject(forKey: "country_list") as? [CountryList]
+        countryList = aDecoder.decodeObject(forKey: "country_list") as? [CountryListModel]
         disputeAboutYou = aDecoder.decodeObject(forKey: "dispute_about_you") as? [DisputeAboutYou]
         disputeByYou = aDecoder.decodeObject(forKey: "dispute_by_you") as? [DisputeByYou]
         hostCancellation = aDecoder.decodeObject(forKey: "host_cancellation") as? [HostCancellation]

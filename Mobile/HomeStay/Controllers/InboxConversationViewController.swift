@@ -224,7 +224,7 @@ class InboxConversationViewController: BaseViewController {
                 //                    return
                 //                }
                 //                print(json!)
-                //                if json?.value(forKey: "status") as! NSNumber == 1
+                //                if json?.value(forKey: "status") as? NSNumber ?? 0 == 1
                 //                {
                 //                    let mod = InboxConversationModel(fromDictionary: json as! [String : Any])
                 //                                        Singleton.sharedInstance.inboxConversationModel = mod
@@ -755,7 +755,7 @@ extension InboxConversationViewController: UITableViewDelegate, UITableViewDataS
 
             cell!.imgBubbleSender.image = UIImage(named: "chat_bubble_sent")!
                 .resizableImage(withCapInsets:
-                    UIEdgeInsetsMake(17, 21, 17, 21),
+                                    UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21),
                                 resizingMode: .stretch)
                 .withRenderingMode(.alwaysTemplate)
             //cell!.imgBubbleSender.tintColor = UIColor(named: "chat_bubble_color_received")
@@ -796,7 +796,7 @@ extension InboxConversationViewController: UITableViewDelegate, UITableViewDataS
             cell!.lblDate.font = UIFont(name: SemiBoldFont, size: 12)
             cell!.imgBubbleReceiver.image = UIImage(named: "chat_bubble_received")!
                 .resizableImage(withCapInsets:
-                    UIEdgeInsetsMake(17, 21, 17, 21),
+                                    UIEdgeInsets(top: 17, left: 21, bottom: 17, right: 21),
                                 resizingMode: .stretch)
                 .withRenderingMode(.alwaysTemplate)
            // cell!.imgBubbleReceiver.tintColor = UIColor(named: "chat_bubble_color_received")
@@ -826,7 +826,7 @@ extension InboxConversationViewController: UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
 }
 

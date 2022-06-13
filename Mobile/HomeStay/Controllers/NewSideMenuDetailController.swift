@@ -53,7 +53,7 @@ class NewSideMenuDetailController: BaseViewController {
                      }
                      let responseDict:NSDictionary = json!
                      print(responseDict)
-                     if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                     if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                         self.phoneVerify = "\(((responseDict.value(forKey: "data") as? NSDictionary)?.object(forKey: "user_details") as? NSDictionary)?.object(forKey: "phone_verified") as AnyObject)"
                         self.emailVerify = "\(((responseDict.value(forKey: "data") as? NSDictionary)?.object(forKey: "user_details") as? NSDictionary)?.object(forKey: "email_id_verified") as AnyObject)"
                         self.idProofVerify = "\(((responseDict.value(forKey: "data") as? NSDictionary)?.object(forKey: "user_details") as? NSDictionary)?.object(forKey: "u_idproof_verified_status") as AnyObject)"
@@ -70,14 +70,14 @@ class NewSideMenuDetailController: BaseViewController {
      }
     
     func showSimpleAlert() {
-        let alert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_AddlistingInfo") as? String ?? "",         preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_AddlistingInfo") as? String ?? "",         preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_cancel") as? String ?? "", style: UIAlertActionStyle.default, handler: { _ in
+        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_cancel") as? String ?? "", style: UIAlertAction.Style.default, handler: { _ in
             //Cancel Action
             self.dismiss(animated: true, completion: nil)
         }))
         alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "key_verifyNow") as? String ?? "",
-                                      style: UIAlertActionStyle.default,
+                                      style: UIAlertAction.Style.default,
                                       handler: {(_: UIAlertAction!) in
                                         let navgt = self.storyboard?.instantiateViewController(withIdentifier: "NewProfileViewController") as? NewProfileViewController
                                         self.navigationController?.pushViewController(navgt!, animated: true)
@@ -132,7 +132,7 @@ class NewSideMenuDetailController: BaseViewController {
             
             if let code = responseDict.value(forKey: "code") as? NSNumber {
                 
-                if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                     
                     
                     login_session.set(false, forKey: "IS_USER_LOGGEDIN")
@@ -230,7 +230,7 @@ extension NewSideMenuDetailController: UITableViewDelegate, UITableViewDataSourc
         
         case .LOGOUT:
             
-            let refreshAlert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_logoutSuccessfully") as? String ?? "", preferredStyle: UIAlertControllerStyle.alert)
+            let refreshAlert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_logoutSuccessfully") as? String ?? "", preferredStyle: UIAlertController.Style.alert)
             
             refreshAlert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "ok") as? String ?? "", style: .default, handler: { [self] (action: UIAlertAction!) in
                 LogoutApi()

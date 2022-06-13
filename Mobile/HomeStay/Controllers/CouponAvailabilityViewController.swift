@@ -112,11 +112,11 @@ class CouponAvailabilityViewController: BaseViewController {
                 
                     
                    
-                    let totalWalletAmout = userDetails?.value(forKey: "total_wallet_amount") as! NSNumber
+                    let totalWalletAmout = userDetails?.value(forKey: "total_wallet_amount") as? NSNumber ?? 0
                     self.totalwallet = String(format: "%@",totalWalletAmout)
-                    let usdeWalletAmout = userDetails?.value(forKey: "used_from_wallet") as! NSNumber
+                    let usdeWalletAmout = userDetails?.value(forKey: "used_from_wallet") as? NSNumber ?? 0
                     self.usedWallet = String(format: "%@",usdeWalletAmout)
-                    let balenceWalletAmout = userDetails?.value(forKey: "balance_from_wallet") as! NSNumber
+                    let balenceWalletAmout = userDetails?.value(forKey: "balance_from_wallet") as? NSNumber ?? 0
                     self.balenceWallet = String(format: "%@",balenceWalletAmout)
                     
                     self.tableView.reloadData()
@@ -504,11 +504,11 @@ extension CouponAvailabilityViewController : HTTP_POST_STRING_REQUEST_PROTOCOL{
             
                 
                
-                let totalWalletAmout = userDetails?.value(forKey: "total_wallet_amount") as! NSNumber
+                let totalWalletAmout = userDetails?.value(forKey: "total_wallet_amount") as? NSNumber ?? 0
                 self.totalwallet = String(format: "%@",totalWalletAmout)
-                let usdeWalletAmout = userDetails?.value(forKey: "used_from_wallet") as! NSNumber
+                let usdeWalletAmout = userDetails?.value(forKey: "used_from_wallet") as? NSNumber ?? 0
                 self.usedWallet = String(format: "%@",usdeWalletAmout)
-                let balenceWalletAmout = userDetails?.value(forKey: "balance_from_wallet") as! NSNumber
+                let balenceWalletAmout = userDetails?.value(forKey: "balance_from_wallet") as? NSNumber ?? 0
                 self.balenceWallet = String(format: "%@",balenceWalletAmout)
                 
                 self.tableView.reloadData()

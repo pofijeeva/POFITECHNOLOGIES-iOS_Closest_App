@@ -126,7 +126,7 @@ class InboxMessageDetailVC: BaseViewController {
     @IBAction func actionSubmit(_ sender: UIButton) {
 //        printf(detailCell)
         if ( textview.text.count == 0){
-            let refreshAlert = UIAlertController(title: "Closest", message: "Enter the message", preferredStyle: UIAlertControllerStyle.alert)
+            let refreshAlert = UIAlertController(title: "Closest", message: "Enter the message", preferredStyle: UIAlertController.Style.alert)
 
             refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { [self] (action: UIAlertAction!) in
                 
@@ -224,7 +224,7 @@ class InboxMessageDetailVC: BaseViewController {
                 }
                 let responseDict:NSDictionary = json!
                 print(responseDict)
-                if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                     self.isLoading = false
                     let data = responseDict.object(forKey: "data") as! [String:Any]
                     self.messages.append(contentsOf: data["message_values"] as! [[String:Any]])
@@ -232,7 +232,7 @@ class InboxMessageDetailVC: BaseViewController {
                     self.tblView.scrollToBottom()
                     self.tblView.reloadData()
                 }
-                else if responseDict.value(forKey: "code") as! NSNumber == 400 {
+                else if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 400 {
                     if self.isLoading == false {
                     self.messages.removeAll()
                     self.tblView.reloadData()

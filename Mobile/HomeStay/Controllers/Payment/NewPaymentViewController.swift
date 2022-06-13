@@ -166,13 +166,13 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                 //
                 //
                 //
-                //                let totalWalletAmout = userDetails?.value(forKey: "total_wallet_amount") as! NSNumber
+                //                let totalWalletAmout = userDetails?.value(forKey: "total_wallet_amount") as? NSNumber ?? 0
                 //                self.totalwallet = String(format: "%@",totalWalletAmout)
-                           let balenceWalletAmout = userDetails?.value(forKey: "balance_from_wallet") as! NSNumber
+                           let balenceWalletAmout = userDetails?.value(forKey: "balance_from_wallet") as? NSNumber ?? 0
                 self.balenceWalletPrice = String(format: "%@",balenceWalletAmout)
                 self.PaymentTable.reloadData()
 
-                //                let usedWalletAmout = userDetails?.value(forKey: "used_from_wallet") as! NSNumber
+                //                let usedWalletAmout = userDetails?.value(forKey: "used_from_wallet") as? NSNumber ?? 0
                 //                self.usedwallet = String(format: "%@",usedWalletAmout)
                 //
                 //                let balenceWallet = String(format: "%@",balenceWalletAmout)
@@ -595,7 +595,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                        }
                        let responseDict:NSDictionary = json!
                        print(responseDict)
-                       if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                       if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                         self.hideActivityIndicator(uiView: self.view)
                         isFromBookingDetails = true
                         self.GrayView.isHidden = false
@@ -749,7 +749,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                                }
                                let responseDict:NSDictionary = json!
                                print(responseDict)
-                               if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                               if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                                 self.hideActivityIndicator(uiView: self.view)
                                 isFromBookingDetails = true
                                 print(responseDict)
@@ -1045,7 +1045,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                        }
                        let responseDict:NSDictionary = json!
                        print(responseDict)
-                       if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                       if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                         self.hideActivityIndicator(uiView: self.view)
                         self.CouponCode = tempCard!.text!
                         self.iscoupon = true
@@ -1586,7 +1586,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                                        }
                                        let responseDict:NSDictionary = json!
                                        print(responseDict)
-                                       if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                                       if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                                         if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                                             self.hideActivityIndicator(uiView: self.view)
                                             isFromBookingDetails = true
@@ -2127,7 +2127,7 @@ class NewPaymentViewController: BaseViewController,UITextFieldDelegate {
                    }
                    let responseDict:NSDictionary = json!
                    print(responseDict)
-                   if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                   if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                         self.hideActivityIndicator(uiView: self.view)
                         isFromBookingDetails = true
                         self.GrayView.isHidden = false

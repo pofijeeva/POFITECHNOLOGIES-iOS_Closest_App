@@ -178,7 +178,7 @@ class WishListController: BaseViewController {
 //        let nav = self.storyboard?.instantiateViewController(withIdentifier: "PropertyDetailViewController") as? PropertyDetailViewController
 //       // nav?.PropertyID = String(Singleton.sharedInstance.wishListModel.wishlist[indexPath.section].hotelDetails[indexPath.row].propertyId)
 ////        nav?.currencySymbol = (wishListArr.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "property_currency_symbol")as? String ?? ""
-////        nav?.PropertyID = ((wishListArr.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "property_id")as! NSNumber).stringValue
+////        nav?.PropertyID = ((wishListArr.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "property_id")as? NSNumber ?? 0).stringValue
 ////        self.navigationController?.pushViewController(nav!, animated: true)
 //    }
 //    

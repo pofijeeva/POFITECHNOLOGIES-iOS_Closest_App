@@ -1116,7 +1116,7 @@ class BookingDetailViewController: BaseViewController,FSCalendarDataSource, FSCa
 //                return
 //            }
 //            print(json!)
-//            if json?.value(forKey: "status") as! NSNumber == 1
+//            if json?.value(forKey: "status") as? NSNumber ?? 0 == 1
 //            {
 //            let nav = self.storyboard?.instantiateViewController(withIdentifier: "PaymentViewController") as? PaymentViewController
 //            nav!.property_id = String(Singleton.sharedInstance.PropertyDetail.rentalId)
@@ -1390,7 +1390,7 @@ extension BookingDetailViewController {
                     seasonalCnt = seasonalCnt + 1
                     let price = (((seasonalPrices.object(at: i)) as AnyObject).value(forKey: "price") as AnyObject)
                     self.seasonalPrice = String(describing: price) as AnyObject
-                    self.seasonalPriceCheck = seasonalCnt * Int(price as! NSNumber)
+                    self.seasonalPriceCheck = seasonalCnt * Int(price as? NSNumber ?? 0)
                     
                 }
                 
@@ -1408,7 +1408,7 @@ extension BookingDetailViewController {
         if noOfNights >= minStay
         {
             self.viewPriceDetails.isHidden = false
-            let Price = Float(truncating: Singleton.sharedInstance.PropertyDetail.productprice! as! NSNumber) * Float(self.normaldayCnt)
+            let Price = Float(truncating: Singleton.sharedInstance.PropertyDetail.productprice! as? NSNumber ?? 0) * Float(self.normaldayCnt)
             let check = Double(Price) + Double(self.seasonalPriceCheck)
             print(check)
             self.hotlTotalAmt = String(check)
@@ -1451,7 +1451,7 @@ extension BookingDetailViewController {
         else
         {
             self.viewPriceDetails.isHidden = false
-            let Price = Float(truncating: Singleton.sharedInstance.PropertyDetail.productprice! as! NSNumber) * Float(noOfNights)
+            let Price = Float(truncating: Singleton.sharedInstance.PropertyDetail.productprice! as? NSNumber ?? 0) * Float(noOfNights)
             self.hotlTotalAmt = String(Price)
             self.viewPriceDetails.isHidden = false
             UserDefaults.standard.set(Price, forKey: "payPrice")

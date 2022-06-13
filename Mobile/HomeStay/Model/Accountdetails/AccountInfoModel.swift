@@ -10,7 +10,7 @@ class AccountInfoModel : NSObject, NSCoding{
 
     var accountinfo : [Accountinfo]!
     var completedTransaction : [CompletedTransaction]!
-    var countryList : [CountryList]!
+    var countryList : [CountryListModel]!
     var futureTransaction : [FutureTransaction]!
     var message : String = ""
     var notifications : [Notification]!
@@ -39,10 +39,10 @@ class AccountInfoModel : NSObject, NSCoding{
                 completedTransaction.append(value)
             }
         }
-        countryList = [CountryList]()
+        countryList = [CountryListModel]()
         if let countryListArray = dictionary["country_list"] as? [[String:Any]]{
             for dic in countryListArray{
-                let value = CountryList(fromDictionary: dic)
+                let value = CountryListModel(fromDictionary: dic)
                 countryList.append(value)
             }
         }
@@ -149,7 +149,7 @@ class AccountInfoModel : NSObject, NSCoding{
     {
         accountinfo = aDecoder.decodeObject(forKey: "accountinfo") as? [Accountinfo]
         completedTransaction = aDecoder.decodeObject(forKey: "completed_transaction") as? [CompletedTransaction]
-        countryList = aDecoder.decodeObject(forKey: "country_list") as? [CountryList]
+        countryList = aDecoder.decodeObject(forKey: "country_list") as? [CountryListModel]
         futureTransaction = aDecoder.decodeObject(forKey: "future_transaction") as? [FutureTransaction]
         message = aDecoder.decodeObject(forKey: "message") as? String ?? ""
         notifications = aDecoder.decodeObject(forKey: "notifications") as? [Notification]

@@ -52,7 +52,7 @@ class PropertyReviewDetailsTableViewCell: UITableViewCell,UICollectionViewDataSo
             cell!.imgReviewUser.imageFromURL(urlString: Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].userImage)
          cell!.lblReviewComment.font = UIFont(name: RegularFont, size: 16)
         cell!.lblReviewComment.text = Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].userName
-        cell!.ratingView.rating = Float(Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].starRating as! NSNumber)
+        cell!.ratingView.rating = Float(Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].starRating as? NSNumber ?? 0)
             return cell!
         
     }

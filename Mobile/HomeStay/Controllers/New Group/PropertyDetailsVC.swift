@@ -134,7 +134,7 @@ class PropertyDetailsVC: BaseViewController {
             }
             let responseDict:NSDictionary = json ?? [:]
             print(responseDict)
-            if responseDict.value(forKey: "code") as! NSNumber == 200 {
+            if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                 self.ReservationData.removeAllObjects()
                 self.ReservationData.addEntries(from: (responseDict.object(forKey: "data") as? NSDictionary) as? [AnyHashable : Any] ?? [:])
                 self.populateData()

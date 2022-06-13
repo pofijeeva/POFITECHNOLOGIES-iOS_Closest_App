@@ -59,7 +59,7 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
         guard let text = self.labelAddPhotos.text else { return }
               let textRange = NSMakeRange(0, text.count)
               let attributedText = NSMutableAttributedString(string: text)
-        attributedText.addAttribute(NSAttributedString.Key.underlineStyle , value: NSUnderlineStyle.styleSingle.rawValue, range: textRange)
+        attributedText.addAttribute(NSAttributedString.Key.underlineStyle , value: NSUnderlineStyle.single.rawValue, range: textRange)
         self.labelAddPhotos.attributedText = attributedText
         
         if arrayOfResult.count > 0 {
@@ -120,8 +120,8 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
         present(alert, animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        var selectedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        var selectedImage = info[.originalImage] as! UIImage
         selectedImage = selectedImage.resizeWithWidth(width: 700)!
         self.imageArray.add(selectedImage)
         print(self.imageArray)
@@ -460,7 +460,7 @@ class AddPhotosExperienceViewController: UIViewController, UIImagePickerControll
         manager.post(AddExprencePhotos, parameters: parameters, headers: ["Authorization":""], constructingBodyWith: {
             (data: AFMultipartFormData!) in
             print(self.nCount)
-            let imageData:Data = UIImageJPEGRepresentation(sendImage, 0.5)!
+            let imageData:Data = sendImage.jpegData(compressionQuality: 0.5)!
             data.appendPart(withFileData: imageData, name: "photos", fileName: "\(Date().timeIntervalSince1970).jpeg", mimeType: "image/jpeg")
         }, progress: nil, success: {
             (operation, responseObject) in

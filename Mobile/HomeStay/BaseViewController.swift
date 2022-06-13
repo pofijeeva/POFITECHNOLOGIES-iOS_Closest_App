@@ -30,7 +30,7 @@ class BaseViewController: UIViewController {
         loadingView.clipsToBounds = true
         loadingView.layer.cornerRadius = 10
         activityIndicator.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
         activityIndicator.center = CGPoint(x: loadingView.frame.size.width / 2,y: loadingView.frame.size.height / 2);
         loadingView.addSubview(activityIndicator)
         container.addSubview(loadingView)
@@ -58,7 +58,7 @@ class BaseViewController: UIViewController {
 
             activityIndicator.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
 
-            activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
+        activityIndicator.style = UIActivityIndicatorView.Style.gray
 
             activityIndicator.center = CGPoint(x: loadingView.frame.size.width / 2,y: loadingView.frame.size.height / 2);
 

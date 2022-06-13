@@ -161,7 +161,7 @@ class NewProductDetailViewController: BaseViewController {
                     print(responseDict)
                         self.hideActivityIndicator(uiView: self.view)
 
-                    if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                    if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                         self.DetailTable.isHidden = false
                         
                         let mod = PropertyDetails(fromDictionary: responseDict as! [String : Any])
@@ -208,7 +208,7 @@ class NewProductDetailViewController: BaseViewController {
                         if responseDict.value(forKey: "message") as? String ?? "" == "No Property available" {
                             
                             
-                            let refreshAlert = UIAlertController(title: "Closest", message: "No Property available", preferredStyle: UIAlertControllerStyle.alert)
+                            let refreshAlert = UIAlertController(title: "Closest", message: "No Property available", preferredStyle: UIAlertController.Style.alert)
                             
                             refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
                                 self.navigationController?.popViewController(animated: true)
@@ -249,7 +249,7 @@ class NewProductDetailViewController: BaseViewController {
 //                if responseDict.value(forKey: "message") as? String ?? "" == "No Property available" {
 //
 //
-//                    let refreshAlert = UIAlertController(title: "Closest", message: "No Property available", preferredStyle: UIAlertControllerStyle.alert)
+//                    let refreshAlert = UIAlertController(title: "Closest", message: "No Property available", preferredStyle: UIAlertController.Style.alert)
 //
 //                    refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action: UIAlertAction!) in
 //                        self.navigationController?.popViewController(animated: true)
@@ -534,7 +534,7 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
             
             if let code = responseDict.value(forKey: "code") as? NSNumber {
                 
-                if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                     
                     self.PropertyDetail()
                 }
@@ -1095,9 +1095,9 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
                     
                     let listingInfo = (self.ProperdyDetails.object(forKey: "property_details") as? NSDictionary)?.object(forKey: "listing_info") as! NSArray
                     
-                    let attrs1 = [NSAttributedStringKey.font : UIFont(name: SemiBoldFont, size: 18), NSAttributedStringKey.foregroundColor : UIColor.black]
+                    let attrs1 = [NSAttributedString.Key.font : UIFont(name: SemiBoldFont, size: 18), NSAttributedString.Key.foregroundColor : UIColor.black]
 
-                        let attrs2 = [NSAttributedStringKey.font : UIFont(name: SemiBoldFont, size: 16), NSAttributedStringKey.foregroundColor : UIColor.lightGray]
+                        let attrs2 = [NSAttributedString.Key.font : UIFont(name: SemiBoldFont, size: 16), NSAttributedString.Key.foregroundColor : UIColor.lightGray]
 
                     
                     if listingInfo.count != 0 {
@@ -1143,7 +1143,7 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
                     if listingInfo.count >= 4 {
                         let attributedString7 = NSMutableAttributedString(string:"\(((listingInfo.object(at: 3) as? NSDictionary)?.object(forKey: "value") as? String ?? ""))", attributes:attrs1)
 
-                        let attributedString8 = NSMutableAttributedString(string:"\n\(((listingInfo.object(at: 3) as? NSDictionary)?.object(forKey: "label") as? String ?? ""))", attributes:attrs2 as [NSAttributedStringKey : Any])
+                        let attributedString8 = NSMutableAttributedString(string:"\n\(((listingInfo.object(at: 3) as? NSDictionary)?.object(forKey: "label") as? String ?? ""))", attributes:attrs2 as [NSAttributedString.Key : Any])
                         cell.speedLbl.textAlignment = .left
 
                         
@@ -1485,12 +1485,12 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
                 return 0
             }
             else if indexPath.row == 8 {
-                return UITableViewAutomaticDimension
+                return UITableView.automaticDimension
             }else{
                 if self.detailsDescArr[indexPath.row-1] as? String ?? "" == "" {
                     return 0
                 }else{
-                    return UITableViewAutomaticDimension
+                    return UITableView.automaticDimension
                 }
             }
         }else if indexPath.section == 1 {
@@ -1515,10 +1515,10 @@ extension NewProductDetailViewController: UITableViewDelegate,UITableViewDataSou
             if indexPath.row == 0 {
                 return 0
             }else{
-                return UITableViewAutomaticDimension
+                return UITableView.automaticDimension
             }
         }
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
 }
 extension NewProductDetailViewController: UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout{
@@ -1577,7 +1577,7 @@ extension NewProductDetailViewController: UICollectionViewDataSource,UICollectio
             
             cell.ReviewImg.setImageWith(ImageUrl!, placeholderImage: UIImage(named: "user"))
             
-            cell.RatingView.rating = Float(Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].starRating! as! NSNumber)
+            cell.RatingView.rating = Float(Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].starRating! as? NSNumber ?? 0)
             return cell
         }
     }

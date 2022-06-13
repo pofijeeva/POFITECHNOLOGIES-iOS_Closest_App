@@ -262,7 +262,7 @@ class MyReservation : NSObject, NSCoding{
         serviceFee = aDecoder.decodeObject(forKey: "service_fee") as? Int ?? 0
         state = aDecoder.decodeObject(forKey: "state") as? String ?? ""
         subTotal = aDecoder.decodeObject(forKey: "sub_total") as? Int ?? 0
-        total = aDecoder.decodeObject(forKey: "total") as AnyObject!
+        total = aDecoder.decodeObject(forKey: "total") as! AnyObject
         userImage = aDecoder.decodeObject(forKey: "user_image") as? String ?? ""
         userName = aDecoder.decodeObject(forKey: "user_name") as? String ?? ""
     }

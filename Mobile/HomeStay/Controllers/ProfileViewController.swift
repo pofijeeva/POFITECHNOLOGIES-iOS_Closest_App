@@ -104,9 +104,9 @@ class ProfileViewController: BaseViewController {
     
     func openCamera()
     {
-    if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerControllerSourceType.camera))
+        if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera))
         {
-            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
             //If you dont want to edit the photo then you can set allowsEditing to false
             imagePicker.allowsEditing = true
             imagePicker.delegate = self
@@ -122,7 +122,7 @@ class ProfileViewController: BaseViewController {
     
     //MARK: - Choose image from camera roll
     func openGallary(){
-        imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
         //If you dont want to edit the photo then you can set allowsEditing to false
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
@@ -148,7 +148,7 @@ class ProfileViewController: BaseViewController {
         print(urlString)
         manager.post(urlString as String, parameters: params, headers: ["Authorization":""], constructingBodyWith: {
             (data: AFMultipartFormData!) in
-            let imageData:Data = UIImageJPEGRepresentation(self.img_Profile.image!, 0.5)!
+            let imageData:Data = self.img_Profile.image!.jpegData(compressionQuality: 0.5)!
             data.appendPart(withFileData: imageData, name: "photos", fileName: "profile.jpeg", mimeType: "image/jpeg")
         }, progress: nil, success: {
             (operation, responseObject) in
@@ -182,9 +182,9 @@ class ProfileViewController: BaseViewController {
     }
     
 //    func showAlertWithDistructiveButton() {
-//        let alert = UIAlertController(title: "Closest", message: "You can always access your content by signing back in", preferredStyle: UIAlertControllerStyle.alert)
+//        let alert = UIAlertController(title: "Closest", message: "You can always access your content by signing back in", preferredStyle: UIAlertController.Style.alert)
 //
-//        alert.addAction(UIAlertAction(title: "Updated Successfully!", style: UIAlertActionStyle.default, handler: { _ in
+//        alert.addAction(UIAlertAction(title: "Updated Successfully!", style: UIAlertAction.Style.default, handler: { _ in
 //            self.navigationController?.popViewController(animated: true)
 //        }))
 //        self.present(alert, animated: true, completion: nil)
@@ -193,11 +193,11 @@ class ProfileViewController: BaseViewController {
 extension ProfileViewController : UINavigationControllerDelegate, UIImagePickerControllerDelegate
 {
     
-func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        let imagepicked = info[UIImagePickerControllerOriginalImage] as! UIImage
-        self.img_Profile.image = imagepicked
-        print(imagepicked)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+
+        if let imagepicked = info[.originalImage] as? UIImage {
+            self.img_Profile.image = imagepicked
+        }
         picker.dismiss(animated: true, completion: nil)
     }
      func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -218,7 +218,7 @@ extension ProfileViewController : HTTP_POST_STRING_REQUEST_PROTOCOL
                 alert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { alert -> Void in
 
                 }))
-                //                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+                //                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil))
                 self.present(alert, animated: true, completion: nil)
                 
             }

@@ -1775,7 +1775,7 @@ extension PropertyDetailViewController: UITableViewDelegate,UITableViewDataSourc
                     }
                     else
                     {
-                        return UITableViewAutomaticDimension
+                        return UITableView.automaticDimension
                         
                     }
                 }
@@ -1787,7 +1787,7 @@ extension PropertyDetailViewController: UITableViewDelegate,UITableViewDataSourc
                     }
                     else
                     {
-                        return UITableViewAutomaticDimension
+                        return UITableView.automaticDimension
                         
                     }
                     
@@ -1800,7 +1800,7 @@ extension PropertyDetailViewController: UITableViewDelegate,UITableViewDataSourc
                     }
                     else
                     {
-                        return UITableViewAutomaticDimension
+                        return UITableView.automaticDimension
                         
                     }
                     
@@ -1811,7 +1811,7 @@ extension PropertyDetailViewController: UITableViewDelegate,UITableViewDataSourc
                     }
                     else
                     {
-                        return UITableViewAutomaticDimension
+                        return UITableView.automaticDimension
                         
                     }
                 }
@@ -1823,7 +1823,7 @@ extension PropertyDetailViewController: UITableViewDelegate,UITableViewDataSourc
                     }
                     else
                     {
-                        return UITableViewAutomaticDimension
+                        return UITableView.automaticDimension
                         
                     }
                     
@@ -1836,25 +1836,25 @@ extension PropertyDetailViewController: UITableViewDelegate,UITableViewDataSourc
                     }
                     else
                     {
-                        return UITableViewAutomaticDimension
+                        return UITableView.automaticDimension
                         
                     }
                     
                 }
                 else
                 {
-                    return UITableViewAutomaticDimension
+                    return UITableView.automaticDimension
                 }
             }
             else
             {
-                return UITableViewAutomaticDimension
+                return UITableView.automaticDimension
             }
         }
             
         else
         {
-            return UITableViewAutomaticDimension
+            return UITableView.automaticDimension
             
         }
     }
@@ -1969,7 +1969,7 @@ extension PropertyDetailViewController: UICollectionViewDelegate , UICollectionV
             cell!.bgView.layer.borderWidth = 1.0
             cell!.imgReviewUser.imageFromURL(urlString: Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].userImage)
             cell!.lblReviewComment.text = Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].userName
-            cell!.ratingView.rating = Float(Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].starRating as! NSNumber)
+            cell!.ratingView.rating = Float(Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].starRating as? NSNumber ?? 0)
             return cell!
         }
     }

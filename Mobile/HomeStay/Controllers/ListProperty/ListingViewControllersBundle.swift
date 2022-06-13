@@ -110,7 +110,7 @@ class ListingViewControllersBundle: UIViewController,HTTP_POST_STRING_REQUEST_PR
                 }
                 let responseDict:NSDictionary = json!
                 print(responseDict)
-                if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                     if let property = (responseDict.object(forKey: "data") as? NSDictionary)?.value(forKey: "property_type") as? NSArray {
                         if property.count != 0 {
                             //                            self.propertyArray = [String]()
@@ -398,13 +398,13 @@ class ListingViewControllersBundle: UIViewController,HTTP_POST_STRING_REQUEST_PR
         
         let kpStoryboard = UIStoryboard(name: "PopCalender", bundle: nil)
         let childViewController = kpStoryboard.instantiateViewController(withIdentifier: "PopCalendarViewController") as! PopCalendarViewController
-        self.addChildViewController(childViewController)
+        self.addChild(childViewController)
         childViewController.view.frame = self.parentView.bounds
         childViewController.PropertyID = self.PropertyId
         
         childViewController.ListingActivityDelegate = self
         self.parentView.addSubview(childViewController.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
         self.CollectionPropertyListing.reloadData()
         
         
@@ -417,11 +417,11 @@ class ListingViewControllersBundle: UIViewController,HTTP_POST_STRING_REQUEST_PR
         
         let mnStoryboard = UIStoryboard(name: "OverviewVC", bundle: nil)
         let childViewController = mnStoryboard.instantiateViewController(withIdentifier: "OverviewViewController") as? OverviewViewController
-        addChildViewController(childViewController!)
+        addChild(childViewController!)
         childViewController?.view.frame = self.parentView.bounds
         childViewController!.ListingActivityDelegate = self
         self.parentView.addSubview(childViewController!.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
         self.CollectionPropertyListing.reloadData()
         
         
@@ -434,12 +434,12 @@ class ListingViewControllersBundle: UIViewController,HTTP_POST_STRING_REQUEST_PR
         let msStoryboard = UIStoryboard(name: "AddPhoto", bundle: nil)
         //        let childViewController = bpStoryboard.instantiateInitialViewController() as? BasicPriceViewController
         let childViewController = msStoryboard.instantiateViewController(withIdentifier: "AddPhotoViewController") as? AddPhotoViewController
-        addChildViewController(childViewController!)
+        addChild(childViewController!)
         childViewController?.view.frame = self.parentView.bounds
         childViewController!.ListingActivityDelegate = self
         childViewController!.PropertyID = self.PropertyId
         self.parentView.addSubview(childViewController!.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
         self.CollectionPropertyListing.reloadData()
         
         
@@ -449,13 +449,13 @@ class ListingViewControllersBundle: UIViewController,HTTP_POST_STRING_REQUEST_PR
         self.SelectedRow = 4
         let amenitiesStoryboard = UIStoryboard(name: "Amenities", bundle: nil)
         let childViewController = amenitiesStoryboard.instantiateViewController(withIdentifier: "AmenitiesViewController") as! AmenitiesViewController
-        addChildViewController(childViewController)
+        addChild(childViewController)
         //            childViewController!.id = self.PropertyId
         childViewController.view.frame = self.parentView.bounds
         childViewController.ListingActivityDelegate = self
         childViewController.PropertyId = self.PropertyId
         self.parentView.addSubview(childViewController.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
         self.CollectionPropertyListing.reloadData()
         
         
@@ -466,12 +466,12 @@ class ListingViewControllersBundle: UIViewController,HTTP_POST_STRING_REQUEST_PR
         
         let rrStoryboard = UIStoryboard(name: "Listinginfo", bundle: nil)
         let childViewController = rrStoryboard.instantiateViewController(withIdentifier: "ListingInfoViewController") as! ListingInfoViewController
-        addChildViewController(childViewController)
+        addChild(childViewController)
         childViewController.PropertyId = self.PropertyId
         childViewController.view.frame = self.parentView.bounds
         childViewController.ListingActivityDelegate = self
         self.parentView.addSubview(childViewController.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
         self.CollectionPropertyListing.reloadData()
         
         
@@ -481,13 +481,13 @@ class ListingViewControllersBundle: UIViewController,HTTP_POST_STRING_REQUEST_PR
         self.SelectedRow = 6
         let srStoryboard = UIStoryboard(name: "Address", bundle: nil)
         let childViewController = srStoryboard.instantiateViewController(withIdentifier: "AddressViewController") as? AddressViewController
-        addChildViewController(childViewController!)
+        addChild(childViewController!)
         childViewController?.PropertyID = self.PropertyId
         childViewController?.view.frame = self.parentView.bounds
         
         childViewController!.ListingActivityDelegate = self
         self.parentView.addSubview(childViewController!.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
         self.CollectionPropertyListing.reloadData()
         
         
@@ -497,12 +497,12 @@ class ListingViewControllersBundle: UIViewController,HTTP_POST_STRING_REQUEST_PR
         self.SelectedRow = 7
         let cskStoryboard = UIStoryboard(name: "CancellationVC", bundle: nil)
         let childViewController = cskStoryboard.instantiateViewController(withIdentifier: "CancellationPlolicyViewController") as? CancellationPlolicyViewController
-        addChildViewController(childViewController!)
+        addChild(childViewController!)
         childViewController?.PropertyID = self.PropertyId
         childViewController?.view.frame = self.parentView.bounds
         childViewController!.ListingActivityDelegate = self
         self.parentView.addSubview(childViewController!.view)
-        self.didMove(toParentViewController: self)
+        self.didMove(toParent: self)
         self.CollectionPropertyListing.reloadData()
         
         
@@ -686,7 +686,7 @@ extension ListingViewControllersBundle: listingActivityProtocol {
         loadingView.clipsToBounds = true
         loadingView.layer.cornerRadius = 10
         activityIndicator.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
         activityIndicator.center = CGPoint(x: loadingView.frame.size.width / 2,y: loadingView.frame.size.height / 2);
         loadingView.addSubview(activityIndicator)
         container.addSubview(loadingView)
@@ -721,17 +721,17 @@ extension ListingViewControllersBundle : CalenderProtocol {
 
 extension UIViewController {
     func add(_ child: UIViewController,parent: ListingViewControllersBundle) {
-        addChildViewController(child)
+        addChild(child)
         parent.parentView.addSubview(child.view)
-        child.didMove(toParentViewController: self)
+        child.didMove(toParent: self)
     }
     
     func removeChild(parentCon: ListingViewControllersBundle) {
         guard parent != nil else {
             return
         }
-        willMove(toParentViewController: nil)
-        removeFromParentViewController()
+        willMove(toParent: nil)
+        removeFromParent()
         parentCon.parentView.removeFromSuperview()
     }
 }
@@ -879,8 +879,8 @@ extension UIView {
         shapeLayer.fillColor = UIColor.white.cgColor
         shapeLayer.strokeColor = UIColor.white.cgColor
         shapeLayer.lineWidth = cornerRadius * 2
-        shapeLayer.lineJoin = kCALineJoinRound
-        shapeLayer.lineCap = kCALineCapRound
+        shapeLayer.lineJoin = CAShapeLayerLineJoin.round
+        shapeLayer.lineCap = CAShapeLayerLineCap.round
         
         layer.mask = shapeLayer
     }

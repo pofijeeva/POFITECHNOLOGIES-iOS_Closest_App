@@ -317,7 +317,7 @@ extension ReviewsShowViewController : UITableViewDataSource,UITableViewDelegate 
         return 180
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return  UITableViewAutomaticDimension
+        return  UITableView.automaticDimension
     }
     //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     //        if isReviewabtYou == true

@@ -88,7 +88,7 @@ class MyReviewVC: BaseViewController {
                 let responseDict:NSDictionary = json!
                 print(responseDict)
                 if let code = responseDict.value(forKey: "code") as? NSNumber {
-                    if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                    if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                         self.isLoading = false
                         self.review_details.removeAll()
                         let data = responseDict.object(forKey: "data") as! [String:Any]
@@ -97,7 +97,7 @@ class MyReviewVC: BaseViewController {
                         self.tblView.scrollToBottom()
                         self.tblView.reloadData()
                     }
-                    else if responseDict.value(forKey: "code") as! NSNumber == 400 {
+                    else if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 400 {
                         if self.isLoading == false {
                             self.review_details.removeAll()
                             self.tblView.reloadData()

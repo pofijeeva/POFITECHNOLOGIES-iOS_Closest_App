@@ -663,10 +663,10 @@ extension ExperienceListingBaseViewController: UITableViewDelegate ,UITableViewD
         let start = "Status :  "
         
         
-        let attributed = NSAttributedString(string: start, attributes: [NSAttributedStringKey.foregroundColor : UIColor.darkGray])
+        let attributed = NSAttributedString(string: start, attributes: [NSAttributedString.Key.foregroundColor : UIColor.darkGray])
         
        
-        let attributedTwo = NSAttributedString(string: "\((self.ListingsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "remaining_steps") as AnyObject) steps to list", attributes: [NSAttributedStringKey.foregroundColor : AppColor])
+        let attributedTwo = NSAttributedString(string: "\((self.ListingsArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "remaining_steps") as AnyObject) steps to list", attributes: [NSAttributedString.Key.foregroundColor : AppColor])
         
         attributedString.append(attributed)
         attributedString.append(attributedTwo)
@@ -683,10 +683,10 @@ extension ExperienceListingBaseViewController: UITableViewDelegate ,UITableViewD
 //            let starts = "Status :  "
 //
 //
-//            let attributeds = NSAttributedString(string: starts, attributes: [NSAttributedStringKey.foregroundColor : UIColor.darkGray])
+//            let attributeds = NSAttributedString(string: starts, attributes: [NSAttributedString.Key.foregroundColor : UIColor.darkGray])
 //
 //           
-//            let attributedTwos = NSAttributedString(string: "Pay", attributes: [NSAttributedStringKey.foregroundColor : UIColor.orange])
+//            let attributedTwos = NSAttributedString(string: "Pay", attributes: [NSAttributedString.Key.foregroundColor : UIColor.orange])
 //
 //            attributedStrings.append(attributeds)
 //            attributedStrings.append(attributedTwos)

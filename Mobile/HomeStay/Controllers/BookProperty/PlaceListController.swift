@@ -680,8 +680,8 @@
 //            print(minAmt!)
 //            let maxAmt = hotelPrice.lastObject
 //            print(maxAmt!)
-//            nav!.miniAmount = (minAmt as! NSNumber).floatValue
-//            nav!.maxmAmount = (maxAmt as! NSNumber).floatValue
+//            nav!.miniAmount = (minAmt as? NSNumber ?? 0).floatValue
+//            nav!.maxmAmount = (maxAmt as? NSNumber ?? 0).floatValue
 //            nav!.cityName = self.headerTxt
 //            nav!.arrivedDate = self.btn_selectArriveDate.currentTitle!
 //            nav!.departingDate = self.btn_selectDepartDate.currentTitle!

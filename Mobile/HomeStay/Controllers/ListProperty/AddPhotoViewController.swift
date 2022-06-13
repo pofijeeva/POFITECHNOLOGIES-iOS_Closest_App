@@ -121,8 +121,10 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        var selectedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        var selectedImage = info[.originalImage] as! UIImage
+        
         selectedImage = selectedImage.resizeWithWidth(width: 700)!
         self.imageARR.add(selectedImage)
         self.imARR.add(selectedImage)
@@ -160,8 +162,8 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
     
     //MARK: - Open the camera
     func openCamera() {
-        if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)){
-            imagePicker.sourceType = UIImagePickerControllerSourceType.camera
+        if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerController.SourceType.camera)){
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
             //If you dont want to edit the photo then you can set allowsEditing to false
             imagePicker.allowsEditing = false
             imagePicker.delegate = self
@@ -176,7 +178,7 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
     
     //MARK: - Choose image from camera roll
     func openGallary(){
-        imagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
+        imagePicker.sourceType = UIImagePickerController.SourceType.photoLibrary
         //If you dont want to edit the photo then you can set allowsEditing to false
         imagePicker.allowsEditing = false
         imagePicker.delegate = self
@@ -214,10 +216,10 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
         print(parameters)
         let manager = AFHTTPSessionManager()
         manager.responseSerializer.acceptableContentTypes = Set(["text/plain", "text/html", "application/json"]) as Set<String>?
-        manager.post(SAVE_PHOTO_LISTING, parameters: parameters, headers: HeaderManager.headers(), constructingBodyWith: {
+        manager.post(SAVE_PHOTO_LISTING, parameters: parameters, headers: HeaderManager.headers() as? [String: String] ?? [:], constructingBodyWith: {
             (data: AFMultipartFormData!) in
             print(self.nCount)
-            let imageData:Data = UIImageJPEGRepresentation(sendImage, 0.5)!
+            let imageData:Data = sendImage.jpegData(compressionQuality: 0.5)!
             data.appendPart(withFileData: imageData, name: "item_img[0]", fileName: "\(Date().timeIntervalSince1970).jpeg", mimeType: "image/jpeg")
         }, progress: nil, success: {
             (operation, responseObject) in
@@ -274,11 +276,11 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
         
         let postheaders : HTTPHeaders = HeaderManager.headers()
         
-        Alamofire.upload(multipartFormData: { multipartFormData in
+        AF.upload(multipartFormData: { multipartFormData in
             // import image to request
             let nameofFile:String = (UUID().uuidString)
             for (indexValue,image) in images.enumerated() {
-                let imgData = UIImageJPEGRepresentation(image as! UIImage,0.7)!
+                let imgData = (image as! UIImage).jpegData(compressionQuality: 0.7)!
                 multipartFormData.append(imgData, withName: "item_img[\(indexValue)]", fileName: "\(nameofFile).jpeg", mimeType: "image/jpeg")
                 
                 
@@ -286,53 +288,55 @@ class AddPhotoViewController: BaseViewController,UINavigationControllerDelegate,
             for (key, value) in parameters {
                 multipartFormData.append((value as? String ?? "").data(using: .utf8)!, withName: key)
             }
+        }, to: SAVE_PHOTO_LISTING, usingThreshold: UInt64.init(), method: .post, headers: postheaders).responseJSON { (response) in
             
-        }, usingThreshold:UInt64.init(),
-                         to:SAVE_PHOTO_LISTING, //URL Here
-                         method: .post,
-                         headers: postheaders, //pass header dictionary here
-                         encodingCompletion: { (result) in
             
-            switch result {
-            case .success(let upload, _, _):
+            //        }, usingThreshold:UInt64.init(),
+            //                         to:SAVE_PHOTO_LISTING, //URL Here
+            //                         method: .post,
+            //                         headers: postheaders, //pass header dictionary here
+            //                         encodingCompletion: { (result) in
+            
+            switch(response.result) {
+            case .success(_):
                 print("the status code is :")
                 
-                upload.uploadProgress(closure: { (progress) in
-                    print("something")
-                })
-                
-                upload.responseJSON { response in
-                    print("the resopnse code is : \(response.response?.statusCode)")
-                    print("the response is : \(response)")
-                    switch(response.result) {
-                    case .success(_):
-                        if let data = response.value{
-                            let json = data as? NSDictionary
-                            let responseDict:NSDictionary = json!
-                            print(responseDict)
-                            if responseDict.value(forKey: "code") as! NSNumber == 200 {
-                               
-                                let mod = RentYourSpaceModel(fromDictionary: responseDict as! [String : Any])
-                                Singleton.sharedInstance.rentYourSpace = mod
-                                self.ListingActivityDelegate.hideActivity()
-                                
-                                sharedInstanceListing.gotoStepfive()
-                         }
-                            
-                        }
-                        break
-                    case .failure(_):
-                        // add your error alert message here
-                        break
+                //                upload.uploadProgress(closure: { (progress) in
+                //                    print("something")
+                //                })
+                //
+                //                upload.responseJSON { response in
+                //                    print("the resopnse code is : \(response.response?.statusCode)")
+                //                    print("the response is : \(response)")
+                //                    switch(response.result) {
+                //                    case .success(_):
+                if let data = response.value{
+                    let json = data as? NSDictionary
+                    let responseDict:NSDictionary = json!
+                    print(responseDict)
+                    if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
+                        
+                        let mod = RentYourSpaceModel(fromDictionary: responseDict as! [String : Any])
+                        Singleton.sharedInstance.rentYourSpace = mod
+                        self.ListingActivityDelegate.hideActivity()
+                        
+                        sharedInstanceListing.gotoStepfive()
                     }
+                    
+                    //                        }
+                    //                        break
+                    //                    case .failure(_):
+                    //                        // add your error alert message here
+                    //                        break
+                    //                    }
                     
                 }
                 break
-            case .failure(let encodingError):
-                print("the error is  : \(encodingError.localizedDescription)")
+            case .failure(_):
+                //                print("the error is  : \(encodingError.localizedDescription)")
                 break
             }
-        })
+        }
         
     }
     
@@ -713,7 +717,7 @@ extension UIImage {
     /// If the image object’s underlying image data has been purged, calling this function forces that data to be reloaded into memory.
     /// - returns: A data object containing the JPEG data, or nil if there was a problem generating the data. This function may return nil if the image has no data or if the underlying CGImageRef contains data in an unsupported bitmap format.
     func jpeg(_ jpegQuality: JPEGQuality) -> Data? {
-        return UIImageJPEGRepresentation(self, jpegQuality.rawValue)
+        return self.jpegData(compressionQuality: jpegQuality.rawValue)
     }
 }
 extension UIImage {
@@ -740,6 +744,7 @@ extension UIImage {
         return result
     }
 }
+
 extension UIImage {
     // MARK: - UIImage+Resize
     func compressTo(_ expectedSizeInMb:Int) -> UIImage? {
@@ -748,7 +753,7 @@ extension UIImage {
         var imgData:Data?
         var compressingValue:CGFloat = 1.0
         while (needCompress && compressingValue > 0.0) {
-            if let data:Data = UIImageJPEGRepresentation(self, compressingValue) {
+            if let data:Data = self.jpegData(compressionQuality: compressingValue) {
                 if data.count < sizeInBytes {
                     needCompress = false
                     imgData = data

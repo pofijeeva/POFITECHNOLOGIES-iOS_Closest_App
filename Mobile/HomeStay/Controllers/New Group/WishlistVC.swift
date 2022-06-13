@@ -55,14 +55,14 @@ class WishlistVC: BaseViewController {
     }
     
     func showSimpleAlert() {
-        let alert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_areyousureLogin") as? String ?? "",         preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_areyousureLogin") as? String ?? "",         preferredStyle: UIAlertController.Style.alert)
         
-//        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_cancel") as? String ?? "", style: UIAlertActionStyle.default, handler: { _ in
+//        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_cancel") as? String ?? "", style: UIAlertAction.Style.default, handler: { _ in
 //            //Cancel Action
 //            self.dismiss(animated: true, completion: nil)
 //        }))
         alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_login") as? String ?? "",
-                                      style: UIAlertActionStyle.default,
+                                      style: UIAlertAction.Style.default,
                                       handler: {(_: UIAlertAction!) in
                                         let navgt = self.storyboard?.instantiateViewController(withIdentifier: "StartViewController") as? StartViewController
                                         self.navigationController?.pushViewController(navgt!, animated: true)
@@ -157,7 +157,7 @@ class WishlistVC: BaseViewController {
                 }
                 let responseDict:NSDictionary = json!
                 print(responseDict)
-                if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                     self.isLoading = false
                     let data = responseDict.object(forKey: "data") as! [String:Any]
                     self.wishlist.append(contentsOf: data["wishlist"] as! [[String:Any]]) //=  data["booking_details"] as! [[String:Any]]
@@ -165,7 +165,7 @@ class WishlistVC: BaseViewController {
 
                     self.tblView.reloadData()
                 }
-                else if responseDict.value(forKey: "code") as! NSNumber == 400 {
+                else if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 400 {
                     if self.isLoading == false {
                     self.wishlist.removeAll()
                     self.tblView.reloadData()

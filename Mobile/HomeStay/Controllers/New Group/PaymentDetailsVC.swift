@@ -45,9 +45,9 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
     @IBOutlet weak var AccountView: UIView!
     @IBOutlet weak var PaypalView: UIView!
     @IBOutlet weak var BankTypeTxt: UITextField!
-
+    
     @IBOutlet weak var paypalTxt: UITextField!
-
+    
     var bookingPaymentDetailArray = [BookingPaymentModel]()
     var listingPaymentArray = [MylistingPaymentChildModel]()
     var hostPaymentArray = [HospaymentChildModel]()
@@ -59,11 +59,11 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
     var isLoading:Bool = true
     var currentPage = 1
     let datepicker = UIDatePicker()
-
+    
     var decryptDataDict = NSMutableDictionary()
     let dropDown = DropDown()
     var BankTypesInt : Int = 0
-
+    
     lazy var dropDowns: [DropDown] = {
         return [
             self.dropDown
@@ -71,7 +71,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
     }()
     
     var BankTypes = ["Checking","Saving"]
-
+    
     let titlesheading = [ GlobalLanguageDictionary.object(forKey: "key_myBookingPayment") as? String ?? "" , GlobalLanguageDictionary.object(forKey: "key_myListingPayment") as? String ?? "" , GlobalLanguageDictionary.object(forKey: "key_hostPayout") as? String ?? "" , GlobalLanguageDictionary.object(forKey: "key_payoutMethod") as? String ?? ""]
     
     override func viewDidLoad() {
@@ -96,7 +96,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
         searchbtn.layer.cornerRadius = 5
         if #available(iOS 13.4, *) {
             datepicker.preferredDatePickerStyle = .compact
-                    }
+        }
         createDatePicker()
         selectDateview.layer.cornerRadius = 20
         listTableview.register(UINib(nibName: "PaymentDetailsCell", bundle: nil), forCellReuseIdentifier: "PaymentDetailsCell")
@@ -130,8 +130,8 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
         self.payoutDate.text = GlobalLanguageDictionary.object(forKey: "key_payoutDate") as? String ?? ""
         self.selectDateTextField.placeholder = GlobalLanguageDictionary.object(forKey: "key_selectDate") as? String ?? ""
         self.searchbtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_search") as? String ?? "", for: .normal)
-
-
+        
+        
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -148,229 +148,227 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
         dropDown.dataSource = BankTypes
         dropDown.backgroundColor = UIColor.white
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-                print("Selected item: \(item) at index: \(index)")
-                self.BankTypeTxt.text = item
+            print("Selected item: \(item) at index: \(index)")
+            self.BankTypeTxt.text = item
             self.BankTypesInt = index+1
-           
-            }
+            
+        }
         
     }
     @IBAction func PaypalButAct(_ sender: UIButton) {
         if self.paypalTxt.text?.count == 0 {
             self.showInformation(title: "Error", message: GlobalLanguageDictionary.object(forKey: "Key_enterEmailId") as? String ?? "")
-
+            
         }else{
             self.BankView.isHidden = true
             self.AccountView.isHidden = true
-           self.PaypalView.isHidden = true
+            self.PaypalView.isHidden = true
             let parameters:[String : Any] =
-               ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
-                "accname": "",
-                "accno": "",
-                "bankname": "",
-                "branchname": "",
-                "ifsccode": "",
-                "primay_payment_method":"1",
-                "payment_type":"paypal",
-                "paypal_email": self.paypalTxt.text!
-               ]
-           print(parameters)
-           showActivityIndicator(uiView: self.view)
-
-          
-           
-           
+            ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
+             "accname": "",
+             "accno": "",
+             "bankname": "",
+             "branchname": "",
+             "ifsccode": "",
+             "primay_payment_method":"1",
+             "payment_type":"paypal",
+             "paypal_email": self.paypalTxt.text!
+            ]
+            print(parameters)
+            showActivityIndicator(uiView: self.view)
+            
+            
+            
+            
             let data = try! JSONSerialization.data(withJSONObject: parameters as Any, options: [])
-           let key = "625202f9149e061d"
-           let iv = "5efd3f6060e20330"
-           var plainText = NSString()
-           let json = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-              if let json = json {
-               plainText = json
-              }
-
-           let cryptLib = CryptLib()
-           //let newStr =
-           var newStr : String = ""
-           newStr = plainText as String
-           let encryStr = cryptLib.encryptPlainText(newStr, key: key, iv: iv)
-           let jsonData = try! JSONSerialization.data(withJSONObject: [encryStr!] as Any, options: [])
-
-           let parameter:[String : Any] =
-              ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
-               "decryption_data": encryStr
-              ]
-           
-           print(parameters)
-           showActivityIndicator(uiView: self.view)
-           APIManager.apiPostWithHeadersCodable(serviceName: USER_ACC_UPDATE_API, parameters: parameter as [String : Any]) { (data, error) in
-               self.hideActivityIndicator(uiView: self.view)
-               guard let data = data else {
-                   
-                   self.showInformation(title: "Error", message: error?.localizedDescription ?? "")
-                   return
-               }
-               do {
-                  
-                        let json = String(data: data, encoding: String.Encoding.utf8)
-                       let decryptedStr = cryptLib.decryptCipherText(json, key: key, iv: iv)
-                       if let data = decryptedStr!.data(using: String.Encoding.utf8) {
-                           do {
-                               let result = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:Any]
-                               
-                               
-                               print(result)
-
-                           } catch {
-                               print("Something went wrong")
-                           }
-                       }
-
-                   let successModel = try JSONDecoder().decode(HostpaymentModel.self, from: data)
-                   print(successModel)
-                   if let responseCode = successModel.code, responseCode == 200 {
-                    self.dateSearchView.isHidden = true
-                  
-                   self.detailHeaderView.isHidden = true
-                   self.dateSearchHeightConstrints.constant = 0
-                   self.detailHeaderHeightConstrints.constant = 0
-                   self.UserAccountApi()
-                   self.listTableview.reloadData()
-                       self.showInformation(title:"Closest", message: successModel.message ?? "")
-                   
+            let key = "625202f9149e061d"
+            let iv = "5efd3f6060e20330"
+            var plainText = NSString()
+            let json = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
+            if let json = json {
+                plainText = json
+            }
+            
+            let cryptLib = CryptLib()
+            //let newStr =
+            var newStr : String = ""
+            newStr = plainText as String
+            let encryStr = cryptLib.encryptPlainText(newStr, key: key, iv: iv)
+            let jsonData = try! JSONSerialization.data(withJSONObject: [encryStr!] as Any, options: [])
+            
+            let parameter:[String : Any] =
+            ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
+             "decryption_data": encryStr
+            ]
+            
+            print(parameters)
+            showActivityIndicator(uiView: self.view)
+            APIManager.apiPostWithHeadersCodable(serviceName: USER_ACC_UPDATE_API, parameters: parameter as [String : Any]) { (data, error) in
+                self.hideActivityIndicator(uiView: self.view)
+                guard let data = data else {
+                    
+                    self.showInformation(title: "Error", message: error?.localizedDescription ?? "")
+                    return
+                }
+                do {
+                    
+                    let json = String(data: data, encoding: String.Encoding.utf8)
+                    let decryptedStr = cryptLib.decryptCipherText(json, key: key, iv: iv)
+                    if let data = decryptedStr!.data(using: String.Encoding.utf8) {
+                        do {
+                            let result = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:Any]
+                            print(result)
+                            
+                        } catch {
+                            print("Something went wrong")
+                        }
+                    }
+                    
+                    let successModel = try JSONDecoder().decode(HostpaymentModel.self, from: data)
+                    print(successModel)
+                    if let responseCode = successModel.code, responseCode == 200 {
+                        self.dateSearchView.isHidden = true
+                        
+                        self.detailHeaderView.isHidden = true
+                        self.dateSearchHeightConstrints.constant = 0
+                        self.detailHeaderHeightConstrints.constant = 0
+                        self.UserAccountApi()
+                        self.listTableview.reloadData()
+                        self.showInformation(title:"Closest", message: successModel.message ?? "")
+                        
+                        
+                        
+                    } else {
+                        self.showInformation(title: "Error", message: successModel.message ?? "")
+                    }
                     
                     
-                   } else {
-                       self.showInformation(title: "Error", message: successModel.message ?? "")
-                   }
-                   
-                   
-                   
-               } catch {
-                   print("error reading JSON: \(error)")
-                   let successModel = try? JSONDecoder().decode(CommonSuccessModel.self, from: data)
-                  
-                   if let responseCode = successModel?.code, responseCode == 200 {
-                       self.showInformation(title:"", message: successModel?.message ?? "")
-  
-                   } else {
-                       self.showInformation(title: "Error", message: successModel?.message ?? "")
-                   }
-               }
-           }
+                    
+                } catch {
+                    print("error reading JSON: \(error)")
+                    let successModel = try? JSONDecoder().decode(CommonSuccessModel.self, from: data)
+                    
+                    if let responseCode = successModel?.code, responseCode == 200 {
+                        self.showInformation(title:"", message: successModel?.message ?? "")
+                        
+                    } else {
+                        self.showInformation(title: "Error", message: successModel?.message ?? "")
+                    }
+                }
+            }
         }
     }
     
     @IBAction func submitButAct(_ sender: UIButton) {
         self.BankView.isHidden = true
         self.AccountView.isHidden = true
-       self.PaypalView.isHidden = true
+        self.PaypalView.isHidden = true
         let parameters:[String : Any] =
-           ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
-            "accname": self.txtBankName.text!,
-            "accno": self.txtIfscCode.text ?? "",
-            "bankname":self.txtBranchName.text ?? "",
-            "branchname":self.payoutCell?.txtBranchName.text ?? "",
-            "ifsccode": self.payoutCell?.txtIfscCode.text ?? "",
-            "primay_payment_method":self.BankTypesInt,
-            "payment_type":"bank"
-           ]
-       print(parameters)
-       showActivityIndicator(uiView: self.view)
-
-      
-       
-       
+        ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
+         "accname": self.txtBankName.text!,
+         "accno": self.txtIfscCode.text ?? "",
+         "bankname":self.txtBranchName.text ?? "",
+         "branchname":self.payoutCell?.txtBranchName.text ?? "",
+         "ifsccode": self.payoutCell?.txtIfscCode.text ?? "",
+         "primay_payment_method":self.BankTypesInt,
+         "payment_type":"bank"
+        ]
+        print(parameters)
+        showActivityIndicator(uiView: self.view)
+        
+        
+        
+        
         let data = try! JSONSerialization.data(withJSONObject: parameters as Any, options: [])
-       let key = "625202f9149e061d"
-       let iv = "5efd3f6060e20330"
-       var plainText = NSString()
-       let json = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-          if let json = json {
-           plainText = json
-          }
-
-       let cryptLib = CryptLib()
-       //let newStr =
-       var newStr : String = ""
-       newStr = plainText as String
-       let encryStr = cryptLib.encryptPlainText(newStr, key: key, iv: iv)
-       let jsonData = try! JSONSerialization.data(withJSONObject: [encryStr!] as Any, options: [])
-
-       let parameter:[String : Any] =
-          ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
-           "decryption_data": encryStr
-          ]
-       
-       print(parameters)
-       showActivityIndicator(uiView: self.view)
-       APIManager.apiPostWithHeadersCodable(serviceName: USER_ACC_UPDATE_API, parameters: parameter as [String : Any]) { (data, error) in
-           self.hideActivityIndicator(uiView: self.view)
-           guard let data = data else {
-               
-               self.showInformation(title: "Error", message: error?.localizedDescription ?? "")
-               return
-           }
-           do {
-               
-               // Convert JSON from NSData to AnyObject
-               //                    let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
-               //                    print(jsonObject)
-               
-               
-                    let json = String(data: data, encoding: String.Encoding.utf8)
-                   let decryptedStr = cryptLib.decryptCipherText(json, key: key, iv: iv)
-                   if let data = decryptedStr!.data(using: String.Encoding.utf8) {
-                       do {
-                           let result = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:Any]
-                           
-                           
-                           print(result)
-
-                       } catch {
-                           print("Something went wrong")
-                       }
-                   }
-
-               let successModel = try JSONDecoder().decode(HostpaymentModel.self, from: data)
-               print(successModel)
-               if let responseCode = successModel.code, responseCode == 200 {
-                self.dateSearchView.isHidden = true
-                self.BankView.isHidden = true
-                 self.AccountView.isHidden = true
-                self.PaypalView.isHidden = true
-               self.detailHeaderView.isHidden = true
-               self.dateSearchHeightConstrints.constant = 0
-               self.detailHeaderHeightConstrints.constant = 0
-               self.UserAccountApi()
-               self.listTableview.reloadData()
-                   self.showInformation(title:"Closest", message: successModel.message ?? "")
-               
-               }
-               else {
-                   self.showInformation(title: "Error", message: successModel.message ?? "")
-               }
-               
-               
-               
-           } catch {
-               print("error reading JSON: \(error)")
-               let successModel = try? JSONDecoder().decode(CommonSuccessModel.self, from: data)
-              
-               if let responseCode = successModel?.code, responseCode == 200 {
-                   self.showInformation(title:"", message: successModel?.message ?? "")
-//                        self.listTableview.reloadData()
-//                        UserAccountApi()
-               } else {
-                   self.showInformation(title: "Error", message: successModel?.message ?? "")
-               }
-           }
-       }
-
+        let key = "625202f9149e061d"
+        let iv = "5efd3f6060e20330"
+        var plainText = NSString()
+        let json = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
+        if let json = json {
+            plainText = json
+        }
+        
+        let cryptLib = CryptLib()
+        //let newStr =
+        var newStr : String = ""
+        newStr = plainText as String
+        let encryStr = cryptLib.encryptPlainText(newStr, key: key, iv: iv)
+        let jsonData = try! JSONSerialization.data(withJSONObject: [encryStr!] as Any, options: [])
+        
+        let parameter:[String : Any] =
+        ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
+         "decryption_data": encryStr
+        ]
+        
+        print(parameters)
+        showActivityIndicator(uiView: self.view)
+        APIManager.apiPostWithHeadersCodable(serviceName: USER_ACC_UPDATE_API, parameters: parameter as [String : Any]) { (data, error) in
+            self.hideActivityIndicator(uiView: self.view)
+            guard let data = data else {
+                
+                self.showInformation(title: "Error", message: error?.localizedDescription ?? "")
+                return
+            }
+            do {
+                
+                // Convert JSON from NSData to AnyObject
+                //                    let jsonObject = try JSONSerialization.jsonObject(with: data, options: [])
+                //                    print(jsonObject)
+                
+                
+                let json = String(data: data, encoding: String.Encoding.utf8)
+                let decryptedStr = cryptLib.decryptCipherText(json, key: key, iv: iv)
+                if let data = decryptedStr!.data(using: String.Encoding.utf8) {
+                    do {
+                        let result = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:Any]
+                        
+                        
+                        print(result)
+                        
+                    } catch {
+                        print("Something went wrong")
+                    }
+                }
+                
+                let successModel = try JSONDecoder().decode(HostpaymentModel.self, from: data)
+                print(successModel)
+                if let responseCode = successModel.code, responseCode == 200 {
+                    self.dateSearchView.isHidden = true
+                    self.BankView.isHidden = true
+                    self.AccountView.isHidden = true
+                    self.PaypalView.isHidden = true
+                    self.detailHeaderView.isHidden = true
+                    self.dateSearchHeightConstrints.constant = 0
+                    self.detailHeaderHeightConstrints.constant = 0
+                    self.UserAccountApi()
+                    self.listTableview.reloadData()
+                    self.showInformation(title:"Closest", message: successModel.message ?? "")
+                    
+                }
+                else {
+                    self.showInformation(title: "Error", message: successModel.message ?? "")
+                }
+                
+                
+                
+            } catch {
+                print("error reading JSON: \(error)")
+                let successModel = try? JSONDecoder().decode(CommonSuccessModel.self, from: data)
+                
+                if let responseCode = successModel?.code, responseCode == 200 {
+                    self.showInformation(title:"", message: successModel?.message ?? "")
+                    //                        self.listTableview.reloadData()
+                    //                        UserAccountApi()
+                } else {
+                    self.showInformation(title: "Error", message: successModel?.message ?? "")
+                }
+            }
+        }
+        
     }
-
+    
     @IBAction func searchButton(_ sender: UIButton) {
-       
+        
         if selectDateTextField.text?.count != 0 {
             if paymentIndex == 0{
                 showActivityIndicator(uiView: self.view)
@@ -398,14 +396,14 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
     }
     
     @IBAction func selectDateButtonTapped(_ sender: UIButton) {
-       
+        
     }
     func createDatePicker() {
         let toolbar = UIToolbar()
         toolbar.sizeToFit()
         
         let donebtn = UIBarButtonItem(barButtonSystemItem: .done, target: nil, action: #selector(donepressed))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
         let cancelbtn = UIBarButtonItem(barButtonSystemItem: .cancel, target: nil, action: #selector(cancelButton))
         
         toolbar.setItems([cancelbtn, spaceButton,donebtn], animated: true)
@@ -423,25 +421,25 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
         dateformator.timeStyle = .none
         
         
-       
+        
         selectDateTextField.text = dateformator.string(from: datepicker.date)
         self.view.endEditing(true)
     }
     @objc func cancelButton() {
         //cancel button dismiss datepicker dialog
-         self.view.endEditing(true)
+        self.view.endEditing(true)
     }
     func getBookingPaymentApiResponse(pageno: Int = 1, dateSerach: String = "") {
-       
+        
         
         if (Reachability()?.isReachable ?? false) {
             showActivityIndicator(uiView: self.view, isFulLoader: true)
             let parameters:[String : Any] =
-                ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
-                 "page_no":pageno,
-                 "currency_code":"USD",
-                 "date_search":dateSerach,
-                ]
+            ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
+             "page_no":pageno,
+             "currency_code":"USD",
+             "date_search":dateSerach,
+            ]
             APIManager.apiPostWithHeadersCodable(serviceName: BOOKINGPAYMENT, parameters: parameters as [String : Any]) { (data, error) in
                 self.hideActivityIndicator(uiView: self.view)
                 guard let data = data else {
@@ -487,7 +485,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
                                     }
                                 }
                             }
-                           
+                            
                             
                         } else {
                             self.isLoading = true
@@ -515,16 +513,16 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
         
     }
     func getBookingListingPaymentApiResponse(pageno: Int = 1, dateSerach: String = "") {
-       
+        
         
         if (Reachability()?.isReachable ?? false) {
             showActivityIndicator(uiView: self.view)
             let parameters:[String : Any] =
-                ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
-                 "page_no":pageno,
-                 "currency_code":"USD",
-                 "date_search":dateSerach,
-                ]
+            ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
+             "page_no":pageno,
+             "currency_code":"USD",
+             "date_search":dateSerach,
+            ]
             APIManager.apiPostWithHeadersCodable(serviceName: LISTING_PAYMENT, parameters: parameters as [String : Any]) { (data, error) in
                 self.hideActivityIndicator(uiView: self.view)
                 guard let data = data else {
@@ -574,7 +572,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
                             self.isLoading = true
                         }
                         self.listTableview.reloadData()
-              
+                        
                     } else {
                         self.listTableview.reloadData()
                         self.showInformation(title: "Error", message: successModel.message ?? "")
@@ -596,16 +594,16 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
         
     }
     func getHostingPaymentApiResponse(pageno: Int = 1, dateSerach: String = "") {
-      
+        
         
         if (Reachability()?.isReachable ?? false) {
             showActivityIndicator(uiView: self.view)
             let parameters:[String : Any] =
-                ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
-                 "page_no":pageno,
-                 "currency_code":"USD",
-                 "date_search":dateSerach,
-                ]
+            ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
+             "page_no":pageno,
+             "currency_code":"USD",
+             "date_search":dateSerach,
+            ]
             APIManager.apiPostWithHeadersCodable(serviceName: HOST_PAYOUT, parameters: parameters as [String : Any]) { (data, error) in
                 self.hideActivityIndicator(uiView: self.view)
                 guard let data = data else {
@@ -654,7 +652,7 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
                         } else {
                             self.isLoading = true
                         }
-                       
+                        
                         
                         self.listTableview.reloadData()
                         
@@ -691,42 +689,42 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
         self.PaypalView.isHidden = false
     }
     @objc func getDocumentListData()  {
-         let parameters:[String : Any] =
-            ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
-             "accname": self.accountInfo?.accname ?? "",
-             "accno": self.payoutCell?.txtAccountNumber.text ?? "",
-             "bankname":self.payoutCell?.txtBankName.text ?? "",
-             "branchname":self.payoutCell?.txtBranchName.text ?? "",
-             "ifsccode": self.payoutCell?.txtIfscCode.text ?? "",
-             "primay_payment_method":"1",
-             "payment_type":"bank"
-            ]
+        let parameters:[String : Any] =
+        ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
+         "accname": self.accountInfo?.accname ?? "",
+         "accno": self.payoutCell?.txtAccountNumber.text ?? "",
+         "bankname":self.payoutCell?.txtBankName.text ?? "",
+         "branchname":self.payoutCell?.txtBranchName.text ?? "",
+         "ifsccode": self.payoutCell?.txtIfscCode.text ?? "",
+         "primay_payment_method":"1",
+         "payment_type":"bank"
+        ]
         print(parameters)
         showActivityIndicator(uiView: self.view)
-
-       
         
         
-         let data = try! JSONSerialization.data(withJSONObject: parameters as Any, options: [])
+        
+        
+        let data = try! JSONSerialization.data(withJSONObject: parameters as Any, options: [])
         let key = "625202f9149e061d"
         let iv = "5efd3f6060e20330"
         var plainText = NSString()
         let json = NSString(data: data, encoding: String.Encoding.utf8.rawValue)
-           if let json = json {
+        if let json = json {
             plainText = json
-           }
-
+        }
+        
         let cryptLib = CryptLib()
         //let newStr =
         var newStr : String = ""
         newStr = plainText as String
         let encryStr = cryptLib.encryptPlainText(newStr, key: key, iv: iv)
         let jsonData = try! JSONSerialization.data(withJSONObject: [encryStr!] as Any, options: [])
-
+        
         let parameter:[String : Any] =
-           ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
-            "decryption_data": encryStr
-           ]
+        ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
+         "decryption_data": encryStr
+        ]
         
         print(parameters)
         showActivityIndicator(uiView: self.view)
@@ -744,20 +742,20 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
                 //                    print(jsonObject)
                 
                 
-                     let json = String(data: data, encoding: String.Encoding.utf8)
-                    let decryptedStr = cryptLib.decryptCipherText(json, key: key, iv: iv)
-                    if let data = decryptedStr!.data(using: String.Encoding.utf8) {
-                        do {
-                            let result = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:Any]
-                            
-                            
-                            print(result)
-
-                        } catch {
-                            print("Something went wrong")
-                        }
+                let json = String(data: data, encoding: String.Encoding.utf8)
+                let decryptedStr = cryptLib.decryptCipherText(json, key: key, iv: iv)
+                if let data = decryptedStr!.data(using: String.Encoding.utf8) {
+                    do {
+                        let result = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:Any]
+                        
+                        
+                        print(result)
+                        
+                    } catch {
+                        print("Something went wrong")
                     }
- 
+                }
+                
                 let successModel = try JSONDecoder().decode(HostpaymentModel.self, from: data)
                 print(successModel)
                 if let responseCode = successModel.code, responseCode == 200 {
@@ -772,35 +770,35 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
             } catch {
                 print("error reading JSON: \(error)")
                 let successModel = try? JSONDecoder().decode(CommonSuccessModel.self, from: data)
-               
+                
                 if let responseCode = successModel?.code, responseCode == 200 {
                     self.showInformation(title:"", message: successModel?.message ?? "")
-//                        self.listTableview.reloadData()
-//                        UserAccountApi()
+                    //                        self.listTableview.reloadData()
+                    //                        UserAccountApi()
                 } else {
                     self.showInformation(title: "Error", message: successModel?.message ?? "")
                 }
             }
         }
-
-
+        
+        
     }
     
-   @objc func  getPayoutMethodApiResponse() {
+    @objc func  getPayoutMethodApiResponse() {
         //showActivityIndicator(uiView: self.view)
         
         if (Reachability()?.isReachable ?? false) {
             showActivityIndicator(uiView: self.view)
-          
+            
             let parameters:[String : Any] =
-                ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
-                 "accname": self.accountInfo?.accname ?? "",
-                 "accno": self.payoutCell?.txtAccountNumber.text ?? "",
-                 "bankname":self.payoutCell?.txtBankName.text ?? "",
-                 "branchname":self.payoutCell?.txtBranchName.text ?? "",
-                 "ifsccode": self.payoutCell?.txtIfscCode.text ?? "",
-                 "paypal_email":""
-                ]
+            ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
+             "accname": self.accountInfo?.accname ?? "",
+             "accno": self.payoutCell?.txtAccountNumber.text ?? "",
+             "bankname":self.payoutCell?.txtBankName.text ?? "",
+             "branchname":self.payoutCell?.txtBranchName.text ?? "",
+             "ifsccode": self.payoutCell?.txtIfscCode.text ?? "",
+             "paypal_email":""
+            ]
             APIManager.apiPostWithHeadersCodable(serviceName: USER_ACC_UPDATE_API, parameters: parameters as [String : Any]) { (data, error) in
                 self.hideActivityIndicator(uiView: self.view)
                 guard let data = data else {
@@ -828,11 +826,11 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
                 } catch {
                     print("error reading JSON: \(error)")
                     let successModel = try? JSONDecoder().decode(CommonSuccessModel.self, from: data)
-                   
+                    
                     if let responseCode = successModel?.code, responseCode == 200 {
                         self.showInformation(title:"", message: successModel?.message ?? "")
-//                        self.listTableview.reloadData()
-//                        UserAccountApi()
+                        //                        self.listTableview.reloadData()
+                        //                        UserAccountApi()
                     } else {
                         self.showInformation(title: "Error", message: successModel?.message ?? "")
                     }
@@ -847,25 +845,24 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
         
     }
     func UserAccountApi() {
-     
+        
         
         if (Reachability()?.isReachable ?? false) {
-//            showActivityIndicator(uiView: self.view)
+            //            showActivityIndicator(uiView: self.view)
             let parameters:[String : Any] =
-                ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
-               
-                 "currency_code":"USD",
-               
-                ]
-            
-            Alamofire.request(GET_USER_ACCOUNT_DETAILS, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: HeaderManager.headers()).responseJSON { (response:DataResponse<Any>) in
+            ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en",
+             
+             "currency_code":"USD",
+             
+            ]
+            AF.request(GET_USER_ACCOUNT_DETAILS, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: HeaderManager.headers()).responseJSON { response in
                 switch(response.result) {
                 case .success(_):
                     if let data = response.value{
                         let json576 = data as? NSDictionary
                         let convertStr = json576?.object(forKey: "data") as? String ?? ""
                         let dataStr = convertStr.data(using: .utf8, allowLossyConversion: true)
-
+                        
                         let key = "625202f9149e061d"
                         let iv = "5efd3f6060e20330"
                         let cryptLib = CryptLib()
@@ -894,17 +891,17 @@ class PaymentDetailsVC: BaseViewController,UITextFieldDelegate {
                     }
                     break
                 case .failure(_):
-                     break
+                    break
                 }
             }
             
-
+            
             
         }
         else {
             self.showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
-       
+        
     }
     
     
@@ -929,7 +926,7 @@ extension PaymentDetailsVC : UICollectionViewDelegate,UICollectionViewDataSource
         
         cell.LblUnderline.backgroundColor = paymentIndex == indexPath.item ? AppColor : .none
         
-//        cell.Lbltitle.textColor = paymentIndex == indexPath.item ? #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1) : .black
+        //        cell.Lbltitle.textColor = paymentIndex == indexPath.item ? #colorLiteral(red: 0.9411764741, green: 0.4980392158, blue: 0.3529411852, alpha: 1) : .black
         
         return cell
     }
@@ -947,7 +944,7 @@ extension PaymentDetailsVC : UICollectionViewDelegate,UICollectionViewDataSource
             showActivityIndicator(uiView: self.view)
             self.bookingPaymentDetailArray.removeAll()
             self.isLoading = true
-          
+            
             getBookingPaymentApiResponse()
             
         }
@@ -966,7 +963,7 @@ extension PaymentDetailsVC : UICollectionViewDelegate,UICollectionViewDataSource
             
         }
         else if indexPath.item == 3 {
-           
+            
             dateSearchView.isHidden = true
             detailHeaderView.isHidden = true
             dateSearchHeightConstrints.constant = 0
@@ -1043,9 +1040,9 @@ extension PaymentDetailsVC: UITableViewDelegate, UITableViewDataSource {
             cell.Amttype.font = UIFont(name: SemiBoldFont, size: 13)
             cell.currencytype.font = UIFont(name: SemiBoldFont, size: 13)
             cell.Statustype.font = UIFont(name: SemiBoldFont, size: 13)
-
+            
             cell.dateLbl.text = finalString
-           
+            
             cell.nameDesLbl.text = model.ren_title ?? ""
             cell.transactionIdLbl.text = model.transaction_id ?? ""
             cell.transactiontypeLbl.text = model.transaction_method ?? ""
@@ -1082,17 +1079,17 @@ extension PaymentDetailsVC: UITableViewDelegate, UITableViewDataSource {
             second.currencyLbl.text = model.currency_symbol ?? ""
             second.amountLbl.text = model.property_price ?? ""
             
-          
-                if let paidStatus = model.payment_status,  paidStatus != 0 {
-                    second.pendingLbl.backgroundColor = UIColor.systemGreen
-                    second.pendingLbl.text = GlobalLanguageDictionary.object(forKey: "key_success") as? String ?? ""
-                    second.pendingLbl.textColor = UIColor.white
-                    
-                } else {
-                    second.pendingLbl.backgroundColor = UIColor.systemYellow
-                    second.pendingLbl.text = GlobalLanguageDictionary.object(forKey: "key_pending") as? String ?? ""
-                    second.pendingLbl.textColor = UIColor.white
-                }
+            
+            if let paidStatus = model.payment_status,  paidStatus != 0 {
+                second.pendingLbl.backgroundColor = UIColor.systemGreen
+                second.pendingLbl.text = GlobalLanguageDictionary.object(forKey: "key_success") as? String ?? ""
+                second.pendingLbl.textColor = UIColor.white
+                
+            } else {
+                second.pendingLbl.backgroundColor = UIColor.systemYellow
+                second.pendingLbl.text = GlobalLanguageDictionary.object(forKey: "key_pending") as? String ?? ""
+                second.pendingLbl.textColor = UIColor.white
+            }
             return second
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "hostPayOutCell", for: indexPath) as? hostPayOutCell else { return UITableViewCell() }
@@ -1109,14 +1106,14 @@ extension PaymentDetailsVC: UITableViewDelegate, UITableViewDataSource {
             cell.Submitbtn.addTarget(self, action: #selector(getDocumentListData), for: .touchUpInside)
             cell.BankAddBtn.addTarget(self, action: #selector(AddBankAccountAct), for: .touchUpInside)
             cell.PayPalAddBtn.addTarget(self, action: #selector(AddPaypalAct), for: .touchUpInside)
-
+            
             if (self.decryptDataDict.object(forKey: "payout_perference") as? NSDictionary)?.object(forKey: "accno") as? String ?? "" != "" {
                 cell.BankAddBtn.setTitle("***********    Edit", for: .normal)
                 cell.BankAddImgBtn.setImage(UIImage(named: "radio-on-button"), for: .normal)
             }else{
                 cell.BankAddBtn.setTitle("Add", for: .normal)
                 cell.BankAddImgBtn.setImage(UIImage(named: "radio-button"), for: .normal)
-
+                
             }
             
             if (self.decryptDataDict.object(forKey: "payout_perference") as? NSDictionary)?.object(forKey: "paypal_email") as? String ?? "" != "" {
@@ -1126,24 +1123,21 @@ extension PaymentDetailsVC: UITableViewDelegate, UITableViewDataSource {
                 cell.PayPalAddBtn.setTitle("Add", for: .normal)
                 cell.PayPalAddImgBtn.setImage(UIImage(named: "radio-button"), for: .normal)
             }
-
-//            if let model = self.payoutDetails {
-                cell.txtBankName.text = (self.decryptDataDict.object(forKey: "payout_perference") as? NSDictionary)?.object(forKey: "bankname") as? String ?? ""//model.bankname ?? ""
-                cell.txtBranchName.text = (self.decryptDataDict.object(forKey: "payout_perference") as? NSDictionary)?.object(forKey: "branch_name") as? String ?? ""
+            
+            //            if let model = self.payoutDetails {
+            cell.txtBankName.text = (self.decryptDataDict.object(forKey: "payout_perference") as? NSDictionary)?.object(forKey: "bankname") as? String ?? ""//model.bankname ?? ""
+            cell.txtBranchName.text = (self.decryptDataDict.object(forKey: "payout_perference") as? NSDictionary)?.object(forKey: "branch_name") as? String ?? ""
             cell.txtAccountNumber.text = (self.decryptDataDict.object(forKey: "payout_perference") as? NSDictionary)?.object(forKey: "accno") as? String ?? ""
             
-                cell.txtIfscCode.text = (self.decryptDataDict.object(forKey: "payout_perference") as? NSDictionary)?.object(forKey: "ifc_code") as? String ?? ""
+            cell.txtIfscCode.text = (self.decryptDataDict.object(forKey: "payout_perference") as? NSDictionary)?.object(forKey: "ifc_code") as? String ?? ""
             
-//                cell.Submitbtn.addTarget(self, action: #selector(""), for: .touchUpInside)
-//            }
+            //                cell.Submitbtn.addTarget(self, action: #selector(""), for: .touchUpInside)
+            //            }
             return cell
             
             
         default:
             return UITableViewCell()
-            
-            
-            
         }
         
     }
@@ -1151,9 +1145,9 @@ extension PaymentDetailsVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch paymentIndex {
         case 0:
-            return UITableViewAutomaticDimension
+            return UITableView.automaticDimension
         case 1:
-            return UITableViewAutomaticDimension
+            return UITableView.automaticDimension
         case 2:
             return 150
         case 3:

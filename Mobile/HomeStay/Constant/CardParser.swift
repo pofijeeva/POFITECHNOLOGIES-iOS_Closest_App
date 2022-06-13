@@ -101,7 +101,7 @@ fileprivate extension CardType {
     // from: https://gist.github.com/cwagdev/635ce973e8e86da0403a
     static func luhnCheck(_ cardNumber: String) -> Bool {
         var sum = 0
-        let reversedCharacters = cardNumber.characters.reversed().map { String($0) }
+        let reversedCharacters = cardNumber.reversed().map { String($0) }
         for (idx, element) in reversedCharacters.enumerated() {
             guard let digit = Int(element) else { return false }
             switch ((idx % 2 == 1), digit) {
@@ -180,7 +180,7 @@ extension ClosedRange: PrefixContainable {
             return trimmedStart...trimmedEnd
         }()
 
-        let trimmedText = text.prefix(trimmedRange.lowerBound.characters.count)
+        let trimmedText = text.prefix(trimmedRange.lowerBound.count)
         return trimmedRange ~= trimmedText
     }
 
@@ -197,11 +197,11 @@ extension String: PrefixContainable {
 fileprivate extension String {
 
     func prefix(_ maxLength: Int) -> String {
-        return String(characters.prefix(maxLength))
+        return String(self.prefix(maxLength))
     }
 
     var length: Int {
-        return characters.count
+        return self.count
     }
 
 }

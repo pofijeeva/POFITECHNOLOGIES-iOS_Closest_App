@@ -377,7 +377,7 @@
 		206A72AA27BA36D5008AA8E7 /* ReviewsByYou.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206A729F27BA36D5008AA8E7 /* ReviewsByYou.swift */; };
 		206A72AB27BA36D5008AA8E7 /* CancellationByYou.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206A72A027BA36D5008AA8E7 /* CancellationByYou.swift */; };
 		206A72AC27BA36D5008AA8E7 /* HostCancellation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206A72A127BA36D5008AA8E7 /* HostCancellation.swift */; };
-		206A72AD27BA36D5008AA8E7 /* CountryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206A72A227BA36D5008AA8E7 /* CountryList.swift */; };
+		206A72AD27BA36D5008AA8E7 /* CountryListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206A72A227BA36D5008AA8E7 /* CountryListModel.swift */; };
 		206A72AE27BA36D5008AA8E7 /* DisputeAboutYou.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206A72A327BA36D5008AA8E7 /* DisputeAboutYou.swift */; };
 		206A72AF27BA36D5008AA8E7 /* Profileinfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206A72A427BA36D5008AA8E7 /* Profileinfo.swift */; };
 		206A72B027BA36D5008AA8E7 /* ReviewsAboutYou.swift in Sources */ = {isa = PBXBuildFile; fileRef = 206A72A527BA36D5008AA8E7 /* ReviewsAboutYou.swift */; };
@@ -481,6 +481,12 @@
 		81103E0928423B8E00740BF6 /* LaunchScreen.strings in Resources */ = {isa = PBXBuildFile; fileRef = 81103E0128423B8E00740BF6 /* LaunchScreen.strings */; };
 		81103E0A28423B8E00740BF6 /* Localization.strings in Resources */ = {isa = PBXBuildFile; fileRef = 81103E0328423B8E00740BF6 /* Localization.strings */; };
 		81103E0B28423B8E00740BF6 /* Main.strings in Resources */ = {isa = PBXBuildFile; fileRef = 81103E0528423B8E00740BF6 /* Main.strings */; };
+		A17C5DD328570A1100FC9F25 /* CountryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17C5DCF28570A0500FC9F25 /* CountryList.swift */; };
+		A17C5DD428570A1100FC9F25 /* Country.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17C5DD028570A0900FC9F25 /* Country.swift */; };
+		A17C5DD528570A1100FC9F25 /* Countries.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17C5DD128570A0D00FC9F25 /* Countries.swift */; };
+		A17C5DD628570A1100FC9F25 /* CountryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A17C5DD228570A1100FC9F25 /* CountryCell.swift */; };
+		A182837B28573AC4005F68FD /* ACFloatingTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = A182837A28573AC4005F68FD /* ACFloatingTextfield.swift */; };
+		A182837E28573B97005F68FD /* Source in Resources */ = {isa = PBXBuildFile; fileRef = A182837D28573B97005F68FD /* Source */; };
 		A65CB7692782A55D00EE0A50 /* NewSideMenuDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65CB7682782A55D00EE0A50 /* NewSideMenuDetailController.swift */; };
 		ECD0492D26E66CA7009333B7 /* ImagePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD0492C26E66CA7009333B7 /* ImagePickerManager.swift */; };
 /* End PBXBuildFile section */
@@ -859,7 +865,7 @@
 		206A729F27BA36D5008AA8E7 /* ReviewsByYou.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsByYou.swift; sourceTree = "<group>"; };
 		206A72A027BA36D5008AA8E7 /* CancellationByYou.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CancellationByYou.swift; sourceTree = "<group>"; };
 		206A72A127BA36D5008AA8E7 /* HostCancellation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HostCancellation.swift; sourceTree = "<group>"; };
-		206A72A227BA36D5008AA8E7 /* CountryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryList.swift; sourceTree = "<group>"; };
+		206A72A227BA36D5008AA8E7 /* CountryListModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryListModel.swift; sourceTree = "<group>"; };
 		206A72A327BA36D5008AA8E7 /* DisputeAboutYou.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisputeAboutYou.swift; sourceTree = "<group>"; };
 		206A72A427BA36D5008AA8E7 /* Profileinfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Profileinfo.swift; sourceTree = "<group>"; };
 		206A72A527BA36D5008AA8E7 /* ReviewsAboutYou.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsAboutYou.swift; sourceTree = "<group>"; };
@@ -976,6 +982,12 @@
 		81103E0228423B8E00740BF6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		81103E0428423B8E00740BF6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localization.strings; sourceTree = "<group>"; };
 		81103E0628423B8E00740BF6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
+		A17C5DCF28570A0500FC9F25 /* CountryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryList.swift; sourceTree = "<group>"; };
+		A17C5DD028570A0900FC9F25 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
+		A17C5DD128570A0D00FC9F25 /* Countries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Countries.swift; sourceTree = "<group>"; };
+		A17C5DD228570A1100FC9F25 /* CountryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
+		A182837A28573AC4005F68FD /* ACFloatingTextfield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACFloatingTextfield.swift; sourceTree = "<group>"; };
+		A182837D28573B97005F68FD /* Source */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Source; sourceTree = "<group>"; };
 		A65CB7682782A55D00EE0A50 /* NewSideMenuDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewSideMenuDetailController.swift; sourceTree = "<group>"; };
 		BD8FD1FE622BE0CC13B9DD21 /* Pods-HomeStay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HomeStay.release.xcconfig"; path = "Pods/Target Support Files/Pods-HomeStay/Pods-HomeStay.release.xcconfig"; sourceTree = "<group>"; };
 		ECD0492C26E66CA7009333B7 /* ImagePickerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImagePickerManager.swift; path = HomeStay/Controllers/ImagePickerManager.swift; sourceTree = SOURCE_ROOT; };
@@ -1427,7 +1439,7 @@
 				206A729F27BA36D5008AA8E7 /* ReviewsByYou.swift */,
 				206A72A027BA36D5008AA8E7 /* CancellationByYou.swift */,
 				206A72A127BA36D5008AA8E7 /* HostCancellation.swift */,
-				206A72A227BA36D5008AA8E7 /* CountryList.swift */,
+				206A72A227BA36D5008AA8E7 /* CountryListModel.swift */,
 				206A72A327BA36D5008AA8E7 /* DisputeAboutYou.swift */,
 				206A72A427BA36D5008AA8E7 /* Profileinfo.swift */,
 				206A72A527BA36D5008AA8E7 /* ReviewsAboutYou.swift */,
@@ -1577,12 +1589,14 @@
 			children = (
 				2068CC1B27BF46E900F58788 /* ClosestDebug.entitlements */,
 				206A6FB927B7B4DE008AA8E7 /* HomeStay */,
-				54DFE06C2773009A00F84F3A /* New Group */,
 				2CF36F8F2204361600C6ECED /* HomeStay.entitlements */,
 				2081B49427CDE8C80080CC0B /* APIEncryption */,
 				2068CC1C27BF4DBE00F58788 /* apple_pay-7.cer */,
 				20A91AA027CA640E005FB27B /* Arabic.json */,
 				207ED57927AA74BA0032CE80 /* English.json */,
+				A182837C28573B76005F68FD /* ImagePicker */,
+				A182837928573AB4005F68FD /* ACFloatingTextfield */,
+				A17C5DCE285709E000FC9F25 /* CountryList */,
 				205A459E27D8F4E20078491D /* PagerCollectionViewCell.swift */,
 				205A45A027D8F4EA0078491D /* PagerCollectionViewCell.xib */,
 				24CBB82721F6DB760081E481 /* ExternalLibrary */,
@@ -1611,10 +1625,11 @@
 				81103DEF28422EDC00740BF6 /* Main.storyboard */,
 				81103DF028422F3800740BF6 /* Main.storyboard~HEAD */,
 				81103DF32842306800740BF6 /* Main.strings */,
+				206A707927BA1EBC008AA8E7 /* Network.swift */,
+				206A707B27BA1ECA008AA8E7 /* Reachability.swift */,
 				81103DF728423B8E00740BF6 /* Languages */,
 				202F55062108937300035886 /* cell */,
 				202F55072108939800035886 /* Model */,
-				20FE895C210891A300C13B5D /* Network */,
 				206A732027BA3AE1008AA8E7 /* Resource */,
 				20FE895D210891D500C13B5D /* Constant */,
 				24E51C0521C8CA1C00514517 /* HomeStay-Bridging-Header.h */,
@@ -1704,15 +1719,6 @@
 				206A6FDA27BA17EC008AA8E7 /* DelegateAppearanceViewController.swift */,
 			);
 			path = Fscalender;
-			sourceTree = "<group>";
-		};
-		20FE895C210891A300C13B5D /* Network */ = {
-			isa = PBXGroup;
-			children = (
-				206A707927BA1EBC008AA8E7 /* Network.swift */,
-				206A707B27BA1ECA008AA8E7 /* Reachability.swift */,
-			);
-			path = Network;
 			sourceTree = "<group>";
 		};
 		20FE895D210891D500C13B5D /* Constant */ = {
@@ -1850,13 +1856,6 @@
 			path = Reference;
 			sourceTree = "<group>";
 		};
-		54DFE06C2773009A00F84F3A /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		81103DF728423B8E00740BF6 /* Languages */ = {
 			isa = PBXGroup;
 			children = (
@@ -1885,6 +1884,33 @@
 				06DB4C7539FC5769E6CA8F9A /* Pods_HomeStay.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A17C5DCE285709E000FC9F25 /* CountryList */ = {
+			isa = PBXGroup;
+			children = (
+				A17C5DD128570A0D00FC9F25 /* Countries.swift */,
+				A17C5DD028570A0900FC9F25 /* Country.swift */,
+				A17C5DD228570A1100FC9F25 /* CountryCell.swift */,
+				A17C5DCF28570A0500FC9F25 /* CountryList.swift */,
+			);
+			path = CountryList;
+			sourceTree = "<group>";
+		};
+		A182837928573AB4005F68FD /* ACFloatingTextfield */ = {
+			isa = PBXGroup;
+			children = (
+				A182837A28573AC4005F68FD /* ACFloatingTextfield.swift */,
+			);
+			path = ACFloatingTextfield;
+			sourceTree = "<group>";
+		};
+		A182837C28573B76005F68FD /* ImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				A182837D28573B97005F68FD /* Source */,
+			);
+			path = ImagePicker;
 			sourceTree = "<group>";
 		};
 		ECD0499926E702FE009333B7 /* MultipartForm */ = {
@@ -2029,6 +2055,7 @@
 				54BE1DB6277578A700FDF0E8 /* PayoutMethodCell.xib in Resources */,
 				20F738E727DB19170095D631 /* GoogleService-Info.plist in Resources */,
 				206A715D27BA28F8008AA8E7 /* testImage.jpg in Resources */,
+				A182837E28573B97005F68FD /* Source in Resources */,
 				206A706327BA1DE1008AA8E7 /* SofiaProSemiBold-Italic.ttf in Resources */,
 				206A706927BA1DE1008AA8E7 /* SofiaProBold.ttf in Resources */,
 				545ED3EF270B15CB0010AEBE /* OverviewVC.storyboard in Resources */,
@@ -2173,7 +2200,7 @@
 				206A723D27BA34A1008AA8E7 /* PropertyHostDetailsTableViewCell.swift in Sources */,
 				206A72F727BA377E008AA8E7 /* CouponAssignedProduct.swift in Sources */,
 				206A719127BA2C94008AA8E7 /* PaymentViewController.swift in Sources */,
-				206A72AD27BA36D5008AA8E7 /* CountryList.swift in Sources */,
+				206A72AD27BA36D5008AA8E7 /* CountryListModel.swift in Sources */,
 				20A91AFA27CA707E005FB27B /* YBTextPicker.swift in Sources */,
 				206A710227BA24A2008AA8E7 /* ExperienceGroupSizeViewController.swift in Sources */,
 				206A716A27BA2AC9008AA8E7 /* SignUpViewController.swift in Sources */,
@@ -2311,6 +2338,7 @@
 				206A720327BA34A1008AA8E7 /* AmenitiesCell.swift in Sources */,
 				206A6FC627BA16B7008AA8E7 /* RadioButtonYearController.swift in Sources */,
 				206A701327BA1C6D008AA8E7 /* BookingListTVCell.swift in Sources */,
+				A17C5DD428570A1100FC9F25 /* Country.swift in Sources */,
 				206A716E27BA2B0C008AA8E7 /* TermsOfServiceViewController.swift in Sources */,
 				206A70AA27BA2083008AA8E7 /* SambagDatePickerViewController.swift in Sources */,
 				206A70A827BA2070008AA8E7 /* AlphaTransitioning.swift in Sources */,
@@ -2319,6 +2347,7 @@
 				206A701827BA1C6D008AA8E7 /* InboxTVCell.swift in Sources */,
 				206A730627BA37C9008AA8E7 /* Notification.swift in Sources */,
 				2081B49D27CDE8C80080CC0B /* NSData+AES.m in Sources */,
+				A182837B28573AC4005F68FD /* ACFloatingTextfield.swift in Sources */,
 				206A730427BA37C9008AA8E7 /* CompletedTransaction.swift in Sources */,
 				206A708E27BA1F37008AA8E7 /* Step6.swift in Sources */,
 				205A459F27D8F4E30078491D /* PagerCollectionViewCell.swift in Sources */,
@@ -2350,6 +2379,7 @@
 				206A728027BA354E008AA8E7 /* OptionsNew.swift in Sources */,
 				206A70F927BA24A2008AA8E7 /* TitleExperienceViewController.swift in Sources */,
 				206A72CA27BA36F2008AA8E7 /* ListingInfo.swift in Sources */,
+				A17C5DD328570A1100FC9F25 /* CountryList.swift in Sources */,
 				206A726827BA34A1008AA8E7 /* FavouriteDestinationCollectionViewCell.swift in Sources */,
 				206A6FC727BA16B7008AA8E7 /* RadioButtonMonController.swift in Sources */,
 				206A717227BA2B2D008AA8E7 /* PropertyDetailViewController.swift in Sources */,
@@ -2361,6 +2391,7 @@
 				206A722327BA34A1008AA8E7 /* NewCouponTableViewCell.swift in Sources */,
 				206A718327BA2BE4008AA8E7 /* BundleAndSaveViewController.swift in Sources */,
 				206A723C27BA34A1008AA8E7 /* PropertyDetailReviewCell.swift in Sources */,
+				A17C5DD628570A1100FC9F25 /* CountryCell.swift in Sources */,
 				206A729527BA3674008AA8E7 /* CurrencyModel.swift in Sources */,
 				206A709C27BA1FBA008AA8E7 /* Currency.swift in Sources */,
 				206A713727BA2690008AA8E7 /* TypeCollectionViewCell.swift in Sources */,
@@ -2371,6 +2402,7 @@
 				206A72DC27BA370E008AA8E7 /* InboxConversationModel.swift in Sources */,
 				206A70B727BA20DF008AA8E7 /* TimeMeridian.swift in Sources */,
 				206A72B727BA36E1008AA8E7 /* UserDetail.swift in Sources */,
+				A17C5DD528570A1100FC9F25 /* Countries.swift in Sources */,
 				206A720627BA34A1008AA8E7 /* WishListCell.swift in Sources */,
 				20397B892137DC4B00E158B8 /* RentYourSpaceViewController.swift in Sources */,
 				20397BB22137DDAE00E158B8 /* HomeViewController.swift in Sources */,
@@ -2783,8 +2815,6 @@
 					"-framework",
 					"\"FBSDKLoginKit\"",
 					"-framework",
-					"\"FIRAnalyticsConnector\"",
-					"-framework",
 					"\"FSCalendar\"",
 					"-framework",
 					"\"Fabric\"",
@@ -2798,8 +2828,6 @@
 					"\"FirebaseCore\"",
 					"-framework",
 					"\"FirebaseCoreDiagnostics\"",
-					"-framework",
-					"\"FirebaseInstanceID\"",
 					"-framework",
 					"\"FirebaseMessaging\"",
 					"-framework",
@@ -2815,8 +2843,6 @@
 					"-framework",
 					"\"GoogleDataTransport\"",
 					"-framework",
-					"\"GoogleDataTransportCCTSupport\"",
-					"-framework",
 					"\"GoogleMapsBase\"",
 					"-framework",
 					"\"GoogleMapsCore\"",
@@ -2830,8 +2856,6 @@
 					"\"IQKeyboardManagerSwift\"",
 					"-framework",
 					"\"ImageIO\"",
-					"-framework",
-					"\"ImagePicker\"",
 					"-framework",
 					"\"Kingfisher\"",
 					"-framework",
@@ -2858,8 +2882,6 @@
 					"\"UIKit\"",
 					"-framework",
 					"\"nanopb\"",
-					"-framework",
-					"\"protobuf\"",
 					"-weak_framework",
 					"\"Accelerate\"",
 					"-weak_framework",
@@ -2895,7 +2917,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "HomeStay/HomeStay-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2978,8 +3000,6 @@
 					"-framework",
 					"\"FBSDKLoginKit\"",
 					"-framework",
-					"\"FIRAnalyticsConnector\"",
-					"-framework",
 					"\"FSCalendar\"",
 					"-framework",
 					"\"Fabric\"",
@@ -2993,8 +3013,6 @@
 					"\"FirebaseCore\"",
 					"-framework",
 					"\"FirebaseCoreDiagnostics\"",
-					"-framework",
-					"\"FirebaseInstanceID\"",
 					"-framework",
 					"\"FirebaseMessaging\"",
 					"-framework",
@@ -3010,8 +3028,6 @@
 					"-framework",
 					"\"GoogleDataTransport\"",
 					"-framework",
-					"\"GoogleDataTransportCCTSupport\"",
-					"-framework",
 					"\"GoogleMapsBase\"",
 					"-framework",
 					"\"GoogleMapsCore\"",
@@ -3025,8 +3041,6 @@
 					"\"IQKeyboardManagerSwift\"",
 					"-framework",
 					"\"ImageIO\"",
-					"-framework",
-					"\"ImagePicker\"",
 					"-framework",
 					"\"Kingfisher\"",
 					"-framework",
@@ -3053,8 +3067,6 @@
 					"\"UIKit\"",
 					"-framework",
 					"\"nanopb\"",
-					"-framework",
-					"\"protobuf\"",
 					"-weak_framework",
 					"\"Accelerate\"",
 					"-weak_framework",
@@ -3089,7 +3101,7 @@
 				PROVISIONING_PROFILE = Automatic;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "HomeStay/HomeStay-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

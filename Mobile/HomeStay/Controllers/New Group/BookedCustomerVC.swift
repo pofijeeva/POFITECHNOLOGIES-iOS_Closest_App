@@ -63,7 +63,7 @@ class BookedCustomerVC: BaseViewController {
             }
             let responseDict:NSDictionary = json!
             print(responseDict)
-            if responseDict.value(forKey: "code") as! NSNumber == 200 {
+            if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                 self.listTableview.isHidden = false
                 
                 self.ReservationData.removeAllObjects()

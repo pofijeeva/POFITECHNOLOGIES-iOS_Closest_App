@@ -51,7 +51,7 @@ class Base64VC: NSObject {
     }
     //----------------------------------------------------------------
     func base64Encode(image: UIImage) -> String? {
-        if let imageData = UIImagePNGRepresentation(image) {
+        if let imageData = image.pngData() {
             return imageData.base64EncodedString()
         }
         return nil

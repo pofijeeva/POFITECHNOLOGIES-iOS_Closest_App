@@ -130,7 +130,7 @@ class CalenderViewController: UIViewController {
 //                }
 //                let responseDict:NSDictionary = json!
 //                print(responseDict)
-//                if responseDict.value(forKey: "code") as! NSNumber == 200 {
+//                if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
 ////                        let result = responseDict.object(forKey: "result") as! NSArray
 //                    let result = ((responseDict.object(forKey: "data") as? NSDictionary)?.value(forKey: "step3") as? NSDictionary)
 ////                        let step1 = result.value(forKey: "step1")

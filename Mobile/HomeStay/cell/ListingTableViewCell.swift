@@ -56,7 +56,7 @@ class ListingTableViewCell: UITableViewCell,UICollectionViewDelegate,UICollectio
             let featuredProperty = self.featuredProperty[indexPath.item]
         let currencySymbol = (featuredProperty["currency_symbol"] as? String ?? "")
             
-        let price = (featuredProperty["price_list"] as! NSNumber)
+        let price = (featuredProperty["price_list"] as? NSNumber ?? 0)
             cell.costLabel.text = "\(currencySymbol)\(price) / day"
         cell.costLabel.font = UIFont(name: SemiBoldFont, size: 17)
         cell.addLabel.font = UIFont(name: SemiBoldFont, size: 18)

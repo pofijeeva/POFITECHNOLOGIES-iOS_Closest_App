@@ -73,7 +73,7 @@ class NewDetailPageReviewTableViewCell: UITableViewCell,UICollectionViewDataSour
         
         cell.ReviewImg.setImageWith(ImageUrl!, placeholderImage: UIImage(named: "user"))
         
-        cell.RatingView.rating = Float(Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].starRating! as! NSNumber)
+        cell.RatingView.rating = Float(Singleton.sharedInstance.PropertyDetail.propertyReviews[indexPath.row].starRating! as? NSNumber ?? 0)
         
 //        if Singleton.sharedInstance.PropertyDetail.propertyReviews.count == indexPath.row + 1 {
 //            perform(#selector(DataArray), with: nil, afterDelay: 1.0)

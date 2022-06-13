@@ -7,8 +7,7 @@
 //
 
 import UIKit
-import ACFloatingTextfield_Swift
-
+//import ACFloatingTextfield_Swift
 
 class ContactUsViewController: BaseViewController {
 
@@ -70,10 +69,10 @@ class ContactUsViewController: BaseViewController {
                 }
                 let responseDict:NSDictionary = json!
                 print(responseDict)
-                if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                     self.showInformation(title: "Closest", message: responseDict.object(forKey: "message") as? String ?? "")
                 }
-                else if responseDict.value(forKey: "code") as! NSNumber == 400 {
+                else if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 400 {
                 
                 }
             }

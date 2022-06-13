@@ -62,7 +62,7 @@ extension WishListShowViewController: UITableViewDelegate ,UITableViewDataSource
        // cell.wishImage.kf.setImage(with: wishlistImgUrl!)
         cell.imgPlace.kf.setImage(with: wishlistImgUrl, placeholder: UIImage.init(named: "testImage.jpg"), options: nil, progressBlock: nil, completionHandler: nil)
 
-        cell.lblPrice.text = ((wishListArr.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "property_currency_symbol")as? String ?? "") + " " + ((wishListArr.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "property_price")as! NSNumber).stringValue
+        cell.lblPrice.text = ((wishListArr.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "property_currency_symbol")as? String ?? "") + " " + ((wishListArr.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "property_price")as? NSNumber ?? 0).stringValue
      
         cell.lblPlace.text = ((wishListArr.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "property_title")as? String ?? "")
       
@@ -81,7 +81,7 @@ extension WishListShowViewController: UITableViewDelegate ,UITableViewDataSource
         let nav = self.storyboard?.instantiateViewController(withIdentifier: "NewProductDetailViewController") as? NewProductDetailViewController
        // nav?.PropertyID = String(Singleton.sharedInstance.wishListModel.wishlist[indexPath.section].hotelDetails[indexPath.row].propertyId)
         nav?.currencySymbol = (wishListArr.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "property_currency_symbol")as? String ?? ""
-        nav?.PropertyID = ((wishListArr.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "property_id")as! NSNumber).stringValue
+        nav?.PropertyID = ((wishListArr.object(at: indexPath.row)as? NSDictionary)?.object(forKey: "property_id")as? NSNumber ?? 0).stringValue
         self.navigationController?.pushViewController(nav!, animated: true)
     }
     

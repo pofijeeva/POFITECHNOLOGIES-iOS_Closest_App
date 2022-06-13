@@ -11,7 +11,7 @@ import AFNetworking
 import DropDown
 
 class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
-
+    
     
     @IBOutlet weak var HeaderTitleLbl: UILabel!
     @IBOutlet weak var HistoryDetailsTable: UITableView!
@@ -31,7 +31,7 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
     var isFuture = true
     var SelectedRow : Int = 0
     let maxLength = 320
-
+    
     
     
     
@@ -90,10 +90,10 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
     @IBOutlet weak var WalletViewHeight: NSLayoutConstraint!
     @IBOutlet weak var CouponViewHeight: NSLayoutConstraint!
     @IBOutlet weak var WalletView: UIView!
-
+    
     @IBOutlet weak var CouponView: UIView!
-
-
+    
+    
     // Cancelled View
     
     @IBOutlet weak var CancelledView: UIView!
@@ -102,7 +102,7 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
     @IBOutlet weak var CancelledExpTitle: UILabel!
     @IBOutlet weak var CancelledMsg: UILabel!
     @IBOutlet weak var CancelledDate: UILabel!
-
+    
     
     
     
@@ -113,7 +113,7 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
     var selectdType : String = ""
     
     var DropDownShowStatusArray : NSMutableArray = []
-
+    
     
     let statusAvailableDropDown = DropDown()
     lazy var dropDowns: [DropDown] = {
@@ -125,8 +125,8 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
     var AddreviewPropertyId : String = ""
     var AddreviewPropertyBookingNum : String = ""
     
-//    var AddreviewPropertyId : String = ""
-//    var AddreviewPropertyBookingNum : String = ""
+    //    var AddreviewPropertyId : String = ""
+    //    var AddreviewPropertyBookingNum : String = ""
     
     
     
@@ -137,19 +137,19 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
     @IBOutlet weak var ShowReviewImage: UIImageView!
     @IBOutlet weak var ShowReviewMessageLbl: UILabel!
     @IBOutlet weak var ReviewFloatRatingView: FloatRatingView!
-
+    
     @IBOutlet weak var ShowReviewPropertyNameLbl: UILabel!
-
+    
     @IBOutlet weak var ShowReviewBookingNumLbl: UILabel!
-
+    
     @IBOutlet weak var ExtraShowReviewcancelBtn: UIButton!
-
-
     
     
     
     
-
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -180,14 +180,14 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
         self.CancelMessage.returnKeyType = .done
         self.CouponValueLbl.font = UIFont(name: SemiBoldFont, size: 14)
         
-       
+        
         
         self.CancelledTitle.font =  UIFont(name: SemiBoldFont, size: 14)
         self.CancelledExpTitle.font =  UIFont(name: SemiBoldFont, size: 15)
         self.CancelledMsg.font =  UIFont(name: SemiBoldFont, size: 14)
         self.CancelledDate.font =  UIFont(name: SemiBoldFont, size: 14)
-
-
+        
+        
         self.RentalNameLbl.font =  UIFont(name: RegularFont, size: 13)
         self.BookingLbl.font =  UIFont(name: RegularFont, size: 13)
         self.Location.font = UIFont(name: RegularFont, size: 13)
@@ -230,7 +230,7 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
         self.ShowReviewMessageLbl.font = UIFont(name: SemiBoldFont, size: 15)
         self.ShowReviewPropertyNameLbl.font = UIFont(name: SemiBoldFont, size: 18)
         self.ShowReviewBookingNumLbl.font = UIFont(name: SemiBoldFont, size: 18)
-
+        
         // Do any additional setup after loading the view.
     }
     
@@ -246,7 +246,7 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
             CancelCountLbl.text = "\(textView.text.count)/ 320"
             
         }
-       
+        
     }
     @IBAction func act_Cancelledtapped(_ sender: UITapGestureRecognizer) {
         self.CancelledView.isHidden = true
@@ -270,7 +270,7 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
         
         params = ["user_id": login_session.value(forKey: "UserId")!,"currency_code":login_session.value(forKey: "APP_CURRENCY") as? String ?? "","device_type": "ios"]
         print(params)
-       
+        
         let manager = AFHTTPSessionManager()
         manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
         
@@ -283,7 +283,7 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
             self.hideActivityIndicator(uiView: self.view)
             if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
                 self.self.HistoryDetailsTable.isHidden = false
-
+                
                 self.HistoryDetailsDict.removeAllObjects()
                 self.HistoryDetailsDict.addEntries(from:  responseDict as! [AnyHashable : Any])
                 self.HistoryShowArray.removeAllObjects()
@@ -294,11 +294,11 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
                 }else{
                     self.EmptyScree.isHidden = true
                 }
-               
-              
+                
+                
                 self.HistoryDetailsTable.reloadData()
             }
-                
+            
             else {
                 self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
             }
@@ -310,7 +310,7 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
             self.showInformation(title: "Closest", message: error.localizedDescription)
         })
         
-  }
+    }
     
     
     @IBAction func BackBtnAct(_ sender: UIButton) {
@@ -368,18 +368,18 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
     
     @objc func HostBtnAct(sender:UIButton){
         let Index = sender.tag
-       
+        
         let hostId =  ((((self.HistoryDetailsDict.object(forKey: self.selectdType) as! NSArray).object(at: Index)) as? NSDictionary)?.object(forKey: "HostId") as AnyObject)
         let nav = storyboard?.instantiateViewController(withIdentifier: "EditProfileViewController") as? EditProfileViewController
         nav?.hostID = "\(hostId)"
-
+        
         self.navigationController?.pushViewController(nav!, animated: true)
         
     }
     
     @objc func PayBtnAct(sender:UIButton){
         let Index = sender.tag
-       
+        
         let TotalAmount =  ((((self.HistoryDetailsDict.object(forKey: self.selectdType) as! NSArray).object(at: Index)) as? NSDictionary)?.object(forKey: "Total_Amount") as AnyObject)
         let EnquiryId =  ((((self.HistoryDetailsDict.object(forKey: self.selectdType) as! NSArray).object(at: Index)) as? NSDictionary)?.object(forKey: "Booking_id") as AnyObject)
         
@@ -393,13 +393,13 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
         PaymentMethodsArr.add("Credit Card")
         print(PaymentMethodsArr)
         nav!.PaymentsArray = PaymentMethodsArr
-     //   nav!.subTotal = ""
-            nav!.TotalAmount = "\(TotalAmount)"
-            nav!.enquiryid = "\(EnquiryId)"
-     //   nav!.ServiceFee = ""
-       // nav!.SecurityDeposit = self.SecurityDeposit
+        //   nav!.subTotal = ""
+        nav!.TotalAmount = "\(TotalAmount)"
+        nav!.enquiryid = "\(EnquiryId)"
+        //   nav!.ServiceFee = ""
+        // nav!.SecurityDeposit = self.SecurityDeposit
         nav!.PropertId = "\(PropertId)"
-
+        
         self.navigationController?.pushViewController(nav!, animated: true)
         
     }
@@ -442,8 +442,8 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
                 params = ["base_id":1,"email":login_session.value(forKey: "Email") as? String ?? "","prd_id":PropertyId,"bookingNo":bookingNum,"cancellation_percentage":cancelPercentage,"user_id":login_session.value(forKey: "UserId")!,"disputer_id":HostStr,"message":self.CancelMessage.text!]
                 print(params)
                 
-              
-
+                
+                
                 
                 let manager = AFHTTPSessionManager()
                 manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
@@ -488,8 +488,8 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
     @IBAction func act_MessageOkayButtonTapped(_ sender: UIButton)
     {
         
-       
-        let HostStr = (HistoryShowArray.object(at: self.SelectedRow) as? NSDictionary)?.value(forKey: "HostId") as! AnyObject
+        
+        let HostStr = (HistoryShowArray.object(at: self.SelectedRow) as? NSDictionary)?.value(forKey: "HostId") as AnyObject
         
         let bookingNum = "\((HistoryShowArray.object(at: SelectedRow) as? NSDictionary)?.value(forKey: "BookingNo") as AnyObject)"
         
@@ -505,14 +505,14 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
         {
             if Reachability()!.isReachable {
                 self.showActivityIndicator(uiView: self.view)
-                let id = Singleton.sharedInstance.selectedCategory
+                //                let id = Singleton.sharedInstance.selectedCategory
                 
                 showActivityIndicator(uiView: self.view)
                 var params = NSMutableDictionary()
                 params = ["sender_id":login_session.value(forKey: "UserId")!,"rental_id":PropertyId,"bookingno":bookingNum,"message":self.MessageTextField.text!,"currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","lang_code":lanuguage_selection.value(forKey: "language") ?? "en","device_type":"ios","receiver_id":HostStr]
                 
-//                {bookingno=XP1503158, receiver_id=178, device_type=android, message=sgtwjwjwtjwtwtj, sender_id=12, currency_code=USD, rental_id=518}
-              
+                //                {bookingno=XP1503158, receiver_id=178, device_type=android, message=sgtwjwjwtjwtwtj, sender_id=12, currency_code=USD, rental_id=518}
+                
                 
                 print(params)
                 let manager = AFHTTPSessionManager()
@@ -542,7 +542,7 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
                     print(error)
                     self.showInformation(title: "Closest", message: error.localizedDescription)
                 })
-               
+                
             }
             else {
                 showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
@@ -559,18 +559,18 @@ class ExperienceHistoryViewController: BaseViewController,UITextViewDelegate {
         self.invoiceBGGrayView.isHidden = true
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 extension ExperienceHistoryViewController: UITableViewDelegate ,UITableViewDataSource {
-   
+    
     
     
     @objc func selectMoreOptions(sender: UIButton)
@@ -581,12 +581,12 @@ extension ExperienceHistoryViewController: UITableViewDelegate ,UITableViewDataS
         self.SelectedRow = buttonRow
         
         
-      
-            let BookingId = (self.HistoryShowArray.object(at: buttonRow) as? NSDictionary)?.value(forKey: "BookingNo") as? String ?? ""
-            
-            
-           
-            self.DropDownShowStatusArray.removeAllObjects()
+        
+        let BookingId = (self.HistoryShowArray.object(at: buttonRow) as? NSDictionary)?.value(forKey: "BookingNo") as? String ?? ""
+        
+        
+        
+        self.DropDownShowStatusArray.removeAllObjects()
         
         if isFuture == true {
             if "\((self.HistoryShowArray.object(at: buttonRow) as? NSDictionary)?.value(forKey: "cancel_show_status") as AnyObject)" == "true" {
@@ -594,35 +594,35 @@ extension ExperienceHistoryViewController: UITableViewDelegate ,UITableViewDataS
                     self.DropDownShowStatusArray.add("Cancelled")
                 }else{
                     self.DropDownShowStatusArray.add("Cancel")
-
+                    
                 }
-
+                
             }else if "\((self.HistoryShowArray.object(at: buttonRow) as? NSDictionary)?.value(forKey: "isCancelled") as AnyObject)" == "true" {
                 self.DropDownShowStatusArray.add("Cancelled")
             }
         }
+        
+        
+        
+        
+        
+        
+        if "\((self.HistoryShowArray.object(at: buttonRow) as? NSDictionary)?.value(forKey: "review_show_status") as AnyObject)" == "true" {
+            self.DropDownShowStatusArray.add("Review")
+        }else if "\((self.HistoryShowArray.object(at: buttonRow) as? NSDictionary)?.value(forKey: "isReviewed") as AnyObject)" == "1" {
+            self.DropDownShowStatusArray.add("View your Review")
             
-            
-           
-            
-            
-            
-            if "\((self.HistoryShowArray.object(at: buttonRow) as? NSDictionary)?.value(forKey: "review_show_status") as AnyObject)" == "true" {
-                self.DropDownShowStatusArray.add("Review")
-            }else if "\((self.HistoryShowArray.object(at: buttonRow) as? NSDictionary)?.value(forKey: "isReviewed") as AnyObject)" == "1" {
-                self.DropDownShowStatusArray.add("View your Review")
-
-            }
-            
-            self.DropDownShowStatusArray.add("Message")
-            self.DropDownShowStatusArray.add("Invoice/Receipt")
-
-               
-            setupStatusAvailableDropDown()
-
-            
-            
-            
+        }
+        
+        self.DropDownShowStatusArray.add("Message")
+        self.DropDownShowStatusArray.add("Invoice/Receipt")
+        
+        
+        setupStatusAvailableDropDown()
+        
+        
+        
+        
         
         
         
@@ -647,157 +647,157 @@ extension ExperienceHistoryViewController: UITableViewDelegate ,UITableViewDataS
         // Action triggered on selection
         statusAvailableDropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             print("Selected item: \(item) at index: \(index)")
-//            self.selectedAvailableStatus = item
-        
-//
-//
-           if self.isFuture == true
+            //            self.selectedAvailableStatus = item
+            
+            //
+            //
+            if self.isFuture == true
             {
-
+                
                 if item == "Review" {
-//                    self.selectedStatusCode = "0"
-//                    self.grayBGView.isHidden = false
-//                    self.ReviewHeadName.text = (self.futureTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_title") as? String ?? ""
-//                    self.ReviewBookingno.text = (self.futureTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? ""
-//
-//                    let img = URL(string: (self.futureTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_image") as? String ?? "")
-//
-//                    self.ReviewHeadImg.setImageWith(img!)
-//
-//                    self.AddreviewPropertyId = "\((self.futureTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_id") as AnyObject)"
-//                    self.AddreviewPropertyBookingNum = (self.futureTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? ""
-
+                    //                    self.selectedStatusCode = "0"
+                    //                    self.grayBGView.isHidden = false
+                    //                    self.ReviewHeadName.text = (self.futureTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_title") as? String ?? ""
+                    //                    self.ReviewBookingno.text = (self.futureTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? ""
+                    //
+                    //                    let img = URL(string: (self.futureTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_image") as? String ?? "")
+                    //
+                    //                    self.ReviewHeadImg.setImageWith(img!)
+                    //
+                    //                    self.AddreviewPropertyId = "\((self.futureTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_id") as AnyObject)"
+                    //                    self.AddreviewPropertyBookingNum = (self.futureTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? ""
+                    
                 }else if item == "View your Review" {
-                   // self.showActivityIndicator(uiView: self.view)
-//                    var params = NSMutableDictionary()
-//                    params = ["booking_no":(self.futureTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? "","currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","user_id":login_session.value(forKey: "UserId")!]
-//
-//                    print(params)
-//                    let manager = AFHTTPSessionManager()
-//                    manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
-//
-//                    manager.post(HOTEL_YOUR_REVIEW, parameters: params, headers: ["Authorization":""], progress: nil, success: { (operation, responseObject) -> Void in
-//                        DispatchQueue.main.async {
-//
-//                        }
-//                        let responseDict:NSDictionary = responseObject as! NSDictionary
-//                        print(responseDict)
-//                        self.hideActivityIndicator(uiView: self.view)
-//                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
-//
-//                            let reviewDetails = responseDict.value(forKey: "your_review") as? NSArray
-//                            self.showReviewBGGrayView.isHidden = false
-//                            if (reviewDetails?.count)! > 0
-//                            {
-//                                let hotelDict = reviewDetails![0] as! NSDictionary
-//
-//                                self.showReviewDateLbl.text = hotelDict.value(forKey: "booking_no") as? String
-//                                self.showReviewTxtLbl.text = hotelDict.value(forKey: "review") as? String
-//                                self.showReviewFloatView.rating = Float(hotelDict.value(forKey: "star_rating") as? Int ?? 0)
-//                                let url = URL(string: hotelDict.value(forKey: "user_image") as? String ?? "")
-//                                self.showReviewImageView.kf.setImage(with: url)
-//
-//                                self.showReviewBookingNum.text = hotelDict.value(forKey: "review_date") as? String
-//                                self.showReviewPropertyName.text = hotelDict.value(forKey: "rental_name") as? String
-//
-//
-//                            }
-//                            else
-//                            {
-//                                self.showReviewBGGrayView.isHidden = true
-//                                self.showInformation(title: "Closest", message:"Review is not available now!!!")
-//                            }
-//
-//                        }
-//
-//                        else {
-//                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
-//                        }
-//                    }, failure: { (operation, error) -> Void in
-//                        DispatchQueue.main.async {
-//
-//                        }
-//                        print(error)
-//                        self.showInformation(title: "Closest", message: error.localizedDescription)
-//                    })
-
+                    // self.showActivityIndicator(uiView: self.view)
+                    //                    var params = NSMutableDictionary()
+                    //                    params = ["booking_no":(self.futureTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? "","currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","user_id":login_session.value(forKey: "UserId")!]
+                    //
+                    //                    print(params)
+                    //                    let manager = AFHTTPSessionManager()
+                    //                    manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
+                    //
+                    //                    manager.post(HOTEL_YOUR_REVIEW, parameters: params, headers: ["Authorization":""], progress: nil, success: { (operation, responseObject) -> Void in
+                    //                        DispatchQueue.main.async {
+                    //
+                    //                        }
+                    //                        let responseDict:NSDictionary = responseObject as! NSDictionary
+                    //                        print(responseDict)
+                    //                        self.hideActivityIndicator(uiView: self.view)
+                    //                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
+                    //
+                    //                            let reviewDetails = responseDict.value(forKey: "your_review") as? NSArray
+                    //                            self.showReviewBGGrayView.isHidden = false
+                    //                            if (reviewDetails?.count)! > 0
+                    //                            {
+                    //                                let hotelDict = reviewDetails![0] as! NSDictionary
+                    //
+                    //                                self.showReviewDateLbl.text = hotelDict.value(forKey: "booking_no") as? String
+                    //                                self.showReviewTxtLbl.text = hotelDict.value(forKey: "review") as? String
+                    //                                self.showReviewFloatView.rating = Float(hotelDict.value(forKey: "star_rating") as? Int ?? 0)
+                    //                                let url = URL(string: hotelDict.value(forKey: "user_image") as? String ?? "")
+                    //                                self.showReviewImageView.kf.setImage(with: url)
+                    //
+                    //                                self.showReviewBookingNum.text = hotelDict.value(forKey: "review_date") as? String
+                    //                                self.showReviewPropertyName.text = hotelDict.value(forKey: "rental_name") as? String
+                    //
+                    //
+                    //                            }
+                    //                            else
+                    //                            {
+                    //                                self.showReviewBGGrayView.isHidden = true
+                    //                                self.showInformation(title: "Closest", message:"Review is not available now!!!")
+                    //                            }
+                    //
+                    //                        }
+                    //
+                    //                        else {
+                    //                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
+                    //                        }
+                    //                    }, failure: { (operation, error) -> Void in
+                    //                        DispatchQueue.main.async {
+                    //
+                    //                        }
+                    //                        print(error)
+                    //                        self.showInformation(title: "Closest", message: error.localizedDescription)
+                    //                    })
+                    
                 }else if item == "Cancel" {
-                   
+                    
                     self.AddDispute.text = "Cancel Booking"
                     self.DisputeRentalName.text = (self.HistoryShowArray.object(at: self.SelectedRow) as? NSDictionary)?.object(forKey: "expName") as? String ?? ""
                     self.DisputeBookingLbl.text = (self.HistoryShowArray.object(at: self.SelectedRow) as? NSDictionary)?.object(forKey: "BookingNo") as? String ?? ""
                     self.DisputeLocation.text = (self.HistoryShowArray.object(at: self.SelectedRow) as? NSDictionary)?.object(forKey: "Address") as? String ?? ""
-
-
-
-
+                    
+                    
+                    
+                    
                     self.Cancel.isHidden = false
                     self.Submit.isHidden = false
                     self.CancelCountLbl.isHidden = false
                     self.AddDisputeView.isHidden = false
                 }else if item == "Cancelled" {
-
-                   
-
+                    
+                    
+                    
                     var params = NSMutableDictionary()
-
-                   
+                    
+                    
                     params = ["exp_id":"\((self.HistoryShowArray.object(at: self.SelectedRow) as? NSDictionary)?.object(forKey: "ExpId") as AnyObject)","bookingNo":(self.HistoryShowArray.object(at: self.SelectedRow) as? NSDictionary)?.object(forKey: "BookingNo") as? String ?? "","user_id":login_session.value(forKey: "UserId")!,"device_type":"ios","currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? ""]
-
+                    
                     self.showActivityIndicator(uiView: self.view)
-                   
+                    
                     print(params)
                     let manager = AFHTTPSessionManager()
                     manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
-
+                    
                     manager.post(EXPERIENCEVIEWCANCELLATION, parameters: params, headers: ["Authorization":""], progress: nil, success: { (operation, responseObject) -> Void in
                         DispatchQueue.main.async {
-
+                            
                         }
                         let responseDict:NSDictionary = responseObject as! NSDictionary
                         print(responseDict)
                         self.hideActivityIndicator(uiView: self.view)
                         if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
-
+                            
                             print("INVOICE_API RESPONSE:",responseDict)
-
-
+                            
+                            
                             self.CancelledExpTitle.text = ((responseDict.object(forKey: "your_dispute") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "experience_title") as? String ?? ""
-
+                            
                             self.CancelledMsg.text = ((responseDict.object(forKey: "your_dispute") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "message") as? String ?? ""
                             self.CancelledDate.text = ((responseDict.object(forKey: "your_dispute") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "dispute_date") as? String ?? ""
                             
                             let imgurl = URL(string: ((responseDict.object(forKey: "your_dispute") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "experience_image") as? String ?? "")
                             self.CancelledImg.setImageWith(imgurl!)
-                                                              
-                                                              
+                            
+                            
                             self.CancelledImg.layer.cornerRadius = 40
-                         
-
-
+                            
+                            
+                            
                             self.CancelledView.isHidden = false
                             
-                           
-
                             
-
+                            
+                            
+                            
                         }
-
+                        
                         else {
                             self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                         }
                     }, failure: { (operation, error) -> Void in
                         DispatchQueue.main.async {
-
+                            
                         }
                         print(error)
                         self.showInformation(title: "Closest", message: error.localizedDescription)
                     })
-
-                 //   self.showInformation(title: "Info", message: "Already Cancelled")
+                    
+                    //   self.showInformation(title: "Info", message: "Already Cancelled")
                 }else if item == "Message"{
-                   self.MessagePopUpView.isHidden = false
-
+                    self.MessagePopUpView.isHidden = false
+                    
                 }else if item ==  "Invoice/Receipt"{
                     
                     
@@ -806,39 +806,39 @@ extension ExperienceHistoryViewController: UITableViewDelegate ,UITableViewDataS
                     var params = NSMutableDictionary()
                     params = ["booking_no":(self.HistoryShowArray.object(at: self.SelectedRow) as? NSDictionary)?.object(forKey: "BookingNo") as? String ?? "","currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","device_type":"ios","user_id":login_session.value(forKey: "UserId")!]
                     
-                   
+                    
                     let manager = AFHTTPSessionManager()
                     manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
-
+                    
                     manager.post(EXPERIENCEINVOICE, parameters: params, headers: ["Authorization":""], progress: nil, success: { (operation, responseObject) -> Void in
                         DispatchQueue.main.async {
-
+                            
                         }
                         let responseDict:NSDictionary = responseObject as! NSDictionary
                         self.hideActivityIndicator(uiView: self.view)
                         if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
-
+                            
                             print("INVOICE_API RESPONSE:",responseDict)
                             self.invoiceBGGrayView.isHidden = false
-
+                            
                             let hotelDict = responseDict.value(forKey: "invoice_details") as? NSDictionary
                             self.propertyNameLbl.text = String(format: "%@",  hotelDict!.value(forKey: "product_title") as! CVarArg )
                             self.propertyNameLbl.textColor = AppColor
                             self.propertyNameLbl.textColor = AppColor
                             self.bookingIdLbl
                                 .text = String(format: "Booking No : %@",hotelDict!.value(forKey: "booking_no") as! CVarArg)
-                           
-
+                            
+                            
                             self.locationLbl.text = (self.HistoryShowArray.object(at: self.SelectedRow) as? NSDictionary)?.object(forKey: "Address") as? String ?? ""
                             self.locationLbl.textColor = AppColor
-
+                            
                             self.checkInLbl.text = "Duration"
                             self.checkOutLbl.text = String(format: "%@",hotelDict!.value(forKey: "checkindate") as! CVarArg ) + "\n \(String(format: " %@",hotelDict!.value(forKey: "checkoutdate") as! CVarArg ))"
                             self.guestLbl.text = String(format: "%@",hotelDict!.value(forKey: "NoofGuest") as! CVarArg )
                             self.nightLbl.text = String(format: "%@",hotelDict!.value(forKey: "numofdates") as! CVarArg )
-
+                            
                             self.checkOutLbl.textColor = AppColor
-
+                            
                             self.BookedDaysCount.text = String(format: "Booked for %@ Days/Hours : ",hotelDict!.value(forKey: "numofdates") as! CVarArg)
                             self.subTotalLbl.text = String(format: "%@ %@",hotelDict!.value(forKey: "currency_code") as! CVarArg,hotelDict!.value(forKey: "TotalwithoutService") as! CVarArg )
                             self.securityDepositLbl.text = String(format: "%@ %@",hotelDict!.value(forKey: "currency_symbol") as! CVarArg,hotelDict!.value(forKey: "securityDeposite") as! CVarArg )
@@ -848,7 +848,7 @@ extension ExperienceHistoryViewController: UITableViewDelegate ,UITableViewDataS
                             
                             let CouponUsed = "\(hotelDict!.value(forKey: "is_coupon_used") as AnyObject)"
                             let WalletUsed = "\(hotelDict!.value(forKey: "is_wallet_used") as AnyObject)"
-
+                            
                             if CouponUsed == "No" {
                                 self.CouponView.isHidden = true
                                 self.CouponViewHeight.constant = 0
@@ -873,426 +873,421 @@ extension ExperienceHistoryViewController: UITableViewDelegate ,UITableViewDataS
                             self.paidAmountLbl.text = String(format: "%@ %@",hotelDict!.value(forKey: "currency_symbol") as! CVarArg,hotelDict!.value(forKey: "paidTotal") as! CVarArg )
                             self.cancellationPolicyLbl.text = String(format: "Cancelled Status : %@",hotelDict!.value(forKey: "cancelled_status") as! CVarArg )
                         }
-
+                        
                         else {
                             self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                         }
                     }, failure: { (operation, error) -> Void in
                         DispatchQueue.main.async {
-
+                            
                         }
                         print(error)
                         self.showInformation(title: "Closest", message: error.localizedDescription)
                     })
                 }else{
-
+                    
                 }
-
-
+                
+                
             }
         }
-//            else
-//            {
-//
-//
-//                if item == "Review" {
-//                    self.selectedStatusCode = "0"
-//                    self.grayBGView.isHidden = false
-//                    self.ReviewHeadName.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_title") as? String ?? ""
-//                    self.ReviewBookingno.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? ""
-//
-//                    let img = URL(string: (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_image") as? String ?? "")
-//
-//
-//                    self.AddreviewPropertyId = "\((self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_id") as AnyObject)"
-//                    self.AddreviewPropertyBookingNum = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? ""
-//                    self.ReviewHeadImg.setImageWith(img!)
-//
-//                }else if item == "View your Review" {
-//                    self.showActivityIndicator(uiView: self.view)
-//                    var params = NSMutableDictionary()
-//                    params = ["booking_no":(self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? "","currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","user_id":login_session.value(forKey: "UserId")!]
-//
-//                    print(params)
-//                    let manager = AFHTTPSessionManager()
-//                    manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
-//
-//                    manager.post(HOTEL_YOUR_REVIEW, parameters: params, headers: ["Authorization":""], progress: nil, success: { (operation, responseObject) -> Void in
-//                        DispatchQueue.main.async {
-//
-//                        }
-//                        let responseDict:NSDictionary = responseObject as! NSDictionary
-//                        print(responseDict)
-//                        self.hideActivityIndicator(uiView: self.view)
-//                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
-//
-//                            let reviewDetails = responseDict.value(forKey: "your_review") as? NSArray
-//                            self.showReviewBGGrayView.isHidden = false
-//                            if (reviewDetails?.count)! > 0
-//                            {
-//                                let hotelDict = reviewDetails![0] as! NSDictionary
-//
-//                                self.showReviewDateLbl.text = hotelDict.value(forKey: "booking_no") as? String
-//                                self.showReviewTxtLbl.text = hotelDict.value(forKey: "review") as? String
-//                                self.showReviewFloatView.rating = Float(hotelDict.value(forKey: "star_rating") as? Int ?? 0)
-//                                let url = URL(string: hotelDict.value(forKey: "user_image") as? String ?? "")
-//                                self.showReviewImageView.kf.setImage(with: url)
-//
-//                                self.showReviewBookingNum.text = hotelDict.value(forKey: "review_date") as? String
-//                                self.showReviewPropertyName.text = hotelDict.value(forKey: "rental_name") as? String
-//
-//
-//                            }
-//                            else
-//                            {
-//                                self.showReviewBGGrayView.isHidden = true
-//                                self.showInformation(title: "Closest", message:"Review is not available now!!!")
-//                            }
-//
-//                        }
-//
-//                        else {
-//                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
-//                        }
-//                    }, failure: { (operation, error) -> Void in
-//                        DispatchQueue.main.async {
-//
-//                        }
-//                        print(error)
-//                        self.showInformation(title: "Closest", message: error.localizedDescription)
-//                    })
-//
-//                }else if item == "Cancel" {
-//                    //  self.grayBGView.isHidden = false
-//                    //                    self.selectedStatusCode = "1"
-//                    //                    self.dispute_Message_grayBGView.isHidden = true
-//                    //                    self.DisputePopUpView.isHidden = true
-//                    //                    self.MessagePopUpView.isHidden = true
-//                    //
-//                    //                    self.selectedStatusCode = "1"
-//                    self.AddDispute.text = "Cancel Booking"
-//                    self.DisputeRentalName.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_address") as? String ?? ""
-//                    self.DisputeBookingLbl.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? ""
-//                    self.DisputeLocation.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_address") as? String ?? ""
-//                    self.Cancel.isHidden = false
-//                    self.Submit.isHidden = false
-//                    self.CancelCountLbl.isHidden = false
-//                    self.AddDisputeView.isHidden = false
-//                }else if item == "Already Cancelled" {
-//
-//                    let cancelby = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "cancelled_by") as? String ?? ""
-//
-//                    var params = NSMutableDictionary()
-//
-//                    if cancelby == "Cancelled By User"
-//                    {
-//                        params = ["product_id":"\((self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_id") as AnyObject)","bookingno":(self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? "","user_id":login_session.value(forKey: "UserId")!,"cancel_by":"user"]
-//                    }else{
-//                        params = ["product_id":"\((self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_id") as AnyObject)","bookingno":(self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? "","user_id":login_session.value(forKey: "UserId")!,"cancel_by":"host"]
-//                    }
-//
-//                    self.showActivityIndicator(uiView: self.view)
-//                    //params = ["booking_no":self.futureBookingID,"currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","device_type":"ios","user_id":login_session.value(forKey: "UserId")!]
-//                    print(params)
-//                    let manager = AFHTTPSessionManager()
-//                    manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
-//
-//                    manager.post(PROPERTY_CANCEL_API, parameters: params, headers: ["Authorization":""], progress: nil, success: { (operation, responseObject) -> Void in
-//                        DispatchQueue.main.async {
-//
-//                        }
-//                        let responseDict:NSDictionary = responseObject as! NSDictionary
-//                        print(responseDict)
-//                        self.hideActivityIndicator(uiView: self.view)
-//                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
-//
-//                            print("INVOICE_API RESPONSE:",responseDict)
-//
-//                            self.AddDispute.text = "Already Cancelled"
-//                            self.DisputeRentalName.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_title") as? String ?? ""
-//                            self.DisputeBookingLbl.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? ""
-//                            self.DisputeLocation.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_address") as? String ?? ""
-//                            self.CancelMessage.text = ((responseDict.object(forKey: "Cancel_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "message") as? String ?? ""
-//                            self.Cancel.isHidden = true
-//                            self.Submit.isHidden = true
-//                            self.CancelCountLbl.isHidden = true
-//
-//
-//                            self.AddDisputeView.isHidden = false
-////
-//                        }
-//
-//                        else {
-//                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
-//                        }
-//                    }, failure: { (operation, error) -> Void in
-//                        DispatchQueue.main.async {
-//
-//                        }
-//                        print(error)
-//                        self.showInformation(title: "Closest", message: error.localizedDescription)
-//                    })
-//
-//                 //   self.showInformation(title: "Info", message: "Already Cancelled")
-//                }else if item == "Dispute" {
-//                    self.DisputeRentalName.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_title") as? String ?? ""
-//                    self.DisputeBookingLbl.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? "" //Singleton.sharedInstance.yourTripModel.mytrips[self.tripSelectedInt].bookingno
-//                    self.DisputeLocation.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_address") as? String ?? ""
-//
-//                    self.DisputePropertyId = "\((self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_id") as AnyObject)"
-//                    self.DisputeBookingNum = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? ""
-//
-//                    self.grayBGView.isHidden = true
-//                    self.selectedStatusCode = "1"
-//                    self.dispute_Message_grayBGView.isHidden = true
-//                    self.AddDisputeView.isHidden = false
-//                    self.MessagePopUpView.isHidden = true
-//
-//
-//                }else if item == "Disputed" {
-//                    self.showInformation(title: "Info", message: "Already Disputed")
-//                }else if item == "Message"{
-//                    self.grayBGView.isHidden = true
-//                    self.selectedStatusCode = "2"
-//                    self.dispute_Message_grayBGView.isHidden = false
-//                    self.DisputePopUpView.isHidden = true
-//                    self.MessagePopUpView.isHidden = false
-//
-//                    self.messagePropertyId = "\((self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_id") as AnyObject)"
-//                    self.messageBookingNum = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? ""
-//
-//
-//                }else if item ==  "Invoice/Receipt"{
-//                    self.selectedStatusCode = "3"
-//                    self.showActivityIndicator(uiView: self.view)
-//                    var params = NSMutableDictionary()
-//                    params = ["booking_no":self.pastBookingID,"currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","device_type":"ios","user_id":login_session.value(forKey: "UserId")!]
-//
-//                    let manager = AFHTTPSessionManager()
-//                    manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
-//
-//                    manager.post(INVOICE_API, parameters: params, headers: ["Authorization":""], progress: nil, success: { (operation, responseObject) -> Void in
-//                        DispatchQueue.main.async {
-//
-//                        }
-//                        let responseDict:NSDictionary = responseObject as! NSDictionary
-//                        print(responseDict)
-//                        self.hideActivityIndicator(uiView: self.view)
-//                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
-//
-//                            print("INVOICE_API RESPONSE:",responseDict)
-//                            self.invoiceBGGrayView.isHidden = false
-//                            self.invoiceView.isHidden = false
-//
-//                            let hotelDict = responseDict.value(forKey: "invoice_details") as? NSDictionary
-//                            self.propertyNameLbl.text = String(format: "%@",  hotelDict!.value(forKey: "product_title") as! CVarArg )
-//                            self.propertyNameLbl.textColor = AppColor
-//                            self.propertyNameLbl.textColor = AppColor
-//                            self.bookingIdLbl
-//                                .text = String(format: "Booking No : %@",hotelDict!.value(forKey: "booking_no") as! CVarArg)
-//                            let street =    hotelDict!.value(forKey: "city") as! CVarArg
-//                            let state = hotelDict!.value(forKey: "state") as! CVarArg
-//                            let country = hotelDict!.value(forKey: "country") as! CVarArg
-//
-//                            self.locationLbl.text = String(format: "%@,%@,%@", street,state,country)
-//                            self.locationLbl.textColor = AppColor
-//
-//                            self.checkInLbl.text = "Duration"
-//                            self.checkOutLbl.text = String(format: "%@",hotelDict!.value(forKey: "checkindate") as! CVarArg ) + "\n \(String(format: " %@",hotelDict!.value(forKey: "checkoutdate") as! CVarArg ))"
-//                            self.guestLbl.text = String(format: "%@",hotelDict!.value(forKey: "NoofGuest") as! CVarArg )
-//                            self.nightLbl.text = String(format: "%@",hotelDict!.value(forKey: "numofdates") as! CVarArg )
-//
-//                            self.checkOutLbl.textColor = AppColor
-//
-//                            self.BookedDaysCount.text = String(format: "Booked for %@ Days/Hours : ",hotelDict!.value(forKey: "numofdates") as! CVarArg)
-//                            self.subTotalLbl.text = String(format: "%@ %@",hotelDict!.value(forKey: "currency_code") as! CVarArg,hotelDict!.value(forKey: "TotalwithoutService") as! CVarArg )
-//                            self.securityDepositLbl.text = String(format: "%@ %@",hotelDict!.value(forKey: "currency_code") as! CVarArg,hotelDict!.value(forKey: "securityDeposite") as! CVarArg )
-//                            self.serviceFeeLbl.text = String(format: "%@ %@",hotelDict!.value(forKey: "currency_code") as! CVarArg,hotelDict!.value(forKey: "servicefee") as! CVarArg )
-//                            self.totalAmountLbl.text = String(format: "%@ %@",hotelDict!.value(forKey: "currency_code") as! CVarArg,hotelDict!.value(forKey: "TotalAmt") as! CVarArg )
-//                            self.walletAmountLbl.text = String(format: "%@ %@",hotelDict!.value(forKey: "currency_code") as! CVarArg,hotelDict!.value(forKey: "wallet_Amount") as! CVarArg )
-//                            self.paidAmountLbl.text = String(format: "%@ %@",hotelDict!.value(forKey: "currency_code") as! CVarArg,hotelDict!.value(forKey: "paidTotal") as! CVarArg )
-//                            self.cancellationPolicyLbl.text = String(format: "Cancelled Status : %@",hotelDict!.value(forKey: "cancelled_status") as! CVarArg )
-//                        }
-//
-//                        else {
-//                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
-//                        }
-//                    }, failure: { (operation, error) -> Void in
-//                        DispatchQueue.main.async {
-//
-//                        }
-//                        print(error)
-//                        self.showInformation(title: "Closest", message: error.localizedDescription)
-//                    })
-//                }else{
-//
-//                }
-//
-//
-//
-//            }
-//        }
+        //            else
+        //            {
+        //
+        //
+        //                if item == "Review" {
+        //                    self.selectedStatusCode = "0"
+        //                    self.grayBGView.isHidden = false
+        //                    self.ReviewHeadName.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_title") as? String ?? ""
+        //                    self.ReviewBookingno.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? ""
+        //
+        //                    let img = URL(string: (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_image") as? String ?? "")
+        //
+        //
+        //                    self.AddreviewPropertyId = "\((self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_id") as AnyObject)"
+        //                    self.AddreviewPropertyBookingNum = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? ""
+        //                    self.ReviewHeadImg.setImageWith(img!)
+        //
+        //                }else if item == "View your Review" {
+        //                    self.showActivityIndicator(uiView: self.view)
+        //                    var params = NSMutableDictionary()
+        //                    params = ["booking_no":(self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? "","currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","base_id":1,"lang_code":lanuguage_selection.value(forKey: "language") ?? "en","user_id":login_session.value(forKey: "UserId")!]
+        //
+        //                    print(params)
+        //                    let manager = AFHTTPSessionManager()
+        //                    manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
+        //
+        //                    manager.post(HOTEL_YOUR_REVIEW, parameters: params, headers: ["Authorization":""], progress: nil, success: { (operation, responseObject) -> Void in
+        //                        DispatchQueue.main.async {
+        //
+        //                        }
+        //                        let responseDict:NSDictionary = responseObject as! NSDictionary
+        //                        print(responseDict)
+        //                        self.hideActivityIndicator(uiView: self.view)
+        //                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
+        //
+        //                            let reviewDetails = responseDict.value(forKey: "your_review") as? NSArray
+        //                            self.showReviewBGGrayView.isHidden = false
+        //                            if (reviewDetails?.count)! > 0
+        //                            {
+        //                                let hotelDict = reviewDetails![0] as! NSDictionary
+        //
+        //                                self.showReviewDateLbl.text = hotelDict.value(forKey: "booking_no") as? String
+        //                                self.showReviewTxtLbl.text = hotelDict.value(forKey: "review") as? String
+        //                                self.showReviewFloatView.rating = Float(hotelDict.value(forKey: "star_rating") as? Int ?? 0)
+        //                                let url = URL(string: hotelDict.value(forKey: "user_image") as? String ?? "")
+        //                                self.showReviewImageView.kf.setImage(with: url)
+        //
+        //                                self.showReviewBookingNum.text = hotelDict.value(forKey: "review_date") as? String
+        //                                self.showReviewPropertyName.text = hotelDict.value(forKey: "rental_name") as? String
+        //
+        //
+        //                            }
+        //                            else
+        //                            {
+        //                                self.showReviewBGGrayView.isHidden = true
+        //                                self.showInformation(title: "Closest", message:"Review is not available now!!!")
+        //                            }
+        //
+        //                        }
+        //
+        //                        else {
+        //                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
+        //                        }
+        //                    }, failure: { (operation, error) -> Void in
+        //                        DispatchQueue.main.async {
+        //
+        //                        }
+        //                        print(error)
+        //                        self.showInformation(title: "Closest", message: error.localizedDescription)
+        //                    })
+        //
+        //                }else if item == "Cancel" {
+        //                    //  self.grayBGView.isHidden = false
+        //                    //                    self.selectedStatusCode = "1"
+        //                    //                    self.dispute_Message_grayBGView.isHidden = true
+        //                    //                    self.DisputePopUpView.isHidden = true
+        //                    //                    self.MessagePopUpView.isHidden = true
+        //                    //
+        //                    //                    self.selectedStatusCode = "1"
+        //                    self.AddDispute.text = "Cancel Booking"
+        //                    self.DisputeRentalName.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_address") as? String ?? ""
+        //                    self.DisputeBookingLbl.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? ""
+        //                    self.DisputeLocation.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_address") as? String ?? ""
+        //                    self.Cancel.isHidden = false
+        //                    self.Submit.isHidden = false
+        //                    self.CancelCountLbl.isHidden = false
+        //                    self.AddDisputeView.isHidden = false
+        //                }else if item == "Already Cancelled" {
+        //
+        //                    let cancelby = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "cancelled_by") as? String ?? ""
+        //
+        //                    var params = NSMutableDictionary()
+        //
+        //                    if cancelby == "Cancelled By User"
+        //                    {
+        //                        params = ["product_id":"\((self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_id") as AnyObject)","bookingno":(self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? "","user_id":login_session.value(forKey: "UserId")!,"cancel_by":"user"]
+        //                    }else{
+        //                        params = ["product_id":"\((self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_id") as AnyObject)","bookingno":(self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? "","user_id":login_session.value(forKey: "UserId")!,"cancel_by":"host"]
+        //                    }
+        //
+        //                    self.showActivityIndicator(uiView: self.view)
+        //                    //params = ["booking_no":self.futureBookingID,"currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","device_type":"ios","user_id":login_session.value(forKey: "UserId")!]
+        //                    print(params)
+        //                    let manager = AFHTTPSessionManager()
+        //                    manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
+        //
+        //                    manager.post(PROPERTY_CANCEL_API, parameters: params, headers: ["Authorization":""], progress: nil, success: { (operation, responseObject) -> Void in
+        //                        DispatchQueue.main.async {
+        //
+        //                        }
+        //                        let responseDict:NSDictionary = responseObject as! NSDictionary
+        //                        print(responseDict)
+        //                        self.hideActivityIndicator(uiView: self.view)
+        //                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
+        //
+        //                            print("INVOICE_API RESPONSE:",responseDict)
+        //
+        //                            self.AddDispute.text = "Already Cancelled"
+        //                            self.DisputeRentalName.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_title") as? String ?? ""
+        //                            self.DisputeBookingLbl.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? ""
+        //                            self.DisputeLocation.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_address") as? String ?? ""
+        //                            self.CancelMessage.text = ((responseDict.object(forKey: "Cancel_details") as! NSArray).object(at: 0) as? NSDictionary)?.object(forKey: "message") as? String ?? ""
+        //                            self.Cancel.isHidden = true
+        //                            self.Submit.isHidden = true
+        //                            self.CancelCountLbl.isHidden = true
+        //
+        //
+        //                            self.AddDisputeView.isHidden = false
+        ////
+        //                        }
+        //
+        //                        else {
+        //                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
+        //                        }
+        //                    }, failure: { (operation, error) -> Void in
+        //                        DispatchQueue.main.async {
+        //
+        //                        }
+        //                        print(error)
+        //                        self.showInformation(title: "Closest", message: error.localizedDescription)
+        //                    })
+        //
+        //                 //   self.showInformation(title: "Info", message: "Already Cancelled")
+        //                }else if item == "Dispute" {
+        //                    self.DisputeRentalName.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_title") as? String ?? ""
+        //                    self.DisputeBookingLbl.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? "" //Singleton.sharedInstance.yourTripModel.mytrips[self.tripSelectedInt].bookingno
+        //                    self.DisputeLocation.text = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_address") as? String ?? ""
+        //
+        //                    self.DisputePropertyId = "\((self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_id") as AnyObject)"
+        //                    self.DisputeBookingNum = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? ""
+        //
+        //                    self.grayBGView.isHidden = true
+        //                    self.selectedStatusCode = "1"
+        //                    self.dispute_Message_grayBGView.isHidden = true
+        //                    self.AddDisputeView.isHidden = false
+        //                    self.MessagePopUpView.isHidden = true
+        //
+        //
+        //                }else if item == "Disputed" {
+        //                    self.showInformation(title: "Info", message: "Already Disputed")
+        //                }else if item == "Message"{
+        //                    self.grayBGView.isHidden = true
+        //                    self.selectedStatusCode = "2"
+        //                    self.dispute_Message_grayBGView.isHidden = false
+        //                    self.DisputePopUpView.isHidden = true
+        //                    self.MessagePopUpView.isHidden = false
+        //
+        //                    self.messagePropertyId = "\((self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "property_id") as AnyObject)"
+        //                    self.messageBookingNum = (self.pastTripsArray.object(at: self.tripSelectedInt) as? NSDictionary)?.object(forKey: "bookingno") as? String ?? ""
+        //
+        //
+        //                }else if item ==  "Invoice/Receipt"{
+        //                    self.selectedStatusCode = "3"
+        //                    self.showActivityIndicator(uiView: self.view)
+        //                    var params = NSMutableDictionary()
+        //                    params = ["booking_no":self.pastBookingID,"currency_code":login_session.value(forKey: "APP_CURRENCY")as? String ?? "","device_type":"ios","user_id":login_session.value(forKey: "UserId")!]
+        //
+        //                    let manager = AFHTTPSessionManager()
+        //                    manager.responseSerializer.acceptableContentTypes = NSSet(array: ["text/plain", "text/html", "application/json"]) as Set<NSObject> as? Set<String>
+        //
+        //                    manager.post(INVOICE_API, parameters: params, headers: ["Authorization":""], progress: nil, success: { (operation, responseObject) -> Void in
+        //                        DispatchQueue.main.async {
+        //
+        //                        }
+        //                        let responseDict:NSDictionary = responseObject as! NSDictionary
+        //                        print(responseDict)
+        //                        self.hideActivityIndicator(uiView: self.view)
+        //                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
+        //
+        //                            print("INVOICE_API RESPONSE:",responseDict)
+        //                            self.invoiceBGGrayView.isHidden = false
+        //                            self.invoiceView.isHidden = false
+        //
+        //                            let hotelDict = responseDict.value(forKey: "invoice_details") as? NSDictionary
+        //                            self.propertyNameLbl.text = String(format: "%@",  hotelDict!.value(forKey: "product_title") as! CVarArg )
+        //                            self.propertyNameLbl.textColor = AppColor
+        //                            self.propertyNameLbl.textColor = AppColor
+        //                            self.bookingIdLbl
+        //                                .text = String(format: "Booking No : %@",hotelDict!.value(forKey: "booking_no") as! CVarArg)
+        //                            let street =    hotelDict!.value(forKey: "city") as! CVarArg
+        //                            let state = hotelDict!.value(forKey: "state") as! CVarArg
+        //                            let country = hotelDict!.value(forKey: "country") as! CVarArg
+        //
+        //                            self.locationLbl.text = String(format: "%@,%@,%@", street,state,country)
+        //                            self.locationLbl.textColor = AppColor
+        //
+        //                            self.checkInLbl.text = "Duration"
+        //                            self.checkOutLbl.text = String(format: "%@",hotelDict!.value(forKey: "checkindate") as! CVarArg ) + "\n \(String(format: " %@",hotelDict!.value(forKey: "checkoutdate") as! CVarArg ))"
+        //                            self.guestLbl.text = String(format: "%@",hotelDict!.value(forKey: "NoofGuest") as! CVarArg )
+        //                            self.nightLbl.text = String(format: "%@",hotelDict!.value(forKey: "numofdates") as! CVarArg )
+        //
+        //                            self.checkOutLbl.textColor = AppColor
+        //
+        //                            self.BookedDaysCount.text = String(format: "Booked for %@ Days/Hours : ",hotelDict!.value(forKey: "numofdates") as! CVarArg)
+        //                            self.subTotalLbl.text = String(format: "%@ %@",hotelDict!.value(forKey: "currency_code") as! CVarArg,hotelDict!.value(forKey: "TotalwithoutService") as! CVarArg )
+        //                            self.securityDepositLbl.text = String(format: "%@ %@",hotelDict!.value(forKey: "currency_code") as! CVarArg,hotelDict!.value(forKey: "securityDeposite") as! CVarArg )
+        //                            self.serviceFeeLbl.text = String(format: "%@ %@",hotelDict!.value(forKey: "currency_code") as! CVarArg,hotelDict!.value(forKey: "servicefee") as! CVarArg )
+        //                            self.totalAmountLbl.text = String(format: "%@ %@",hotelDict!.value(forKey: "currency_code") as! CVarArg,hotelDict!.value(forKey: "TotalAmt") as! CVarArg )
+        //                            self.walletAmountLbl.text = String(format: "%@ %@",hotelDict!.value(forKey: "currency_code") as! CVarArg,hotelDict!.value(forKey: "wallet_Amount") as! CVarArg )
+        //                            self.paidAmountLbl.text = String(format: "%@ %@",hotelDict!.value(forKey: "currency_code") as! CVarArg,hotelDict!.value(forKey: "paidTotal") as! CVarArg )
+        //                            self.cancellationPolicyLbl.text = String(format: "Cancelled Status : %@",hotelDict!.value(forKey: "cancelled_status") as! CVarArg )
+        //                        }
+        //
+        //                        else {
+        //                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
+        //                        }
+        //                    }, failure: { (operation, error) -> Void in
+        //                        DispatchQueue.main.async {
+        //
+        //                        }
+        //                        print(error)
+        //                        self.showInformation(title: "Closest", message: error.localizedDescription)
+        //                    })
+        //                }else{
+        //
+        //                }
+        //
+        //
+        //
+        //            }
+        //        }
         
     }
     
     
     
-   func numberOfSections(in tableView: UITableView) -> Int
-   {
-       return 1
-   }
-   
-   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       
-    if tableView == self.ExperienceTable {
-        return self.ExpScghedules.count
+    func numberOfSections(in tableView: UITableView) -> Int
+    {
+        return 1
     }
-    return self.HistoryShowArray.count
-       
-   }
-   
-   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       
-    if tableView == self.ExperienceTable {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ChooseTimeTableViewCell") as! ChooseTimeTableViewCell
-        cell.ChooseBtn.isHidden = true
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        cell.DateLbl .font = UIFont(name: SemiBoldFont, size: 14)
-        cell.TimeLbl .font = UIFont(name: SemiBoldFont, size: 14)
-        cell.NameLbl .font = UIFont(name: SemiBoldFont, size: 16)
+        if tableView == self.ExperienceTable {
+            return self.ExpScghedules.count
+        }
+        return self.HistoryShowArray.count
+        
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        if tableView == self.ExperienceTable {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ChooseTimeTableViewCell") as! ChooseTimeTableViewCell
+            cell.ChooseBtn.isHidden = true
+            
+            cell.DateLbl .font = UIFont(name: SemiBoldFont, size: 14)
+            cell.TimeLbl .font = UIFont(name: SemiBoldFont, size: 14)
+            cell.NameLbl .font = UIFont(name: SemiBoldFont, size: 16)
+            
+            
+            
+            let attributedString = NSMutableAttributedString()
+            let attributedTime = NSMutableAttributedString()
+            let attributedTitle = NSMutableAttributedString()
+            
+            let start = "Starts On :  "
+            let timing = "Timing :  "
+            let name = "Schedule Title :  \n"
+            
+            let attributed = NSAttributedString(string: start, attributes: [NSAttributedString.Key.foregroundColor : UIColor.black])
+            
+            let timingStr = NSAttributedString(string: timing, attributes: [NSAttributedString.Key.foregroundColor : UIColor.black])
+            
+            let titleStr = NSAttributedString(string: name, attributes: [NSAttributedString.Key.foregroundColor : UIColor.black])
+            
+            let attributedTwo = NSAttributedString(string: (self.ExpScghedules.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "ScheduleDate") as? String ?? "", attributes: [NSAttributedString.Key.foregroundColor : UIColor.darkGray])
+            
+            let attributedTiming = NSAttributedString(string: (self.ExpScghedules.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "ScheduleTime") as? String ?? "", attributes: [NSAttributedString.Key.foregroundColor : UIColor.darkGray])
+            
+            let attributedname = NSAttributedString(string: (self.ExpScghedules.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "ScheduleTitle") as? String ?? "", attributes: [NSAttributedString.Key.foregroundColor : AppColor])
+            
+            attributedString.append(attributed)
+            attributedString.append(attributedTwo)
+            
+            attributedTime.append(timingStr)
+            attributedTime.append(attributedTiming)
+            
+            attributedTitle.append(titleStr)
+            attributedTitle.append(attributedname)
+            
+            cell.DateLbl.attributedText = attributedString
+            cell.TimeLbl.attributedText = attributedTime
+            cell.NameLbl.attributedText = attributedTitle
+            
+            
+            
+            //        cell.DateLbl.text = " Starts On: \((self.ExpScghedules.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "ScheduleDate") as? String ?? "")"
+            //        cell.TimeLbl.text = "Timing:  \((self.ExpScghedules.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "ScheduleTime") as? String ?? "")"
+            //        cell.NameLbl.text = "\((self.ExpScghedules.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "ScheduleTitle") as? String ?? "")"
+            return cell
+        }
         
         
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ExperincyHistoryTableViewCell") as! ExperincyHistoryTableViewCell
         
-        let attributedString = NSMutableAttributedString()
-        let attributedTime = NSMutableAttributedString()
-        let attributedTitle = NSMutableAttributedString()
+        cell.ExpNameLbl.font = UIFont(name: SemiBoldFont, size: 16)
+        cell.AvailableTimesBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 14)
+        cell.PayBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
+        cell.ExpDateLbl.font = UIFont(name: SemiBoldFont, size: 13)
+        cell.ExpLocation.font = UIFont(name: SemiBoldFont, size: 13)
+        cell.ExpPayStatusLbl.font = UIFont(name: SemiBoldFont, size: 13)
+        cell.ExpPayStatusValueLbl.font = UIFont(name: SemiBoldFont, size: 13)
+        cell.ExpHostApprovalStatusLbl.font = UIFont(name: SemiBoldFont, size: 13)
+        cell.ExpHostApprovalStatusValueLbl.font = UIFont(name: SemiBoldFont, size: 13)
+        cell.ExpBookingIdLbl.font = UIFont(name: SemiBoldFont, size: 13)
+        cell.ExpBookingIdValueLbl.font = UIFont(name: SemiBoldFont, size: 13)
+        cell.ExpBookedOnLbl.font = UIFont(name: SemiBoldFont, size: 13)
+        cell.ExpBookedOnValueLbl.font = UIFont(name: SemiBoldFont, size: 13)
+        cell.ExpPriceLbl.font = UIFont(name: SemiBoldFont, size: 16)
+        cell.ExpHostedByLbl.font = UIFont(name: SemiBoldFont, size: 13)
+        cell.ExpHostNameLbl.font = UIFont(name: SemiBoldFont, size: 13)
+        cell.ExpHostNameLbl.textColor = AppSecondColor
+        //    cell.ExpPriceLbl.textColor = AppSecondColor
         
-        let start = "Starts On :  "
-        let timing = "Timing :  "
-        let name = "Schedule Title :  \n"
+        let ImageStr = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "expImage") as? String ?? ""
         
-        let attributed = NSAttributedString(string: start, attributes: [NSAttributedStringKey.foregroundColor : UIColor.black])
+        let wishlistImgUrl = URL(string: ImageStr)
+        if wishlistImgUrl != nil {
+            
+            cell.ExpImage.kf.setImage(with: wishlistImgUrl, placeholder: UIImage.init(named: "picture-frame"), options: nil, progressBlock: nil, completionHandler: nil)
+        }
         
-        let timingStr = NSAttributedString(string: timing, attributes: [NSAttributedStringKey.foregroundColor : UIColor.black])
+        cell.ExpNameLbl.text = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "expName") as? String ?? ""
         
-        let titleStr = NSAttributedString(string: name, attributes: [NSAttributedStringKey.foregroundColor : UIColor.black])
+        cell.ExpDateLbl.text = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "EventDate") as? String ?? ""
+        cell.ExpLocation.text = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "Address") as? String ?? ""
+        cell.ExpPayStatusValueLbl.text = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "BookingStatus") as? String ?? ""
+        cell.ExpHostApprovalStatusValueLbl.text = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "HostApproval") as? String ?? ""
         
-        let attributedTwo = NSAttributedString(string: (self.ExpScghedules.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "ScheduleDate") as? String ?? "", attributes: [NSAttributedStringKey.foregroundColor : UIColor.darkGray])
-        
-        let attributedTiming = NSAttributedString(string: (self.ExpScghedules.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "ScheduleTime") as? String ?? "", attributes: [NSAttributedStringKey.foregroundColor : UIColor.darkGray])
-        
-        let attributedname = NSAttributedString(string: (self.ExpScghedules.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "ScheduleTitle") as? String ?? "", attributes: [NSAttributedStringKey.foregroundColor : AppColor])
-        
-        attributedString.append(attributed)
-        attributedString.append(attributedTwo)
-        
-        attributedTime.append(timingStr)
-        attributedTime.append(attributedTiming)
-        
-        attributedTitle.append(titleStr)
-        attributedTitle.append(attributedname)
-        
-        cell.DateLbl.attributedText = attributedString
-        cell.TimeLbl.attributedText = attributedTime
-        cell.NameLbl.attributedText = attributedTitle
+        if (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "HostApproval") as? String ?? "" == "Approved" {
+            cell.ExpHostApprovalStatusValueLbl.textColor = .green
+            
+        }else {
+            cell.ExpHostApprovalStatusValueLbl.textColor = .darkGray
+        }
         
         
+        cell.ExpBookedOnValueLbl.text = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "BookedOn") as? String ?? ""
+        cell.ExpBookingIdValueLbl.text = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "BookingNo") as? String ?? ""
+        cell.ExpHostNameLbl.text = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "HostName") as? String ?? ""
+        cell.ExpPriceLbl.text = "\((self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "CurrencySymbol") as? String ?? "") \((self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "Total_Amount") as AnyObject)"
         
-//        cell.DateLbl.text = " Starts On: \((self.ExpScghedules.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "ScheduleDate") as? String ?? "")"
-//        cell.TimeLbl.text = "Timing:  \((self.ExpScghedules.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "ScheduleTime") as? String ?? "")"
-//        cell.NameLbl.text = "\((self.ExpScghedules.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "ScheduleTitle") as? String ?? "")"
+        let PayStatus = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "BookedOn") as AnyObject
+        
+        if "\(PayStatus)" == "1"  {
+            cell.PayBtn.isHidden = false
+            cell.ThreeDotsBtn.isHidden = true
+            
+        }else{
+            cell.PayBtn.isHidden = true
+            cell.ThreeDotsBtn.isHidden = false
+        }
+        
+        let threedots = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "BookingStatus") as? String ?? ""
+        
+        if threedots == "Booked"  {
+            cell.ThreeDotsBtn.isHidden = false
+            
+        }else{
+            cell.ThreeDotsBtn.isHidden = true
+        }
+        
+        cell.AvailableTimesBtn.tag = indexPath.row
+        cell.AvailableTimesBtn.addTarget(self, action:#selector(AvailableBtnAct), for: .touchUpInside)
+        
+        cell.HostBtn.tag = indexPath.row
+        cell.HostBtn.addTarget(self, action:#selector(HostBtnAct), for: .touchUpInside)
+        
+        cell.PayBtn.tag = indexPath.row
+        cell.PayBtn.addTarget(self, action:#selector(PayBtnAct), for: .touchUpInside)
+        cell.ThreeDotsBtn.tag = indexPath.row
+        cell.ThreeDotsBtn.addTarget(self, action: #selector(selectMoreOptions), for: .touchUpInside)
+        moreOptionStatusButton.frame = cell.ThreeDotsBtn.frame
+        
+        //       cell!.lblPrice.font = UIFont(name: SemiBoldFont, size: 17)
+        
         return cell
     }
-    
-    
-       let cell = tableView.dequeueReusableCell(withIdentifier: "ExperincyHistoryTableViewCell") as! ExperincyHistoryTableViewCell
-      
-       cell.ExpNameLbl.font = UIFont(name: SemiBoldFont, size: 16)
-    cell.AvailableTimesBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 14)
-    cell.PayBtn.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
-    cell.ExpDateLbl.font = UIFont(name: SemiBoldFont, size: 13)
-    cell.ExpLocation.font = UIFont(name: SemiBoldFont, size: 13)
-    cell.ExpPayStatusLbl.font = UIFont(name: SemiBoldFont, size: 13)
-    cell.ExpPayStatusValueLbl.font = UIFont(name: SemiBoldFont, size: 13)
-    cell.ExpHostApprovalStatusLbl.font = UIFont(name: SemiBoldFont, size: 13)
-    cell.ExpHostApprovalStatusValueLbl.font = UIFont(name: SemiBoldFont, size: 13)
-    cell.ExpBookingIdLbl.font = UIFont(name: SemiBoldFont, size: 13)
-    cell.ExpBookingIdValueLbl.font = UIFont(name: SemiBoldFont, size: 13)
-    cell.ExpBookedOnLbl.font = UIFont(name: SemiBoldFont, size: 13)
-    cell.ExpBookedOnValueLbl.font = UIFont(name: SemiBoldFont, size: 13)
-    cell.ExpPriceLbl.font = UIFont(name: SemiBoldFont, size: 16)
-    cell.ExpHostedByLbl.font = UIFont(name: SemiBoldFont, size: 13)
-    cell.ExpHostNameLbl.font = UIFont(name: SemiBoldFont, size: 13)
-    cell.ExpHostNameLbl.textColor = AppSecondColor
-//    cell.ExpPriceLbl.textColor = AppSecondColor
-    
-    let ImageStr = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "expImage") as? String ?? ""
-    
-    let wishlistImgUrl = URL(string: ImageStr)
-    if wishlistImgUrl != nil {
-        
-        cell.ExpImage.kf.setImage(with: wishlistImgUrl, placeholder: UIImage.init(named: "picture-frame"), options: nil, progressBlock: nil, completionHandler: nil)
-    }
-    
-    cell.ExpNameLbl.text = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "expName") as? String ?? ""
-    
-    cell.ExpDateLbl.text = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "EventDate") as? String ?? ""
-    cell.ExpLocation.text = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "Address") as? String ?? ""
-    cell.ExpPayStatusValueLbl.text = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "BookingStatus") as? String ?? ""
-    cell.ExpHostApprovalStatusValueLbl.text = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "HostApproval") as? String ?? ""
-    
-    if (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "HostApproval") as? String ?? "" == "Approved" {
-        cell.ExpHostApprovalStatusValueLbl.textColor = .green
-        
-    }else {
-        cell.ExpHostApprovalStatusValueLbl.textColor = .darkGray
-    }
-    
-    
-    cell.ExpBookedOnValueLbl.text = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "BookedOn") as? String ?? ""
-    cell.ExpBookingIdValueLbl.text = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "BookingNo") as? String ?? ""
-    cell.ExpHostNameLbl.text = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "HostName") as? String ?? ""
-    cell.ExpPriceLbl.text = "\((self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "CurrencySymbol") as? String ?? "") \((self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "Total_Amount") as! AnyObject)"
-    
-    let PayStatus = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "BookedOn") as! AnyObject
-    
-    if "\(PayStatus)" == "1"  {
-        cell.PayBtn.isHidden = false
-        cell.ThreeDotsBtn.isHidden = true
-
-    }else{
-        cell.PayBtn.isHidden = true
-        cell.ThreeDotsBtn.isHidden = false
-    }
-    
-    let threedots = (self.HistoryShowArray.object(at: indexPath.row) as? NSDictionary)?.object(forKey: "BookingStatus") as? String ?? ""
-    
-    if threedots == "Booked"  {
-        cell.ThreeDotsBtn.isHidden = false
-
-    }else{
-        cell.ThreeDotsBtn.isHidden = true
-    }
-    
-    cell.AvailableTimesBtn.tag = indexPath.row
-           cell.AvailableTimesBtn.addTarget(self, action:#selector(AvailableBtnAct), for: .touchUpInside)
-    
-    cell.HostBtn.tag = indexPath.row
-           cell.HostBtn.addTarget(self, action:#selector(HostBtnAct), for: .touchUpInside)
-    
-    cell.PayBtn.tag = indexPath.row
-           cell.PayBtn.addTarget(self, action:#selector(PayBtnAct), for: .touchUpInside)
-    cell.ThreeDotsBtn.tag = indexPath.row
-    cell.ThreeDotsBtn.addTarget(self, action: #selector(selectMoreOptions), for: .touchUpInside)
-    moreOptionStatusButton.frame = cell.ThreeDotsBtn.frame
-    
-//       cell!.lblPrice.font = UIFont(name: SemiBoldFont, size: 17)
-    
-       return cell
-   }
-   
-   
-   
-   
-   
 }

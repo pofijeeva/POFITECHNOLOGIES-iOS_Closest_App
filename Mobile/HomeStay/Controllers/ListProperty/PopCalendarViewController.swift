@@ -261,7 +261,7 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
         //                self.checkBoxBtn.setImage(UIImage(named: "checkbox-2"), for: .normal)
         //            }
         //            storedDatesArray = seasonalDatesArray.value(forKey: "date") as! NSArray
-        //            let amountNum:NSNumber = (seasonalDatesArray[0] as? NSDictionary)?.value(forKey: "price") as! NSNumber
+        //            let amountNum:NSNumber = (seasonalDatesArray[0] as? NSDictionary)?.value(forKey: "price") as? NSNumber ?? 0
         //            amountString = "\(String(describing: amountNum))"
         //            enterAmountTxtFld.text = amountString
         //        }
@@ -654,8 +654,8 @@ extension PopCalendarViewController: MIBlurPopupDelegate {
     var popupView: UIView {
         return popupContentContainerView ?? UIView()
     }
-    var blurEffectStyle: UIBlurEffectStyle {
-        return UIBlurEffectStyle.light
+    var blurEffectStyle: UIBlurEffect.Style {
+        return UIBlurEffect.Style.light
     }
     var initialScaleAmmount: CGFloat {
         return 1.0

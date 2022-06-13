@@ -3,58 +3,54 @@ platform :ios, '10.0'
 source 'https://github.com/CocoaPods/Specs.git'
 
 target 'HomeStay' do
+  
+  # Pods for HomeStay
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-use_frameworks!
-pod 'CVCalendar'
-pod 'CCValidator'
-pod 'FSCalendar'
-pod 'BraintreeDropIn'
-pod 'Braintree/PayPal'
-pod 'Braintree/Venmo'
-pod 'Braintree/Apple-Pay'
-pod 'Alamofire'
-pod 'IQKeyboardManagerSwift'
-pod 'ImagePicker'
-pod 'MIBlurPopup'
-pod 'DropDown'
-pod 'Firebase/Core'
-pod 'Firebase/Messaging'
-pod 'Firebase/Analytics'
-pod 'Fabric'
-pod 'Crashlytics'
-
-pod 'Kingfisher'
-pod 'FacebookCore'
-pod 'FacebookLogin'
-pod 'FBSDKCoreKit'
-pod 'FBSDKLoginKit'
-pod 'AFNetworking'
-pod 'Bolts'
-pod 'GoogleMaps'
-pod 'GoogleSignIn'
-pod 'GooglePlaces'
-pod 'Firebase/Crashlytics'
-pod 'ACFloatingTextfield-Swift'
-pod 'SWRevealViewController'
-pod 'UITextView+Placeholder'
-pod 'DateTimePicker'
-pod 'SDWebImage', '~> 5.0'
-pod 'CountryList'
-
-pod "FlagPhoneNumber"
-pod 'Cosmos', '~> 23.0'
-pod 'SideMenu', '~> 6.0'
-
-pod 'CryptoSwift'
-pod 'FSPagerView'
-pod 'lottie-ios'
-
-
-
-
-
-pod 'JonAlert', :git => 'https://github.com/jonSurrey/JonAlert.git', :branch => 'master'
-
-# Pods for HomeStay
-
+  use_frameworks!
+  pod 'CVCalendar'
+  pod 'CCValidator'
+  pod 'FSCalendar'
+  pod 'BraintreeDropIn'
+  pod 'Braintree/PayPal'
+  pod 'Braintree/Venmo'
+  pod 'Braintree/Apple-Pay'
+  pod 'Alamofire'
+  pod 'IQKeyboardManagerSwift'
+  #pod 'ImagePicker'
+  pod 'MIBlurPopup'
+  pod 'DropDown'
+  pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
+  pod 'Firebase/Analytics'
+  pod 'Fabric'
+  pod 'Crashlytics'
+  
+  pod 'Kingfisher'
+  pod 'FacebookCore'
+  pod 'FacebookLogin'
+  pod 'FBSDKCoreKit'
+  pod 'FBSDKLoginKit'
+  pod 'AFNetworking'
+  pod 'Bolts'
+  pod 'GoogleMaps'
+  pod 'GoogleSignIn'
+  pod 'GooglePlaces'
+  pod 'Firebase/Crashlytics'
+  #pod 'ACFloatingTextfield-Swift'
+  pod 'SWRevealViewController'
+  pod 'UITextView+Placeholder'
+  pod 'DateTimePicker'
+  pod 'SDWebImage', '~> 5.0'
+  #pod 'CountryList'
+  
+  pod "FlagPhoneNumber"
+  pod 'Cosmos', '~> 23.0'
+  pod 'SideMenu', '~> 6.0'
+  
+  pod 'CryptoSwift'
+  pod 'FSPagerView'
+  pod 'lottie-ios'
+  
+  pod 'JonAlert', :git => 'https://github.com/jonSurrey/JonAlert.git', :branch => 'master'
+  
 end

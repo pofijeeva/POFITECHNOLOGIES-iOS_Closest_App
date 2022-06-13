@@ -89,13 +89,13 @@ class CouponsViewController: BaseViewController {
                 }
                 let responseDict:NSDictionary = json!
                 print(responseDict)
-                if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                     let data = responseDict.object(forKey: "data") as! [String:Any]
                     self.coupons =  data["coupon_list"] as! [[String:Any]]
                     
                     self.tblView.reloadData()
                 }
-                else if responseDict.value(forKey: "code") as! NSNumber == 400 {
+                else if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 400 {
                     self.coupons.removeAll()
                     self.tblView.reloadData()
                    // self.showInformation(title: "Info", message: responseDict.value(forKey: "message") as? String ?? "")

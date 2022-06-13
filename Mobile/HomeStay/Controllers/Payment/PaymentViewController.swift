@@ -520,11 +520,11 @@ class PaymentViewController: BaseViewController,UITextFieldDelegate {
                 
                 
                 
-                let totalWalletAmout = userDetails?.value(forKey: "total_wallet_amount") as! NSNumber
+                let totalWalletAmout = userDetails?.value(forKey: "total_wallet_amount") as? NSNumber ?? 0
                 self.totalwallet = String(format: "%@",totalWalletAmout)
-                let balenceWalletAmout = userDetails?.value(forKey: "balance_from_wallet") as! NSNumber
+                let balenceWalletAmout = userDetails?.value(forKey: "balance_from_wallet") as? NSNumber ?? 0
                 self.balenceWalletPrice = String(format: "%@",balenceWalletAmout)
-                let usedWalletAmout = userDetails?.value(forKey: "used_from_wallet") as! NSNumber
+                let usedWalletAmout = userDetails?.value(forKey: "used_from_wallet") as? NSNumber ?? 0
                 self.usedwallet = String(format: "%@",usedWalletAmout)
                 
                 let balenceWallet = String(format: "%@",balenceWalletAmout)

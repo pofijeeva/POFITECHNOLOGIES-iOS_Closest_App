@@ -99,7 +99,7 @@ protocol filterDelegate {
         
           cell.lbl_CountryName.font = UIFont(name: RegularFont, size: 14.0)
         cell.lbl_CountryName.text = Singleton.sharedInstance.inboxList.messageValues[indexPath.row].bookingno
-        cell.selectionStyle = UITableViewCellSelectionStyle.gray
+        cell.selectionStyle = UITableViewCell.SelectionStyle.gray
         if selectedRows.contains(indexPath)
         {
             cell.buttonSelect.setImage(UIImage(named:"checkbox-2"), for: .normal)

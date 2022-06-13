@@ -214,10 +214,10 @@ public class SambagMonthYearPickerViewController: UIViewController {
             contentView.addSubview(monthWheel.view)
             contentView.addSubview(yearWheel.view)
             
-            addChildViewController(monthWheel)
-            addChildViewController(yearWheel)
-            monthWheel.didMove(toParentViewController: self)
-            yearWheel.didMove(toParentViewController: self)
+            addChild(monthWheel)
+            addChild(yearWheel)
+            monthWheel.didMove(toParent: self)
+            yearWheel.didMove(toParent: self)
         }
     }
     

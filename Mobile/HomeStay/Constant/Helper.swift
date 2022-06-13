@@ -171,7 +171,7 @@ extension UIImageView {
     
         public func imageFromURL(urlString: String) {
             
-            let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+            let activityIndicator = UIActivityIndicatorView(style: .gray)
             activityIndicator.frame = CGRect.init(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
             activityIndicator.startAnimating()
             if self.image == nil {
@@ -226,8 +226,8 @@ extension UIImage {
     public func base64(format: ImageFormat) -> String {
         var imageData: Data
         switch format {
-        case .PNG: imageData = UIImagePNGRepresentation(self)!
-        case .JPEG(let compression): imageData = UIImageJPEGRepresentation(self, compression)!
+        case .PNG: imageData = self.pngData()!
+        case .JPEG(let compression): imageData = self.jpegData(compressionQuality: compression)!
         }
         return imageData.base64EncodedString()
     }
@@ -299,7 +299,7 @@ class Helper: NSObject {
         loadingView.clipsToBounds = true
         loadingView.layer.cornerRadius = 10
         activityIndicator.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+        activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
         activityIndicator.center = CGPoint(x: loadingView.frame.size.width / 2,y: loadingView.frame.size.height / 2);
         loadingView.addSubview(activityIndicator)
         container.addSubview(loadingView)
@@ -337,7 +337,7 @@ class Helper: NSObject {
         let height = CGPoint(x: targetVC.view.center.x, y: targetVC.view.center.y - 100.0)
         activityIndicator.center = height
         activityIndicator.hidesWhenStopped = true
-        activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.whiteLarge
+         activityIndicator.style = UIActivityIndicatorView.Style.whiteLarge
         activityIndicator.tag = 1
         view.addSubview(activityIndicator)
         activityIndicator.startAnimating()

@@ -291,7 +291,7 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
             
             if let code = responseDict.value(forKey: "code") as? NSNumber {
             
-            if responseDict.value(forKey: "code") as! NSNumber == 200 {
+            if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                 
                 self.getNotificationListApiCall()
                 self.hideActivityIndicator(uiView: self.view)
@@ -375,7 +375,7 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
                 }
                 let responseDict:NSDictionary = json!
                 print(responseDict)
-                if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                     self.Homepagedata.addEntries(from: responseDict as! [AnyHashable : Any])
                     
                     let resData = responseDict["data"] as! [String:Any]
@@ -546,7 +546,7 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
                 
                 if let code = responseDict.value(forKey: "code") as? NSNumber {
                 
-                if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                     
                     
                     login_session.set(false, forKey: "IS_USER_LOGGEDIN")
@@ -811,14 +811,14 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
        
     }
     func showSimpleAlert() {
-        let alert = UIAlertController(title: "Closest", message: "Are you sure want to login ?",         preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Closest", message: "Are you sure want to login ?",         preferredStyle: UIAlertController.Style.alert)
         
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: { _ in
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { _ in
             //Cancel Action
             self.dismiss(animated: true, completion: nil)
         }))
         alert.addAction(UIAlertAction(title: "Login",
-                                      style: UIAlertActionStyle.default,
+                                      style: UIAlertAction.Style.default,
                                       handler: {(_: UIAlertAction!) in
                                         let navgt = self.storyboard?.instantiateViewController(withIdentifier: "StartViewController") as? StartViewController
                                         self.navigationController?.pushViewController(navgt!, animated: true)
@@ -891,7 +891,7 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
             self.img_Menu.transform = CGAffineTransform(rotationAngle: CGFloat.pi)
         }
         
-        UIView.animate(withDuration: 0.3, delay: 0, options: UIViewAnimationOptions.curveEaseIn, animations: { () -> Void in
+        UIView.animate(withDuration: 0.3, delay: 0, options: UIView.AnimationOptions.curveEaseIn, animations: { () -> Void in
             self.img_Menu.transform = CGAffineTransform(rotationAngle: CGFloat.pi * 2.0)
         })
     }
@@ -908,7 +908,7 @@ class HomeViewController: BaseViewController, UITextFieldDelegate,delegateForHom
 //
 //
 //
-//            let refreshAlert = UIAlertController(title: "Closest", message: "Logged out Successfully", preferredStyle: UIAlertControllerStyle.alert)
+//            let refreshAlert = UIAlertController(title: "Closest", message: "Logged out Successfully", preferredStyle: UIAlertController.Style.alert)
 //
 //            refreshAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: { [self] (action: UIAlertAction!) in
 //               // LogoutApi()
@@ -1363,7 +1363,7 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
        
     }
     
-    private func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+    internal func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         guard let header = view as? UITableViewHeaderFooterView else { return }
         header.textLabel?.textColor = UIColor.black
         header.textLabel?.font = UIFont(name: SemiBoldFont, size: 19)
@@ -1386,7 +1386,7 @@ extension HomeViewController : UITableViewDelegate,UITableViewDataSource {
                 }
             }
             else {
-                return UITableViewAutomaticDimension
+                return UITableView.automaticDimension
             }
         }
         

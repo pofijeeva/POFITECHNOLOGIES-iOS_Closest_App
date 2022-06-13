@@ -505,7 +505,7 @@ class NewBookingViewController: BaseViewController,DateTimePickerDelegate,Sambag
                     }
                     let responseDict:NSDictionary = json!
                     print(responseDict)
-                    if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                    if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                         print(responseDict)
                         
                         var PaymentMethodsArr : NSMutableArray = []
@@ -756,7 +756,7 @@ class NewBookingViewController: BaseViewController,DateTimePickerDelegate,Sambag
             }
             let responseDict:NSDictionary = json!
             print(responseDict)
-            if responseDict.value(forKey: "code") as! NSNumber == 200 {
+            if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                 self.PriceShow = 1
                 //  self.cancel_percentage = String(describing: responseDict.value(forKey: "cancel_percentage") as AnyObject)
                 self.CurrencySym = login_session.value(forKey: "APP_CURRENCYSYM") as? String ?? "USD"
@@ -805,7 +805,7 @@ class NewBookingViewController: BaseViewController,DateTimePickerDelegate,Sambag
         //            }
         //            let responseDict:NSDictionary = responseObject as! NSDictionary
         //            print(responseDict)
-        //            if responseDict.value(forKey: "status") as! NSNumber == 1 {
+        //            if responseDict.value(forKey: "status") as? NSNumber ?? 0 == 1 {
         //
         //
         //                 self.PriceShow = 1
@@ -932,7 +932,7 @@ class NewBookingViewController: BaseViewController,DateTimePickerDelegate,Sambag
             }
             let responseDict:NSDictionary = json!
             print(responseDict)
-            if responseDict.value(forKey: "code") as! NSNumber == 200 {
+            if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                 self.PriceShow = 1
                 //  self.cancel_percentage = String(describing: responseDict.value(forKey: "cancel_percentage") as AnyObject)
                 self.CurrencySym = login_session.value(forKey: "APP_CURRENCYSYM") as? String ?? "USD"
@@ -1003,7 +1003,7 @@ class NewBookingViewController: BaseViewController,DateTimePickerDelegate,Sambag
         //            }
         //            let responseDict:NSDictionary = responseObject as! NSDictionary
         //            print(responseDict)
-        //            if responseDict.value(forKey: "status") as! NSNumber == 1 {
+        //            if responseDict.value(forKey: "status") as? NSNumber ?? 0 == 1 {
         //
         //
         //                self.PriceShow = 1
@@ -1640,7 +1640,7 @@ extension NewBookingViewController: UITableViewDelegate,UITableViewDataSource {
         let picker = DateTimePicker.create(minimumDate: min, maximumDate: max)
         
         picker.is12HourFormat = true
-        picker.includeMonth = true // if true the month shows at bottom of date cell
+//        picker.includeMonth = true // if true the month shows at bottom of date cell
         picker.highlightColor = AppColor
         picker.darkColor = UIColor.darkGray
         picker.doneButtonTitle = "Select"

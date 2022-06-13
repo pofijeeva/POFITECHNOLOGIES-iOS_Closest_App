@@ -231,8 +231,8 @@
     var popupView: UIView {
         return view_Buttons ?? UIView()
     }
-    var blurEffectStyle: UIBlurEffectStyle {
-        return UIBlurEffectStyle.light
+     var blurEffectStyle: UIBlurEffect.Style {
+         return UIBlurEffect.Style.light
     }
     var initialScaleAmmount: CGFloat {
         return 1.0

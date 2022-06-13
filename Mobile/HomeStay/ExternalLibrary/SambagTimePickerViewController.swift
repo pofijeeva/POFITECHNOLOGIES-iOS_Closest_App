@@ -267,15 +267,15 @@ public class SambagTimePickerViewController: UIViewController {
             
             if(!is24Format) {
                 contentView.addSubview(meridianWheel.view)
-                addChildViewController(meridianWheel)
-                meridianWheel.didMove(toParentViewController: self)
+                addChild(meridianWheel)
+                meridianWheel.didMove(toParent: self)
             }
             
-            addChildViewController(hourWheel)
-            addChildViewController(minuteWheel)
+            addChild(hourWheel)
+            addChild(minuteWheel)
             
-            hourWheel.didMove(toParentViewController: self)
-            minuteWheel.didMove(toParentViewController: self)
+            hourWheel.didMove(toParent: self)
+            minuteWheel.didMove(toParent: self)
             
         }
     }

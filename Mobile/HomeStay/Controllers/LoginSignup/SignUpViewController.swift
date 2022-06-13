@@ -79,8 +79,8 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
         self.txtFldConfirmPassword.placeholder = GlobalLanguageDictionary.object(forKey: "Key_Cconfirmpassword") as? String
         
         Network.shared.HTTP_POST_STRING_REQUEST_DELEGATE = self
-        NotificationCenter.default.addObserver(self, selector: #selector(SignUpViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(SignUpViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SignUpViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SignUpViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         setupSOAppleSignIn1()
 
@@ -340,10 +340,10 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
     @IBAction func act_Google(_ sender: UIButton) {
         if (Reachability()?.isReachable ?? false) {
             //GIDSignIn.sharedInstance().uiDelegate = self
-            GIDSignIn.sharedInstance()?.presentingViewController = self
-            GIDSignIn.sharedInstance()?.restorePreviousSignIn()
-            GIDSignIn.sharedInstance().delegate = self
-            GIDSignIn.sharedInstance().signIn()
+//            GIDSignIn.sharedInstance()?.presentingViewController = self
+//            GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+//            GIDSignIn.sharedInstance().delegate = self
+//            GIDSignIn.sharedInstance().signIn()
         } else {
             self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
@@ -547,7 +547,7 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
                                             self.navigationController?.pushViewController(nav!, animated: true)
                     }
                     
-                    let refreshAlert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_loggedInSus") as? String, preferredStyle: UIAlertControllerStyle.alert)
+                    let refreshAlert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_loggedInSus") as? String, preferredStyle: UIAlertController.Style.alert)
 
                     refreshAlert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "ok") as? String, style: .default, handler: { (action: UIAlertAction!) in
       //                  self.discoverApi()
@@ -594,49 +594,49 @@ extension SignUpViewController: UITextFieldDelegate {
 }
 
 //MARK:- Google Plus Delegate GIDSignInUIDelegate
-extension SignUpViewController: GIDSignInDelegate
-{
-    
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if let error = error {
-            print("\(error.localizedDescription)")
-        } else {
-            // Saving user details in Userdefaults.
-            
-            login_session.setValue(user.profile.name, forKey: "Firstname")
-            login_session.setValue(user.profile.givenName, forKey: "Lastname")
-            login_session.setValue(user.userID , forKey: "GoogleId")
-            login_session.setValue(user.profile.email, forKey: "Email")
-            //            login_session.setValue(UserDetail.value(forKey: "url"), forKey: "ProfilePic")
-            login_session.synchronize()
-            
-            // Signup Datas
-            
-            self.firstName = user.profile.givenName ?? " "
-            self.lastName = user.profile.name ?? " "
-            self.email = user.profile.email ?? " "
-            self.password = "google"
-            self.key = user.userID ?? " "
-            self.loginType = "google"
-            self.deviceType = "iphone"
-            self.signupAPI()
-        }
-    }
-    
-    private func signInWillDispatch(signIn: GIDSignIn!, error: NSError!) {
-        print("signInWillDispatch")
-    }
-    
-    // Present a view that prompts the user to sign in with Google
-    func sign(_ signIn: GIDSignIn!, present viewController: UIViewController!) {
-        print("present")
-    }
-    
-    // Dismiss the "Sign in with Google" view
-    func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
-        print("dismiss")
-    }
-}
+//extension SignUpViewController: GIDSignInDelegate
+//{
+//
+//    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
+//        if let error = error {
+//            print("\(error.localizedDescription)")
+//        } else {
+//            // Saving user details in Userdefaults.
+//
+//            login_session.setValue(user.profile.name, forKey: "Firstname")
+//            login_session.setValue(user.profile.givenName, forKey: "Lastname")
+//            login_session.setValue(user.userID , forKey: "GoogleId")
+//            login_session.setValue(user.profile.email, forKey: "Email")
+//            //            login_session.setValue(UserDetail.value(forKey: "url"), forKey: "ProfilePic")
+//            login_session.synchronize()
+//
+//            // Signup Datas
+//
+//            self.firstName = user.profile.givenName ?? " "
+//            self.lastName = user.profile.name ?? " "
+//            self.email = user.profile.email ?? " "
+//            self.password = "google"
+//            self.key = user.userID ?? " "
+//            self.loginType = "google"
+//            self.deviceType = "iphone"
+//            self.signupAPI()
+//        }
+//    }
+//
+//    private func signInWillDispatch(signIn: GIDSignIn!, error: NSError!) {
+//        print("signInWillDispatch")
+//    }
+//
+//    // Present a view that prompts the user to sign in with Google
+//    func sign(_ signIn: GIDSignIn!, present viewController: UIViewController!) {
+//        print("present")
+//    }
+//
+//    // Dismiss the "Sign in with Google" view
+//    func sign(_ signIn: GIDSignIn!, dismiss viewController: UIViewController!) {
+//        print("dismiss")
+//    }
+//}
 
 //MARK:- HTTP Delegates
 

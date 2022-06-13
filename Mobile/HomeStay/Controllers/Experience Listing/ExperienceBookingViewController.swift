@@ -173,8 +173,8 @@ class ExperienceBookingViewController: BaseViewController,UITableViewDelegate, U
                 let cell = tableView.dequeueReusableCell(withIdentifier: "informationOnBookingIdTableViewCell", for: indexPath) as! informationOnBookingIdTableViewCell
                 let attributedString = NSMutableAttributedString()
                 let str = "Information on booking id:  "
-                let attributed = NSAttributedString(string: str, attributes: [NSAttributedStringKey.foregroundColor : UIColor.darkGray])
-                let attributedTwo = NSAttributedString(string: self.bookingID, attributes: [NSAttributedStringKey.foregroundColor : AppSecondColor])
+                let attributed = NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor : UIColor.darkGray])
+                let attributedTwo = NSAttributedString(string: self.bookingID, attributes: [NSAttributedString.Key.foregroundColor : AppSecondColor])
                 attributedString.append(attributed)
                 attributedString.append(attributedTwo)
                 cell.labelInformationonBooking.attributedText = attributedString
@@ -275,7 +275,7 @@ class ExperienceBookingViewController: BaseViewController,UITableViewDelegate, U
                 return 105.0
             }
             else {
-                return UITableViewAutomaticDimension
+                return UITableView.automaticDimension
             }
         }
     }

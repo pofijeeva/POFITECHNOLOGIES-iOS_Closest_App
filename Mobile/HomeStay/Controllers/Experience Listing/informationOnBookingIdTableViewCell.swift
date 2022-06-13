@@ -30,8 +30,8 @@ class informationOnBookingIdTableViewCell: UITableViewCell {
         self.labelDate.textColor = AppSecondColor
 //        let attributedString = NSMutableAttributedString()
 //        let str = "Hello "
-//        let attributed = NSAttributedString(string: str, attributes: [NSAttributedStringKey.foregroundColor : UIColor.darkGray])
-//        let attributedTwo = NSAttributedString(string: str, attributes: [NSAttributedStringKey.foregroundColor : AppSecondColor])
+//        let attributed = NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor : UIColor.darkGray])
+//        let attributedTwo = NSAttributedString(string: str, attributes: [NSAttributedString.Key.foregroundColor : AppSecondColor])
 //        attributedString.append(attributed)
 //        attributedString.append(attributedTwo)
 //        self.labelInformationonBooking.attributedText = attributedString

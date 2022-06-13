@@ -6,11 +6,10 @@
 import Foundation
 
 
-class CountryList : NSObject, NSCoding{
+class CountryListModel : NSObject, NSCoding{
 
     var countryName : String = ""
     var id : Int = 0
-
 
     /**
      * Instantiate the instance using the passed dictionary values to set the properties values

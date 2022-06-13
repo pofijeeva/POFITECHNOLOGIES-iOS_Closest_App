@@ -86,7 +86,7 @@ class InboxMessagesVC: BaseViewController {
                 }
                 let responseDict:NSDictionary = json!
                 print(responseDict)
-                if responseDict.value(forKey: "code") as! NSNumber == 200 {
+                if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 200 {
                     self.isLoading = false
                     let data = responseDict.object(forKey: "data") as! [String:Any]
                     self.messages.append(contentsOf: data["message_values"] as! [[String:Any]])
@@ -95,7 +95,7 @@ class InboxMessagesVC: BaseViewController {
                     
                     self.tblView.reloadData()
                 }
-                else if responseDict.value(forKey: "code") as! NSNumber == 400 {
+                else if responseDict.value(forKey: "code") as? NSNumber ?? 0 == 400 {
                     if self.isLoading == false {
                     self.messages.removeAll()
                     self.tblView.reloadData()
@@ -115,7 +115,7 @@ class InboxMessagesVC: BaseViewController {
 }
 extension InboxMessagesVC : UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
