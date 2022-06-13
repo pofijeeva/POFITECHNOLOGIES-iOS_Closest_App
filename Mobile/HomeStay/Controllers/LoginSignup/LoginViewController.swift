@@ -545,6 +545,7 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
             }
         }
     }
+    
     func checkForEmail(loginType: String)
     {
         if (self.email.count) < 5
@@ -759,6 +760,23 @@ class LoginViewController: BaseViewController,WKNavigationDelegate, ASAuthorizat
             //            GIDSignIn.sharedInstance()?.restorePreviousSignIn()
             //            GIDSignIn.sharedInstance().delegate = self
             //            GIDSignIn.sharedInstance().signIn()
+            let signInConfig = GIDConfiguration.init(clientID: googleClientID)
+            GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { user, error in
+                guard error == nil else { return }
+                guard let user = user else { return }
+                //                let idStr = user.userID
+                //                let emailStr = user.profile?.email
+                //                let nameStr = user.profile?.name
+                
+                self.firstName = user.profile?.givenName ?? " "
+                self.lastName = user.profile?.name ?? " "
+                self.email = user.profile?.email ?? " "
+                self.password = "google"
+                self.key = user.userID ?? " "
+                self.loginType = "google"
+                self.deviceType = "iphone"
+                self.checkForEmail(loginType: "Google")
+            }
         } else {
             self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }

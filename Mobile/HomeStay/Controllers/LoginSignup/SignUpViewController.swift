@@ -12,7 +12,7 @@ import AFNetworking
 import AuthenticationServices
 import WebKit
 let loginManager = LoginManager()
-   
+
 
 class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthorizationControllerDelegate, ASAuthorizationControllerPresentationContextProviding {
     
@@ -35,11 +35,11 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
     @IBOutlet weak var txtFldphone: UITextField!
     @IBOutlet weak var SignUpWithLbl: UILabel!
     @IBOutlet weak var orsignLbl: UILabel!
-
-      @IBOutlet weak var TermsAndConditionlbl: UILabel!
+    
+    @IBOutlet weak var TermsAndConditionlbl: UILabel!
     //MARK:- Variables
     
-    var isAgreeTerms: Bool = false 
+    var isAgreeTerms: Bool = false
     var firstName : String = ""
     var lastName : String = ""
     var email : String = ""
@@ -52,8 +52,8 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
     // Linkedin intialization helper.
     var appleID: String = ""
     var fcmToken : String = ""
-
- 
+    
+    
     //MARK:- Lifecycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +68,7 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
         self.btnGooglePlus.setTitle(GlobalLanguageDictionary.object(forKey: "Key_google") as? String, for: .normal)
         self.btnLinkedin.setTitle(GlobalLanguageDictionary.object(forKey: "Key_google") as? String, for: .normal)
         
- 
+        
         
         
         self.txtFldFirstName.placeholder = GlobalLanguageDictionary.object(forKey: "Key_firstname") as? String
@@ -83,7 +83,7 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
         NotificationCenter.default.addObserver(self, selector: #selector(SignUpViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
         
         setupSOAppleSignIn1()
-
+        
         
         if UserDefaults.standard.value(forKey: "fcmToken") != nil {
             let fcmRegToken:String = UserDefaults.standard.value(forKey: "fcmToken") as? String ?? ""
@@ -96,26 +96,26 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
         
         
         self.isAgreeTerms = false
-       
+        
         self.viewSignUpFields.dropShadow()
         self.imgBg.contentMode = .scaleAspectFill
         let myString = "By registering you confirm that you accept the Terms and Conditions and Privacy Policy"
         
         let attrs1 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 18), NSAttributedString.Key.foregroundColor : UIColor.gray]
-
-            let attrs2 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 18), NSAttributedString.Key.foregroundColor : UIColor.red]
-
+        
+        let attrs2 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 18), NSAttributedString.Key.foregroundColor : UIColor.red]
+        
         let attributedString1 = NSMutableAttributedString(string:GlobalLanguageDictionary.object(forKey: "Key_TerMess") as? String ?? "", attributes:attrs1)
-
+        
         let attributedString2 = NSMutableAttributedString(string:GlobalLanguageDictionary.object(forKey: "Key_TerMess1") as? String ?? "", attributes:attrs2)
         let attributedString3 = NSMutableAttributedString(string:GlobalLanguageDictionary.object(forKey: "Key_TerMess2") as? String ?? "", attributes:attrs1)
         let attributedString4 = NSMutableAttributedString(string:GlobalLanguageDictionary.object(forKey: "Key_TerMess3") as? String ?? "", attributes:attrs2)
-
-            attributedString1.append(attributedString2)
+        
+        attributedString1.append(attributedString2)
         attributedString1.append(attributedString3)
         attributedString1.append(attributedString4)
-
-            self.lblTermsAndCondition.attributedText = attributedString1
+        
+        self.lblTermsAndCondition.attributedText = attributedString1
         self.btnTermsAndCondition.tintColor = .black
         self.TermsAndConditionlbl.font =  UIFont(name: SemiBoldFont, size: 15)
         self.btnFacebook.titleLabel?.font =  UIFont(name: SemiBoldFont, size: 15)
@@ -141,8 +141,8 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
             self.txtFldPassword.textAlignment = .left
             self.txtFldConfirmPassword.textAlignment = .left
             self.TermsAndConditionlbl.textAlignment = .left
-
-
+            
+            
         }else{
             self.txtFldFirstName.textAlignment = .right
             self.txtFldLastName.textAlignment = .right
@@ -151,7 +151,7 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
             self.txtFldPassword.textAlignment = .right
             self.txtFldConfirmPassword.textAlignment = .right
             self.TermsAndConditionlbl.textAlignment = .right
-
+            
         }
     }
     
@@ -177,8 +177,8 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
         
     }
     
-
-
+    
+    
     
     // Custom 'Sign in with Apple' button
     func setupSOAppleSignIn1() {
@@ -191,113 +191,113 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
             btnLinkedin.titleLabel?.font = UIFont.systemFont(ofSize: 15, weight: .bold)
             btnLinkedin.addTarget(self, action: #selector(actionHandleAppleSignin), for: .touchUpInside)
             btnLinkedin.translatesAutoresizingMaskIntoConstraints = false
-
+            
         }
     }
     
     @objc func actionHandleAppleSignin() {
-           if #available(iOS 13.0, *) {
-               let appleIDProvider = ASAuthorizationAppleIDProvider()
-               let request = appleIDProvider.createRequest()
-               request.requestedScopes = [.fullName, .email]
-               let authorizationController = ASAuthorizationController(authorizationRequests: [request])
-               authorizationController.delegate = self
-               authorizationController.presentationContextProvider = self
-               authorizationController.performRequests()
-           } else {
-               // Fallback on earlier versions
-           }
-       }
+        if #available(iOS 13.0, *) {
+            let appleIDProvider = ASAuthorizationAppleIDProvider()
+            let request = appleIDProvider.createRequest()
+            request.requestedScopes = [.fullName, .email]
+            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+            authorizationController.delegate = self
+            authorizationController.presentationContextProvider = self
+            authorizationController.performRequests()
+        } else {
+            // Fallback on earlier versions
+        }
+    }
     
     @available(iOS 13.0, *)
-        func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
-            return self.view.window!
-        }
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return self.view.window!
+    }
+    
+    
+    // Authorization Failed
+    @available(iOS 13.0, *)
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error)
+    {
+        print("Apple login error:::::",error.localizedDescription)
+    }
+    
+    // ASAuthorizationControllerDelegate function for successful authorization
+    @available(iOS 13.0, *)
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization)
+    {
+        print("Apple login success called")
         
-        
-        // Authorization Failed
-        @available(iOS 13.0, *)
-        func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error)
+        if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential
         {
-            print("Apple login error:::::",error.localizedDescription)
+            print("Successfully login")
+            
+            /*// Get user data with Apple ID credentitial
+             let appleId = appleIDCredential.user
+             //userId = appleId
+             let appleUserFirstName = appleIDCredential.fullName?.givenName
+             firstName = appleUserFirstName ?? ""
+             let appleUserLastName = appleIDCredential.fullName?.familyName
+             lastName = appleUserLastName ?? ""
+             let appleUserEmail = appleIDCredential.email
+             email = appleUserEmail ?? ""*/
+            
+            // Create an account as per your requirement
+            
+            var userIdentifier : String = ""
+            var fullName  : String = ""
+            var email : String = ""
+            if appleIDCredential.fullName?.givenName != nil {
+                userIdentifier = appleIDCredential.user
+                fullName = appleIDCredential.fullName?.givenName! ?? ""
+                email = appleIDCredential.email!
+                login_session.setValue(userIdentifier, forKey: "user_apple_id")
+                login_session.setValue(email, forKey: "user_apple_mailid")
+                login_session.setValue(fullName, forKey: "user_apple_name")
+                login_session.synchronize()
+            }
+            else
+            {
+                if login_session.object(forKey: "user_apple_id") != nil {
+                    userIdentifier = login_session.object(forKey: "user_apple_id") as? String ?? ""
+                    email = login_session.object(forKey: "user_apple_mailid") as? String ?? ""
+                    fullName = login_session.object(forKey: "user_apple_name") as? String ?? ""
+                }
+            }
+            
+            
+            print("userIdentifier", userIdentifier)
+            print("email", email)
+            print("fullName", fullName)
+            
+            
+            self.firstName = fullName
+            self.lastName = ""
+            self.loginType = "apple"
+            self.deviceType = "ios"
+            self.password = "apple"
+            self.email = email
+            self.key = userIdentifier
+            self.appleID = userIdentifier
+            
+            self.signupAPI()
+            
+            //Write your code
         }
-        
-        // ASAuthorizationControllerDelegate function for successful authorization
-        @available(iOS 13.0, *)
-        func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization)
+        else if let passwordCredential = authorization.credential as? ASPasswordCredential
         {
-            print("Apple login success called")
-
-            if let appleIDCredential = authorization.credential as? ASAuthorizationAppleIDCredential
-            {
-                print("Successfully login")
-
-                /*// Get user data with Apple ID credentitial
-                let appleId = appleIDCredential.user
-                //userId = appleId
-                let appleUserFirstName = appleIDCredential.fullName?.givenName
-                firstName = appleUserFirstName ?? ""
-                let appleUserLastName = appleIDCredential.fullName?.familyName
-                lastName = appleUserLastName ?? ""
-                let appleUserEmail = appleIDCredential.email
-                email = appleUserEmail ?? ""*/
-                
-                // Create an account as per your requirement
-
-                 var userIdentifier : String = ""
-                 var fullName  : String = ""
-                 var email : String = ""
-                 if appleIDCredential.fullName?.givenName != nil {
-                     userIdentifier = appleIDCredential.user
-                     fullName = appleIDCredential.fullName?.givenName! ?? ""
-                     email = appleIDCredential.email!
-                     login_session.setValue(userIdentifier, forKey: "user_apple_id")
-                     login_session.setValue(email, forKey: "user_apple_mailid")
-                     login_session.setValue(fullName, forKey: "user_apple_name")
-                     login_session.synchronize()
-                 }
-                 else
-                 {
-                     if login_session.object(forKey: "user_apple_id") != nil {
-                         userIdentifier = login_session.object(forKey: "user_apple_id") as? String ?? ""
-                         email = login_session.object(forKey: "user_apple_mailid") as? String ?? ""
-                         fullName = login_session.object(forKey: "user_apple_name") as? String ?? ""
-                     }
-                 }
-                
-                
-                print("userIdentifier", userIdentifier)
-                print("email", email)
-                print("fullName", fullName)
-
- 
-                 self.firstName = fullName
-                 self.lastName = ""
-                 self.loginType = "apple"
-                 self.deviceType = "ios"
-                 self.password = "apple"
-                 self.email = email
-                 self.key = userIdentifier
-                 self.appleID = userIdentifier
-                
-                 self.signupAPI()
-
-                 //Write your code
-            }
-            else if let passwordCredential = authorization.credential as? ASPasswordCredential
-            {
-                print("failed apple login")
-
-                // Get user data using an existing iCloud Keychain credential
-                let appleUsername = passwordCredential.user
-                let applePassword = passwordCredential.password
-                
-                print("appleUsername::::",appleUsername)
-                print("applePassword::::",applePassword)
-
-                // Write your code
-            }
+            print("failed apple login")
+            
+            // Get user data using an existing iCloud Keychain credential
+            let appleUsername = passwordCredential.user
+            let applePassword = passwordCredential.password
+            
+            print("appleUsername::::",appleUsername)
+            print("applePassword::::",applePassword)
+            
+            // Write your code
         }
+    }
     
     @available(iOS 13.0, *)
     func getCredentialState() {
@@ -322,14 +322,14 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
         }
     }
     
-   
+    
     
     //MARK:- Button Actions
     
     @IBAction func act_termsOfService(_ sender: UIButton) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "TermsOfServiceViewController") as! TermsOfServiceViewController
         vc.ComingType = "Terms"
-
+        
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -340,19 +340,43 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
     @IBAction func act_Google(_ sender: UIButton) {
         if (Reachability()?.isReachable ?? false) {
             //GIDSignIn.sharedInstance().uiDelegate = self
-//            GIDSignIn.sharedInstance()?.presentingViewController = self
-//            GIDSignIn.sharedInstance()?.restorePreviousSignIn()
-//            GIDSignIn.sharedInstance().delegate = self
-//            GIDSignIn.sharedInstance().signIn()
+            //            GIDSignIn.sharedInstance()?.presentingViewController = self
+            //            GIDSignIn.sharedInstance()?.restorePreviousSignIn()
+            //            GIDSignIn.sharedInstance().delegate = self
+            //            GIDSignIn.sharedInstance().signIn()
+            
+            let signInConfig = GIDConfiguration.init(clientID: googleClientID)
+            GIDSignIn.sharedInstance.signIn(with: signInConfig, presenting: self) { user, error in
+                guard error == nil else { return }
+                guard let user = user else { return }
+                //                let idStr = user.userID
+                //                let emailStr = user.profile?.email
+                //                let nameStr = user.profile?.name
+                
+                login_session.setValue(user.profile?.name ?? "", forKey: "Firstname")
+                login_session.setValue(user.profile?.givenName ?? "", forKey: "Lastname")
+                login_session.setValue(user.userID , forKey: "GoogleId")
+                login_session.setValue(user.profile?.email ?? "", forKey: "Email")
+                //            login_session.setValue(UserDetail.value(forKey: "url"), forKey: "ProfilePic")
+                login_session.synchronize()
+                
+                self.firstName = user.profile?.givenName ?? " "
+                self.lastName = user.profile?.name ?? " "
+                self.email = user.profile?.email ?? " "
+                self.password = "google"
+                self.key = user.userID ?? " "
+                self.loginType = "google"
+                self.deviceType = "iphone"
+                self.signupAPI()
+            }
         } else {
             self.showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_internetError") as? String ?? "")
         }
-        
     }
     
     @IBAction func act_Facebook(_ sender: UIButton)
     {
-
+        
         if (Reachability()?.isReachable ?? false)
         {
             self.showActivityIndicator(uiView: self.view)
@@ -392,35 +416,35 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
                     let responseDict = result as! NSDictionary
                     self.showActivityIndicator(uiView: self.view)
                     
-                     self.email = responseDict.object(forKey: "email")as? String ?? ""
+                    self.email = responseDict.object(forKey: "email")as? String ?? ""
                     self.key = responseDict.object(forKey: "id")as? String ?? ""
                     self.firstName = responseDict.object(forKey: "name")as? String ?? ""
                     self.loginType = "facebook"
-                                                self.deviceType = "iphone"
-                                                self.password = "facebook"
+                    self.deviceType = "iphone"
+                    self.password = "facebook"
                     self.signupAPI()
                     
- 
-                   
+                    
+                    
                 }
                 
             })
         }
     }
     
-  
+    
     
     @IBAction func TermsAndCondition(_ sender: UIButton) {
         if isAgreeTerms {
             self.isAgreeTerms = false
             self.btnTermsAndCondition.setImage(UIImage(named: "tick-off"), for: .normal)
             self.btnTermsAndCondition.backgroundColor = .clear
-
+            
         } else {
             self.isAgreeTerms = true
             self.btnTermsAndCondition.setImage(UIImage(named: "tick-on"), for: .normal)
             self.btnTermsAndCondition.backgroundColor = .white
-
+            
         }
     }
     
@@ -430,26 +454,23 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
         self.navigationController?.pushViewController(vc, animated: true)
     }
     func checkTextSufficientComplexity(`var` text : String) -> Bool{
-
-
+        
+        
         let capitalLetterRegEx  = ".*[A-Z]+.*"
         let texttest = NSPredicate(format:"SELF MATCHES %@", capitalLetterRegEx)
         let capitalresult = texttest.evaluate(with: text)
-
-
+        
         let numberRegEx  = ".*[0-9]+.*"
         let texttest1 = NSPredicate(format:"SELF MATCHES %@", numberRegEx)
         let numberresult = texttest1.evaluate(with: text)
-
-
-      
+        
         return capitalresult && numberresult
-
+        
     }
     
     @IBAction func act_SignUp(_ sender: UIButton) {
         
-         if self.txtFldFirstName.text?.count == 0 {
+        if self.txtFldFirstName.text?.count == 0 {
             showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_Pleaseenterthefirstnametocontinue") as? String ?? "")
         } else if self.txtFldLastName.text?.count == 0 {
             showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_PleaseentertheLastnametocontinue") as? String ?? "")
@@ -461,9 +482,9 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
         } else if self.txtFldPassword.text?.count == 0 {
             showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_pleaseenteryourpassword") as? String ?? "")
         }
-//        else if (checkTextSufficientComplexity(`var`: self.txtFldPassword.text!)) == false{
-//            showInformation(title: "Closest", message: "Password must be 8 characters(Must contain 1 digit and uppercase)")
-//        }
+        //        else if (checkTextSufficientComplexity(`var`: self.txtFldPassword.text!)) == false{
+        //            showInformation(title: "Closest", message: "Password must be 8 characters(Must contain 1 digit and uppercase)")
+        //        }
         else if self.txtFldConfirmPassword.text?.count == 0{
             showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "Key_pleaseenteryourconfirmpassword") as? String ?? "")
         } else if self.txtFldConfirmPassword.text != self.txtFldPassword.text {
@@ -484,17 +505,17 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
     
     func signupAPI() {
         Network.shared.HTTP_POST_STRING_REQUEST_DELEGATE = self
-
+        
         if (Reachability()?.isReachable ?? false)
         {
             
             showActivityIndicator(uiView: self.view)
             var params = NSMutableDictionary()
-   
+            
             params =  ["u_first_name": self.firstName,"u_last_name":self.lastName,"email":self.email,"phone":self.txtFldphone.text ?? "","u_psd":self.password,"login_type":"normal","apple_id":self.appleID,"google_id":self.key,"facebook_id": self.key,"lang_code":login_session.value(forKey: "APP_LANGUAGE") as? String ?? "en"]
-
+            
             print("signupAPI login params::::", params)
-         
+            
             APIManager.apiPostWithHeaders(serviceName: REQ_SIGNUP, parameters: params as? [String : Any]) { (json:NSDictionary?, error:NSError?) in
                 DispatchQueue.main.async {  }
                 if error != nil {
@@ -535,7 +556,7 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
                         login_session.setValue(userid, forKey: "UserId")
                         login_session.setValue(userDetails.value(forKey: "email"), forKey: "Email")
                         let imgUrl = userDetails.value(forKey: "userimage") as? String
-                       // print(imgUrl!)
+                        // print(imgUrl!)
                         lanuguage_selection.set("en", forKey: "language")
                         login_session.set(userDetails.value(forKey: "userimage"), forKey: "ProfilePic")
                         if (login_session.value(forKey: "ProfilePic") as? String) != nil {
@@ -544,29 +565,29 @@ class SignUpViewController: BaseViewController,WKNavigationDelegate, ASAuthoriza
                         login_session.synchronize()
                         
                         let nav = self.storyboard?.instantiateViewController(withIdentifier: "HomeTabBarViewController") as? HomeTabBarViewController
-                                            self.navigationController?.pushViewController(nav!, animated: true)
+                        self.navigationController?.pushViewController(nav!, animated: true)
                     }
                     
                     let refreshAlert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_loggedInSus") as? String, preferredStyle: UIAlertController.Style.alert)
-
+                    
                     refreshAlert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "ok") as? String, style: .default, handler: { (action: UIAlertAction!) in
-      //                  self.discoverApi()
-
+                        //                  self.discoverApi()
+                        
                         
                     }))
-
+                    
                     self.present(refreshAlert, animated: true, completion: nil)
                 }
-                    
+                
                 else {
                     self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
                 }
- 
-    }
-    }
+                
+            }
+        }
     }
     
- 
+    
 }
 
 //MARK:- Textfield Delegate methods
@@ -668,7 +689,7 @@ extension SignUpViewController: HTTP_POST_STRING_REQUEST_PROTOCOL {
                             lanuguage_selection.set("en", forKey: "language")
                             login_session.set(userDetails?.value(forKey: "userimage"), forKey: "ProfilePic")
                             if (login_session.value(forKey: "ProfilePic") as? String) != nil {
-                            login_session.setValue(userDetails?.value(forKey: "userimage"), forKey: "ProfilePic")
+                                login_session.setValue(userDetails?.value(forKey: "userimage"), forKey: "ProfilePic")
                             }
                             login_session.synchronize()
                         }
