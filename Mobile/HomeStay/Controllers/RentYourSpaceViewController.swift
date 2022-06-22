@@ -36,6 +36,7 @@ class RentYourSpaceViewController: BaseViewController  {
     @IBOutlet weak var verifyBtn: UIButton!
     
     @IBOutlet weak var roomHeight: NSLayoutConstraint!
+    
     var dropDownArray = NSArray()
     var placesClient: GMSPlacesClient!
     var locationManager = CLLocationManager()
