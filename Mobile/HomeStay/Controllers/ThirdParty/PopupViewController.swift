@@ -226,14 +226,16 @@
         }
     }
  }
- extension PopupViewController: MIBlurPopupDelegate {
+
+extension PopupViewController: MIBlurPopupDelegate {
+    var blurEffectStyle: UIBlurEffect.Style? {
+        UIBlurEffect.Style.light
+    }
     
     var popupView: UIView {
         return view_Buttons ?? UIView()
     }
-     var blurEffectStyle: UIBlurEffect.Style {
-         return UIBlurEffect.Style.light
-    }
+
     var initialScaleAmmount: CGFloat {
         return 1.0
     }
@@ -241,6 +243,7 @@
         return 0.1
     }
  }
+
  extension PopupViewController : HTTP_POST_STRING_REQUEST_PROTOCOL{
     
     func httpPostRequest(APIKEY: String, requestURL: String, responseDict: NSDictionary, errorDict: String) {

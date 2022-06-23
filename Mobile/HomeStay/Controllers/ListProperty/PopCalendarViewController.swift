@@ -649,21 +649,39 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
     }
     
 }
-extension PopCalendarViewController: MIBlurPopupDelegate {
+
+extension PopCalendarViewController: MIBlurPopupDelegate{
+    var blurEffectStyle: UIBlurEffect.Style? {
+        UIBlurEffect.Style.light
+    }
     
     var popupView: UIView {
         return popupContentContainerView ?? UIView()
     }
-    var blurEffectStyle: UIBlurEffect.Style {
-        return UIBlurEffect.Style.light
-    }
+
     var initialScaleAmmount: CGFloat {
         return 1.0
     }
     var animationDuration: TimeInterval {
         return 0.1
     }
-}
+ }
+
+//{
+//    
+//    var popupView: UIView {
+//        return popupContentContainerView ?? UIView()
+//    }
+////    var blurEffectStyle: UIBlurEffect.Style {
+////        return UIBlurEffect.Style.light
+////    }
+//    var initialScaleAmmount: CGFloat {
+//        return 1.0
+//    }
+//    var animationDuration: TimeInterval {
+//        return 0.1
+//    }
+//}
 
 //MARK: - FSCalendar Delegate DataSource
 extension PopCalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {

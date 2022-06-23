@@ -1933,9 +1933,9 @@
 				206F1C0120F60AE10009DCAF /* Sources */,
 				206F1C0220F60AE10009DCAF /* Frameworks */,
 				206F1C0320F60AE10009DCAF /* Resources */,
-				402B81149F096DDCA4AC1A45 /* [CP] Embed Pods Frameworks */,
 				EF6059D3243C821900195F02 /* ShellScript */,
-				9FFAA850CD8B0003AD90CD1B /* [CP] Copy Pods Resources */,
+				0D67C14ADC5626731DCA736E /* [CP] Embed Pods Frameworks */,
+				065F3D7766FD9EB7E830657F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2085,7 +2085,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		402B81149F096DDCA4AC1A45 /* [CP] Embed Pods Frameworks */ = {
+		065F3D7766FD9EB7E830657F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HomeStay/Pods-HomeStay-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HomeStay/Pods-HomeStay-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HomeStay/Pods-HomeStay-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		0D67C14ADC5626731DCA736E /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2122,23 +2139,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		9FFAA850CD8B0003AD90CD1B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-HomeStay/Pods-HomeStay-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-HomeStay/Pods-HomeStay-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HomeStay/Pods-HomeStay-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		EF6059D3243C821900195F02 /* ShellScript */ = {
@@ -2744,8 +2744,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = HomeStay/ClosestDebug.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3GTCMX7QP7;
@@ -2914,7 +2914,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.closest;
 				PRODUCT_NAME = Closest;
 				PROVISIONING_PROFILE = Automatic;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Closet Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "HomeStay/HomeStay-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -2929,8 +2929,8 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = HomeStay/HomeStay.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3GTCMX7QP7;
@@ -3099,7 +3099,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.closest;
 				PRODUCT_NAME = Closest;
 				PROVISIONING_PROFILE = Automatic;
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "Closet Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "HomeStay/HomeStay-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
