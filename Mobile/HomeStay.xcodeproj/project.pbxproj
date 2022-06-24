@@ -454,7 +454,6 @@
 		26C047D926F71D780027BF9C /* NewProfile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26C047D826F71D780027BF9C /* NewProfile.storyboard */; };
 		26E51C1B2702295800228CB0 /* BasicPrice.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 26E51C1A2702295800228CB0 /* BasicPrice.storyboard */; };
 		2CF36F912204374400C6ECED /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2CF36F902204374300C6ECED /* UserNotifications.framework */; };
-		4DA9CA59950E55081BB48EFE /* Pods_HomeStay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06DB4C7539FC5769E6CA8F9A /* Pods_HomeStay.framework */; };
 		54002370271F54D500F306BF /* Address.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5400236F271F54D500F306BF /* Address.storyboard */; };
 		540AD7DF271D062C00F1849D /* Listinginfo.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 540AD7DE271D062C00F1849D /* Listinginfo.storyboard */; };
 		5429C948271888A2003F697C /* AddPhoto.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5429C947271888A2003F697C /* AddPhoto.storyboard */; };
@@ -488,11 +487,11 @@
 		A182837B28573AC4005F68FD /* ACFloatingTextfield.swift in Sources */ = {isa = PBXBuildFile; fileRef = A182837A28573AC4005F68FD /* ACFloatingTextfield.swift */; };
 		A182837E28573B97005F68FD /* Source in Resources */ = {isa = PBXBuildFile; fileRef = A182837D28573B97005F68FD /* Source */; };
 		A65CB7692782A55D00EE0A50 /* NewSideMenuDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65CB7682782A55D00EE0A50 /* NewSideMenuDetailController.swift */; };
+		DDB575D24ECA73CF1CDDFF64 /* Pods_HomeStay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A2A39E5BC7A53EE038E00B20 /* Pods_HomeStay.framework */; };
 		ECD0492D26E66CA7009333B7 /* ImagePickerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECD0492C26E66CA7009333B7 /* ImagePickerManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		06DB4C7539FC5769E6CA8F9A /* Pods_HomeStay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HomeStay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2009B75922C778E300631689 /* NewRentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRentViewController.swift; sourceTree = "<group>"; };
 		200FFEE222D8481D002A476D /* ReviewsShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewsShowViewController.swift; sourceTree = "<group>"; };
 		20397B7E2137DC4A00E158B8 /* YourListingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourListingViewController.swift; sourceTree = "<group>"; };
@@ -950,7 +949,6 @@
 		26E51C1A2702295800228CB0 /* BasicPrice.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = BasicPrice.storyboard; sourceTree = "<group>"; };
 		2CF36F8F2204361600C6ECED /* HomeStay.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = HomeStay.entitlements; sourceTree = "<group>"; };
 		2CF36F902204374300C6ECED /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
-		386C07B25E7DDDBC56062B0D /* Pods-HomeStay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HomeStay.debug.xcconfig"; path = "Pods/Target Support Files/Pods-HomeStay/Pods-HomeStay.debug.xcconfig"; sourceTree = "<group>"; };
 		5400236F271F54D500F306BF /* Address.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Address.storyboard; sourceTree = "<group>"; };
 		540AD7DE271D062C00F1849D /* Listinginfo.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Listinginfo.storyboard; sourceTree = "<group>"; };
 		5429C947271888A2003F697C /* AddPhoto.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = AddPhoto.storyboard; sourceTree = "<group>"; };
@@ -982,14 +980,16 @@
 		81103E0228423B8E00740BF6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		81103E0428423B8E00740BF6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localization.strings; sourceTree = "<group>"; };
 		81103E0628423B8E00740BF6 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
+		89F315872CC6A063835B7353 /* Pods-HomeStay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HomeStay.release.xcconfig"; path = "Target Support Files/Pods-HomeStay/Pods-HomeStay.release.xcconfig"; sourceTree = "<group>"; };
 		A17C5DCF28570A0500FC9F25 /* CountryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryList.swift; sourceTree = "<group>"; };
 		A17C5DD028570A0900FC9F25 /* Country.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Country.swift; sourceTree = "<group>"; };
 		A17C5DD128570A0D00FC9F25 /* Countries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Countries.swift; sourceTree = "<group>"; };
 		A17C5DD228570A1100FC9F25 /* CountryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CountryCell.swift; sourceTree = "<group>"; };
 		A182837A28573AC4005F68FD /* ACFloatingTextfield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ACFloatingTextfield.swift; sourceTree = "<group>"; };
 		A182837D28573B97005F68FD /* Source */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Source; sourceTree = "<group>"; };
+		A2A39E5BC7A53EE038E00B20 /* Pods_HomeStay.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_HomeStay.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A65CB7682782A55D00EE0A50 /* NewSideMenuDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewSideMenuDetailController.swift; sourceTree = "<group>"; };
-		BD8FD1FE622BE0CC13B9DD21 /* Pods-HomeStay.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HomeStay.release.xcconfig"; path = "Pods/Target Support Files/Pods-HomeStay/Pods-HomeStay.release.xcconfig"; sourceTree = "<group>"; };
+		C217EE739EB5A307C1CECCE6 /* Pods-HomeStay.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HomeStay.debug.xcconfig"; path = "Target Support Files/Pods-HomeStay/Pods-HomeStay.debug.xcconfig"; sourceTree = "<group>"; };
 		ECD0492C26E66CA7009333B7 /* ImagePickerManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImagePickerManager.swift; path = HomeStay/Controllers/ImagePickerManager.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -999,7 +999,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CF36F912204374400C6ECED /* UserNotifications.framework in Frameworks */,
-				4DA9CA59950E55081BB48EFE /* Pods_HomeStay.framework in Frameworks */,
+				DDB575D24ECA73CF1CDDFF64 /* Pods_HomeStay.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1571,8 +1571,8 @@
 			children = (
 				206F1C0720F60AE10009DCAF /* HomeStay */,
 				206F1C0620F60AE10009DCAF /* Products */,
-				83E2A890E09D5253C505736A /* Pods */,
 				905F29EA8E6EBAA0FF43F191 /* Frameworks */,
+				4584C7F373B47CF4403A654D /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1856,6 +1856,16 @@
 			path = Reference;
 			sourceTree = "<group>";
 		};
+		4584C7F373B47CF4403A654D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C217EE739EB5A307C1CECCE6 /* Pods-HomeStay.debug.xcconfig */,
+				89F315872CC6A063835B7353 /* Pods-HomeStay.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		81103DF728423B8E00740BF6 /* Languages */ = {
 			isa = PBXGroup;
 			children = (
@@ -1868,20 +1878,11 @@
 			path = Languages;
 			sourceTree = "<group>";
 		};
-		83E2A890E09D5253C505736A /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				386C07B25E7DDDBC56062B0D /* Pods-HomeStay.debug.xcconfig */,
-				BD8FD1FE622BE0CC13B9DD21 /* Pods-HomeStay.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		905F29EA8E6EBAA0FF43F191 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				2CF36F902204374300C6ECED /* UserNotifications.framework */,
-				06DB4C7539FC5769E6CA8F9A /* Pods_HomeStay.framework */,
+				A2A39E5BC7A53EE038E00B20 /* Pods_HomeStay.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1929,13 +1930,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 206F1C1720F60AEA0009DCAF /* Build configuration list for PBXNativeTarget "HomeStay" */;
 			buildPhases = (
-				828B56A8CC9871656A63D30B /* [CP] Check Pods Manifest.lock */,
+				DD0B0A55E69689267CDDF49C /* [CP] Check Pods Manifest.lock */,
 				206F1C0120F60AE10009DCAF /* Sources */,
 				206F1C0220F60AE10009DCAF /* Frameworks */,
 				206F1C0320F60AE10009DCAF /* Resources */,
 				EF6059D3243C821900195F02 /* ShellScript */,
-				0D67C14ADC5626731DCA736E /* [CP] Embed Pods Frameworks */,
-				065F3D7766FD9EB7E830657F /* [CP] Copy Pods Resources */,
+				1024D76D86F6EC3AB6DA14DB /* [CP] Embed Pods Frameworks */,
+				F652776348DFDFDAD0EF385B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -2085,24 +2086,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		065F3D7766FD9EB7E830657F /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-HomeStay/Pods-HomeStay-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-HomeStay/Pods-HomeStay-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HomeStay/Pods-HomeStay-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		0D67C14ADC5626731DCA736E /* [CP] Embed Pods Frameworks */ = {
+		1024D76D86F6EC3AB6DA14DB /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2119,7 +2103,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HomeStay/Pods-HomeStay-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		828B56A8CC9871656A63D30B /* [CP] Check Pods Manifest.lock */ = {
+		DD0B0A55E69689267CDDF49C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2158,6 +2142,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/Fabric/run\"\n";
+		};
+		F652776348DFDFDAD0EF385B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HomeStay/Pods-HomeStay-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-HomeStay/Pods-HomeStay-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-HomeStay/Pods-HomeStay-resources.sh\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -2739,7 +2740,7 @@
 		};
 		206F1C1820F60AEA0009DCAF /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 386C07B25E7DDDBC56062B0D /* Pods-HomeStay.debug.xcconfig */;
+			baseConfigurationReference = C217EE739EB5A307C1CECCE6 /* Pods-HomeStay.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -2924,7 +2925,7 @@
 		};
 		206F1C1920F60AEA0009DCAF /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BD8FD1FE622BE0CC13B9DD21 /* Pods-HomeStay.release.xcconfig */;
+			baseConfigurationReference = 89F315872CC6A063835B7353 /* Pods-HomeStay.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
