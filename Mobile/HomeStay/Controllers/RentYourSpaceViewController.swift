@@ -15,51 +15,52 @@ import SideMenu
 class RentYourSpaceViewController: BaseViewController  {
     
     //MARK:- Outlets
-    @IBOutlet weak var txtPropertyType: UITextField!
     @IBOutlet weak var lblHeader: UILabel!
-    @IBOutlet weak var txtRoomType: UITextField!
-    //@IBOutlet weak var txtCity: UITextField!
-    @IBOutlet weak var txtAccommodates: UITextField!
-    @IBOutlet weak var accomView: UIView!
-    @IBOutlet weak var RoomView: UIView!
     
-    @IBOutlet weak var roomTypeText: UITextView!
+    @IBOutlet weak var txtPropertyType: UITextField!
+    @IBOutlet weak var txtRoomType: UITextField!
+    @IBOutlet weak var txtTitle: UITextField!
+    
+    //@IBOutlet weak var txtCity: UITextField!
+    //    @IBOutlet weak var txtAccommodates: UITextField!
+    //    @IBOutlet weak var accomView: UIView!
+    //    @IBOutlet weak var RoomView: UIView!
+    //    @IBOutlet weak var roomTypeText: UITextView!
     @IBOutlet weak var propertyName: UITextView!
     
-    @IBOutlet weak var proptypeImg: UIImageView!
-    @IBOutlet weak var roomtypeImg: UIImageView!
+    //    @IBOutlet weak var proptypeImg: UIImageView!
+    //    @IBOutlet weak var roomtypeImg: UIImageView!
     @IBOutlet weak var NextBtn: UIButton!
+    //    @IBOutlet weak var VerifyView: UIView!
+    //    @IBOutlet weak var VerifyLbl: UILabel!
     
-    @IBOutlet weak var VerifyView: UIView!
-    @IBOutlet weak var VerifyLbl: UILabel!
-    
-    @IBOutlet weak var verifyBtn: UIButton!
-    
-    @IBOutlet weak var roomHeight: NSLayoutConstraint!
+    //    @IBOutlet weak var verifyBtn: UIButton!
+    //    @IBOutlet weak var roomHeight: NSLayoutConstraint!
     
     var dropDownArray = NSArray()
     var placesClient: GMSPlacesClient!
     var locationManager = CLLocationManager()
-    var CurrentLocation: String?
+    //  var CurrentLocation: String?
     var accomdateArray = [String]()
     var propertyArray = [String]()
     var roomArray = [String]()
-    var PROP_ARR = NSArray() , CurrencyArr = [Currency]()
+    var PROP_ARR = NSArray()
+    //  var CurrencyArr = [Currency]()
     var ROOM_ARR = NSArray()
     var room_ID : String = "",prop_ID : String = ""
-    var Restroom_ID : String = "",Restprop_ID : String = ""
+    //    var Restroom_ID : String = "",Restprop_ID : String = ""
     var roomType : String = ""
-    var accomodates : String = ""
+    //    var accomodates : String = ""
     var propertyType : String = ""
-    var sub_catid : String = ""
+    //    var sub_catid : String = ""
     var propertyid : String = ""
-    var cusiArr : NSMutableArray = []
-    var opeArr : NSMutableArray = []
-    var accArr : NSMutableArray = []
-    var optnArr = NSArray()
-    var optnArray = NSArray()
-    var optnNSArray = NSArray()
-    
+    //    var cusiArr : NSMutableArray = []
+    //    var opeArr : NSMutableArray = []
+    //    var accArr : NSMutableArray = []
+    //    var optnArr = NSArray()
+    //    var optnArray = NSArray()
+    //    var optnNSArray = NSArray()
+    //
     var idProofVerify : String = ""
     var emailVerify : String = ""
     var phoneVerify : String = ""
@@ -67,25 +68,35 @@ class RentYourSpaceViewController: BaseViewController  {
     //MARK:- LifecycleMethods
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.VerifyView.isHidden = true
+        //        self.VerifyView.isHidden = true
         //self.roomtypeImg.setImageColor(color: AppColor)
         //self.proptypeImg.setImageColor(color: AppColor)
         self.NextBtn.backgroundColor = AppColor
         dropDownArray = ["1","2","3","4","5"]
         placesClient = GMSPlacesClient.shared()
         locationManager.requestAlwaysAuthorization()
+        
         self.lblHeader.text = GlobalLanguageDictionary.object(forKey: "key_addListing") as? String ?? ""
         Network.shared.HTTP_POST_STRING_REQUEST_DELEGATE = self
         self.RentYourSpaceApi()
-        self.VerifyLbl.text = GlobalLanguageDictionary.object(forKey: "key_AddlistingInfo") as? String ?? ""
-        self.VerifyLbl.font = UIFont(name: SemiBoldFont, size: 15)
-        self.verifyBtn.titleLabel?.font = UIFont(name: SemiBoldFont, size: 15)
-        self.verifyBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_verifyNow") as? String ?? "", for: .normal)
+        
+        //        self.VerifyLbl.text = GlobalLanguageDictionary.object(forKey: "key_AddlistingInfo") as? String ?? ""
+        //        self.VerifyLbl.font = UIFont(name: SemiBoldFont, size: 15)
+        //        self.verifyBtn.titleLabel?.font = UIFont(name: SemiBoldFont, size: 15)
+        //        self.verifyBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_verifyNow") as? String ?? "", for: .normal)
+        
         self.txtRoomType.placeholder = GlobalLanguageDictionary.object(forKey: "key_roomType") as? String ?? ""
+        self.txtRoomType.delegate = self
+        
         self.txtPropertyType.placeholder = GlobalLanguageDictionary.object(forKey: "Key_Workspace") as? String ?? ""
+        self.txtPropertyType.delegate = self
+        
+        txtTitle.delegate = self
+        
         self.roomType = GlobalLanguageDictionary.object(forKey: "key_roomType") as? String ?? ""
         self.propertyType = GlobalLanguageDictionary.object(forKey: "Key_Workspace") as? String ?? ""
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         self.lblHeader.font = UIFont(name: SemiBoldFont, size: 18)
         //        self.txtCity.font = UIFont(name: RegularFont, size: 14)
@@ -101,15 +112,13 @@ class RentYourSpaceViewController: BaseViewController  {
             txtRoomType.textAlignment = .right
             // txtAccommodates.textAlignment = .right
         }
-        if login_session.value(forKey: "IS_USER_LOGGEDIN") as? Bool == true
-        {
+        if login_session.value(forKey: "IS_USER_LOGGEDIN") as? Bool == true {
             self.getUserInfo()
         }else{
             showSimpleAlert()
         }
-        
-        
     }
+    
     func getUserInfo() {
         let parameters:[String : Any] =
         ["lang_code":lanuguage_selection.value(forKey: "language") as? String ?? "en"]
@@ -128,11 +137,11 @@ class RentYourSpaceViewController: BaseViewController  {
                 self.emailVerify = "\(((responseDict.value(forKey: "data") as? NSDictionary)?.object(forKey: "user_details") as? NSDictionary)?.object(forKey: "email_id_verified") as AnyObject)"
                 self.idProofVerify = "\(((responseDict.value(forKey: "data") as? NSDictionary)?.object(forKey: "user_details") as? NSDictionary)?.object(forKey: "u_idproof_verified_status") as AnyObject)"
                 
-                if self.phoneVerify == "1" && self.emailVerify == "1" && self.idProofVerify == "1" {
-                    
-                }else{
-                    self.VerifyView.isHidden = false
-                }
+                //                if self.phoneVerify == "1" && self.emailVerify == "1" && self.idProofVerify == "1" {
+                //
+                //                }else{
+                ////                    self.VerifyView.isHidden = false
+                //                }
             }
             else
             {
@@ -142,6 +151,7 @@ class RentYourSpaceViewController: BaseViewController  {
             
         }
     }
+    
     func showVerifyAlert() {
         let alert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_AddlistingInfo") as? String ?? "", preferredStyle: UIAlertController.Style.alert)
         
@@ -161,6 +171,7 @@ class RentYourSpaceViewController: BaseViewController  {
         }))
         self.present(alert, animated: true, completion: nil)
     }
+    
     func RentYourSpaceApi(){
         if (Reachability()?.isReachable ?? false)
         {
@@ -214,7 +225,7 @@ class RentYourSpaceViewController: BaseViewController  {
                     if let rooms = (responseDict.object(forKey: "data") as? NSDictionary)?.value(forKey: "room_type") as? NSArray {
                         if rooms.count != 0 {
                             self.room_ID = "Value"
-                            self.RoomView.isHidden = false
+                            //                            self.RoomView.isHidden = false
                             //self.roomHeight.constant = 50
                             self.ROOM_ARR = rooms
                             for i in 0..<rooms.count{
@@ -238,7 +249,7 @@ class RentYourSpaceViewController: BaseViewController  {
                             //                                }
                             //                            }
                         }else{
-                            self.RoomView.isHidden = true
+                            //                            self.RoomView.isHidden = true
                             self.room_ID = "Nill"
                             //self.roomHeight.constant = 0
                         }
@@ -296,9 +307,6 @@ class RentYourSpaceViewController: BaseViewController  {
         }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-    }
-    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -307,8 +315,8 @@ class RentYourSpaceViewController: BaseViewController  {
         let navgt = self.storyboard?.instantiateViewController(withIdentifier: "NewProfileViewController") as? NewProfileViewController
         navgt?.SelectedIndex = "VerifyNow"
         self.navigationController?.pushViewController(navgt!, animated: true)
-        
     }
+    
     //MARK:- Button Actions
     @IBAction func act_Back(_ sender: UIButton) {
         //        self.navigationController?.popViewController(animated: true)
@@ -346,15 +354,10 @@ class RentYourSpaceViewController: BaseViewController  {
             showSimpleAlert()
             // self.LoginView.isHidden = false
         }
-        
-        
-        
-        
     }
     
     func showSimpleAlert() {
         let alert = UIAlertController(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_areyousureLogin") as? String ?? "", preferredStyle: UIAlertController.Style.alert)
-        
         //        alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_cancel") as? String ?? "", style: UIAlertAction.Style.default, handler: { _ in
         //            //Cancel Action
         //            self.dismiss(animated: true, completion: nil)
@@ -362,7 +365,6 @@ class RentYourSpaceViewController: BaseViewController  {
         alert.addAction(UIAlertAction(title: GlobalLanguageDictionary.object(forKey: "Key_login") as? String ?? "", style: UIAlertAction.Style.default, handler: {(_: UIAlertAction!) in
             let navgt = self.storyboard?.instantiateViewController(withIdentifier: "StartViewController") as? StartViewController
             self.navigationController?.pushViewController(navgt!, animated: true)
-            
             //Sign out action
         }))
         self.present(alert, animated: true, completion: nil)
@@ -372,10 +374,9 @@ class RentYourSpaceViewController: BaseViewController  {
         //|| txtAccommodates.text?.count == 0
         if self.room_ID == ""  || txtPropertyType.text?.count == 0 {
             showInformation(title: "Closest", message: GlobalLanguageDictionary.object(forKey: "key_pleasefillAllDetails") as? String ?? "")
-        }else if self.txtAccommodates.text == "Empty" {
-            self.showInformation(title: "Info", message: "We dont have any accommdates to list a Rental")
-        }
-        else {
+            //        }else if self.txtAccommodates.text == "Empty" {
+            //            self.showInformation(title: "Info", message: "We dont have any accommdates to list a Rental")
+        }else {
             if (Reachability()?.isReachable ?? false) {
                 self.showActivityIndicator(uiView: self.view)
                 print("PropertyName",self.txtPropertyType.text!)
@@ -512,8 +513,7 @@ class RentYourSpaceViewController: BaseViewController  {
                     if (responseDict.value(forKey: "code") as? NSNumber ?? 0) == 200 {
                         //                        let result = responseDict.object(forKey: "result") as! NSArray
                         let result = ((responseDict.object(forKey: "data") as? NSDictionary)?.value(forKey: "step1") as? NSDictionary)
-                        //                        let step1 = result.value(forKey: "step1")
-                        
+                        //let step1 = result.value(forKey: "step1")
                         
                         //  ((responseDict.value(forKey: "data") as? NSDictionary)?.value(forKey: "user_details") as? NSDictionary)
                         
@@ -522,7 +522,7 @@ class RentYourSpaceViewController: BaseViewController  {
                         checkedIDArray.removeAllObjects()
                         AddonscheckedIDArray.removeAllObjects()
                         
-                        //                        UserDefaults.standard.set(responseDict.value(forKey: "attribute"), forKey: "AmenitiesArray")
+                        //UserDefaults.standard.set(responseDict.value(forKey: "attribute"), forKey: "AmenitiesArray")
                         
                         commonMaintainListDataDict.removeAllObjects()
                         commonMaintainListDataDict.addEntries(from: responseDict as? [AnyHashable : Any] ?? [:])
@@ -535,18 +535,13 @@ class RentYourSpaceViewController: BaseViewController  {
                         //  vc.PropertyId = Int(self.propertyid)!
                         self.navigationController?.pushViewController(vc, animated: true)
                         self.hideActivityIndicator(uiView: self.view)
-                        
                     }
                     else
                     {
-                        
                         self.hideActivityIndicator(uiView: self.view)
                         self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
-                        
                     }
-                    
                 }
-                
             }
             else {
                 self.showInformation(title: GlobalLanguageDictionary.object(forKey: "key_info") as? String ?? "", message: "Please connect to internet")
@@ -577,10 +572,10 @@ class RentYourSpaceViewController: BaseViewController  {
                 popViewController.key = self.txtRoomType
                 popViewController.headerTxt = roomType
                 popViewController.dropDownArray = (self.roomArray as NSArray)
-            case self.txtAccommodates:
-                popViewController.key = self.txtAccommodates
-                popViewController.headerTxt = accomodates
-                popViewController.dropDownArray = (self.accomdateArray as NSArray)
+                //            case self.txtAccommodates:
+                //                popViewController.key = self.txtAccommodates
+                //                popViewController.headerTxt = accomodates
+                //                popViewController.dropDownArray = (self.accomdateArray as NSArray)
             case self.txtPropertyType:
                 popViewController.key = self.txtPropertyType
                 popViewController.headerTxt = propertyType
@@ -623,24 +618,30 @@ extension RentYourSpaceViewController: LoctaionSearchProtocol {
 }
 
 extension RentYourSpaceViewController : UITextFieldDelegate {
+    
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
+        //        textField.resignFirstResponder()
         if textField == self.txtRoomType {
             self.txtRoomType.text = " "
             self.performSegue(withIdentifier: "RentPopOver", sender: textField)
+            textField.resignFirstResponder()
+            return false
         }
         else if textField == txtPropertyType {
             self.txtPropertyType.text = " "
             self.performSegue(withIdentifier: "RentPopOver", sender: textField)
-        }else if textField == self.txtAccommodates
-        {
-            
-            self.performSegue(withIdentifier: "RentPopOver", sender: textField)
+            textField.resignFirstResponder()
+            return false
         }
-        else {
-            self.showSearch()
-        }
-        return false
+        //        else if textField == self.txtAccommodates
+        //        {
+        //
+        //            self.performSegue(withIdentifier: "RentPopOver", sender: textField)
+        //        }
+        //        else {
+        //            self.showSearch()
+        //        }
+        return true
     }
 }
 
@@ -691,7 +692,7 @@ extension RentYourSpaceViewController :  HTTP_POST_STRING_REQUEST_PROTOCOL{
                 if let rooms = responseDict.value(forKey: "rooms") as? NSArray {
                     if rooms.count != 0 {
                         self.room_ID = "Value"
-                        self.RoomView.isHidden = false
+                        //                        self.RoomView.isHidden = false
                         //self.roomHeight.constant = 50
                         if let room = rooms[0] as? NSDictionary {
                             self.roomArray = [String]()
@@ -707,7 +708,7 @@ extension RentYourSpaceViewController :  HTTP_POST_STRING_REQUEST_PROTOCOL{
                             }
                         }
                     }else{
-                        self.RoomView.isHidden = true
+                        //                        self.RoomView.isHidden = true
                         self.room_ID = "Nill"
                         //self.roomHeight.constant = 0
                     }
@@ -715,7 +716,7 @@ extension RentYourSpaceViewController :  HTTP_POST_STRING_REQUEST_PROTOCOL{
                 
                 if let accomdation = responseDict.value(forKey: "other_attributes") as? NSArray {
                     if accomdation.count != 0 {
-                        self.txtAccommodates.text = ""
+                        //                        self.txtAccommodates.text = ""
                         self.accomdateArray = [String]()
                         for accom in accomdation {
                             let dict = (accom as? NSDictionary)
@@ -728,7 +729,7 @@ extension RentYourSpaceViewController :  HTTP_POST_STRING_REQUEST_PROTOCOL{
                             }
                         }
                     }else{
-                        self.txtAccommodates.text = "Empty"
+                        //self.txtAccommodates.text = "Empty"
                     }
                 }
                 self.hideActivityIndicator(uiView: self.view)
@@ -744,10 +745,10 @@ extension RentYourSpaceViewController : DropDownProtocol {
             //self.txtRoomType.text = value
             self.txtRoomType.text = value
             //            self.txtRoomType.placeholder = ""
-            print(self.txtRoomType.text as Any)
-        case self.txtAccommodates:
-            self.txtAccommodates.text = value
-            print(self.txtAccommodates.text as Any)
+            //            print(self.txtRoomType.text as Any)
+            //        case self.txtAccommodates:
+            //            self.txtAccommodates.text = value
+            //            print(self.txtAccommodates.text as Any)
         case self.txtPropertyType:
             // self.txtPropertyType.text = value
             //            self.txtPropertyType.placeholder = ""

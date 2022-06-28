@@ -1,15 +1,15 @@
- //
- //  PopupViewController.swift
- //  HomeStay
- //
- //  Created by Apple2 on 23/12/18.
- //  Copyright © 2018 POFI TECHNOLOGIES. All rights reserved.
- //
- 
- import UIKit
- import MIBlurPopup
- 
- class PopupViewController: BaseViewController {
+//
+//  PopupViewController.swift
+//  HomeStay
+//
+//  Created by Apple2 on 23/12/18.
+//  Copyright © 2018 POFI TECHNOLOGIES. All rights reserved.
+//
+
+import UIKit
+import MIBlurPopup
+
+class PopupViewController: BaseViewController {
     
     @IBOutlet weak var view_Buttons: UIView!
     @IBOutlet weak var btn_Cancel: UIButton!
@@ -225,26 +225,26 @@
             }
         }
     }
- }
+}
 
 extension PopupViewController: MIBlurPopupDelegate {
-    var blurEffectStyle: UIBlurEffect.Style? {
+    var blurEffectStyle: UIBlurEffect.Style {
         UIBlurEffect.Style.light
     }
     
     var popupView: UIView {
         return view_Buttons ?? UIView()
     }
-
+    
     var initialScaleAmmount: CGFloat {
         return 1.0
     }
     var animationDuration: TimeInterval {
         return 0.1
     }
- }
+}
 
- extension PopupViewController : HTTP_POST_STRING_REQUEST_PROTOCOL{
+extension PopupViewController : HTTP_POST_STRING_REQUEST_PROTOCOL{
     
     func httpPostRequest(APIKEY: String, requestURL: String, responseDict: NSDictionary, errorDict: String) {
         self.hideActivityIndicator(uiView: self.view)
@@ -302,51 +302,48 @@ extension PopupViewController: MIBlurPopupDelegate {
             }
         }
         else {
-            
             showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
         }
-        
     }
-    
+}
+
+
+/*
+ @IBAction func okayAct(_ sender: UIButton) {
+ 
+ let result = resultVal.value(forKey: "CHECKKEY") as? String
+ self.messages = UserDefaults.standard.value(forKey: "MESSAGEKEY") as?  String ?? ""
+ self.rating = UserDefaults.standard.value(forKey: "REVIEWKEY") as? String ??  ""
+ 
+ if messages == "MESSAGE" {
+ messageAct()
+ }else{
+ print("No Action")
  }
  
+ if rating == "REVIEW" {
+ Review_Act()
+ }else{
+ print("No Action")
+ }
  
-/*
-  @IBAction func okayAct(_ sender: UIButton) {
-  
-  let result = resultVal.value(forKey: "CHECKKEY") as? String
-  self.messages = UserDefaults.standard.value(forKey: "MESSAGEKEY") as?  String ?? ""
-  self.rating = UserDefaults.standard.value(forKey: "REVIEWKEY") as? String ??  ""
-  
-  if messages == "MESSAGE" {
-  messageAct()
-  }else{
-  print("No Action")
-  }
-  
-  if rating == "REVIEW" {
-  Review_Act()
-  }else{
-  print("No Action")
-  }
-  
-  if result == "Cancel" {
-  CancelTrip()
-  }
-  else if result == "Dispute"
-  {
-  
-  if Reachability()!.isReachable
-  {
-  self.showActivityIndicator(uiView: self.view)
-  let id = Singleton.sharedInstance.selectedCategory
-  let parameterStr = "user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(Singleton.sharedInstance.yourTripModel.mytrips[0].propertyId)&bookingno=\(Singleton.sharedInstance.yourTripModel.mytrips[0].bookingno)&message=\(self.messageTxt.text!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
-  Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: DISPUTE_API, APIKEY: "DISPUTE_API")
-  print(parameterStr)
-  }
-  else {
-  showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
-  }
-  }
-  }
-  */
+ if result == "Cancel" {
+ CancelTrip()
+ }
+ else if result == "Dispute"
+ {
+ 
+ if Reachability()!.isReachable
+ {
+ self.showActivityIndicator(uiView: self.view)
+ let id = Singleton.sharedInstance.selectedCategory
+ let parameterStr = "user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(Singleton.sharedInstance.yourTripModel.mytrips[0].propertyId)&bookingno=\(Singleton.sharedInstance.yourTripModel.mytrips[0].bookingno)&message=\(self.messageTxt.text!)&currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&base_id=\(id)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")"
+ Network.shared.POSTRequest(withParameterString: parameterStr, serviceURL: DISPUTE_API, APIKEY: "DISPUTE_API")
+ print(parameterStr)
+ }
+ else {
+ showInformation(title: "Info", message: GlobalLanguageDictionary.object(forKey: "key_nointernet") as? String ?? "")
+ }
+ }
+ }
+ */

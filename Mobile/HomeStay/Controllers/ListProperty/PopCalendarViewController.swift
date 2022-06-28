@@ -28,7 +28,7 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
     @IBOutlet weak var NextBtn: UIButton!
     
     @IBOutlet weak var AddLbl: UILabel!
-
+    
     @IBOutlet weak var lblDailyCalendar: UILabel!
     @IBOutlet weak var header: UILabel!
     @IBOutlet weak var message: UILabel!
@@ -42,7 +42,7 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
     @IBOutlet weak var EndDateLbl: UILabel!
     @IBOutlet weak var EndDateValueLbl: UILabel!
     @IBOutlet weak var StatusLbl: UILabel!
-//    @IBOutlet weak var txt_Booking: UITextField!
+    //    @IBOutlet weak var txt_Booking: UITextField!
     @IBOutlet weak var PriceLbl: UILabel!
     @IBOutlet weak var CurrencyLbl: UILabel!
     @IBOutlet weak var PriceTxt: UITextField!
@@ -64,8 +64,8 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
     @IBOutlet weak var txt_Booking: UITextField!
     @IBOutlet weak var  dropDownBtn: UIButton!
     
-  
-
+    
+    
     
     var ListingActivityDelegate: listingActivityProtocol!
     
@@ -127,21 +127,21 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
     }
     
     func convertDateFormater(_ date: String) -> String
-        {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss z"
-            let date = dateFormatter.date(from: date)
-            dateFormatter.dateFormat = "dd-MM-yyyy"
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss z"
+        let date = dateFormatter.date(from: date)
+        dateFormatter.dateFormat = "dd-MM-yyyy"
         
         if let resdate = date {
-        return dateFormatter.string(from: resdate)
+            return dateFormatter.string(from: resdate)
         }
         return ""
-
-
-//            return  dateFormatter.string(from: date!)
-
-        }
+        
+        
+        //            return  dateFormatter.string(from: date!)
+        
+    }
     
     @objc func doneBtnClicked(_ button: UIBarButtonItem?) {
         let result = self.convertDateFormater(String(format: "%@", datePicker.date as CVarArg))
@@ -152,13 +152,13 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
             
             txtFromDate.text = result
         }
-
+        
         self.view.endEditing(true)
     }
     
-//    @objc func dateValueChanges(_ sender: UIDatePicker) {
-//        datePicker.date = sender.date
-//    }
+    //    @objc func dateValueChanges(_ sender: UIDatePicker) {
+    //        datePicker.date = sender.date
+    //    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -167,7 +167,7 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
         self.availableLbl.font = UIFont(name: SemiBoldFont, size: 14)
         self.StartDateLbl.font = UIFont(name: SemiBoldFont, size: 14)
         self.EndDateLbl.font = UIFont(name: SemiBoldFont, size: 14)
-
+        
         self.BookedLbl.font = UIFont(name: SemiBoldFont, size: 14)
         self.UnavailableLbl.font = UIFont(name: SemiBoldFont, size: 14)
         self.AddBtn.setImage(UIImage(named: "tick-off")?.maskWithColor(color: AppColor), for: .normal)
@@ -184,24 +184,24 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
         self.btnSave.setTitle(GlobalLanguageDictionary.object(forKey: "key_save") as? String ?? "", for: .normal)
         self.btnCancel.setTitle(GlobalLanguageDictionary.object(forKey: "key_capscancel") as? String ?? "", for: .normal)
         self.NextBtn.setTitle(GlobalLanguageDictionary.object(forKey: "key_capscancel") as? String ?? "", for: .normal)
-
+        
         setData()
-//     dropDownBtn.currentTitle = "Select"
+        //     dropDownBtn.currentTitle = "Select"
         
         datePicker.datePickerMode = .date
         if #available(iOS 13.4, *) {
             datePicker.preferredDatePickerStyle = .wheels
             datePicker.sizeToFit()
         }
-                
-//        datePicker.addTarget(self, action: #selector(dateValueChanges(_:)), for: .valueChanged)
+        
+        //        datePicker.addTarget(self, action: #selector(dateValueChanges(_:)), for: .valueChanged)
         
         //TODO: - should be uncommented
         btnSave.layer.cornerRadius = 20
         btnCancel.layer.cornerRadius = 20
         
-//        self.AddBtn.backgroundColor = AppSecondColor
-         self.btnCancel.backgroundColor = AppColor
+        //        self.AddBtn.backgroundColor = AppSecondColor
+        self.btnCancel.backgroundColor = AppColor
         self.btnSave.backgroundColor = AppColor
         self.popAddView.layer.shadowColor = BorderColor.cgColor
         self.popAddView.layer.shadowOffset = CGSize(width: 3, height: 3)
@@ -219,26 +219,26 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
         txtFromDate.inputView = datePicker
         txtToDate.inputView = datePicker
         
-//        self.checkInTable.isHidden = true
+        //        self.checkInTable.isHidden = true
         
-//        datePickerView.addTarget(self, action: #selector(handleDatePicker(sender:)), for: .valueChanged)
-
+        //        datePickerView.addTarget(self, action: #selector(handleDatePicker(sender:)), for: .valueChanged)
         
-                self.BookedLbl.font = UIFont(name: SemiBoldFont, size: 14)
-                self.UnavailableLbl.font = UIFont(name: SemiBoldFont, size: 14)
-                self.availableLbl.font = UIFont(name: SemiBoldFont, size: 14)
+        
+        self.BookedLbl.font = UIFont(name: SemiBoldFont, size: 14)
+        self.UnavailableLbl.font = UIFont(name: SemiBoldFont, size: 14)
+        self.availableLbl.font = UIFont(name: SemiBoldFont, size: 14)
         //        self.SetPriceLbl.font = UIFont(name: SemiBoldFont, size: 14)
         //        self.SetPriceStaticLbl.font = UIFont(name: SemiBoldFont, size: 14)
         self.txtFromDate.font = UIFont(name: SemiBoldFont, size: 14)
         //        self.StartDateLbl.font = UIFont(name: SemiBoldFont, size: 13)
-                self.txtToDate.font = UIFont(name: SemiBoldFont, size: 13)
+        self.txtToDate.font = UIFont(name: SemiBoldFont, size: 13)
         //        self.EndDateValueLbl.font = UIFont(name: SemiBoldFont, size: 14)
-                self.StatusLbl.font = UIFont(name: SemiBoldFont, size: 14)
-                self.txt_Booking.font = UIFont(name: SemiBoldFont, size: 14)
-                self.PriceLbl.font = UIFont(name: SemiBoldFont, size: 14)
-                self.PriceTxt.font = UIFont(name: SemiBoldFont, size: 14)
-                self.btnCancel.titleLabel?.font = UIFont(name: SemiBoldFont, size: 14)
-                self.btnSave.titleLabel?.font = UIFont(name: SemiBoldFont, size: 14)
+        self.StatusLbl.font = UIFont(name: SemiBoldFont, size: 14)
+        self.txt_Booking.font = UIFont(name: SemiBoldFont, size: 14)
+        self.PriceLbl.font = UIFont(name: SemiBoldFont, size: 14)
+        self.PriceTxt.font = UIFont(name: SemiBoldFont, size: 14)
+        self.btnCancel.titleLabel?.font = UIFont(name: SemiBoldFont, size: 14)
+        self.btnSave.titleLabel?.font = UIFont(name: SemiBoldFont, size: 14)
         //
         //
         //        self.txt_Booking.delegate = self
@@ -324,9 +324,9 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
             
         }
     }
-//    func textFieldDidEndEditing(_ textField: UITextField) {
-//        amountString = textField.text!
-//    }
+    //    func textFieldDidEndEditing(_ textField: UITextField) {
+    //        amountString = textField.text!
+    //    }
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == self.txt_Booking {
             return false
@@ -357,22 +357,22 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
         self.header.isHidden = true
         self.message.isHidden = true
         self.checkInTable.isHidden = true
-//        self.popAddView.isHidden = false
+        //        self.popAddView.isHidden = false
         
         
         if isChecked {
-//            self.pickuptype = "1"
+            //            self.pickuptype = "1"
             isChecked = false
-       
+            
             popAddView.isHidden = true
-//            DaysViewHeight.constant = 0
+            //            DaysViewHeight.constant = 0
             self.AddBtn.setImage(UIImage(named: "tick-off")?.maskWithColor(color: AppColor), for: .normal)
             
         }else{
             isChecked = true
-     
+            
             popAddView.isHidden = false
-//            DaysViewHeight.constant = 485
+            //            DaysViewHeight.constant = 485
             self.AddBtn.setImage(UIImage(named: "tick-on")?.maskWithColor(color: AppColor), for: .normal)
             
         }
@@ -384,13 +384,13 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
         
     }
     
-   
+    
     @IBAction func act_BtnNext(_ sender: UIButton) {
         if let calList = Singleton.sharedInstance.rentYourSpace.result.first?.step3.calendarList, calList.count > 0 {
             sharedInstanceListing.gotoStepThree()
         } else {
             sharedInstanceListing.gotoStepThree()
-//            self.showInformation(title: "Closest", message: "Please Add")
+            //            self.showInformation(title: "Closest", message: "Please Add")
         }
     }
     
@@ -483,7 +483,7 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
             }
             
             if Reachability()!.isReachable {
-//                self.ListingActivityDelegate.showActivity()
+                //                self.ListingActivityDelegate.showActivity()
                 showActivityIndicator(uiView: self.view)
                 //            let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&device_type=android&user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(self.PropertyID)&calendar_checked=sometimes&base_id=\(Singleton.sharedInstance.selectedCategory)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&seasonal_list=\(self.dateFormatJsonString)"
                 //                               print(parameterStr)
@@ -508,22 +508,22 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
                 
                 print(params)
                 
-//                let parameterStrs = ["currency_code": "\((login_session.value(forKey: "APP_CURRENCY")as? String ?? ""))",
-//                                     "device_type":"android",
-//                                     "user_id" : "\(login_session.value(forKey: "UserId")!)",
-//                                     "property_id": "\(self.PropertyID)",
-//                                     "calendar_checked":"sometimes",
-//                                     "base_id":"1",
-//                                     "lang_code":"en",
-//                                     "seasonal_list": "\(self.dateFormatJsonString)"]
+                //                let parameterStrs = ["currency_code": "\((login_session.value(forKey: "APP_CURRENCY")as? String ?? ""))",
+                //                                     "device_type":"android",
+                //                                     "user_id" : "\(login_session.value(forKey: "UserId")!)",
+                //                                     "property_id": "\(self.PropertyID)",
+                //                                     "calendar_checked":"sometimes",
+                //                                     "base_id":"1",
+                //                                     "lang_code":"en",
+                //                                     "seasonal_list": "\(self.dateFormatJsonString)"]
                 
-//                SAVE_PRICE_LISTING
+                //                SAVE_PRICE_LISTING
                 APIManager.apiPostWithHeaders(serviceName: SAVE_PRICE_LISTING
                                               , parameters: params) { response, error in
                     DispatchQueue.main.async {
                         self.ListingActivityDelegate.hideActivity()
                     }
-//                    print(response)
+                    //                    print(response)
                     print(SAVE_PRICE_LISTING)
                     if error != nil {
                         self.showInformation(title: "Closest", message: error?.localizedDescription ?? "")
@@ -531,64 +531,64 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
                         let mod = RentYourSpaceModel(fromDictionary: response as! [String : Any])
                         print(response)
                         Singleton.sharedInstance.rentYourSpace = mod
-  
+                        
                         self.hideActivityIndicator(uiView: self.view)
                         self.checkInTable.isHidden = false
                         self.popAddView.isHidden = true
                         self.checkInTable.reloadData()
                     }
                 }
-//                Alamofire.request(SAVE_CALENDER_LISTING, method: .post, parameters: parameterStrs,encoding: URLEncoding.default, headers: nil).responseJSON {
-//                    response in
-//                    switch response.result {
-//                    case .success:
-//                        print(response)
-//                        let responseDict:NSDictionary = response.result.value as! NSDictionary
-//                        print(responseDict)
-//                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
-//                            self.StepSaved = "True"
-//
-//                            for d in self.fsCalendarView.selectedDates {
-//                                self.fsCalendarView.deselect(d)
-//                            }
-//                            self.hideActivityIndicator(uiView: self.view)
-//
-//                            let mod = RentYourSpaceModel(fromDictionary: responseDict as! [String : Any])
-//                            UserDefaults.standard.set(responseDict.value(forKey: "attribute"), forKey: "AmenitiesArray")
-//                            Singleton.sharedInstance.rentYourSpace = mod
-//                            seasonalDatesArray.removeAllObjects()
-//                            let stepsTwoDict:NSDictionary = ((responseDict.value(forKey: "result") as AnyObject)[0] as AnyObject).value(forKey: "step2") as! NSDictionary
-//                            print("stepsTwoDict : ", stepsTwoDict)
-//                            let seasonalDateArr:NSArray = stepsTwoDict.value(forKey: "seasonal_calendar_price") as! NSArray
-//                            print("seasonalDateArr : ", seasonalDateArr)
-//                            if seasonalDateArr.count != 0 {
-//                                seasonalDatesArray = NSMutableArray(array:seasonalDateArr)
-//                                print("seasonalDatesArray : ", seasonalDatesArray)
-//                            }
-//                            print(seasonalDatesArray)
-//                            self.fsCalendarView.reloadData()
-//                            self.showInformation(title: "Closest", message: mod.message)
-//                            self.popupContentContainerView.isHidden = true
-//
-//
-//
-//                        }
-//
-//                        else {
-//                            self.hideActivityIndicator(uiView: self.view)
-//
-//                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
-//                        }
-//
-//                        break
-//                    case .failure(let error):
-//
-//                        print(error)
-//                    }
-//                }
+                //                Alamofire.request(SAVE_CALENDER_LISTING, method: .post, parameters: parameterStrs,encoding: URLEncoding.default, headers: nil).responseJSON {
+                //                    response in
+                //                    switch response.result {
+                //                    case .success:
+                //                        print(response)
+                //                        let responseDict:NSDictionary = response.result.value as! NSDictionary
+                //                        print(responseDict)
+                //                        if responseDict.value(forKey: "status") as? Int ?? 0 == 1 {
+                //                            self.StepSaved = "True"
+                //
+                //                            for d in self.fsCalendarView.selectedDates {
+                //                                self.fsCalendarView.deselect(d)
+                //                            }
+                //                            self.hideActivityIndicator(uiView: self.view)
+                //
+                //                            let mod = RentYourSpaceModel(fromDictionary: responseDict as! [String : Any])
+                //                            UserDefaults.standard.set(responseDict.value(forKey: "attribute"), forKey: "AmenitiesArray")
+                //                            Singleton.sharedInstance.rentYourSpace = mod
+                //                            seasonalDatesArray.removeAllObjects()
+                //                            let stepsTwoDict:NSDictionary = ((responseDict.value(forKey: "result") as AnyObject)[0] as AnyObject).value(forKey: "step2") as! NSDictionary
+                //                            print("stepsTwoDict : ", stepsTwoDict)
+                //                            let seasonalDateArr:NSArray = stepsTwoDict.value(forKey: "seasonal_calendar_price") as! NSArray
+                //                            print("seasonalDateArr : ", seasonalDateArr)
+                //                            if seasonalDateArr.count != 0 {
+                //                                seasonalDatesArray = NSMutableArray(array:seasonalDateArr)
+                //                                print("seasonalDatesArray : ", seasonalDatesArray)
+                //                            }
+                //                            print(seasonalDatesArray)
+                //                            self.fsCalendarView.reloadData()
+                //                            self.showInformation(title: "Closest", message: mod.message)
+                //                            self.popupContentContainerView.isHidden = true
+                //
+                //
+                //
+                //                        }
+                //
+                //                        else {
+                //                            self.hideActivityIndicator(uiView: self.view)
+                //
+                //                            self.showInformation(title: "Closest", message: responseDict.value(forKey: "message") as? String ?? "")
+                //                        }
+                //
+                //                        break
+                //                    case .failure(let error):
+                //
+                //                        print(error)
+                //                    }
+                //                }
                 
                 
-//                showActivityIndicator(uiView: self.view)
+                //                showActivityIndicator(uiView: self.view)
                 //                let parameterStr = "currency_code=\(login_session.value(forKey: "APP_CURRENCY")as? String ?? "")&device_type=android&user_id=\(login_session.value(forKey: "UserId")!)&property_id=\(self.PropertyID)&calendar_checked=sometimes&base_id=\(Singleton.sharedInstance.selectedCategory)&lang_code=\(lanuguage_selection.value(forKey: "language") ?? "en")&seasonal_list=\(self.dateFormatJsonString)"
                 //                print(parameterStr)
                 //
@@ -651,21 +651,25 @@ class PopCalendarViewController: BaseViewController,UITextFieldDelegate {
 }
 
 extension PopCalendarViewController: MIBlurPopupDelegate{
-    var blurEffectStyle: UIBlurEffect.Style? {
+    var blurEffectStyle: UIBlurEffect.Style {
         UIBlurEffect.Style.light
     }
+    
+    //    var blurEffectStyle: UIBlurEffect.Style? {
+    //        UIBlurEffect.Style.light
+    //    }
     
     var popupView: UIView {
         return popupContentContainerView ?? UIView()
     }
-
+    
     var initialScaleAmmount: CGFloat {
         return 1.0
     }
     var animationDuration: TimeInterval {
         return 0.1
     }
- }
+}
 
 //{
 //    
@@ -884,8 +888,8 @@ extension PopCalendarViewController: UITableViewDataSource, UITableViewDelegate 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "calenderCell") as? CalendarListTableViewCell else { return UITableViewCell() }
-
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "calenderCell") as? CalendarListTableViewCell
+        
+        //        let cell = tableView.dequeueReusableCell(withIdentifier: "calenderCell") as? CalendarListTableViewCell
         let calList = Singleton.sharedInstance.rentYourSpace.result.first?.step3.calendarList[indexPath.row]
         cell.updateDetails(calList)
         
@@ -908,7 +912,7 @@ extension PopCalendarViewController: UITableViewDataSource, UITableViewDelegate 
         
         cell.lblPrice.font = UIFont(name: SemiBoldFont, size: 14)
         cell.lblPriceValue.font = UIFont(name: SemiBoldFont, size: 14)
-
+        
         return cell
     }
 }
